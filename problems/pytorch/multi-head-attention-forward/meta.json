@@ -1,0 +1,6 @@
+{
+  "title": "Multi-Head Attention 前向",
+  "difficulty": "Hard",
+  "tags": ["tensor-ops", "attention", "reshape", "handwritten-layer"],
+  "order": 5
+}

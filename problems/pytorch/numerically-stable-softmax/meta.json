@@ -1,0 +1,6 @@
+{
+  "title": "数值稳定 Softmax",
+  "difficulty": "Easy",
+  "tags": ["tensor-ops", "reduction", "numerical-stability"],
+  "order": 1
+}

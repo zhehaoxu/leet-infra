@@ -1,0 +1,6 @@
+{
+  "title": "One-Hot 编码",
+  "difficulty": "Easy",
+  "tags": ["tensor-ops", "scatter", "indexing"],
+  "order": 2
+}

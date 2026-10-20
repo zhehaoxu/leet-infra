@@ -1,0 +1,17 @@
+# Python
+.venv-eval/
+.venv-backend/
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Node
+frontend/node_modules/
+frontend/dist/
+
+# 本地进度
+data/
+
+# 杂项
+.DS_Store
+*.log
