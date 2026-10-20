@@ -12,6 +12,21 @@ export interface ProblemDetail extends ProblemSummary {
   starter_code: string
 }
 
+export interface CollectionSummary {
+  slug: string
+  name: string
+  description: string
+  problem_count: number
+  solved_count: number
+}
+
+export interface CollectionDetailInfo {
+  slug: string
+  name: string
+  description: string
+  problems: ProblemSummary[]
+}
+
 export interface CaseResult {
   name: string
   passed: boolean
@@ -63,4 +78,7 @@ export const api = {
     }),
   getSolution: (slug: string) =>
     request<{ slug: string; solution_code: string }>(`/api/problems/${slug}/solution`),
+  collections: () => request<CollectionSummary[]>('/api/collections'),
+  getCollection: (slug: string) =>
+    request<CollectionDetailInfo>(`/api/collections/${slug}`),
 }
