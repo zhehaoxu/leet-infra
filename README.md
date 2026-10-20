@@ -67,7 +67,7 @@ cd frontend && npm run build && cd ..
 
 在 `problems/pytorch/` 下新建目录 `<slug>/`，提供 5 个文件（参考现有题目）。
 要求实现 `def solve(...)` 签名，测试用例写成 `def check_xxx(solve): assert ...`。
-无需重启后端以外的操作（题库按文件读取，重启后端生效）。
+无需重启后端：题面/代码按请求读盘，题目索引按目录 mtime 热加载（增删题目、修改 meta.json 立即生效）。
 
 ## 后端测试
 

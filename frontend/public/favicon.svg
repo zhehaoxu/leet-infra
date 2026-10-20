@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <!-- leet-infra: 层叠堆（手写 Layer / 张量切片），顶层点亮 -->
+  <rect width="64" height="64" rx="14" fill="#151b23"/>
+  <g stroke-linejoin="round" stroke-width="3">
+    <path d="M32 34 L54 42 L32 50 L10 42 Z" fill="#2a3542" stroke="#2a3542"/>
+    <path d="M32 25 L54 33 L32 41 L10 33 Z" fill="#3d4a5c" stroke="#3d4a5c"/>
+    <path d="M32 16 L54 24 L32 32 L10 24 Z" fill="#2dd4a7" stroke="#2dd4a7"/>
+  </g>
+</svg>

@@ -8,7 +8,14 @@ const store = useProblemStore()
   <div class="app-shell">
     <header class="topbar">
       <router-link to="/" class="logo">
-        <span class="logo-mark">◈</span> leet<span class="logo-thin">-infra</span>
+        <svg class="logo-mark" width="26" height="26" viewBox="6 12 52 42" aria-hidden="true">
+          <g stroke-linejoin="round" stroke-width="3">
+            <path d="M32 34 L54 42 L32 50 L10 42 Z" fill="#2a3542" stroke="#2a3542"/>
+            <path d="M32 25 L54 33 L32 41 L10 33 Z" fill="#3d4a5c" stroke="#3d4a5c"/>
+            <path d="M32 16 L54 24 L32 32 L10 24 Z" fill="#2dd4a7" stroke="#2dd4a7"/>
+          </g>
+        </svg>
+        <span>leet-infra</span>
       </router-link>
       <div class="topbar-right">
         <span class="progress-chip" v-if="store.problems.length">
@@ -40,16 +47,16 @@ const store = useProblemStore()
   background: var(--bg-panel);
 }
 .logo {
+  display: flex;
+  align-items: center;
+  gap: 9px;
   font-size: 18px;
   font-weight: 700;
   color: var(--text);
   letter-spacing: 0.5px;
 }
 .logo-mark {
-  color: var(--accent);
-}
-.logo-thin {
-  font-weight: 300;
+  display: block;
 }
 .topbar-right {
   display: flex;
