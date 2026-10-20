@@ -1,13 +1,18 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 import { api, type CollectionDetailInfo } from '../api'
 import ProblemTable from '../components/ProblemTable.vue'
+import ProgressRing from '../components/ProgressRing.vue'
 
 const props = defineProps<{ slug: string }>()
 
 const collection = ref<CollectionDetailInfo | null>(null)
 const loadError = ref<string | null>(null)
 const loading = ref(true)
+
+const solvedCount = computed(
+  () => (collection.value?.problems ?? []).filter((p) => p.solved).length
+)
 
 async function load() {
   loading.value = true
@@ -37,7 +42,8 @@ onMounted(load)
         <h1>{{ collection.name }}</h1>
         <p>{{ collection.description }}</p>
         <p class="progress">
-          {{ collection.problems.filter((p) => p.solved).length }}/{{ collection.problems.length }} 已解决
+          <ProgressRing :value="solvedCount" :total="collection.problems.length" :size="16" />
+          {{ solvedCount }}/{{ collection.problems.length }} 已解决
         </p>
       </div>
 
@@ -79,6 +85,9 @@ onMounted(load)
   margin-top: 6px;
   color: var(--accent);
   font-size: 13px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
 }
 .empty {
   text-align: center;

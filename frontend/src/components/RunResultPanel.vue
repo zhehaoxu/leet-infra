@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, nextTick, ref, watch } from 'vue'
 import type { RunResult } from '../api'
 
 const props = defineProps<{ result: RunResult | null; running: boolean; error: string | null }>()
@@ -32,10 +32,28 @@ const statusClass = computed(() => {
   if (!r) return ''
   return r.accepted ? 'ok' : 'fail'
 })
+
+// 失败用例置顶展开，通过用例默认折叠；全通过时正常展开
+const failedCases = computed(() => props.result?.cases.filter((c) => !c.passed) ?? [])
+const passedCases = computed(() => props.result?.cases.filter((c) => c.passed) ?? [])
+const showPassed = ref(false)
+const panelEl = ref<HTMLDivElement | null>(null)
+
+watch(
+  () => props.result,
+  async (r) => {
+    if (!r) return
+    showPassed.value = failedCases.value.length === 0
+    if (failedCases.value.length) {
+      await nextTick()
+      panelEl.value?.querySelector('.case.fail')?.scrollIntoView({ block: 'nearest' })
+    }
+  }
+)
 </script>
 
 <template>
-  <div class="result-panel">
+  <div class="result-panel" ref="panelEl">
     <div v-if="running" class="hint">
       <span class="spinner"></span> 正在本地评测环境运行…（子进程执行 PyTorch 代码）
     </div>
@@ -56,14 +74,33 @@ const statusClass = computed(() => {
       <div v-if="result.error" class="error-box">{{ result.error }}</div>
 
       <div class="cases" v-if="result.cases.length">
-        <div v-for="c in result.cases" :key="c.name" class="case" :class="{ fail: !c.passed }">
-          <span class="case-icon">{{ c.passed ? '✓' : '✗' }}</span>
+        <div v-for="c in failedCases" :key="'f-' + c.name" class="case fail">
+          <span class="case-icon">✗</span>
           <div class="case-body">
             <div class="case-name">{{ c.name }}</div>
             <div class="case-msg" v-if="c.message">{{ c.message }}</div>
           </div>
           <span class="case-time">{{ c.elapsed_ms.toFixed(1) }}ms</span>
         </div>
+
+        <template v-if="passedCases.length">
+          <button
+            v-if="failedCases.length"
+            class="passed-toggle"
+            @click="showPassed = !showPassed"
+          >
+            {{ showPassed ? '▾' : '▸' }} ✓ {{ passedCases.length }} 个用例通过
+          </button>
+          <div v-if="showPassed" class="passed-list">
+            <div v-for="c in passedCases" :key="'p-' + c.name" class="case">
+              <span class="case-icon">✓</span>
+              <div class="case-body">
+                <div class="case-name">{{ c.name }}</div>
+              </div>
+              <span class="case-time">{{ c.elapsed_ms.toFixed(1) }}ms</span>
+            </div>
+          </div>
+        </template>
       </div>
 
       <div class="stdout" v-if="result.stdout">
@@ -153,6 +190,23 @@ const statusClass = computed(() => {
 }
 .case.fail {
   border-color: rgba(241, 106, 106, 0.45);
+}
+.passed-toggle {
+  align-self: flex-start;
+  border: none;
+  background: none;
+  color: var(--text-dim);
+  font-size: 12.5px;
+  cursor: pointer;
+  padding: 4px 2px;
+}
+.passed-toggle:hover {
+  color: var(--accent);
+}
+.passed-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
 }
 .case-icon {
   font-weight: 700;

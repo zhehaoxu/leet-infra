@@ -3,6 +3,7 @@ import { computed, onMounted, ref } from 'vue'
 import { useProblemStore } from '../stores/problems'
 import { api, type CollectionSummary } from '../api'
 import ProblemTable from '../components/ProblemTable.vue'
+import ProgressRing from '../components/ProgressRing.vue'
 
 const store = useProblemStore()
 const HOME_TAB_KEY = 'leet-infra:home-tab'
@@ -42,6 +43,21 @@ function setTab(tab: 'all' | 'collections') {
   if (tab === 'collections') ensureCollections()
 }
 
+async function resetProgress() {
+  if (!window.confirm('清空全部解题进度？题目代码草稿不受影响。此操作不可撤销。')) return
+  try {
+    await api.resetProgress()
+  } catch (e) {
+    window.alert(`重置失败：${e instanceof Error ? e.message : e}`)
+    return
+  }
+  await store.fetchProblems()
+  if (activeTab.value === 'collections') {
+    collections.value = []
+    ensureCollections()
+  }
+}
+
 const filteredCollections = computed(() =>
   collections.value.filter((c) => {
     if (!collectionKeyword.value) return true
@@ -49,20 +65,23 @@ const filteredCollections = computed(() =>
     return c.name.toLowerCase().includes(kw) || c.description.toLowerCase().includes(kw)
   })
 )
-
-// 圆环进度：r=9 的周长 × 完成比例
-const RING_C = 2 * Math.PI * 9
-function ringDash(c: CollectionSummary) {
-  const ratio = c.problem_count ? c.solved_count / c.problem_count : 0
-  return `${ratio * RING_C} ${RING_C}`
-}
 </script>
 
 <template>
   <div class="list-page">
     <div class="hero">
       <h1>AI Infra 从动手写开始</h1>
-      <p>PyTorch 题库 · 代码在你本机 Python 虚拟环境中真实运行 · {{ store.solvedCount }}/{{ store.problems.length }} 已解决</p>
+      <p>
+        PyTorch 题库 · 代码在你本机 Python 虚拟环境中真实运行 · {{ store.solvedCount }}/{{ store.problems.length }} 已解决
+        <button
+          v-if="store.solvedCount > 0"
+          class="reset-progress"
+          title="清空全部已解决记录，用于二刷题目"
+          @click="resetProgress"
+        >
+          重置进度
+        </button>
+      </p>
     </div>
 
     <div class="tabs">
@@ -100,21 +119,7 @@ function ringDash(c: CollectionSummary) {
           class="row collection-row"
         >
           <span class="collection-mark" :title="`${c.solved_count}/${c.problem_count} 已解决`">
-            <svg width="24" height="24" viewBox="0 0 24 24">
-              <circle cx="12" cy="12" r="9" fill="none" stroke="var(--border)" stroke-width="3" />
-              <circle
-                v-if="c.solved_count > 0"
-                cx="12"
-                cy="12"
-                r="9"
-                fill="none"
-                stroke="var(--accent)"
-                stroke-width="3"
-                :stroke-dasharray="ringDash(c)"
-                :stroke-linecap="c.solved_count === c.problem_count ? 'butt' : 'round'"
-                transform="rotate(-90 12 12)"
-              />
-            </svg>
+            <ProgressRing :value="c.solved_count" :total="c.problem_count" />
           </span>
           <span class="collection-body">
             <span class="title">{{ c.name }}</span>
@@ -143,6 +148,19 @@ function ringDash(c: CollectionSummary) {
 .hero p {
   color: var(--text-dim);
   margin: 0 0 28px;
+}
+.reset-progress {
+  border: none;
+  background: none;
+  color: var(--text-dim);
+  font-size: 12.5px;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+  margin-left: 10px;
+}
+.reset-progress:hover {
+  color: var(--red);
 }
 .tabs {
   display: flex;

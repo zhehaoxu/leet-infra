@@ -45,3 +45,9 @@ def mark_solved(slug: str) -> None:
 def solved_map() -> dict[str, str]:
     with _LOCK:
         return dict(_read()["solved"])
+
+
+def reset() -> None:
+    """清空全部已解决记录（用于二刷；不动草稿）。"""
+    with _LOCK:
+        _write({"solved": {}})

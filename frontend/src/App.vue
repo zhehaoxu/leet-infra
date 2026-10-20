@@ -1,7 +1,10 @@
 <script setup lang="ts">
+import { ref } from 'vue'
 import { useProblemStore } from './stores/problems'
+import HelpModal from './components/HelpModal.vue'
 
 const store = useProblemStore()
+const showHelp = ref(false)
 </script>
 
 <template>
@@ -22,11 +25,13 @@ const store = useProblemStore()
           {{ store.solvedCount }} / {{ store.problems.length }} 已解决
         </span>
         <span class="env-chip">PyTorch · 本地 CPU</span>
+        <button class="help-btn" title="帮助（快捷键与评测规则）" @click="showHelp = true">?</button>
       </div>
     </header>
     <main class="content">
       <router-view />
     </main>
+    <HelpModal v-if="showHelp" @close="showHelp = false" />
   </div>
 </template>
 
@@ -61,6 +66,22 @@ const store = useProblemStore()
 .topbar-right {
   display: flex;
   gap: 10px;
+  align-items: center;
+}
+.help-btn {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: var(--bg-elevated);
+  color: var(--text-dim);
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+}
+.help-btn:hover {
+  color: var(--accent);
+  border-color: var(--accent);
 }
 .progress-chip,
 .env-chip {

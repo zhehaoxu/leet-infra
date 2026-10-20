@@ -47,3 +47,12 @@ def get_collection(slug: str) -> dict | None:
         if c["slug"] == slug:
             return c
     return None
+
+
+def collections_of(problem_slug: str) -> list[dict]:
+    """反查题目所属合集（保持合集配置顺序）。"""
+    return [
+        {"slug": c["slug"], "name": c["name"]}
+        for c in all_collections()
+        if problem_slug in c["problems"]
+    ]

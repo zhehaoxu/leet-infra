@@ -63,6 +63,16 @@ def test_collections_list_and_detail(client):
     assert client.get("/api/collections/nope").status_code == 404
 
 
+def test_problem_summary_carries_collection_refs(client):
+    items = client.get("/api/problems").json()
+    softmax = next(p for p in items if p["slug"] == "numerically-stable-softmax")
+    refs = {c["slug"] for c in softmax["collections"]}
+    assert refs == {"pytorch", "operators"}  # 同时属于两个合集
+    # 合集详情页的题目也带合集字段
+    detail = client.get("/api/collections/operators").json()
+    assert detail["problems"][0]["collections"]
+
+
 def test_solution_locked_until_accepted(client):
     resp = client.get("/api/problems/numerically-stable-softmax/solution")
     assert resp.status_code == 403
@@ -112,3 +122,21 @@ def test_submit_wrong_answer_does_not_mark_solved(client):
     assert sub["accepted"] is False
     assert sub["passed"] < sub["total"]
     assert client.get("/api/progress").json()["solved"] == 0
+
+
+def test_progress_reset_clears_solved_and_relocks_solution(client):
+    if not Path(judge.EVAL_PYTHON).exists():
+        pytest.skip("评测环境未安装")
+    problem = sys.modules["backend.problems"].get_problem("numerically-stable-softmax")
+    sub = client.post(
+        "/api/problems/numerically-stable-softmax/submit",
+        json={"code": problem.solution()},
+    ).json()
+    assert sub["accepted"] is True
+    assert client.get("/api/problems/numerically-stable-softmax/solution").status_code == 200
+
+    after = client.post("/api/progress/reset").json()
+    assert after["solved"] == 0
+    assert after["total"] == 5
+    # 重置后参考答案重新锁定
+    assert client.get("/api/problems/numerically-stable-softmax/solution").status_code == 403

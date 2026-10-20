@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed, ref, watch } from 'vue'
+import { useRouter } from 'vue-router'
 import type { ProblemSummary } from '../api'
 
 // 题目表格 + 搜索/难度/状态筛选，首页「全部」标签与合集详情页共用
@@ -10,6 +11,12 @@ const props = defineProps<{
   emptyText?: string
   persistKey?: string
 }>()
+
+// 行本身是 router-link，徽章用 span+push 避免 a 嵌套 a 的非法 HTML
+const router = useRouter()
+function goCollection(slug: string) {
+  router.push(`/collections/${slug}`)
+}
 
 // persistKey 存在时筛选条件存 localStorage，切标签/离开页面后回来不丢
 const DIFFS = ['', 'Easy', 'Medium', 'Hard'] as const
@@ -85,7 +92,18 @@ const emptyMessage = computed(() =>
         <span class="status-dot" :class="{ done: p.solved }">{{ p.solved ? '✓' : '' }}</span>
         <span class="title">{{ p.title }}</span>
         <span><em class="badge" :class="p.difficulty">{{ p.difficulty }}</em></span>
-        <span class="tags">{{ p.tags.join(' · ') }}</span>
+        <span class="tags">
+          {{ p.tags.join(' · ') }}
+          <span
+            v-for="col in p.collections ?? []"
+            :key="col.slug"
+            class="col-badge"
+            :title="`合集：${col.name}`"
+            @click.stop.prevent="goCollection(col.slug)"
+          >
+            ▤ {{ col.name }}
+          </span>
+        </span>
         <span class="go">解答 →</span>
       </router-link>
     </div>
@@ -145,6 +163,24 @@ select {
 .tags {
   color: var(--text-dim);
   font-size: 12px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+}
+.col-badge {
+  border: 1px solid var(--border);
+  background: var(--bg-elevated);
+  color: var(--text-dim);
+  border-radius: 999px;
+  padding: 1px 8px;
+  font-size: 11.5px;
+  white-space: nowrap;
+  cursor: pointer;
+}
+.col-badge:hover {
+  color: var(--accent);
+  border-color: var(--accent);
 }
 .go {
   color: var(--accent);

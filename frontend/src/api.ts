@@ -1,3 +1,8 @@
+export interface CollectionRef {
+  slug: string
+  name: string
+}
+
 export interface ProblemSummary {
   slug: string
   framework: string
@@ -5,6 +10,7 @@ export interface ProblemSummary {
   difficulty: 'Easy' | 'Medium' | 'Hard'
   tags: string[]
   solved: boolean
+  collections?: CollectionRef[]
 }
 
 export interface ProblemDetail extends ProblemSummary {
@@ -78,6 +84,8 @@ export const api = {
     }),
   getSolution: (slug: string) =>
     request<{ slug: string; solution_code: string }>(`/api/problems/${slug}/solution`),
+  resetProgress: () =>
+    request<{ total: number; solved: number }>('/api/progress/reset', { method: 'POST' }),
   collections: () => request<CollectionSummary[]>('/api/collections'),
   getCollection: (slug: string) =>
     request<CollectionDetailInfo>(`/api/collections/${slug}`),

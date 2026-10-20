@@ -47,11 +47,10 @@ bash scripts/dev.sh
 
 打开 http://localhost:5173 即可开始刷题。
 
-生产模式（单端口）：
+生产模式（单端口，一键构建+启动）：
 
 ```bash
-cd frontend && npm run build && cd ..
-.venv-backend/bin/uvicorn backend.app:app --port 8000
+./scripts/start.sh          # 可选端口：./scripts/start.sh 8080
 # 打开 http://127.0.0.1:8000
 ```
 

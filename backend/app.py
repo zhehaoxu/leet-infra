@@ -26,10 +26,18 @@ class Submission(BaseModel):
     code: str
 
 
+def _summary_with_collections(problem, solved: bool) -> dict:
+    """题目 summary 附加所属合集信息，供前端渲染合集徽章。"""
+    return {
+        **problem.summary(solved),
+        "collections": collections.collections_of(problem.slug),
+    }
+
+
 @app.get("/api/problems")
 def list_problems():
     solved = progress.solved_map()
-    return [p.summary(p.slug in solved) for p in problems.load_problems()]
+    return [_summary_with_collections(p, p.slug in solved) for p in problems.load_problems()]
 
 
 @app.get("/api/problems/{slug}")
@@ -38,7 +46,7 @@ def get_problem(slug: str):
     if problem is None:
         raise HTTPException(status_code=404, detail="题目不存在")
     return {
-        **problem.summary(progress.is_solved(slug)),
+        **_summary_with_collections(problem, progress.is_solved(slug)),
         "description": problem.description(),
         "starter_code": problem.starter(),
     }
@@ -69,7 +77,7 @@ def get_collection_detail(slug: str):
     for problem_slug in collection["problems"]:
         problem = problems.get_problem(problem_slug)
         if problem is not None:
-            items.append(problem.summary(problem_slug in solved))
+            items.append(_summary_with_collections(problem, problem_slug in solved))
     return {
         "slug": collection["slug"],
         "name": collection["name"],
@@ -119,6 +127,13 @@ def get_progress():
         "solved": sum(1 for p in all_problems if p.slug in solved),
         "solved_at": solved,
     }
+
+
+@app.post("/api/progress/reset")
+def reset_progress():
+    """重置全部解题进度（二刷场景），返回重置后的进度。"""
+    progress.reset()
+    return get_progress()
 
 
 # --- static frontend (production build) ------------------------------------
