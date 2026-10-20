@@ -64,11 +64,26 @@ def load_problems() -> list[Problem]:
     return problems
 
 
-_INDEX: dict[str, Problem] | None = None
+_INDEX: tuple[float, dict[str, Problem]] | None = None
+
+
+def _fingerprint() -> float:
+    """题库目录的 mtime 指纹，用于热加载。
+
+    覆盖：problems 根目录、各框架目录（增删题目目录时其 mtime 会变）、
+    各题 meta.json（内容更新时 mtime 会变）。
+    """
+    stamps = [PROBLEMS_DIR.stat().st_mtime]
+    for framework_dir in PROBLEMS_DIR.glob("*/"):
+        stamps.append(framework_dir.stat().st_mtime)
+        for meta in framework_dir.glob("*/meta.json"):
+            stamps.append(meta.stat().st_mtime)
+    return max(stamps)
 
 
 def get_problem(slug: str) -> Problem | None:
     global _INDEX
-    if _INDEX is None:
-        _INDEX = {p.slug: p for p in load_problems()}
-    return _INDEX.get(slug)
+    fingerprint = _fingerprint()
+    if _INDEX is None or _INDEX[0] != fingerprint:
+        _INDEX = (fingerprint, {p.slug: p for p in load_problems()})
+    return _INDEX[1].get(slug)

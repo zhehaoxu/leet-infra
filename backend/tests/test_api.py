@@ -44,6 +44,25 @@ def test_get_missing_problem_404(client):
     assert client.get("/api/problems/does-not-exist").status_code == 404
 
 
+def test_collections_list_and_detail(client):
+    data = client.get("/api/collections").json()
+    assert {c["slug"] for c in data} == {"pytorch", "operators"}
+    pytorch = next(c for c in data if c["slug"] == "pytorch")
+    assert pytorch["problem_count"] == 5
+    assert pytorch["solved_count"] == 0
+    operators = next(c for c in data if c["slug"] == "operators")
+    assert operators["problem_count"] == 3
+
+    detail = client.get("/api/collections/operators").json()
+    slugs = [p["slug"] for p in detail["problems"]]
+    assert slugs == [
+        "numerically-stable-softmax",
+        "layernorm-forward",
+        "multi-head-attention-forward",
+    ]
+    assert client.get("/api/collections/nope").status_code == 404
+
+
 def test_solution_locked_until_accepted(client):
     resp = client.get("/api/problems/numerically-stable-softmax/solution")
     assert resp.status_code == 403

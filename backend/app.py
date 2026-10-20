@@ -9,7 +9,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 
-from . import judge, problems, progress
+from . import collections, judge, problems, progress
 
 app = FastAPI(title="leet-infra", docs_url=None, redoc_url=None)
 
@@ -41,6 +41,40 @@ def get_problem(slug: str):
         **problem.summary(progress.is_solved(slug)),
         "description": problem.description(),
         "starter_code": problem.starter(),
+    }
+
+
+@app.get("/api/collections")
+def list_collections():
+    solved = progress.solved_map()
+    return [
+        {
+            "slug": c["slug"],
+            "name": c["name"],
+            "description": c["description"],
+            "problem_count": len(c["problems"]),
+            "solved_count": sum(1 for s in c["problems"] if s in solved),
+        }
+        for c in collections.all_collections()
+    ]
+
+
+@app.get("/api/collections/{slug}")
+def get_collection_detail(slug: str):
+    collection = collections.get_collection(slug)
+    if collection is None:
+        raise HTTPException(status_code=404, detail="合集不存在")
+    solved = progress.solved_map()
+    items = []
+    for problem_slug in collection["problems"]:
+        problem = problems.get_problem(problem_slug)
+        if problem is not None:
+            items.append(problem.summary(problem_slug in solved))
+    return {
+        "slug": collection["slug"],
+        "name": collection["name"],
+        "description": collection["description"],
+        "problems": items,
     }
 
 

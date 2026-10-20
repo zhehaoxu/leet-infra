@@ -1,0 +1,24 @@
+[
+  {
+    "slug": "pytorch",
+    "name": "PyTorch 合集",
+    "description": "PyTorch 张量操作与手写层基础题库，覆盖当前全部题目。",
+    "problems": [
+      "numerically-stable-softmax",
+      "one-hot-encoding",
+      "layernorm-forward",
+      "causal-window-average",
+      "multi-head-attention-forward"
+    ]
+  },
+  {
+    "slug": "operators",
+    "name": "算子合集",
+    "description": "手写神经网络核心算子：Softmax、LayerNorm 与 Attention。",
+    "problems": [
+      "numerically-stable-softmax",
+      "layernorm-forward",
+      "multi-head-attention-forward"
+    ]
+  }
+]
