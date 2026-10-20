@@ -41,7 +41,7 @@ const statusClass = computed(() => {
     </div>
     <div v-else-if="error" class="hint fail-text">请求失败：{{ error }}</div>
     <div v-else-if="!result" class="hint">
-      尚未运行。「运行」只跑样例用例，「提交」全量评测并记录进度；⌘/Ctrl + Enter 快捷运行样例。
+      尚未运行。「运行」只跑样例用例（⌘/Ctrl+Enter），「提交」全量评测并记录进度（⌘/Ctrl+Shift+Enter）。
     </div>
 
     <template v-else>

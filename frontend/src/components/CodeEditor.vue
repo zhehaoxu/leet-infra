@@ -2,10 +2,11 @@
 import { onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import monaco from '../monaco-setup'
 
-const props = defineProps<{ modelValue: string }>()
+const props = defineProps<{ modelValue: string; readOnly?: boolean }>()
 const emit = defineEmits<{
   (e: 'update:modelValue', v: string): void
   (e: 'run'): void
+  (e: 'submit'): void
 }>()
 
 const container = ref<HTMLDivElement | null>(null)
@@ -23,13 +24,20 @@ onMounted(() => {
     minimap: { enabled: false },
     scrollBeyondLastLine: false,
     tabSize: 4,
-    renderLineHighlight: 'line',
+    readOnly: props.readOnly ?? false,
+    lineNumbers: props.readOnly ? 'off' : 'on',
+    renderLineHighlight: props.readOnly ? 'none' : 'line',
   })
   editor.onDidChangeModelContent(() => {
     emit('update:modelValue', editor?.getValue() ?? '')
   })
-  // Cmd+Enter / Ctrl+Enter 运行
-  editor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.Enter, () => emit('run'))
+  // Cmd+Enter / Ctrl+Enter 运行样例；Cmd+Shift+Enter / Ctrl+Shift+Enter 提交（只读实例不注册）
+  if (!props.readOnly) {
+    editor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.Enter, () => emit('run'))
+    editor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyMod.Shift | monaco.KeyCode.Enter, () =>
+      emit('submit')
+    )
+  }
 })
 
 watch(
