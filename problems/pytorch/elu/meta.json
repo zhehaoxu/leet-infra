@@ -1,0 +1,11 @@
+{
+  "title": "ELU",
+  "difficulty": "Easy",
+  "tags": ["operator", "activation"],
+  "order": 9,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

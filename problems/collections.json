@@ -21,7 +21,16 @@
       "sigmoid",
       "swish",
       "softmax",
-      "gelu"
+      "gelu",
+      "tanh-activation",
+      "leaky-relu",
+      "elu",
+      "prelu",
+      "hardswish",
+      "hardsigmoid",
+      "softplus",
+      "mish",
+      "glu"
     ]
   }
 ]

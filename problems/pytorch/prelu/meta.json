@@ -1,0 +1,11 @@
+{
+  "title": "PReLU（可学习负斜率）",
+  "difficulty": "Medium",
+  "tags": ["operator", "activation"],
+  "order": 10,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

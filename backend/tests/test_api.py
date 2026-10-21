@@ -1,5 +1,6 @@
 """API 集成测试：题库列表 / 详情 / 运行（样例） / 提交（全量） / 答案解锁 / 进度。"""
 
+import json
 import sys
 import time
 from pathlib import Path
@@ -8,6 +9,11 @@ import pytest
 
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT))
+
+# 期望总题数直接从题库目录推导（meta.json 存在即视为一题），加题无需改测试
+EXPECTED_TOTAL = sum(
+    1 for p in (ROOT / "problems").glob("*/*") if (p / "meta.json").exists()
+)
 
 from backend import benchmarks, judge, problems, progress  # noqa: E402
 from fastapi.testclient import TestClient  # noqa: E402
@@ -23,9 +29,9 @@ def client(tmp_path, monkeypatch):
         yield c
 
 
-def test_list_problems_returns_eleven(client):
+def test_list_problems_returns_all(client):
     data = client.get("/api/problems").json()
-    assert len(data) == 11
+    assert len(data) == EXPECTED_TOTAL
     assert {p["framework"] for p in data} == {"pytorch"}
     slugs = {p["slug"] for p in data}
     assert "softmax" in slugs
@@ -45,17 +51,19 @@ def test_get_missing_problem_404(client):
 
 
 def test_collections_list_and_detail(client):
+    collections = json.loads((ROOT / "problems" / "collections.json").read_text())
     data = client.get("/api/collections").json()
-    assert {c["slug"] for c in data} == {"pytorch", "operators"}
+    assert {c["slug"] for c in data} == {c["slug"] for c in collections}
     pytorch = next(c for c in data if c["slug"] == "pytorch")
     assert pytorch["problem_count"] == 6
     assert pytorch["solved_count"] == 0
     operators = next(c for c in data if c["slug"] == "operators")
-    assert operators["problem_count"] == 5
+    expected_ops = next(c for c in collections if c["slug"] == "operators")["problems"]
+    assert operators["problem_count"] == len(expected_ops)
 
     detail = client.get("/api/collections/operators").json()
     slugs = [p["slug"] for p in detail["problems"]]
-    assert slugs == ["relu", "sigmoid", "swish", "softmax", "gelu"]
+    assert slugs == expected_ops
     assert client.get("/api/collections/nope").status_code == 404
 
 
@@ -89,7 +97,7 @@ def test_solution_locked_until_accepted(client):
 
     progress_data = client.get("/api/progress").json()
     assert progress_data["solved"] == 1
-    assert progress_data["total"] == 11
+    assert progress_data["total"] == EXPECTED_TOTAL
 
 
 def test_run_executes_examples_only_and_marks_no_progress(client):
@@ -133,7 +141,7 @@ def test_progress_reset_clears_solved_and_relocks_solution(client):
 
     after = client.post("/api/progress/reset").json()
     assert after["solved"] == 0
-    assert after["total"] == 11
+    assert after["total"] == EXPECTED_TOTAL
     # 重置后参考答案重新锁定
     assert client.get("/api/problems/softmax/solution").status_code == 403
 
