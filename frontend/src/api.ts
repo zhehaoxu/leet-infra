@@ -3,6 +3,12 @@ export interface CollectionRef {
   name: string
 }
 
+export interface VariantInfo {
+  key: string
+  label: string
+  available: boolean
+}
+
 export interface ProblemSummary {
   slug: string
   framework: string
@@ -11,11 +17,13 @@ export interface ProblemSummary {
   tags: string[]
   solved: boolean
   collections?: CollectionRef[]
+  variants?: VariantInfo[]
 }
 
 export interface ProblemDetail extends ProblemSummary {
   description: string
   starter_code: string
+  active_variant: string
 }
 
 export interface CollectionSummary {
@@ -52,6 +60,8 @@ export interface RunResult {
   elapsed_ms: number | null
   /** 参考解各用例耗时 {case_name: ms}；首次 AC 后台测量，后续提交附带 */
   benchmark?: Record<string, number>
+  /** 本次评测实际使用的 variant（不可用的请求会回退） */
+  variant?: string
 }
 
 async function request<T>(path: string, init?: RequestInit): Promise<T> {
@@ -71,21 +81,26 @@ async function request<T>(path: string, init?: RequestInit): Promise<T> {
 
 export const api = {
   listProblems: () => request<ProblemSummary[]>('/api/problems'),
-  getProblem: (slug: string) => request<ProblemDetail>(`/api/problems/${slug}`),
-  run: (slug: string, code: string) =>
+  getProblem: (slug: string, variant?: string) =>
+    request<ProblemDetail>(
+      `/api/problems/${slug}${variant ? `?variant=${encodeURIComponent(variant)}` : ''}`
+    ),
+  run: (slug: string, code: string, variant?: string) =>
     request<RunResult>(`/api/problems/${slug}/run`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ code }),
+      body: JSON.stringify({ code, variant }),
     }),
-  submit: (slug: string, code: string) =>
+  submit: (slug: string, code: string, variant?: string) =>
     request<RunResult>(`/api/problems/${slug}/submit`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ code }),
+      body: JSON.stringify({ code, variant }),
     }),
-  getSolution: (slug: string) =>
-    request<{ slug: string; solution_code: string }>(`/api/problems/${slug}/solution`),
+  getSolution: (slug: string, variant?: string) =>
+    request<{ slug: string; variant: string; solution_code: string }>(
+      `/api/problems/${slug}/solution${variant ? `?variant=${encodeURIComponent(variant)}` : ''}`
+    ),
   resetProgress: () =>
     request<{ total: number; solved: number }>('/api/progress/reset', { method: 'POST' }),
   unmarkProblem: (slug: string) =>

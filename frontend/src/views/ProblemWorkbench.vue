@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
 import { api, type ProblemDetail, type RunResult } from '../api'
 import { useProblemStore } from '../stores/problems'
 import CodeEditor from '../components/CodeEditor.vue'
@@ -10,6 +11,8 @@ import { burstConfetti } from '../utils/confetti'
 
 const props = defineProps<{ slug: string }>()
 const store = useProblemStore()
+const route = useRoute()
+const router = useRouter()
 
 const problem = ref<ProblemDetail | null>(null)
 const code = ref('')
@@ -23,13 +26,48 @@ const solutionCode = ref<string | null>(null)
 const activeTab = ref<'desc' | 'solution' | 'notes'>('desc')
 const accepted = ref(false)
 
+// ---- 实现变体（pytorch/triton/cuda）----
+// 用户期望的 variant：URL query > 合集偏好 > 题目默认；后端对不可用的回退默认
+const preferredVariant = ref('')
+const variantList = computed(() => problem.value?.variants ?? [])
+const showVariantToggle = computed(() => variantList.value.length > 1)
+const activeVariant = computed(() => problem.value?.active_variant ?? 'pytorch')
+const variantFallbackNotice = computed(
+  () =>
+    preferredVariant.value !== '' &&
+    problem.value !== null &&
+    preferredVariant.value !== activeVariant.value
+)
+
+function collectionPreferenceKey(): string | null {
+  for (const c of problem.value?.collections ?? []) {
+    const v = localStorage.getItem(`leet-infra:variant:${c.slug}`)
+    if (v) return v
+  }
+  return null
+}
+
+function resolvePreferred(p: ProblemDetail): string {
+  const q = typeof route.query.variant === 'string' ? route.query.variant : ''
+  if (q && p.variants?.some((v) => v.key === q)) return q
+  const col = collectionPreferenceKey()
+  if (col && p.variants?.some((v) => v.key === col)) return col
+  return p.variants?.find((v) => v.available)?.key ?? p.variants?.[0]?.key ?? 'pytorch'
+}
+
+function selectVariant(key: string) {
+  preferredVariant.value = key
+  router.replace({ query: { ...route.query, variant: key } })
+}
+
 // ---- 草稿持久化（localStorage，每题一份）----
 const DRAFT_PREFIX = 'leet-infra:draft:'
 const draftRestored = ref(false)
 let draftTimer: ReturnType<typeof setTimeout> | null = null
 
-function draftKey(slug: string) {
-  return DRAFT_PREFIX + slug
+function draftKey(slug: string, variant: string) {
+  // 草稿按 题目×实现 隔离；pytorch 沿用无前缀旧 key（旧题作废后无碰撞）
+  return variant && variant !== 'pytorch' ? `${DRAFT_PREFIX}${slug}:${variant}` : DRAFT_PREFIX + slug
 }
 
 function flushDraft() {
@@ -38,7 +76,7 @@ function flushDraft() {
     draftTimer = null
   }
   if (problem.value && code.value !== problem.value.starter_code) {
-    localStorage.setItem(draftKey(problem.value.slug), code.value)
+    localStorage.setItem(draftKey(problem.value.slug, activeVariant.value), code.value)
   }
 }
 
@@ -100,6 +138,8 @@ async function load() {
   flushDraft() // 先把上一页的编辑存回对应草稿再切走
   flushNotes()
   if (!store.problems.length) void store.fetchProblems() // 导航需要全量题序
+  const q = typeof route.query.variant === 'string' ? route.query.variant : ''
+  preferredVariant.value = q // 首次进入先取 URL；无则由 resolvePreferred 定默认
   problem.value = null
   result.value = null
   runError.value = null
@@ -111,9 +151,15 @@ async function load() {
   notes.value = ''
   notesMode.value = 'edit'
   try {
-    const p = await api.getProblem(props.slug)
+    let p = await api.getProblem(props.slug, preferredVariant.value || undefined)
+    // URL 未携带 variant 时按合集偏好/题目默认解析期望实现
+    preferredVariant.value = resolvePreferred(p)
+    if (preferredVariant.value !== p.active_variant) {
+      // 期望的是可用但非默认的实现（如未来的 triton）：重拉对应三件套
+      p = await api.getProblem(props.slug, preferredVariant.value)
+    }
     problem.value = p
-    const draft = localStorage.getItem(draftKey(p.slug))
+    const draft = localStorage.getItem(draftKey(p.slug, p.active_variant))
     draftRestored.value = draft != null && draft !== p.starter_code
     code.value = draft ?? p.starter_code
     notes.value = localStorage.getItem(notesKey(p.slug)) ?? ''
@@ -132,8 +178,8 @@ async function execute(kind: 'run' | 'submit') {
   try {
     const r =
       kind === 'run'
-        ? await api.run(props.slug, code.value)
-        : await api.submit(props.slug, code.value)
+        ? await api.run(props.slug, code.value, activeVariant.value)
+        : await api.submit(props.slug, code.value, activeVariant.value)
     result.value = r
     // 只有提交才记录进度并喷彩花
     if (kind === 'submit' && r.accepted) {
@@ -205,7 +251,7 @@ async function cancelRun() {
 
 function resetCode() {
   if (problem.value) {
-    localStorage.removeItem(draftKey(problem.value.slug))
+    localStorage.removeItem(draftKey(problem.value.slug, activeVariant.value))
     draftRestored.value = false
     code.value = problem.value.starter_code
     result.value = null
@@ -229,7 +275,7 @@ async function redoProblem() {
   activeTab.value = 'desc'
   result.value = null
   runError.value = null
-  localStorage.removeItem(draftKey(slug))
+  localStorage.removeItem(draftKey(slug, activeVariant.value))
   draftRestored.value = false
   code.value = problem.value.starter_code // 先回到模板，防 load 前防抖把旧代码写回草稿
 }
@@ -239,7 +285,7 @@ async function openSolution() {
   activeTab.value = 'solution'
   if (!solutionCode.value) {
     try {
-      const r = await api.getSolution(props.slug)
+      const r = await api.getSolution(props.slug, activeVariant.value)
       solutionCode.value = r.solution_code
     } catch (e) {
       runError.value = e instanceof Error ? e.message : String(e)
@@ -248,7 +294,27 @@ async function openSolution() {
   }
 }
 
-watch(() => props.slug, load) // 题目间直接跳转时重新加载
+// 题目切换或 URL variant 变化时重新加载（选择器切换经由 router.replace 统一走这里）
+watch([() => props.slug, () => route.query.variant], ([slug, q], [oldSlug, oldQ]) => {
+  if (slug === oldSlug && typeof q === 'string' && problem.value && q !== oldQ) {
+    // 同题内切换实现：先按当前实现的 key 存回草稿，再重新加载
+    flushDraft()
+    flushNotes()
+  }
+  if (slug !== oldSlug) {
+    void load()
+    return
+  }
+  // 同题但 URL 请求了本题不存在的 variant（如后端回退后 URL 仍停在 triton）：
+  // 把 URL 归位到实际实现，避免加载-回退死循环
+  if (typeof q === 'string' && problem.value?.slug === slug && q !== problem.value.active_variant) {
+    if (!problem.value.variants?.some((v) => v.key === q && v.available)) {
+      void router.replace({ query: { ...route.query, variant: problem.value.active_variant } })
+      return
+    }
+  }
+  void load()
+})
 onMounted(load)
 onBeforeUnmount(() => {
   flushDraft()
@@ -267,10 +333,26 @@ onBeforeUnmount(() => {
         <em class="badge" :class="problem.difficulty">{{ problem.difficulty }}</em>
         <span v-if="accepted" class="ac-tag">✓ 已解决</span>
         <span v-if="draftRestored" class="draft-hint" title="已从 localStorage 恢复上次编辑的草稿">草稿已恢复</span>
+        <div v-if="showVariantToggle" class="variant-toggle" title="实现方式">
+          <button
+            v-for="v in variantList"
+            :key="v.key"
+            class="variant-btn"
+            :class="{ on: v.key === activeVariant, off: !v.available }"
+            :disabled="!v.available"
+            :title="v.available ? `用 ${v.label} 实现` : `${v.label} 需对应硬件与环境，即将支持`"
+            @click="selectVariant(v.key)"
+          >
+            {{ v.label }}
+          </button>
+        </div>
+        <span v-if="variantFallbackNotice" class="variant-notice">
+          {{ variantList.find((v) => v.key === preferredVariant)?.label }} 暂未支持，当前以 {{ activeVariant }} 评测
+        </span>
         <div class="pager" v-if="problemIndex >= 0">
           <router-link
             v-if="prevProblem"
-            :to="`/problems/${prevProblem.slug}`"
+            :to="{ path: `/problems/${prevProblem.slug}`, query: { variant: activeVariant } }"
             class="pager-link"
             :title="prevProblem.title"
           >
@@ -279,7 +361,7 @@ onBeforeUnmount(() => {
           <span class="pager-pos">{{ problemIndex + 1 }}/{{ store.problems.length }}</span>
           <router-link
             v-if="nextProblem"
-            :to="`/problems/${nextProblem.slug}`"
+            :to="{ path: `/problems/${nextProblem.slug}`, query: { variant: activeVariant } }"
             class="pager-link"
             :title="nextProblem.title"
           >
@@ -288,7 +370,7 @@ onBeforeUnmount(() => {
         </div>
         <router-link
           v-if="accepted && nextUnsolved"
-          :to="`/problems/${nextUnsolved.slug}`"
+          :to="{ path: `/problems/${nextUnsolved.slug}`, query: { variant: activeVariant } }"
           class="pager-link next-unsolved"
           :title="`去做：${nextUnsolved.title}`"
         >
@@ -426,6 +508,31 @@ onBeforeUnmount(() => {
   border: 1px dashed rgba(106, 169, 241, 0.5);
   border-radius: 999px;
   padding: 1px 10px;
+}
+.variant-toggle {
+  display: flex;
+  gap: 4px;
+  margin-left: 4px;
+}
+.variant-btn {
+  border-radius: 999px;
+  padding: 3px 12px;
+  font-size: 12px;
+  color: var(--text-dim);
+  background: var(--bg-elevated);
+}
+.variant-btn.on {
+  color: var(--accent);
+  border-color: var(--accent);
+  background: var(--accent-dim);
+}
+.variant-btn.off {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+.variant-notice {
+  color: var(--blue);
+  font-size: 11.5px;
 }
 .actions {
   margin-left: auto;

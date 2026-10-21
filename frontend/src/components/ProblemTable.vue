@@ -10,6 +10,8 @@ const props = defineProps<{
   error?: string | null
   emptyText?: string
   persistKey?: string
+  /** 合集详情页的实现方式偏好，注入行链接 ?variant= */
+  variant?: string
 }>()
 
 // 行本身是 router-link，徽章用 span+push 避免 a 嵌套 a 的非法 HTML
@@ -86,7 +88,7 @@ const emptyMessage = computed(() =>
       <router-link
         v-for="p in filtered"
         :key="p.slug"
-        :to="`/problems/${p.slug}`"
+        :to="{ path: `/problems/${p.slug}`, query: variant ? { variant } : {} }"
         class="row"
       >
         <span class="status-dot" :class="{ done: p.solved }">{{ p.solved ? '✓' : '' }}</span>
