@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { onBeforeUnmount, onMounted, ref, watch } from 'vue'
+import { editorFontSize } from '../utils/editorSettings'
 import monaco from '../monaco-setup'
 
 const props = defineProps<{ modelValue: string; readOnly?: boolean }>()
@@ -19,7 +20,7 @@ onMounted(() => {
     language: 'python',
     theme: 'leet-infra',
     automaticLayout: true,
-    fontSize: 13,
+    fontSize: editorFontSize.value,
     fontFamily: 'var(--font-mono), monospace',
     minimap: { enabled: false },
     scrollBeyondLastLine: false,
@@ -46,6 +47,9 @@ watch(
     if (editor && editor.getValue() !== v) editor.setValue(v)
   }
 )
+
+// 字号全局变化时实时更新本实例（A−/A+ 控件驱动）
+watch(editorFontSize, (v) => editor?.updateOptions({ fontSize: v }))
 
 onBeforeUnmount(() => {
   editor?.dispose()

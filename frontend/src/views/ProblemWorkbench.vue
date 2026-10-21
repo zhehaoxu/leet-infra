@@ -5,6 +5,7 @@ import { useProblemStore } from '../stores/problems'
 import CodeEditor from '../components/CodeEditor.vue'
 import MarkdownView from '../components/MarkdownView.vue'
 import RunResultPanel from '../components/RunResultPanel.vue'
+import { bumpFontSize, editorFontSize } from '../utils/editorSettings'
 import { burstConfetti } from '../utils/confetti'
 
 const props = defineProps<{ slug: string }>()
@@ -294,6 +295,11 @@ onBeforeUnmount(() => {
           下一道未解 →
         </router-link>
         <div class="actions">
+          <div class="font-ctrl" title="编辑器字号（全局生效并记住）">
+            <button class="font-btn" @click="bumpFontSize(-1)">A−</button>
+            <span class="font-val">{{ editorFontSize }}</span>
+            <button class="font-btn" @click="bumpFontSize(1)">A+</button>
+          </div>
           <button v-if="accepted" class="ghost" :disabled="running" @click="redoProblem" title="清除本题已解记录与草稿，重新做一遍"><span class="btn-icon">⟳</span>重新做</button>
           <button class="ghost" :disabled="running" @click="resetCode"><span class="btn-icon">↺</span>重置</button>
           <button class="ghost" :disabled="running" @click="runCode"><span class="btn-icon play">▶</span>运行</button>
@@ -493,6 +499,29 @@ button.run:disabled {
 .danger {
   color: var(--red);
   border-color: rgba(241, 106, 106, 0.45);
+}
+.font-ctrl {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-right: 6px;
+}
+.font-btn {
+  border-radius: 6px;
+  padding: 4px 8px;
+  font-size: 12px;
+  color: var(--text-dim);
+}
+.font-btn:hover {
+  color: var(--text);
+  border-color: var(--text-dim);
+}
+.font-val {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-dim);
+  min-width: 18px;
+  text-align: center;
 }
 .danger:hover {
   border-color: var(--red);
