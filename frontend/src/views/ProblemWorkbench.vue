@@ -161,6 +161,15 @@ async function copySolution() {
   copiedTimer = setTimeout(() => (copied.value = false), 1500)
 }
 
+async function cancelRun() {
+  // 后端 kill 评测子进程；当前 fetch 会以 cancelled 结果自然结束
+  try {
+    await api.cancelJudge()
+  } catch {
+    /* 忽略：进程已结束时无可取消 */
+  }
+}
+
 function resetCode() {
   if (problem.value) {
     localStorage.removeItem(draftKey(problem.value.slug))
@@ -230,6 +239,7 @@ onBeforeUnmount(flushDraft)
         <div class="actions">
           <button class="ghost" :disabled="running" @click="resetCode"><span class="btn-icon">↺</span>重置</button>
           <button class="ghost" :disabled="running" @click="runCode"><span class="btn-icon play">▶</span>运行</button>
+          <button v-if="running" class="ghost danger" @click="cancelRun"><span class="btn-icon">✕</span>取消</button>
           <button class="run" :disabled="running" @click="submitCode">
             <span v-if="running" class="loading">{{ runningKind === 'submit' ? '提交中…' : '运行中…' }}</span>
             <template v-else><span class="btn-icon">✓</span>提交</template>
@@ -394,6 +404,14 @@ button.run:disabled {
 }
 .pager-link.next-unsolved:hover {
   background: var(--accent-dim);
+}
+.danger {
+  color: var(--red);
+  border-color: rgba(241, 106, 106, 0.45);
+}
+.danger:hover {
+  border-color: var(--red);
+  background: rgba(241, 106, 106, 0.08);
 }
 .split-body {
   flex: 1;

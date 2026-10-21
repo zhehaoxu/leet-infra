@@ -140,3 +140,9 @@ def test_progress_reset_clears_solved_and_relocks_solution(client):
     assert after["total"] == 5
     # 重置后参考答案重新锁定
     assert client.get("/api/problems/numerically-stable-softmax/solution").status_code == 403
+
+
+def test_judge_cancel_endpoint_no_active_task(client):
+    resp = client.post("/api/judge/cancel")
+    assert resp.status_code == 200
+    assert resp.json() == {"cancelled": False}

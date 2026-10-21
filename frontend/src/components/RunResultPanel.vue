@@ -20,6 +20,8 @@ const statusText = computed(() => {
       return 'Syntax Error'
     case 'no_solve':
       return '未实现 solve()'
+    case 'cancelled':
+      return '已取消'
     case 'env_missing':
       return '评测环境缺失'
     default:

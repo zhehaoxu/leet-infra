@@ -86,6 +86,8 @@ export const api = {
     request<{ slug: string; solution_code: string }>(`/api/problems/${slug}/solution`),
   resetProgress: () =>
     request<{ total: number; solved: number }>('/api/progress/reset', { method: 'POST' }),
+  cancelJudge: () =>
+    request<{ cancelled: boolean }>('/api/judge/cancel', { method: 'POST' }),
   collections: () => request<CollectionSummary[]>('/api/collections'),
   getCollection: (slug: string) =>
     request<CollectionDetailInfo>(`/api/collections/${slug}`),

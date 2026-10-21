@@ -108,6 +108,12 @@ def _evaluate(slug: str, submission: Submission, mode: str):
     return result
 
 
+@app.post("/api/judge/cancel")
+def cancel_judge():
+    """取消当前正在运行的评测（死循环/过长计算的逃生门）。"""
+    return {"cancelled": judge.cancel_running()}
+
+
 @app.get("/api/problems/{slug}/solution")
 def get_solution(slug: str):
     problem = problems.get_problem(slug)

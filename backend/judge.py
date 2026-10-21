@@ -13,8 +13,11 @@ import json
 import os
 import subprocess
 import tempfile
+import threading
 import time
 from pathlib import Path
+from queue import Empty as QueueEmpty
+from queue import Queue
 
 ROOT = Path(__file__).resolve().parent.parent
 
@@ -22,6 +25,8 @@ EVAL_PYTHON = os.environ.get(
     "EVAL_PYTHON", str(ROOT / ".venv-eval" / "bin" / "python")
 )
 RUN_TIMEOUT_S = int(os.environ.get("JUDGE_TIMEOUT_S", "30"))
+# 新 worker 进程的 torch 导入预算（只在进程未就绪时消耗，热进程几乎不等）
+WARM_IMPORT_BUDGET_S = int(os.environ.get("JUDGE_WARM_TIMEOUT_S", "60"))
 
 RESULT_MARKER = "###JUDGE_RESULT###"
 
@@ -129,6 +134,86 @@ for name, fn in checks:
 emit({"fatal": None, "error": None, "cases": cases, "mode": MODE})
 '''
 
+# 预热 worker：启动即 import torch，就绪后从 stdin 读一个任务（JSON 单行），
+# 评测一次后退出。每次评测用新预热的进程，进程级隔离与旧方案完全一致。
+WORKER_SRC = '''\
+"""leet-infra warm worker: imports torch once, evaluates exactly one task."""
+import inspect, json, linecache, sys, time, traceback, types
+
+RESULT_MARKER = "###JUDGE_RESULT###"
+
+def emit(payload):
+    sys.stdout.write("\\n" + RESULT_MARKER + json.dumps(payload, ensure_ascii=False) + "\\n")
+    sys.stdout.flush()
+
+try:
+    import torch
+except Exception:
+    emit({"ready": False, "fatal": "environment", "error": traceback.format_exc(limit=8), "cases": []})
+    sys.exit(0)
+
+emit({"ready": True})
+
+def run_eval(code, test_src, mode):
+    torch.manual_seed(42)
+    ns = {"__name__": "solution"}
+    try:
+        exec(compile(code, "solution.py", "exec"), ns)
+    except SyntaxError:
+        return {"fatal": "syntax", "error": "SyntaxError: " + traceback.format_exc(limit=1).strip().splitlines()[-1], "cases": []}
+    except Exception:
+        return {"fatal": "import", "error": traceback.format_exc(limit=12), "cases": []}
+    tc = {"__name__": "test_cases"}
+    try:
+        linecache.cache["test_cases.py"] = (len(test_src), None, test_src.splitlines(True), "test_cases.py")
+        exec(compile(test_src, "test_cases.py", "exec"), tc)
+    except Exception:
+        return {"fatal": "import_test", "error": traceback.format_exc(limit=12), "cases": []}
+    solve = ns.get("solve")
+    if not callable(solve):
+        return {"fatal": "no_solve", "error": "未找到 solve 函数。请实现题目要求的 def solve(...) 签名。", "cases": []}
+    checks = [(n, f) for n, f in tc.items()
+              if n.startswith("check_") and isinstance(f, types.FunctionType)]
+    checks.sort(key=lambda item: inspect.getsourcelines(item[1])[1])
+    if mode == "run":
+        examples = [(n, f) for n, f in checks if getattr(f, "example", False)]
+        if examples:
+            checks = examples
+    cases = []
+    for name, fn in checks:
+        torch.manual_seed(42)
+        t0 = time.perf_counter()
+        passed, message = True, None
+        try:
+            fn(solve)
+        except AssertionError:
+            passed = False
+            tb = traceback.format_exc().strip().splitlines()
+            message = tb[-1].strip() if tb else "assertion failed"
+            if message.startswith("AssertionError"):
+                message = message[len("AssertionError"):].lstrip(": ")
+        except Exception:
+            passed = False
+            tb = traceback.format_exc().strip().splitlines()
+            message = tb[-1].strip() if tb else "unexpected error"
+        cases.append({"name": name[len("check_"):], "passed": passed,
+                      "message": message,
+                      "elapsed_ms": round((time.perf_counter() - t0) * 1000, 2)})
+    return {"fatal": None, "error": None, "cases": cases, "mode": mode}
+
+task_line = sys.stdin.readline()
+if not task_line.strip():
+    sys.exit(1)
+task = {}
+try:
+    task = json.loads(task_line)
+    payload = run_eval(task["code"], task["test_cases_src"], task["mode"])
+except Exception:
+    payload = {"fatal": "worker_error", "error": traceback.format_exc(limit=12), "cases": []}
+payload["mode"] = task.get("mode")
+emit(payload)
+'''
+
 
 def _failure(status: str, error: str) -> dict:
     return {
@@ -147,13 +232,218 @@ def run_judgement(code: str, test_cases_src: str, mode: str = "submit") -> dict:
     """Run ``code`` as solution.py against ``test_cases_src`` in the eval env.
 
     mode="run" 只执行样例用例；mode="submit" 执行全部用例。
+    优先走预热 worker 路径（免重复 import torch），异常时自动回退旧的一次性子进程方案。
     """
-    result = _run_judgement(code, test_cases_src, mode)
+    if not Path(EVAL_PYTHON).exists():
+        result = _failure("env_missing", SETUP_HINT)
+    else:
+        result = _run_judgement_warm(code, test_cases_src, mode)
     result["mode"] = mode
     return result
 
 
-def _run_judgement(code: str, test_cases_src: str, mode: str) -> dict:
+# --- warm worker 调度：同一时刻只跑一个评测（单用户站），锁串行化 ---
+_JUDGE_LOCK = threading.Lock()
+_STATE_LOCK = threading.Lock()
+_WARM: subprocess.Popen | None = None
+_CURRENT: dict | None = None
+
+
+def _proc_env() -> dict:
+    env = os.environ.copy()
+    env["CUDA_VISIBLE_DEVICES"] = ""
+    env["PYTHONHASHSEED"] = "0"
+    env["PYTHONDONTWRITEBYTECODE"] = "1"
+    return env
+
+
+def _reap(proc) -> None:
+    if proc is None:
+        return
+    try:
+        proc.kill()
+        proc.wait(timeout=5)
+    except Exception:
+        pass
+
+
+def _spawn_warm() -> None:
+    """预热下一个 worker；Popen 本身不阻塞，torch 导入在子进程里异步完成。"""
+    global _WARM
+    _WARM = subprocess.Popen(
+        [EVAL_PYTHON, "-u", "-c", WORKER_SRC],
+        stdin=subprocess.PIPE,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        text=True,
+        env=_proc_env(),
+        cwd=tempfile.gettempdir(),
+    )
+
+
+def cancel_running() -> bool:
+    """取消当前正在进行的评测（事项 20）。kill 子进程，无任务在跑时返回 False。"""
+    with _STATE_LOCK:
+        cur = _CURRENT
+    if cur is None or cur["proc"].poll() is not None:
+        return False
+    cur["cancelled"] = True
+    try:
+        cur["proc"].kill()
+    except OSError:
+        pass
+    return True
+
+
+def _build_result(payload: dict, user_stdout: str, elapsed_ms) -> dict:
+    if payload.get("fatal"):
+        return {
+            "status": payload["fatal"],
+            "accepted": False,
+            "passed": 0,
+            "total": 0,
+            "cases": [],
+            "stdout": user_stdout,
+            "error": payload.get("error"),
+            "elapsed_ms": elapsed_ms,
+        }
+    cases = payload.get("cases", [])
+    accepted = bool(cases) and all(c["passed"] for c in cases)
+    passed = sum(1 for c in cases if c["passed"])
+    return {
+        "status": "accepted" if accepted else "wrong_answer",
+        "accepted": accepted,
+        "passed": passed,
+        "total": len(cases),
+        "cases": cases,
+        "stdout": user_stdout,
+        "error": None,
+        "elapsed_ms": elapsed_ms,
+    }
+
+
+def _run_judgement_warm(code: str, test_cases_src: str, mode: str) -> dict:
+    global _WARM, _CURRENT
+    with _JUDGE_LOCK:
+        if _WARM is None or _WARM.poll() is not None:
+            _reap(_WARM)
+            try:
+                _spawn_warm()
+            except OSError:
+                return _run_judgement_legacy(code, test_cases_src, mode)
+        proc = _WARM
+        _WARM = None
+        state = {"proc": proc, "cancelled": False, "started": 0.0, "timed_out": False,
+                 "t0": time.perf_counter()}
+        with _STATE_LOCK:
+            _CURRENT = state
+
+        box: Queue = Queue()
+        task_line = json.dumps(
+            {"code": code, "test_cases_src": test_cases_src, "mode": mode}, ensure_ascii=False
+        )
+
+        def io() -> None:
+            try:
+                # 1) 等就绪行（热进程时已在输出缓冲里，几乎立即返回）
+                while True:
+                    line = proc.stdout.readline()
+                    if not line:
+                        box.put(("dead", None))
+                        return
+                    if RESULT_MARKER in line:
+                        ready = json.loads(line.split(RESULT_MARKER, 1)[1].strip())
+                        if not ready.get("ready"):
+                            box.put(("envfail", ready))
+                            return
+                        break
+                # 2) 投递任务
+                try:
+                    proc.stdin.write(task_line + "\n")
+                    proc.stdin.flush()
+                except OSError:
+                    box.put(("dead", None))
+                    return
+                state["started"] = time.perf_counter()
+                # 3) 收集结果（marker 前的行是用户 stdout）
+                out_lines = []
+                while True:
+                    line = proc.stdout.readline()
+                    if not line:
+                        box.put(("eof", "".join(out_lines)))
+                        return
+                    if RESULT_MARKER in line:
+                        box.put(("result", line.split(RESULT_MARKER, 1)[1].strip(), "".join(out_lines)))
+                        return
+                    out_lines.append(line)
+            except Exception as exc:  # noqa: BLE001 - 守护线程兼底
+                box.put(("io_error", str(exc)))
+
+        stderr_chunks: list[str] = []
+        threading.Thread(target=lambda: stderr_chunks.append(proc.stderr.read()), daemon=True).start()
+        threading.Thread(target=io, daemon=True).start()
+
+        def guard() -> None:
+            # 看门狗：就绪前给导入预算，开始评测后给 RUN_TIMEOUT_S
+            while not done.wait(0.25):
+                if state["cancelled"]:
+                    return
+                now = time.perf_counter()
+                if state["started"]:
+                    if now - state["started"] > RUN_TIMEOUT_S:
+                        state["timed_out"] = True
+                        _reap(proc)
+                        return
+                elif now - state["t0"] > WARM_IMPORT_BUDGET_S:
+                    state["timed_out"] = True
+                    _reap(proc)
+                    return
+
+        done = threading.Event()
+        threading.Thread(target=guard, daemon=True).start()
+
+        overall = WARM_IMPORT_BUDGET_S + RUN_TIMEOUT_S + 15
+        try:
+            item = box.get(timeout=overall)
+        except QueueEmpty:
+            item = ("io_error", "评测调度超时")
+        done.set()
+        _reap(proc)
+        with _STATE_LOCK:
+            if _CURRENT is state:
+                _CURRENT = None
+        # 预热下一个进程，与当前请求后的空闲期重叠
+        try:
+            _spawn_warm()
+        except OSError:
+            pass
+
+        # 耗时从任务投递起算（不把 torch 导入的预热等待计入评测体感）
+        base = state["started"] or state["t0"]
+        elapsed_ms = round((time.perf_counter() - base) * 1000, 1)
+        if state["cancelled"]:
+            return _failure("cancelled", "运行已取消，未记录任何进度。")
+        if state["timed_out"]:
+            return _failure(
+                "timeout",
+                f"运行超时（>{RUN_TIMEOUT_S}s）。检查是否存在死循环或过大的计算规模。",
+            )
+        if item[0] == "result":
+            try:
+                payload = json.loads(item[1])
+            except json.JSONDecodeError:
+                return _failure("crashed", "评测结果解析失败（worker 输出损坏）。")
+            return _build_result(payload, item[2].rstrip("\n"), elapsed_ms)
+        if item[0] == "envfail":
+            return _failure("environment", "评测环境加载失败（torch 导入异常）。\n" + (item[1].get("error") or ""))
+        detail = ("".join(stderr_chunks) or "").strip()[:2000]
+        return _failure(
+            "crashed",
+            f"评测进程异常退出，已回退保护。\n{detail}",
+        )
+
+
+def _run_judgement_legacy(code: str, test_cases_src: str, mode: str) -> dict:
     if not Path(EVAL_PYTHON).exists():
         return _failure("env_missing", SETUP_HINT)
 

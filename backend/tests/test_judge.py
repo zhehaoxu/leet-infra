@@ -1,6 +1,8 @@
 """Judge 单元测试：正确 / 错误 / 超时 / 语法错 四类提交的解析。"""
 
 import sys
+import threading
+import time
 from pathlib import Path
 
 import pytest
@@ -121,3 +123,41 @@ def test_user_stdout_is_captured():
     result = judge.run_judgement(code, TESTS)
     assert "hello from user" in result["stdout"]
     assert judge.RESULT_MARKER not in result["stdout"]
+
+
+def test_warm_worker_reuse_keeps_results_correct():
+    """连续两次评测（第二次复用已预热进程）结果均正确。"""
+    _require_eval_env()
+    r1 = judge.run_judgement(SAMPLE.solution(), TESTS, mode="run")
+    assert r1["status"] == "accepted", r1
+    r2 = judge.run_judgement(SAMPLE.solution(), TESTS, mode="run")
+    assert r2["status"] == "accepted", r2
+    assert r2["total"] == 2
+
+
+def test_cancel_running_stops_evaluation():
+    """死循环评测发起后从另一线程取消，应返回 cancelled 而非等超时。"""
+    _require_eval_env()
+    loop_code = """
+import torch
+
+def solve(logits, mask=None, dim=-1):
+    while True:
+        pass
+"""
+    out = {}
+    def run():
+        out["r"] = judge.run_judgement(loop_code, TESTS)
+
+    t = threading.Thread(target=run)
+    t.start()
+    cancelled = False
+    deadline = time.time() + 40  # 等 worker 就绪并开始评测
+    while time.time() < deadline and not cancelled:
+        cancelled = judge.cancel_running()
+        if not cancelled:
+            time.sleep(0.2)
+    t.join(30)
+    assert cancelled, "未能触发取消"
+    assert out["r"]["status"] == "cancelled", out["r"]
+    assert out["r"]["accepted"] is False
