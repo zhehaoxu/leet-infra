@@ -12,8 +12,8 @@ sys.path.insert(0, str(ROOT))
 
 from backend import judge, problems  # noqa: E402
 
-SAMPLE = problems.get_problem("numerically-stable-softmax")
-assert SAMPLE is not None, "题库缺失：numerically-stable-softmax"
+SAMPLE = problems.get_problem("softmax")
+assert SAMPLE is not None, "题库缺失：softmax"
 TESTS = SAMPLE.test_cases()
 
 
@@ -27,7 +27,7 @@ def test_correct_submission_is_accepted():
     result = judge.run_judgement(SAMPLE.solution(), TESTS)
     assert result["status"] == "accepted", result
     assert result["accepted"] is True
-    assert result["passed"] == result["total"] == 6
+    assert result["passed"] == result["total"] == 5
     assert all(case["passed"] for case in result["cases"])
     assert result["error"] is None
 
@@ -37,10 +37,10 @@ def test_run_mode_only_executes_example_cases():
     result = judge.run_judgement(SAMPLE.solution(), TESTS, mode="run")
     assert result["mode"] == "run"
     assert result["status"] == "accepted", result
-    # softmax 题库标记了 2 个样例用例
-    assert result["passed"] == result["total"] == 2
+    # 新题库每题恰好标记 1 个样例用例
+    assert result["passed"] == result["total"] == 1
     names = {case["name"] for case in result["cases"]}
-    assert names == {"basic_probability_simplex", "matches_torch_softmax_no_mask"}
+    assert names == {"basic"}
 
 
 def test_run_mode_falls_back_when_no_example_marks():
@@ -62,15 +62,16 @@ def test_wrong_submission_reports_failed_cases():
     code = """
 import torch
 
-def solve(logits, mask=None, dim=-1):
-    return torch.softmax(logits, dim=dim)  # 未处理 mask
+def solve(logits, dim=-1):
+    e = torch.exp(logits)  # 朴素实现：不减 max，千量级 logits 溢出 NaN
+    return e / e.sum(dim=dim, keepdim=True)
 """
     result = judge.run_judgement(code, TESTS)
     assert result["status"] == "wrong_answer"
     assert result["accepted"] is False
     assert 0 < result["passed"] < result["total"]
     failed = [c for c in result["cases"] if not c["passed"]]
-    assert failed and all(c["message"] for c in failed), "失败用例必须带错误消息"
+    assert {c["name"] for c in failed} == {"no_overflow_1000_scale"}
 
 
 def test_syntax_error_submission():
@@ -94,7 +95,7 @@ def test_timeout_submission(monkeypatch):
     code = """
 import torch
 
-def solve(logits, mask=None, dim=-1):
+def solve(logits, dim=-1):
     while True:
         pass
 """
@@ -108,7 +109,7 @@ def test_runtime_exception_is_not_crash():
     code = """
 import torch
 
-def solve(logits, mask=None, dim=-1):
+def solve(logits, dim=-1):
     raise RuntimeError("boom")
 """
     result = judge.run_judgement(code, TESTS)
@@ -132,7 +133,7 @@ def test_warm_worker_reuse_keeps_results_correct():
     assert r1["status"] == "accepted", r1
     r2 = judge.run_judgement(SAMPLE.solution(), TESTS, mode="run")
     assert r2["status"] == "accepted", r2
-    assert r2["total"] == 2
+    assert r2["total"] == 1
 
 
 def test_cancel_running_stops_evaluation():
@@ -141,7 +142,7 @@ def test_cancel_running_stops_evaluation():
     loop_code = """
 import torch
 
-def solve(logits, mask=None, dim=-1):
+def solve(logits, dim=-1):
     while True:
         pass
 """
