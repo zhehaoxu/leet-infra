@@ -1,4 +1,9 @@
-"""Problem bank loading: scan problems/<framework>/<slug>/ directories."""
+"""Problem bank loading: scan problems/<framework>/<slug>/ directories.
+
+Each problem declares implementation variants in meta.json (default: single
+``pytorch`` variant). Files live under ``variants/<key>/`` (starter.py,
+test_cases.py, solution.py); unavailable variants are declared only, no dir.
+"""
 
 from __future__ import annotations
 
@@ -9,6 +14,18 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 PROBLEMS_DIR = ROOT / "problems"
 
+DEFAULT_VARIANTS = {"pytorch": {"label": "PyTorch", "available": True}}
+
+
+@dataclass
+class VariantInfo:
+    key: str
+    label: str
+    available: bool
+
+    def as_dict(self) -> dict:
+        return {"key": self.key, "label": self.label, "available": self.available}
+
 
 @dataclass
 class Problem:
@@ -18,22 +35,41 @@ class Problem:
     difficulty: str
     tags: list[str] = field(default_factory=list)
     order: int = 0
+    variants: list[VariantInfo] = field(default_factory=list)
 
     @property
     def directory(self) -> Path:
         return PROBLEMS_DIR / self.framework / self.slug
 
+    @property
+    def default_variant(self) -> str:
+        for v in self.variants:
+            if v.available:
+                return v.key
+        return self.variants[0].key
+
+    def resolve_variant(self, key: str | None) -> str:
+        """Unset/unavailable/unknown variants fall back to the default one."""
+        if key:
+            for v in self.variants:
+                if v.key == key and v.available:
+                    return v.key
+        return self.default_variant
+
+    def _variant_dir(self, variant: str | None) -> Path:
+        return self.directory / "variants" / (variant or self.default_variant)
+
     def description(self) -> str:
         return (self.directory / "description.md").read_text(encoding="utf-8")
 
-    def starter(self) -> str:
-        return (self.directory / "starter.py").read_text(encoding="utf-8")
+    def starter(self, variant: str | None = None) -> str:
+        return (self._variant_dir(variant) / "starter.py").read_text(encoding="utf-8")
 
-    def test_cases(self) -> str:
-        return (self.directory / "test_cases.py").read_text(encoding="utf-8")
+    def test_cases(self, variant: str | None = None) -> str:
+        return (self._variant_dir(variant) / "test_cases.py").read_text(encoding="utf-8")
 
-    def solution(self) -> str:
-        return (self.directory / "solution.py").read_text(encoding="utf-8")
+    def solution(self, variant: str | None = None) -> str:
+        return (self._variant_dir(variant) / "solution.py").read_text(encoding="utf-8")
 
     def summary(self, solved: bool) -> dict:
         return {
@@ -43,7 +79,16 @@ class Problem:
             "difficulty": self.difficulty,
             "tags": self.tags,
             "solved": solved,
+            "variants": [v.as_dict() for v in self.variants],
         }
+
+
+def _parse_variants(meta: dict) -> list[VariantInfo]:
+    raw = meta.get("variants") or DEFAULT_VARIANTS
+    return [
+        VariantInfo(key=k, label=v.get("label", k), available=bool(v.get("available", True)))
+        for k, v in raw.items()
+    ]
 
 
 def load_problems() -> list[Problem]:
@@ -58,6 +103,7 @@ def load_problems() -> list[Problem]:
                 difficulty=meta["difficulty"],
                 tags=meta.get("tags", []),
                 order=meta.get("order", 0),
+                variants=_parse_variants(meta),
             )
         )
     problems.sort(key=lambda p: (p.framework, p.order, p.slug))

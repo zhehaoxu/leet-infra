@@ -6,7 +6,7 @@ import json
 import threading
 from pathlib import Path
 
-from fastapi import FastAPI, HTTPException, Request
+from fastapi import FastAPI, HTTPException, Query, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import Response
 from fastapi.staticfiles import StaticFiles
@@ -27,6 +27,7 @@ app.add_middleware(
 
 class Submission(BaseModel):
     code: str
+    variant: str = "pytorch"
 
 
 def _summary_with_collections(problem, solved: bool) -> dict:
@@ -44,14 +45,16 @@ def list_problems():
 
 
 @app.get("/api/problems/{slug}")
-def get_problem(slug: str):
+def get_problem(slug: str, variant: str | None = Query(default=None)):
     problem = problems.get_problem(slug)
     if problem is None:
         raise HTTPException(status_code=404, detail="题目不存在")
+    active = problem.resolve_variant(variant)
     return {
         **_summary_with_collections(problem, progress.is_solved(slug)),
         "description": problem.description(),
-        "starter_code": problem.starter(),
+        "starter_code": problem.starter(active),
+        "active_variant": active,
     }
 
 
@@ -105,29 +108,31 @@ def _evaluate(slug: str, submission: Submission, mode: str):
     problem = problems.get_problem(slug)
     if problem is None:
         raise HTTPException(status_code=404, detail="题目不存在")
-    result = judge.run_judgement(submission.code, problem.test_cases(), mode=mode)
+    variant = problem.resolve_variant(submission.variant)
+    result = judge.run_judgement(submission.code, problem.test_cases(variant), mode=mode)
     if mode == "submit" and result["accepted"]:
         progress.mark_solved(slug)
-        if benchmarks.get_benchmarks(slug) is None:
-            _spawn_benchmark(problem)  # 首次 AC：后台测参考解基准
-    bench = benchmarks.get_benchmarks(slug)
+        if benchmarks.get_benchmarks(slug, variant) is None:
+            _spawn_benchmark(problem, variant)  # 首次 AC：后台测参考解基准
+    bench = benchmarks.get_benchmarks(slug, variant)
     if bench:
         result["benchmark"] = bench
+    result["variant"] = variant
     return result
 
 
-def _spawn_benchmark(problem) -> threading.Thread:
-    """后台用参考解全量跑一遍记录用例耗时；失败静默，不阻塞用户请求。"""
+def _spawn_benchmark(problem, variant: str) -> threading.Thread:
+    """后台用指定 variant 的参考解全量跑一遍记录用例耗时；失败静默，不阻塞用户请求。"""
 
     def _measure() -> None:
         try:
-            res = judge.run_judgement(problem.solution(), problem.test_cases(), mode="submit")
+            res = judge.run_judgement(problem.solution(variant), problem.test_cases(variant), mode="submit")
             if res["accepted"]:
-                benchmarks.record(problem.slug, res)
+                benchmarks.record(problem.slug, variant, res)
         except Exception:
             pass  # 基准是锦上添花，失败不影响主流程
 
-    t = threading.Thread(target=_measure, daemon=True, name=f"benchmark-{problem.slug}")
+    t = threading.Thread(target=_measure, daemon=True, name=f"benchmark-{problem.slug}-{variant}")
     t.start()
     return t
 
@@ -139,13 +144,14 @@ def cancel_judge():
 
 
 @app.get("/api/problems/{slug}/solution")
-def get_solution(slug: str):
+def get_solution(slug: str, variant: str | None = Query(default=None)):
     problem = problems.get_problem(slug)
     if problem is None:
         raise HTTPException(status_code=404, detail="题目不存在")
     if not progress.is_solved(slug):
         raise HTTPException(status_code=403, detail="通过全部测试用例后可查看参考答案")
-    return {"slug": slug, "solution_code": problem.solution()}
+    active = problem.resolve_variant(variant)
+    return {"slug": slug, "variant": active, "solution_code": problem.solution(active)}
 
 
 @app.get("/api/progress")

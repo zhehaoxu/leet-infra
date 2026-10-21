@@ -1,7 +1,8 @@
 """参考解耗时基准缓存（data/benchmarks.json）。
 
-题目首次 AC 后，后台线程用参考 solution 全量跑一遍，缓存每个用例的 elapsed_ms。
-提交结果附带该基准供前端展示「你的耗时 vs 参考基准」——仅展示，不设任何门槛。
+题目首次 AC 后，后台线程用对应 variant 的参考 solution 全量跑一遍，缓存每个用例的
+elapsed_ms。提交结果附带该基准供前端展示「你的耗时 vs 参考基准」——仅展示不设门槛。
+存储结构：{slug: {variant: {"cases": {...}, "total_ms": ..., "measured_at": ...}}}。
 """
 
 from __future__ import annotations
@@ -26,17 +27,20 @@ def _read() -> dict:
     return {}
 
 
-def get_benchmarks(slug: str) -> dict[str, float] | None:
+def get_benchmarks(slug: str, variant: str) -> dict[str, float] | None:
     """{case_name: ms}；无基准时返回 None。"""
     with _LOCK:
         entry = _read().get(slug)
     if not isinstance(entry, dict):
         return None
-    cases = entry.get("cases")
+    by_variant = entry.get(variant)
+    if not isinstance(by_variant, dict):
+        return None
+    cases = by_variant.get("cases")
     return cases if isinstance(cases, dict) and cases else None
 
 
-def record(slug: str, result: dict) -> bool:
+def record(slug: str, variant: str, result: dict) -> bool:
     """从一次 accepted 的 run_judgement 结果提取用例耗时并落盘。"""
     cases = {
         c["name"]: c["elapsed_ms"]
@@ -47,7 +51,7 @@ def record(slug: str, result: dict) -> bool:
         return False
     with _LOCK:
         store = _read()
-        store[slug] = {
+        store.setdefault(slug, {})[variant] = {
             "cases": cases,
             "total_ms": result.get("elapsed_ms"),
             "measured_at": datetime.now(timezone.utc).isoformat(),
