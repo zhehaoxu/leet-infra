@@ -1,9 +1,12 @@
 #!/usr/bin/env python3
-"""leet-infra 加题脚手架：交互式生成题目五件套并自动挂进合集。
+"""leet-infra 加题脚手架：交互式生成题目并自动挂进合集。
 
 用法:  .venv-backend/bin/python scripts/add_problem.py
-生成 problems/<framework>/<slug>/ 下 meta.json、description.md、starter.py、
-test_cases.py、solution.py，并把 slug 追加进所选合集的 collections.json。
+生成 problems/<framework>/<slug>/ 下 meta.json、description.md，以及
+variants/pytorch/ 三件套（starter.py、test_cases.py、solution.py），
+并把 slug 追加进所选合集的 collections.json。
+多实现算子题可选：meta.json 写入 pytorch(可用)+triton/cuda(置灰) 声明，
+不可用的 variant 不建目录，仅前端选择器置灰展示。
 新题落盘即被后端热加载（题库与合集均按 mtime 失效），免重启。
 """
 from __future__ import annotations
@@ -19,9 +22,17 @@ TEMPLATE_META = '''{{
   "title": "{title}",
   "difficulty": "{difficulty}",
   "tags": {tags},
-  "order": {order}
+  "order": {order}{variants}
 }}
 '''
+
+# 多实现算子题的 variants 声明：仅 pytorch 可用，triton/cuda 置灰占位
+VARIANTS_JSON = ''',
+  "variants": {
+    "pytorch": {"label": "PyTorch", "available": true},
+    "triton": {"label": "Triton", "available": false},
+    "cuda": {"label": "CUDA", "available": false}
+  }'''
 
 TEMPLATE_DESC = '''# {title}
 
@@ -121,19 +132,30 @@ def main() -> int:
     order = max(orders, default=0) + 1
 
     problem_dir = fw_dir / slug
-    problem_dir.mkdir()
+    variant_dir = problem_dir / "variants" / "pytorch"
+    variant_dir.mkdir(parents=True)
+    multi = ask("多实现算子题（声明 triton/cuda 置灰）？(y/N)", "n").lower() == "y"
     files = {
         "meta.json": TEMPLATE_META.format(
-            title=title, difficulty=difficulty, tags=json.dumps(tags, ensure_ascii=False), order=order
+            title=title,
+            difficulty=difficulty,
+            tags=json.dumps(tags, ensure_ascii=False),
+            order=order,
+            variants=VARIANTS_JSON if multi else "",
         ),
         "description.md": TEMPLATE_DESC.format(title=title, params=params),
         "starter.py": TEMPLATE_STARTER.format(params=params),
         "test_cases.py": TEMPLATE_TEST,
         "solution.py": TEMPLATE_SOLUTION.format(title=title, params=params),
     }
+    (problem_dir / "meta.json").write_text(files.pop("meta.json"), encoding="utf-8")
+    (problem_dir / "description.md").write_text(files.pop("description.md"), encoding="utf-8")
     for name, content in files.items():
-        (problem_dir / name).write_text(content, encoding="utf-8")
-    print(f"已生成 {problem_dir.relative_to(ROOT)} / {', '.join(files)}")
+        (variant_dir / name).write_text(content, encoding="utf-8")
+    print(f"已生成 {problem_dir.relative_to(ROOT)}：meta.json、description.md、"
+          f"variants/pytorch/{{{', '.join(['starter.py', 'test_cases.py', 'solution.py'])}}}")
+    if multi:
+        print("  variants 已声明 pytorch(可用) + triton/cuda(置灰)；后续实现时建对应目录即可。")
 
     # 挂进合集（可多选，回车跳过）
     collections_file = PROBLEMS_DIR / "collections.json"
@@ -151,7 +173,7 @@ def main() -> int:
             )
             print(f"已加入合集: {', '.join(picked)}")
 
-    print("\n下一步：补全 description.md / starter.py / test_cases.py / solution.py 四个 TODO，"
+    print("\n下一步：补全 description.md / variants/pytorch/ 三件套中的 TODO，"
           "再用参考解跑一次 POST /api/problems/{slug}/submit 自测判题链路。")
     return 0
 
