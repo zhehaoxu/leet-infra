@@ -19,7 +19,7 @@ const runError = ref<string | null>(null)
 const loadError = ref<string | null>(null)
 
 const solutionCode = ref<string | null>(null)
-const activeTab = ref<'desc' | 'solution'>('desc')
+const activeTab = ref<'desc' | 'solution' | 'notes'>('desc')
 const accepted = ref(false)
 
 // ---- 草稿持久化（localStorage，每题一份）----
@@ -47,6 +47,34 @@ watch(code, () => {
   draftTimer = setTimeout(flushDraft, 400)
 })
 
+// ---- 题目笔记（localStorage，每题一份 markdown，复用草稿防抖模式）----
+const NOTES_PREFIX = 'leet-infra:notes:'
+const notes = ref('')
+const notesMode = ref<'edit' | 'preview'>('edit')
+let notesTimer: ReturnType<typeof setTimeout> | null = null
+
+function notesKey(slug: string) {
+  return NOTES_PREFIX + slug
+}
+
+function flushNotes() {
+  if (notesTimer) {
+    clearTimeout(notesTimer)
+    notesTimer = null
+  }
+  if (!problem.value) return
+  if (notes.value.trim()) {
+    localStorage.setItem(notesKey(problem.value.slug), notes.value)
+  } else {
+    localStorage.removeItem(notesKey(problem.value.slug)) // 清空即不留残留键
+  }
+}
+
+watch(notes, () => {
+  if (notesTimer) clearTimeout(notesTimer)
+  notesTimer = setTimeout(flushNotes, 400)
+})
+
 // 左右分栏拖拽
 const splitRatio = ref(0.45)
 const bodyEl = ref<HTMLDivElement | null>(null)
@@ -69,6 +97,7 @@ function onDragStart(e: MouseEvent) {
 
 async function load() {
   flushDraft() // 先把上一页的编辑存回对应草稿再切走
+  flushNotes()
   if (!store.problems.length) void store.fetchProblems() // 导航需要全量题序
   problem.value = null
   result.value = null
@@ -78,12 +107,15 @@ async function load() {
   activeTab.value = 'desc'
   accepted.value = false
   draftRestored.value = false
+  notes.value = ''
+  notesMode.value = 'edit'
   try {
     const p = await api.getProblem(props.slug)
     problem.value = p
     const draft = localStorage.getItem(draftKey(p.slug))
     draftRestored.value = draft != null && draft !== p.starter_code
     code.value = draft ?? p.starter_code
+    notes.value = localStorage.getItem(notesKey(p.slug)) ?? ''
     accepted.value = p.solved
   } catch (e) {
     loadError.value = e instanceof Error ? e.message : String(e)
@@ -195,7 +227,10 @@ async function openSolution() {
 
 watch(() => props.slug, load) // 题目间直接跳转时重新加载
 onMounted(load)
-onBeforeUnmount(flushDraft)
+onBeforeUnmount(() => {
+  flushDraft()
+  flushNotes()
+})
 </script>
 
 <template>
@@ -255,6 +290,14 @@ onBeforeUnmount(flushDraft)
             </button>
             <button
               class="tab"
+              :class="{ active: activeTab === 'notes' }"
+              title="本题笔记（localStorage 保存）"
+              @click="activeTab = 'notes'"
+            >
+              笔记
+            </button>
+            <button
+              class="tab"
               :class="{ active: activeTab === 'solution' }"
               :disabled="!accepted"
               :title="accepted ? '查看参考答案' : '提交通过后解锁参考答案'"
@@ -263,8 +306,27 @@ onBeforeUnmount(flushDraft)
               参考答案
             </button>
           </div>
-          <div class="tab-content" :class="{ 'solution-mode': activeTab === 'solution' }">
+          <div class="tab-content" :class="{ 'solution-mode': activeTab !== 'desc' }">
             <MarkdownView v-if="activeTab === 'desc'" :key="problem.slug + '-desc'" :source="problem.description" />
+            <div v-else-if="activeTab === 'notes'" class="notes-view">
+              <div class="notes-toolbar">
+                <span class="notes-hint">支持 Markdown · 自动保存到本地</span>
+                <div class="notes-mode-toggle">
+                  <button :class="{ on: notesMode === 'edit' }" @click="notesMode = 'edit'">编辑</button>
+                  <button :class="{ on: notesMode === 'preview' }" @click="notesMode = 'preview'">预览</button>
+                </div>
+              </div>
+              <textarea
+                v-if="notesMode === 'edit'"
+                v-model="notes"
+                class="notes-editor"
+                placeholder="记下你的思路、易错点、参考解法的关键步骤…"
+              ></textarea>
+              <div v-else class="notes-preview">
+                <MarkdownView v-if="notes.trim()" :source="notes" />
+                <p v-else class="notes-empty">暂无笔记，切回「编辑」开始记录。</p>
+              </div>
+            </div>
             <div v-else class="solution-view">
               <div class="solution-toolbar">
                 <button class="copy-btn" @click="copySolution">
@@ -497,6 +559,65 @@ button.run:disabled {
   border: 1px solid var(--border);
   border-radius: 10px;
   overflow: hidden;
+}
+.notes-view {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.notes-toolbar {
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.notes-hint {
+  color: var(--text-dim);
+  font-size: 12px;
+}
+.notes-mode-toggle {
+  display: flex;
+  gap: 4px;
+}
+.notes-mode-toggle button {
+  padding: 3px 12px;
+  font-size: 12.5px;
+  border-radius: 6px;
+  color: var(--text-dim);
+}
+.notes-mode-toggle button.on {
+  color: var(--accent);
+  border-color: var(--accent);
+  background: var(--accent-dim);
+}
+.notes-editor {
+  flex: 1;
+  min-height: 0;
+  resize: none;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--bg-elevated);
+  color: var(--text);
+  font-family: var(--font-mono);
+  font-size: 13px;
+  line-height: 1.6;
+  padding: 14px 16px;
+}
+.notes-editor:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+.notes-preview {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+}
+.notes-empty {
+  color: var(--text-dim);
+  text-align: center;
+  padding: 40px;
 }
 .divider {
   flex: none;
