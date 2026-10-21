@@ -1,11 +1,16 @@
 # leet-infra 待办清单
 
 > 按建议实施顺序编号；完成一项勾选一项。⭐ = 收益/成本比最高，优先做。
-> 本批（23+20/24/25/26/27/6/28）已全部完成并通过 E2E。
-> 下一批建议顺序：**15/16 → 8 → 7**；可选小活 29。
+> 本批（题库重构：算子多实现变体 + PyTorch 框架合集重建）已全部完成并通过 E2E。
+> 下一批建议顺序：**8 → 7**；可选小活 29。
 
 ## 已完成
 
+- [x] 题库重构批次（本轮）：题目目录升级为 `variants/<implementation>/` 三件套结构；算子合集重建为 relu/sigmoid/swish/softmax/gelu 5 题（每题声明 pytorch 可用 + triton/cuda 置灰）；PyTorch 合集重设计为框架使用 6 题（张量形状索引/广播/autograd/MLP block/训练循环/Dataset）；旧 5 题删除。
+  - 后端：`Problem.resolve_variant` 不可用回退默认、API `?variant=` 与 `Submission.variant`、benchmarks 存储加 variant 维度；进度按 slug 记录
+  - 前端：合集详情页「实现方式」分段选择器（localStorage 偏好）、做题页 variant 控件（不可用置灰 + 回退提示）、草稿按 slug×variant 隔离、导航链接透传 `?variant`
+  - 测试：test_api/test_judge 适配新题库 + 新增 test_variants、test_self_ac（11 题参考解真实评测全 AC），40 passed；浏览器 E2E 7/7 PASS
+  - 脚手架 add_problem.py 生成新结构，可选多实现算子题
 - [x] 1. 代码草稿持久化（localStorage 每题一份，含浏览器验证）
 - [x] 2. git 初始化 + 首次提交（main，56 文件，环境/产物已忽略）
 - [x] 3. 题库热加载（_INDEX 按 mtime 指纹失效，增删题目零重启）
@@ -47,11 +52,9 @@
 
 ## 大方向（需决策后再排期）
 
-- [ ] 7. 第二阶段 Triton 题库
+- [ ] 7. 第二阶段 Triton/CUDA 真实实现（variants 框架已就绪，当前仅置灰占位）
   - 卡点：官方 Triton 无 macOS wheel，需先二选一
   - 方案 A（推荐）：OrbStack + linux/arm64 容器跑官方 triton CPU backend
   - 方案 B：triton 源码编译到 macOS（有历史失败记录，耗时不可控）
-  - 待做：Triton 题库 5 题 + 前端框架标签适配 + 评测链路容器化
-- [ ] 8. PyTorch 题库扩充（当前 5 题）
-  - 候选方向：autograd/手写反向传播、LLM 组件（KV-cache、top-p 采样、RoPE）、内存布局陷阱（stride/contiguous/view vs copy）
-  - 新题只需建目录 + collections.json 归组，热加载已就绪
+  - 待做：为 5 道算子题补 `variants/triton/`、`variants/cuda/` 三件套并把 meta.json 的 available 改 true，评测链路容器化
+- [x] 8. PyTorch 题库扩充（已完成：随本轮题库重构重建为框架使用 6 题——tensor-shape-indexing / broadcast-ops / autograd-basics / nn-module-block / optimizer-training-loop / dataset-dataloader）
