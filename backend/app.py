@@ -2,10 +2,12 @@
 
 from __future__ import annotations
 
+import json
 from pathlib import Path
 
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import Response
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 
@@ -148,6 +150,33 @@ def unmark_problem(slug: str):
     if problems.get_problem(slug) is None:
         raise HTTPException(status_code=404, detail="题目不存在")
     return {"slug": slug, "removed": progress.unmark(slug)}
+
+
+@app.get("/api/progress/export")
+def export_progress():
+    """下载当前进度文件，与 data/progress.json 同构，换机/重装可恢复。"""
+    payload = json.dumps(progress.export_store(), ensure_ascii=False, indent=2)
+    return Response(
+        content=payload,
+        media_type="application/json",
+        headers={"Content-Disposition": 'attachment; filename="leet-infra-progress.json"'},
+    )
+
+
+@app.post("/api/progress/import")
+async def import_progress(req: Request):
+    """全量恢复进度（覆盖当前记录）；不在当前题库内的 slug 被过滤，防止脏数据。"""
+    try:
+        payload = await req.json()
+    except Exception:
+        raise HTTPException(status_code=400, detail="无法解析 JSON，请选择 leet-infra 导出的进度文件")
+    solved = payload.get("solved") if isinstance(payload, dict) else None
+    if not isinstance(solved, dict):
+        raise HTTPException(status_code=400, detail="进度文件格式不正确（缺少 solved 字段）")
+    known = {p.slug for p in problems.load_problems()}
+    valid = {s: ts for s, ts in solved.items() if s in known and isinstance(ts, str)}
+    progress.replace_all(valid)
+    return {"imported": len(valid), "skipped": len(solved) - len(valid)}
 
 
 # --- static frontend (production build) ------------------------------------

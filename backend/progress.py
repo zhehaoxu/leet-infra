@@ -62,3 +62,15 @@ def reset() -> None:
     """清空全部已解决记录（用于二刷；不动草稿）。"""
     with _LOCK:
         _write({"solved": {}})
+
+
+def export_store() -> dict:
+    """导出当前进度（与 data/progress.json 同构）。"""
+    with _LOCK:
+        return {"solved": dict(_read()["solved"])}
+
+
+def replace_all(solved: dict[str, str]) -> None:
+    """全量覆盖（导入恢复场景），锁内原子写。"""
+    with _LOCK:
+        _write({"solved": dict(solved)})

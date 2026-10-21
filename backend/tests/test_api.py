@@ -161,3 +161,34 @@ def test_progress_unmark_single_problem(client):
     # 幂等：重复 unmark 返回 removed=False；不存在的题 404
     assert client.post("/api/problems/numerically-stable-softmax/unmark").json()["removed"] is False
     assert client.post("/api/problems/does-not-exist/unmark").status_code == 404
+
+
+def test_progress_export_import_roundtrip(client):
+    progress.mark_solved("numerically-stable-softmax")
+    progress.mark_solved("layernorm-forward")
+
+    exp = client.get("/api/progress/export")
+    assert exp.status_code == 200
+    assert "attachment" in exp.headers.get("content-disposition", "")
+    data = exp.json()
+    assert set(data["solved"]) == {"numerically-stable-softmax", "layernorm-forward"}
+
+    # 重置后用同一份导出恢复；未知 slug 被过滤计入 skipped
+    data["solved"]["ghost-problem"] = "2026-01-01T00:00:00+00:00"
+    client.post("/api/progress/reset")
+    assert client.get("/api/progress").json()["solved"] == 0
+    imp = client.post("/api/progress/import", json=data)
+    assert imp.status_code == 200
+    assert imp.json() == {"imported": 2, "skipped": 1}
+    assert client.get("/api/progress").json()["solved"] == 2
+    assert client.get("/api/problems/numerically-stable-softmax/solution").status_code == 200
+    assert "ghost-problem" not in client.get("/api/progress").json()["solved_at"]
+
+
+def test_progress_import_rejects_bad_payload(client):
+    assert client.post("/api/progress/import", json={"nope": 1}).status_code == 400
+    assert client.post("/api/progress/import", json=[1, 2]).status_code == 400
+    # 坏 payload 不能碰已有进度
+    progress.mark_solved("numerically-stable-softmax")
+    client.post("/api/progress/import", json={"nope": 1})
+    assert client.get("/api/progress").json()["solved"] == 1

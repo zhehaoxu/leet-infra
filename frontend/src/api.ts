@@ -88,6 +88,17 @@ export const api = {
     request<{ total: number; solved: number }>('/api/progress/reset', { method: 'POST' }),
   unmarkProblem: (slug: string) =>
     request<{ slug: string; removed: boolean }>(`/api/problems/${slug}/unmark`, { method: 'POST' }),
+  exportProgress: async () => {
+    const resp = await fetch('/api/progress/export')
+    if (!resp.ok) throw new Error(`HTTP ${resp.status}`)
+    return resp.blob()
+  },
+  importProgress: (data: unknown) =>
+    request<{ imported: number; skipped: number }>('/api/progress/import', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data),
+    }),
   cancelJudge: () =>
     request<{ cancelled: boolean }>('/api/judge/cancel', { method: 'POST' }),
   collections: () => request<CollectionSummary[]>('/api/collections'),

@@ -58,6 +58,46 @@ async function resetProgress() {
   }
 }
 
+// ---- 进度导出/导入（换机/重装不丢记录）----
+const importInput = ref<HTMLInputElement | null>(null)
+
+async function exportProgress() {
+  try {
+    const blob = await api.exportProgress()
+    const a = document.createElement('a')
+    a.href = URL.createObjectURL(blob)
+    a.download = `leet-infra-progress-${new Date().toISOString().slice(0, 10)}.json`
+    a.click()
+    URL.revokeObjectURL(a.href)
+  } catch (e) {
+    window.alert(`导出失败：${e instanceof Error ? e.message : e}`)
+  }
+}
+
+function triggerImport() {
+  importInput.value?.click()
+}
+
+async function onImportFile(ev: Event) {
+  const input = ev.target as HTMLInputElement
+  const file = input.files?.[0]
+  input.value = '' // 允许连续选同一文件
+  if (!file) return
+  if (!window.confirm('导入将覆盖当前全部解题进度，继续？')) return
+  try {
+    const data = JSON.parse(await file.text()) as unknown
+    const r = await api.importProgress(data)
+    await store.fetchProblems()
+    if (activeTab.value === 'collections') {
+      collections.value = []
+      ensureCollections()
+    }
+    window.alert(`导入完成：恢复 ${r.imported} 题` + (r.skipped ? `，跳过不认识的条目 ${r.skipped} 个` : ''))
+  } catch (e) {
+    window.alert(`导入失败：${e instanceof Error ? e.message : e}，请确认选择的是 leet-infra 导出的进度文件`)
+  }
+}
+
 const filteredCollections = computed(() =>
   collections.value.filter((c) => {
     if (!collectionKeyword.value) return true
@@ -81,6 +121,9 @@ const filteredCollections = computed(() =>
         >
           重置进度
         </button>
+        <button class="io-progress" title="下载进度文件 progress.json" @click="exportProgress">导出进度</button>
+        <button class="io-progress" title="从导出的 JSON 恢复进度（覆盖当前）" @click="triggerImport">导入进度</button>
+        <input ref="importInput" type="file" accept="application/json,.json" class="hidden-file" @change="onImportFile" />
       </p>
     </div>
 
@@ -161,6 +204,22 @@ const filteredCollections = computed(() =>
 }
 .reset-progress:hover {
   color: var(--red);
+}
+.io-progress {
+  border: none;
+  background: none;
+  color: var(--text-dim);
+  font-size: 12.5px;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+  margin-left: 10px;
+}
+.io-progress:hover {
+  color: var(--accent);
+}
+.hidden-file {
+  display: none;
 }
 .tabs {
   display: flex;
