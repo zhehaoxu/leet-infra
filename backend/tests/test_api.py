@@ -1,6 +1,7 @@
 """API 集成测试：题库列表 / 详情 / 运行（样例） / 提交（全量） / 答案解锁 / 进度。"""
 
 import sys
+import time
 from pathlib import Path
 
 import pytest
@@ -8,7 +9,7 @@ import pytest
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT))
 
-from backend import judge, problems, progress  # noqa: E402
+from backend import benchmarks, judge, problems, progress  # noqa: E402
 from fastapi.testclient import TestClient  # noqa: E402
 
 
@@ -192,3 +193,43 @@ def test_progress_import_rejects_bad_payload(client):
     progress.mark_solved("numerically-stable-softmax")
     client.post("/api/progress/import", json={"nope": 1})
     assert client.get("/api/progress").json()["solved"] == 1
+
+
+_FAKE_JUDGE = {
+    "status": "accepted",
+    "accepted": True,
+    "passed": 1,
+    "total": 1,
+    "cases": [{"name": "basic", "passed": True, "message": None, "elapsed_ms": 5.0}],
+    "stdout": "",
+    "error": None,
+    "elapsed_ms": 10.0,
+}
+
+
+def test_first_ac_triggers_benchmark_and_submit_carries_it(client, tmp_path, monkeypatch):
+    bench_file = tmp_path / "benchmarks.json"
+    monkeypatch.setattr(benchmarks, "DATA_FILE", bench_file)
+    monkeypatch.setattr(judge, "run_judgement", lambda code, tests, mode="submit": dict(_FAKE_JUDGE))
+
+    # 首次 AC：无基准 → 后台线程测参考解并落盘（本条响应可能还不带）
+    r1 = client.post(
+        "/api/problems/numerically-stable-softmax/submit", json={"code": "def solve(x): pass"}
+    ).json()
+    assert r1["accepted"] is True
+    deadline = time.time() + 5
+    while not bench_file.exists() and time.time() < deadline:
+        time.sleep(0.05)
+    assert bench_file.exists(), "首次 AC 后应后台记录参考解基准"
+
+    # 已有基准：后续提交结果附带 {case: ms} 供前端对比展示
+    r2 = client.post(
+        "/api/problems/numerically-stable-softmax/submit", json={"code": "def solve(x): pass"}
+    ).json()
+    assert r2["benchmark"] == {"basic": 5.0}
+
+    # run 模式同样附带已有基准；未 AC 过的题不带
+    r3 = client.post("/api/problems/numerically-stable-softmax/run", json={"code": "x"}).json()
+    assert r3["benchmark"] == {"basic": 5.0}
+    r4 = client.post("/api/problems/layernorm-forward/submit", json={"code": "x"}).json()
+    assert "benchmark" not in r4

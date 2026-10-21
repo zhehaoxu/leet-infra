@@ -1,10 +1,30 @@
 <script setup lang="ts">
 import { computed, nextTick, ref, watch } from 'vue'
-import type { RunResult } from '../api'
+import type { CaseResult, RunResult } from '../api'
 
 const props = defineProps<{ result: RunResult | null; running: boolean; error: string | null }>()
 
 const isRunMode = computed(() => props.result?.mode === 'run')
+
+// ---- 参考解耗时基准（首次 AC 后后台测量，仅展示不设门槛）----
+const benchmark = computed(() => props.result?.benchmark ?? null)
+
+function benchLabel(c: CaseResult): string {
+  const b = benchmark.value?.[c.name]
+  if (b == null || !c.passed) return ''
+  const r = c.elapsed_ms / b
+  const ratio = r >= 10 ? r.toFixed(0) : r.toFixed(1)
+  return `参考 ${b.toFixed(1)}ms · ${ratio}×`
+}
+
+function hasBench(c: CaseResult): boolean {
+  return benchLabel(c) !== ''
+}
+
+function isFast(c: CaseResult): boolean {
+  const b = benchmark.value?.[c.name]
+  return b != null && c.elapsed_ms <= b
+}
 
 const statusText = computed(() => {
   const r = props.result
@@ -99,7 +119,16 @@ watch(
               <div class="case-body">
                 <div class="case-name">{{ c.name }}</div>
               </div>
-              <span class="case-time">{{ c.elapsed_ms.toFixed(1) }}ms</span>
+              <div class="case-times">
+                <span class="case-time">{{ c.elapsed_ms.toFixed(1) }}ms</span>
+                <span
+                  v-if="hasBench(c)"
+                  class="case-bench"
+                  :class="{ fast: isFast(c) }"
+                  title="参考解在本机的实测耗时，仅作对比"
+                  >{{ benchLabel(c) }}</span
+                >
+              </div>
             </div>
           </div>
         </template>
@@ -235,6 +264,21 @@ watch(
   color: var(--text-dim);
   font-size: 12px;
   flex: none;
+}
+.case-times {
+  flex: none;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+}
+.case-bench {
+  font-size: 11px;
+  color: var(--text-dim);
+  white-space: nowrap;
+}
+.case-bench.fast {
+  color: var(--accent);
 }
 .stdout pre {
   margin: 6px 0 0;

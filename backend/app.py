@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import threading
 from pathlib import Path
 
 from fastapi import FastAPI, HTTPException, Request
@@ -11,7 +12,7 @@ from fastapi.responses import Response
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 
-from . import collections, judge, problems, progress
+from . import benchmarks, collections, judge, problems, progress
 
 app = FastAPI(title="leet-infra", docs_url=None, redoc_url=None)
 
@@ -107,7 +108,28 @@ def _evaluate(slug: str, submission: Submission, mode: str):
     result = judge.run_judgement(submission.code, problem.test_cases(), mode=mode)
     if mode == "submit" and result["accepted"]:
         progress.mark_solved(slug)
+        if benchmarks.get_benchmarks(slug) is None:
+            _spawn_benchmark(problem)  # 首次 AC：后台测参考解基准
+    bench = benchmarks.get_benchmarks(slug)
+    if bench:
+        result["benchmark"] = bench
     return result
+
+
+def _spawn_benchmark(problem) -> threading.Thread:
+    """后台用参考解全量跑一遍记录用例耗时；失败静默，不阻塞用户请求。"""
+
+    def _measure() -> None:
+        try:
+            res = judge.run_judgement(problem.solution(), problem.test_cases(), mode="submit")
+            if res["accepted"]:
+                benchmarks.record(problem.slug, res)
+        except Exception:
+            pass  # 基准是锦上添花，失败不影响主流程
+
+    t = threading.Thread(target=_measure, daemon=True, name=f"benchmark-{problem.slug}")
+    t.start()
+    return t
 
 
 @app.post("/api/judge/cancel")

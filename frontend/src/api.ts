@@ -50,6 +50,8 @@ export interface RunResult {
   stdout: string
   error: string | null
   elapsed_ms: number | null
+  /** 参考解各用例耗时 {case_name: ms}；首次 AC 后台测量，后续提交附带 */
+  benchmark?: Record<string, number>
 }
 
 async function request<T>(path: string, init?: RequestInit): Promise<T> {
