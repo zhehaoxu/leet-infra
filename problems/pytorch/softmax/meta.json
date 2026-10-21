@@ -1,0 +1,11 @@
+{
+  "title": "Softmax（数值稳定）",
+  "difficulty": "Medium",
+  "tags": ["operator", "numerical-stability", "attention"],
+  "order": 4,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

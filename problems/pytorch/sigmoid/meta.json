@@ -1,0 +1,11 @@
+{
+  "title": "Sigmoid",
+  "difficulty": "Easy",
+  "tags": ["operator", "activation", "numerical-stability"],
+  "order": 2,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

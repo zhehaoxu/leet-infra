@@ -1,0 +1,6 @@
+{
+  "title": "SGD 训练循环与数值复现",
+  "difficulty": "Hard",
+  "tags": ["optimizer", "training-loop"],
+  "order": 5
+}

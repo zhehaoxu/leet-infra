@@ -1,0 +1,6 @@
+{
+  "title": "组装 MLP Block",
+  "difficulty": "Medium",
+  "tags": ["nn.Module", "linear"],
+  "order": 4
+}

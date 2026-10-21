@@ -1,0 +1,11 @@
+{
+  "title": "Swish / SiLU",
+  "difficulty": "Easy",
+  "tags": ["operator", "activation"],
+  "order": 3,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}
