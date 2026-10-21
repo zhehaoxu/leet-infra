@@ -2,23 +2,26 @@
   {
     "slug": "pytorch",
     "name": "PyTorch 合集",
-    "description": "PyTorch 张量操作与手写层基础题库，覆盖当前全部题目。",
+    "description": "PyTorch 框架使用：张量、广播、自动微分、模块与训练流程。",
     "problems": [
-      "numerically-stable-softmax",
-      "one-hot-encoding",
-      "layernorm-forward",
-      "causal-window-average",
-      "multi-head-attention-forward"
+      "tensor-shape-indexing",
+      "broadcast-ops",
+      "autograd-basics",
+      "nn-module-block",
+      "optimizer-training-loop",
+      "dataset-dataloader"
     ]
   },
   {
     "slug": "operators",
     "name": "算子合集",
-    "description": "手写神经网络核心算子：Softmax、LayerNorm 与 Attention。",
+    "description": "手写神经网络激活与归一化算子，支持多实现语言（当前 PyTorch）。",
     "problems": [
-      "numerically-stable-softmax",
-      "layernorm-forward",
-      "multi-head-attention-forward"
+      "relu",
+      "sigmoid",
+      "swish",
+      "softmax",
+      "gelu"
     ]
   }
 ]

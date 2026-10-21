@@ -1,6 +1,0 @@
-{
-  "title": "LayerNorm 前向传播",
-  "difficulty": "Medium",
-  "tags": ["tensor-ops", "normalization", "handwritten-layer"],
-  "order": 3
-}

@@ -1,6 +1,0 @@
-{
-  "title": "Causal 滑动窗口加权平均",
-  "difficulty": "Medium",
-  "tags": ["tensor-ops", "padding", "convolution", "causality"],
-  "order": 4
-}
