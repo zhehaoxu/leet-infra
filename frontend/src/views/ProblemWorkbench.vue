@@ -211,6 +211,28 @@ function resetCode() {
   }
 }
 
+async function redoProblem() {
+  // 单题重刷：只清本题 solved + 本题草稿，笔记保留
+  if (!problem.value || !accepted.value || running.value) return
+  const slug = problem.value.slug
+  if (!confirm('重新做本题？将清除本题已解记录与代码草稿（笔记保留）。')) return
+  try {
+    await api.unmarkProblem(slug)
+  } catch (e) {
+    runError.value = e instanceof Error ? e.message : String(e)
+    return
+  }
+  store.unmarkSolved(slug)
+  accepted.value = false
+  solutionCode.value = null
+  activeTab.value = 'desc'
+  result.value = null
+  runError.value = null
+  localStorage.removeItem(draftKey(slug))
+  draftRestored.value = false
+  code.value = problem.value.starter_code // 先回到模板，防 load 前防抖把旧代码写回草稿
+}
+
 async function openSolution() {
   if (!accepted.value) return // 未解锁时标签禁用
   activeTab.value = 'solution'
@@ -272,6 +294,7 @@ onBeforeUnmount(() => {
           下一道未解 →
         </router-link>
         <div class="actions">
+          <button v-if="accepted" class="ghost" :disabled="running" @click="redoProblem" title="清除本题已解记录与草稿，重新做一遍"><span class="btn-icon">⟳</span>重新做</button>
           <button class="ghost" :disabled="running" @click="resetCode"><span class="btn-icon">↺</span>重置</button>
           <button class="ghost" :disabled="running" @click="runCode"><span class="btn-icon play">▶</span>运行</button>
           <button v-if="running" class="ghost danger" @click="cancelRun"><span class="btn-icon">✕</span>取消</button>

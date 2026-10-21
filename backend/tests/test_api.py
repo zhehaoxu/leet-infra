@@ -8,15 +8,14 @@ import pytest
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT))
 
-from backend import judge, progress  # noqa: E402
+from backend import judge, problems, progress  # noqa: E402
 from fastapi.testclient import TestClient  # noqa: E402
 
 
 @pytest.fixture()
 def client(tmp_path, monkeypatch):
     monkeypatch.setattr(progress, "DATA_FILE", tmp_path / "progress.json")
-    problems_mod = sys.modules["backend.problems"]
-    monkeypatch.setattr(problems_mod, "_INDEX", None)
+    monkeypatch.setattr(problems, "_INDEX", None)
     from backend.app import app
 
     with TestClient(app) as c:
@@ -127,7 +126,7 @@ def test_submit_wrong_answer_does_not_mark_solved(client):
 def test_progress_reset_clears_solved_and_relocks_solution(client):
     if not Path(judge.EVAL_PYTHON).exists():
         pytest.skip("评测环境未安装")
-    problem = sys.modules["backend.problems"].get_problem("numerically-stable-softmax")
+    problem = problems.get_problem("numerically-stable-softmax")
     sub = client.post(
         "/api/problems/numerically-stable-softmax/submit",
         json={"code": problem.solution()},
@@ -146,3 +145,19 @@ def test_judge_cancel_endpoint_no_active_task(client):
     resp = client.post("/api/judge/cancel")
     assert resp.status_code == 200
     assert resp.json() == {"cancelled": False}
+
+
+def test_progress_unmark_single_problem(client):
+    progress.mark_solved("numerically-stable-softmax")
+    progress.mark_solved("layernorm-forward")
+
+    resp = client.post("/api/problems/numerically-stable-softmax/unmark")
+    assert resp.status_code == 200
+    assert resp.json() == {"slug": "numerically-stable-softmax", "removed": True}
+    # 只清该题：其余已解不受影响，被清题的参考答案重新锁定
+    assert client.get("/api/problems/numerically-stable-softmax/solution").status_code == 403
+    assert client.get("/api/problems/layernorm-forward/solution").status_code == 200
+    assert client.get("/api/progress").json()["solved"] == 1
+    # 幂等：重复 unmark 返回 removed=False；不存在的题 404
+    assert client.post("/api/problems/numerically-stable-softmax/unmark").json()["removed"] is False
+    assert client.post("/api/problems/does-not-exist/unmark").status_code == 404

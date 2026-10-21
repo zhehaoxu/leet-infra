@@ -42,6 +42,17 @@ def mark_solved(slug: str) -> None:
             _write(store)
 
 
+def unmark(slug: str) -> bool:
+    """取消单题已解记录（重刷粒度），返回是否确实移除。"""
+    with _LOCK:
+        store = _read()
+        if slug not in store["solved"]:
+            return False
+        del store["solved"][slug]
+        _write(store)
+        return True
+
+
 def solved_map() -> dict[str, str]:
     with _LOCK:
         return dict(_read()["solved"])

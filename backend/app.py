@@ -142,6 +142,14 @@ def reset_progress():
     return get_progress()
 
 
+@app.post("/api/problems/{slug}/unmark")
+def unmark_problem(slug: str):
+    """取消单题已解记录（重刷粒度），幂等；参考答案随之重新锁定。"""
+    if problems.get_problem(slug) is None:
+        raise HTTPException(status_code=404, detail="题目不存在")
+    return {"slug": slug, "removed": progress.unmark(slug)}
+
+
 # --- static frontend (production build) ------------------------------------
 FRONTEND_DIST = Path(__file__).resolve().parent.parent / "frontend" / "dist"
 

@@ -26,5 +26,10 @@ export const useProblemStore = defineStore('problems', () => {
     if (p) p.solved = true
   }
 
-  return { problems, loading, error, solvedCount, fetchProblems, markSolved }
+  function unmarkSolved(slug: string) {
+    const p = problems.value.find((x) => x.slug === slug)
+    if (p) p.solved = false
+  }
+
+  return { problems, loading, error, solvedCount, fetchProblems, markSolved, unmarkSolved }
 })
