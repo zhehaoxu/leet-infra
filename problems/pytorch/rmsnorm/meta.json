@@ -1,0 +1,11 @@
+{
+  "title": "RMSNorm",
+  "difficulty": "Medium",
+  "tags": ["operator", "normalization"],
+  "order": 18,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

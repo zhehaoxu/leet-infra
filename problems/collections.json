@@ -30,7 +30,13 @@
       "hardsigmoid",
       "softplus",
       "mish",
-      "glu"
+      "glu",
+      "batchnorm-forward",
+      "layernorm-forward",
+      "rmsnorm",
+      "groupnorm",
+      "instance-norm",
+      "weight-norm"
     ]
   }
 ]

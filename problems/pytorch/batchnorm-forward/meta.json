@@ -1,0 +1,11 @@
+{
+  "title": "BatchNorm 前向（训练/推理）",
+  "difficulty": "Medium",
+  "tags": ["operator", "normalization"],
+  "order": 16,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}
