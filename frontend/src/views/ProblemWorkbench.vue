@@ -6,7 +6,6 @@ import { useProblemStore } from '../stores/problems'
 import CodeEditor from '../components/CodeEditor.vue'
 import MarkdownView from '../components/MarkdownView.vue'
 import RunResultPanel from '../components/RunResultPanel.vue'
-import { bumpFontSize, editorFontSize } from '../utils/editorSettings'
 import { burstConfetti } from '../utils/confetti'
 
 const props = defineProps<{ slug: string }>()
@@ -86,38 +85,11 @@ watch(code, () => {
   draftTimer = setTimeout(flushDraft, 400)
 })
 
-// ---- 题目笔记（每题一份 markdown）----
-// 默认内容来自后端 notes.md（题目算法详解，不便写进题面）；
-// 无 notes.md 时该标签置灰不可选。用户编辑后存 localStorage 覆盖默认，
-// 内容退回与默认一致时清除覆盖（保持默认实时）。
-const NOTES_PREFIX = 'leet-infra:notes:'
+// ---- 题目笔记（只读）----
+// 内容来自后端 notes.md（题目算法详解，不便写进题面）；无 notes.md 时该标签置灰不可选。
+// 不提供编辑/预览切换，直接渲染详解正文。
 const notes = ref('')
-const defaultNotes = ref('')
-const notesMode = ref<'edit' | 'preview'>('edit')
-const hasNotes = computed(() => defaultNotes.value.trim().length > 0)
-let notesTimer: ReturnType<typeof setTimeout> | null = null
-
-function notesKey(slug: string) {
-  return NOTES_PREFIX + slug
-}
-
-function flushNotes() {
-  if (notesTimer) {
-    clearTimeout(notesTimer)
-    notesTimer = null
-  }
-  if (!problem.value) return
-  if (notes.value.trim() && notes.value !== defaultNotes.value) {
-    localStorage.setItem(notesKey(problem.value.slug), notes.value)
-  } else {
-    localStorage.removeItem(notesKey(problem.value.slug)) // 空或与默认一致：不留覆盖
-  }
-}
-
-watch(notes, () => {
-  if (notesTimer) clearTimeout(notesTimer)
-  notesTimer = setTimeout(flushNotes, 400)
-})
+const hasNotes = computed(() => notes.value.trim().length > 0)
 
 // 左右分栏拖拽
 const splitRatio = ref(0.45)
@@ -141,7 +113,6 @@ function onDragStart(e: MouseEvent) {
 
 async function load() {
   flushDraft() // 先把上一页的编辑存回对应草稿再切走
-  flushNotes()
   if (!store.problems.length) void store.fetchProblems() // 导航需要全量题序
   const q = typeof route.query.variant === 'string' ? route.query.variant : ''
   preferredVariant.value = q // 首次进入先取 URL；无则由 resolvePreferred 定默认
@@ -154,8 +125,6 @@ async function load() {
   accepted.value = false
   draftRestored.value = false
   notes.value = ''
-  defaultNotes.value = ''
-  notesMode.value = 'edit'
   try {
     let p = await api.getProblem(props.slug, preferredVariant.value || undefined)
     // URL 未携带 variant 时按合集偏好/题目默认解析期望实现
@@ -168,11 +137,7 @@ async function load() {
     const draft = localStorage.getItem(draftKey(p.slug, p.active_variant))
     draftRestored.value = draft != null && draft !== p.starter_code
     code.value = draft ?? p.starter_code
-    defaultNotes.value = p.notes ?? ''
-    const savedNotes = localStorage.getItem(notesKey(p.slug))
-    notes.value = savedNotes ?? defaultNotes.value
-    // 有用户编辑记录 → 打开编辑；否则展示默认详解（预览）
-    notesMode.value = savedNotes != null ? 'edit' : 'preview'
+    notes.value = p.notes ?? ''
     accepted.value = p.solved
   } catch (e) {
     loadError.value = e instanceof Error ? e.message : String(e)
@@ -309,7 +274,6 @@ watch([() => props.slug, () => route.query.variant], ([slug, q], [oldSlug, oldQ]
   if (slug === oldSlug && typeof q === 'string' && problem.value && q !== oldQ) {
     // 同题内切换实现：先按当前实现的 key 存回草稿，再重新加载
     flushDraft()
-    flushNotes()
   }
   if (slug !== oldSlug) {
     void load()
@@ -328,7 +292,6 @@ watch([() => props.slug, () => route.query.variant], ([slug, q], [oldSlug, oldQ]
 onMounted(load)
 onBeforeUnmount(() => {
   flushDraft()
-  flushNotes()
 })
 </script>
 
@@ -390,11 +353,6 @@ onBeforeUnmount(() => {
           下一道未解 →
         </router-link>
         <div class="actions">
-          <div class="font-ctrl" title="编辑器字号（全局生效并记住）">
-            <button class="font-btn" @click="bumpFontSize(-1)">A−</button>
-            <span class="font-val">{{ editorFontSize }}</span>
-            <button class="font-btn" @click="bumpFontSize(1)">A+</button>
-          </div>
           <button v-if="accepted" class="ghost" :disabled="running" @click="redoProblem" title="清除本题已解记录与草稿，重新做一遍"><span class="btn-icon">⟳</span>重新做</button>
           <button class="ghost" :disabled="running" @click="resetCode"><span class="btn-icon">↺</span>重置</button>
           <button class="ghost" :disabled="running" @click="runCode"><span class="btn-icon play">▶</span>运行</button>
@@ -416,7 +374,7 @@ onBeforeUnmount(() => {
               class="tab"
               :class="{ active: activeTab === 'notes' }"
               :disabled="!hasNotes"
-              :title="hasNotes ? '题目算法详解笔记（可编辑，本地保存）' : '本题无附加算法笔记'"
+              :title="hasNotes ? '题目算法详解' : '本题无附加算法笔记'"
               @click="hasNotes && (activeTab = 'notes')"
             >
               笔记
@@ -435,21 +393,10 @@ onBeforeUnmount(() => {
             <MarkdownView v-if="activeTab === 'desc'" :key="problem.slug + '-desc'" :source="problem.description" />
             <div v-else-if="activeTab === 'notes'" class="notes-view">
               <div class="notes-toolbar">
-                <span class="notes-hint">算法详解笔记 · 可编辑，修改自动保存到本地</span>
-                <div class="notes-mode-toggle">
-                  <button :class="{ on: notesMode === 'edit' }" @click="notesMode = 'edit'">编辑</button>
-                  <button :class="{ on: notesMode === 'preview' }" @click="notesMode = 'preview'">预览</button>
-                </div>
+                <span class="notes-hint">题目算法详解</span>
               </div>
-              <textarea
-                v-if="notesMode === 'edit'"
-                v-model="notes"
-                class="notes-editor"
-                placeholder="记下你的思路、易错点、参考解法的关键步骤…"
-              ></textarea>
-              <div v-else class="notes-preview">
-                <MarkdownView v-if="notes.trim()" :source="notes" />
-                <p v-else class="notes-empty">暂无笔记，切回「编辑」开始记录。</p>
+              <div class="notes-preview">
+                <MarkdownView :key="problem.slug + '-notes'" :source="notes" />
               </div>
             </div>
             <div v-else class="solution-view">
@@ -636,29 +583,6 @@ button.run:disabled {
   color: var(--red);
   border-color: rgba(241, 106, 106, 0.45);
 }
-.font-ctrl {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  margin-right: 6px;
-}
-.font-btn {
-  border-radius: 6px;
-  padding: 4px 8px;
-  font-size: 12px;
-  color: var(--text-dim);
-}
-.font-btn:hover {
-  color: var(--text);
-  border-color: var(--text-dim);
-}
-.font-val {
-  font-family: var(--font-mono);
-  font-size: 11px;
-  color: var(--text-dim);
-  min-width: 18px;
-  text-align: center;
-}
 .danger:hover {
   border-color: var(--red);
   background: rgba(241, 106, 106, 0.08);
@@ -765,47 +689,10 @@ button.run:disabled {
   color: var(--text-dim);
   font-size: 12px;
 }
-.notes-mode-toggle {
-  display: flex;
-  gap: 4px;
-}
-.notes-mode-toggle button {
-  padding: 3px 12px;
-  font-size: 12.5px;
-  border-radius: 6px;
-  color: var(--text-dim);
-}
-.notes-mode-toggle button.on {
-  color: var(--accent);
-  border-color: var(--accent);
-  background: var(--accent-dim);
-}
-.notes-editor {
-  flex: 1;
-  min-height: 0;
-  resize: none;
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  background: var(--bg-elevated);
-  color: var(--text);
-  font-family: var(--font-mono);
-  font-size: 13px;
-  line-height: 1.6;
-  padding: 14px 16px;
-}
-.notes-editor:focus {
-  outline: none;
-  border-color: var(--accent);
-}
 .notes-preview {
   flex: 1;
   min-height: 0;
   overflow-y: auto;
-}
-.notes-empty {
-  color: var(--text-dim);
-  text-align: center;
-  padding: 40px;
 }
 .divider {
   flex: none;
