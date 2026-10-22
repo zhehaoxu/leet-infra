@@ -22,6 +22,7 @@ export interface ProblemSummary {
 
 export interface ProblemDetail extends ProblemSummary {
   description: string
+  notes: string
   starter_code: string
   active_variant: string
 }

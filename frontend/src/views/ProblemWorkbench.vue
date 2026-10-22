@@ -86,10 +86,15 @@ watch(code, () => {
   draftTimer = setTimeout(flushDraft, 400)
 })
 
-// ---- 题目笔记（localStorage，每题一份 markdown，复用草稿防抖模式）----
+// ---- 题目笔记（每题一份 markdown）----
+// 默认内容来自后端 notes.md（题目算法详解，不便写进题面）；
+// 无 notes.md 时该标签置灰不可选。用户编辑后存 localStorage 覆盖默认，
+// 内容退回与默认一致时清除覆盖（保持默认实时）。
 const NOTES_PREFIX = 'leet-infra:notes:'
 const notes = ref('')
+const defaultNotes = ref('')
 const notesMode = ref<'edit' | 'preview'>('edit')
+const hasNotes = computed(() => defaultNotes.value.trim().length > 0)
 let notesTimer: ReturnType<typeof setTimeout> | null = null
 
 function notesKey(slug: string) {
@@ -102,10 +107,10 @@ function flushNotes() {
     notesTimer = null
   }
   if (!problem.value) return
-  if (notes.value.trim()) {
+  if (notes.value.trim() && notes.value !== defaultNotes.value) {
     localStorage.setItem(notesKey(problem.value.slug), notes.value)
   } else {
-    localStorage.removeItem(notesKey(problem.value.slug)) // 清空即不留残留键
+    localStorage.removeItem(notesKey(problem.value.slug)) // 空或与默认一致：不留覆盖
   }
 }
 
@@ -149,6 +154,7 @@ async function load() {
   accepted.value = false
   draftRestored.value = false
   notes.value = ''
+  defaultNotes.value = ''
   notesMode.value = 'edit'
   try {
     let p = await api.getProblem(props.slug, preferredVariant.value || undefined)
@@ -162,7 +168,11 @@ async function load() {
     const draft = localStorage.getItem(draftKey(p.slug, p.active_variant))
     draftRestored.value = draft != null && draft !== p.starter_code
     code.value = draft ?? p.starter_code
-    notes.value = localStorage.getItem(notesKey(p.slug)) ?? ''
+    defaultNotes.value = p.notes ?? ''
+    const savedNotes = localStorage.getItem(notesKey(p.slug))
+    notes.value = savedNotes ?? defaultNotes.value
+    // 有用户编辑记录 → 打开编辑；否则展示默认详解（预览）
+    notesMode.value = savedNotes != null ? 'edit' : 'preview'
     accepted.value = p.solved
   } catch (e) {
     loadError.value = e instanceof Error ? e.message : String(e)
@@ -405,8 +415,9 @@ onBeforeUnmount(() => {
             <button
               class="tab"
               :class="{ active: activeTab === 'notes' }"
-              title="本题笔记（localStorage 保存）"
-              @click="activeTab = 'notes'"
+              :disabled="!hasNotes"
+              :title="hasNotes ? '题目算法详解笔记（可编辑，本地保存）' : '本题无附加算法笔记'"
+              @click="hasNotes && (activeTab = 'notes')"
             >
               笔记
             </button>
@@ -424,7 +435,7 @@ onBeforeUnmount(() => {
             <MarkdownView v-if="activeTab === 'desc'" :key="problem.slug + '-desc'" :source="problem.description" />
             <div v-else-if="activeTab === 'notes'" class="notes-view">
               <div class="notes-toolbar">
-                <span class="notes-hint">支持 Markdown · 自动保存到本地</span>
+                <span class="notes-hint">算法详解笔记 · 可编辑，修改自动保存到本地</span>
                 <div class="notes-mode-toggle">
                   <button :class="{ on: notesMode === 'edit' }" @click="notesMode = 'edit'">编辑</button>
                   <button :class="{ on: notesMode === 'preview' }" @click="notesMode = 'preview'">预览</button>

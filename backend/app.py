@@ -53,6 +53,7 @@ def get_problem(slug: str, variant: str | None = Query(default=None)):
     return {
         **_summary_with_collections(problem, progress.is_solved(slug)),
         "description": problem.description(),
+        "notes": problem.notes(),
         "starter_code": problem.starter(active),
         "active_variant": active,
     }

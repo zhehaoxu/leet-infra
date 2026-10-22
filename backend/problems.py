@@ -62,6 +62,11 @@ class Problem:
     def description(self) -> str:
         return (self.directory / "description.md").read_text(encoding="utf-8")
 
+    def notes(self) -> str:
+        # 可选的题目详解笔记：与 description.md 同级；不存在则为空（前端据此置灰笔记标签）
+        p = self.directory / "notes.md"
+        return p.read_text(encoding="utf-8") if p.exists() else ""
+
     def starter(self, variant: str | None = None) -> str:
         return (self._variant_dir(variant) / "starter.py").read_text(encoding="utf-8")
 

@@ -44,6 +44,14 @@ def test_get_problem_detail(client):
     assert data["title"] == "Softmax（数值稳定）"
     assert "def solve(" in data["starter_code"]
     assert "softmax" in data["description"].lower()
+    # notes.md 存在时随详情返回（默认算法详解）
+    assert data["notes"].strip()
+
+
+def test_get_problem_detail_notes_empty_when_absent(client):
+    # 无 notes.md 的题目返回空串，前端据此置灰笔记标签
+    data = client.get("/api/problems/relu").json()
+    assert data["notes"] == ""
 
 
 def test_get_missing_problem_404(client):
