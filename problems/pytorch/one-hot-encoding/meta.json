@@ -1,0 +1,23 @@
+{
+  "title": "One-Hot 编码",
+  "difficulty": "Easy",
+  "tags": [
+    "operator",
+    "tensor"
+  ],
+  "order": 40,
+  "variants": {
+    "pytorch": {
+      "label": "PyTorch",
+      "available": true
+    },
+    "triton": {
+      "label": "Triton",
+      "available": false
+    },
+    "cuda": {
+      "label": "CUDA",
+      "available": false
+    }
+  }
+}

@@ -53,7 +53,14 @@
       "alibi-bias",
       "attention-softmax-temp",
       "layernorm-attention-scale",
-      "dropout"
+      "dropout",
+      "embedding-lookup",
+      "one-hot-encoding",
+      "gather-scatter",
+      "where-select",
+      "pad-ops",
+      "unfold-dilated-conv",
+      "concat-stack-split"
     ]
   }
 ]

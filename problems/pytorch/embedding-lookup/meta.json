@@ -1,0 +1,23 @@
+{
+  "title": "Embedding 查表（padding_idx）",
+  "difficulty": "Easy",
+  "tags": [
+    "operator",
+    "tensor"
+  ],
+  "order": 39,
+  "variants": {
+    "pytorch": {
+      "label": "PyTorch",
+      "available": true
+    },
+    "triton": {
+      "label": "Triton",
+      "available": false
+    },
+    "cuda": {
+      "label": "CUDA",
+      "available": false
+    }
+  }
+}
