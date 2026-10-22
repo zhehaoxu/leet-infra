@@ -1,0 +1,11 @@
+{
+  "title": "2D 平均池化",
+  "difficulty": "Medium",
+  "tags": ["operator", "cnn"],
+  "order": 23,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

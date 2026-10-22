@@ -1,0 +1,11 @@
+{
+  "title": "二维卷积前向",
+  "difficulty": "Hard",
+  "tags": ["operator", "cnn"],
+  "order": 26,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "title": "全局池化",
+  "difficulty": "Easy",
+  "tags": ["operator", "cnn"],
+  "order": 25,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

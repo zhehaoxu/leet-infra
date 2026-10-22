@@ -1,0 +1,11 @@
+{
+  "title": "批量矩阵乘",
+  "difficulty": "Medium",
+  "tags": ["operator", "gemm"],
+  "order": 29,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

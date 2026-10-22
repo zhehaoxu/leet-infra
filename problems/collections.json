@@ -36,7 +36,15 @@
       "rmsnorm",
       "groupnorm",
       "instance-norm",
-      "weight-norm"
+      "weight-norm",
+      "maxpool2d",
+      "avgpool2d",
+      "adaptive-avgpool",
+      "global-pooling",
+      "conv2d-naive",
+      "im2col",
+      "upsample-bilinear",
+      "batched-gemm"
     ]
   }
 ]

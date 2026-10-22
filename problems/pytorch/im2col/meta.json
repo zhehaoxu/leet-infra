@@ -1,0 +1,11 @@
+{
+  "title": "im2col 加速卷积",
+  "difficulty": "Hard",
+  "tags": ["operator", "cnn"],
+  "order": 27,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}
