@@ -79,16 +79,16 @@ onMounted(load)
 
       <div v-if="hasMultiVariant" class="variant-bar">
         <span class="variant-label">实现方式</span>
-        <div class="variant-toggle">
-          <button
-            v-for="v in variantOptions"
-            :key="v.key"
-            class="variant-btn"
-            :class="{ on: v.key === variantPref }"
-            @click="selectVariant(v.key)"
+        <div class="variant-select">
+          <select
+            :value="variantPref"
+            @change="selectVariant(($event.target as HTMLSelectElement).value)"
           >
-            {{ v.label }}
-          </button>
+            <option v-for="v in variantOptions" :key="v.key" :value="v.key">
+              {{ v.label }}
+            </option>
+          </select>
+          <span class="variant-caret" aria-hidden="true">▾</span>
         </div>
         <span class="variant-hint">题目入口将沿用该选择；未实现的实现做题时自动回退</span>
       </div>
@@ -146,21 +146,34 @@ onMounted(load)
   font-size: 13px;
   color: var(--text-dim);
 }
-.variant-toggle {
-  display: flex;
-  gap: 6px;
+.variant-select {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
 }
-.variant-btn {
-  border-radius: 999px;
-  padding: 4px 14px;
+.variant-select select {
+  appearance: none;
+  -webkit-appearance: none;
+  font: inherit;
   font-size: 12.5px;
-  color: var(--text-dim);
-  background: var(--bg-elevated);
-}
-.variant-btn.on {
   color: var(--accent);
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 4px 26px 4px 14px;
+  cursor: pointer;
+}
+.variant-select select:hover,
+.variant-select select:focus {
+  outline: none;
   border-color: var(--accent);
-  background: var(--accent-dim);
+}
+.variant-caret {
+  position: absolute;
+  right: 12px;
+  pointer-events: none;
+  color: var(--accent);
+  font-size: 10px;
 }
 .variant-hint {
   font-size: 11.5px;

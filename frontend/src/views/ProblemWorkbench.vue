@@ -333,18 +333,21 @@ onBeforeUnmount(() => {
         <em class="badge" :class="problem.difficulty">{{ problem.difficulty }}</em>
         <span v-if="accepted" class="ac-tag">✓ 已解决</span>
         <span v-if="draftRestored" class="draft-hint" title="已从 localStorage 恢复上次编辑的草稿">草稿已恢复</span>
-        <div v-if="showVariantToggle" class="variant-toggle" title="实现方式">
-          <button
-            v-for="v in variantList"
-            :key="v.key"
-            class="variant-btn"
-            :class="{ on: v.key === activeVariant, off: !v.available }"
-            :disabled="!v.available"
-            :title="v.available ? `用 ${v.label} 实现` : `${v.label} 需对应硬件与环境，即将支持`"
-            @click="selectVariant(v.key)"
+        <div v-if="showVariantToggle" class="variant-select" title="实现方式">
+          <select
+            :value="activeVariant"
+            @change="selectVariant(($event.target as HTMLSelectElement).value)"
           >
-            {{ v.label }}
-          </button>
+            <option
+              v-for="v in variantList"
+              :key="v.key"
+              :value="v.key"
+              :disabled="!v.available"
+            >
+              {{ v.label }}{{ v.available ? '' : '（即将支持）' }}
+            </option>
+          </select>
+          <span class="variant-caret" aria-hidden="true">▾</span>
         </div>
         <span v-if="variantFallbackNotice" class="variant-notice">
           {{ variantList.find((v) => v.key === preferredVariant)?.label }} 暂未支持，当前以 {{ activeVariant }} 评测
@@ -509,26 +512,41 @@ onBeforeUnmount(() => {
   border-radius: 999px;
   padding: 1px 10px;
 }
-.variant-toggle {
-  display: flex;
-  gap: 4px;
+.variant-select {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
   margin-left: 4px;
 }
-.variant-btn {
-  border-radius: 999px;
-  padding: 3px 12px;
+.variant-select select {
+  appearance: none;
+  -webkit-appearance: none;
+  font: inherit;
   font-size: 12px;
-  color: var(--text-dim);
-  background: var(--bg-elevated);
-}
-.variant-btn.on {
   color: var(--accent);
-  border-color: var(--accent);
-  background: var(--accent-dim);
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 3px 26px 3px 12px;
+  cursor: pointer;
 }
-.variant-btn.off {
-  opacity: 0.4;
-  cursor: not-allowed;
+.variant-select select:hover {
+  border-color: var(--accent);
+}
+.variant-select select:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+.variant-select option:disabled {
+  color: var(--text-dim);
+  opacity: 0.5;
+}
+.variant-caret {
+  position: absolute;
+  right: 11px;
+  pointer-events: none;
+  color: var(--accent);
+  font-size: 10px;
 }
 .variant-notice {
   color: var(--blue);
