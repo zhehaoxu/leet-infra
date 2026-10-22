@@ -1,0 +1,11 @@
+{
+  "title": "缩放点积注意力",
+  "difficulty": "Medium",
+  "tags": ["operator", "attention"],
+  "order": 30,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

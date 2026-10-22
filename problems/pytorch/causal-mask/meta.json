@@ -1,0 +1,11 @@
+{
+  "title": "因果掩码",
+  "difficulty": "Easy",
+  "tags": ["operator", "attention"],
+  "order": 32,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

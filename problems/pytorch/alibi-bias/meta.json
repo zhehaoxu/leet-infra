@@ -1,0 +1,11 @@
+{
+  "title": "ALiBi 位置偏置",
+  "difficulty": "Medium",
+  "tags": ["operator", "attention"],
+  "order": 35,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

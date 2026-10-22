@@ -44,7 +44,16 @@
       "conv2d-naive",
       "im2col",
       "upsample-bilinear",
-      "batched-gemm"
+      "batched-gemm",
+      "scaled-dot-product-attention",
+      "multi-head-attention",
+      "causal-mask",
+      "kv-cache-update",
+      "rope-embedding",
+      "alibi-bias",
+      "attention-softmax-temp",
+      "layernorm-attention-scale",
+      "dropout"
     ]
   }
 ]

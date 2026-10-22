@@ -1,0 +1,11 @@
+{
+  "title": "Dropout（train/eval）",
+  "difficulty": "Medium",
+  "tags": ["operator", "attention"],
+  "order": 38,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

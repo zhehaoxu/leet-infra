@@ -1,0 +1,11 @@
+{
+  "title": "RoPE 旋转位置编码",
+  "difficulty": "Hard",
+  "tags": ["operator", "attention"],
+  "order": 34,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

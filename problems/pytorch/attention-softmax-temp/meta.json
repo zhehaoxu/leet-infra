@@ -1,0 +1,11 @@
+{
+  "title": "温度缩放与 Top-p 采样",
+  "difficulty": "Medium",
+  "tags": ["operator", "attention"],
+  "order": 36,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "title": "多头注意力前向",
+  "difficulty": "Hard",
+  "tags": ["operator", "attention"],
+  "order": 31,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

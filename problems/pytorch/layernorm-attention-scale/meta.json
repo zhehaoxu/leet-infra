@@ -1,0 +1,11 @@
+{
+  "title": "QK 归一化注意力",
+  "difficulty": "Medium",
+  "tags": ["operator", "attention"],
+  "order": 37,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}
