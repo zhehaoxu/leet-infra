@@ -1,0 +1,11 @@
+{
+  "title": "转置卷积（反卷积）",
+  "difficulty": "Hard",
+  "tags": ["operator", "conv"],
+  "order": 51,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

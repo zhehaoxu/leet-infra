@@ -1,0 +1,11 @@
+{
+  "title": "深度可分离卷积",
+  "difficulty": "Medium",
+  "tags": ["operator", "conv"],
+  "order": 52,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}
