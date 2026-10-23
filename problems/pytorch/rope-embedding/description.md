@@ -4,10 +4,13 @@
 
 RoPE 通过按位置把向量分成的**相邻二维子空间各旋转一个角度**来注入位置信息，使得两点注意力分数只依赖它们的**相对位置**。
 
-对最后一维 $d$，第 $i$ 对分量 $(x_{2i}, x_{2i+1})$ 在位置 $p$ 下按角度 $\theta_i$ 的 $p\cdot\theta_i$ 做 2D 旋转：
+对最后一维 $d$，第 $i$ 对分量 $(x_{2i}, x_{2i+1})$ 在位置 $p$ 下按角度 $p\cdot\theta_i$ 做 2D 旋转，其中旋转频率
 
-$$ \theta_i = \text{base}^{-2i/d},\qquad
-\begin{pmatrix} x'_{2i} \\ x'_{2i+1} \end{pmatrix} =
+$$ \theta_i = \text{base}^{-2i/d} $$
+
+对应的旋转为
+
+$$ \begin{pmatrix} x'_{2i} \\ x'_{2i+1} \end{pmatrix} =
 \begin{pmatrix} \cos(p\theta_i) & -\sin(p\theta_i) \\ \sin(p\theta_i) & \cos(p\theta_i) \end{pmatrix}
 \begin{pmatrix} x_{2i} \\ x_{2i+1} \end{pmatrix} $$
 

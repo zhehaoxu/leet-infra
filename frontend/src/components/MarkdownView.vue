@@ -126,4 +126,11 @@ watch(html, renderMath)
   border: 1px solid var(--border);
   padding: 5px 12px;
 }
+/* 宽公式（如多个 pmatrix 并排）在窄栏里不裁切，改为横向滚动兜底 */
+.markdown :deep(.katex-display) {
+  overflow-x: auto;
+  overflow-y: hidden;
+  max-width: 100%;
+  padding: 2px 0;
+}
 </style>
