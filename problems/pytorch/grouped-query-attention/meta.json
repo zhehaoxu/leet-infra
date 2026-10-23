@@ -1,0 +1,11 @@
+{
+  "title": "分组查询注意力 GQA/MQA",
+  "difficulty": "Medium",
+  "tags": ["operator", "attention"],
+  "order": 46,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

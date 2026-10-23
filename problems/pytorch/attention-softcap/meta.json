@@ -1,0 +1,11 @@
+{
+  "title": "注意力 Soft-Capping",
+  "difficulty": "Easy",
+  "tags": ["operator", "attention"],
+  "order": 49,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

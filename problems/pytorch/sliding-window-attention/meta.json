@@ -1,0 +1,11 @@
+{
+  "title": "滑动窗口注意力",
+  "difficulty": "Medium",
+  "tags": ["operator", "attention"],
+  "order": 48,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}
