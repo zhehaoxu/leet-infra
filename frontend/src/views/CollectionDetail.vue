@@ -90,7 +90,7 @@ onMounted(load)
           </select>
           <span class="variant-caret" aria-hidden="true">▾</span>
         </div>
-        <span class="variant-hint">题目入口将沿用该选择；未实现的实现做题时自动回退</span>
+        <span class="variant-hint">题目入口将沿用该选择；尚未支持的实现方式在做题时自动回退</span>
       </div>
 
       <ProblemTable
