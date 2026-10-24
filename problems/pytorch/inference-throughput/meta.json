@@ -1,0 +1,11 @@
+{
+  "title": "LLM 推理 prefill/decode 吞吐账",
+  "difficulty": "Medium",
+  "tags": ["operator", "systems"],
+  "order": 93,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

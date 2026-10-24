@@ -1,0 +1,11 @@
+{
+  "title": "环形 All-Reduce 通信量与耗时",
+  "difficulty": "Hard",
+  "tags": ["operator", "systems"],
+  "order": 92,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}
