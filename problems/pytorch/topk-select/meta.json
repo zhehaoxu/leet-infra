@@ -1,0 +1,11 @@
+{
+  "title": "Top-K 选择",
+  "difficulty": "Medium",
+  "tags": ["operator", "tensor"],
+  "order": 58,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

@@ -70,7 +70,11 @@
       "where-select",
       "pad-ops",
       "unfold-dilated-conv",
-      "concat-stack-split"
+      "concat-stack-split",
+      "reduce-axis",
+      "cumsum-scan",
+      "topk-select",
+      "sort-argsort"
     ]
   }
 ]

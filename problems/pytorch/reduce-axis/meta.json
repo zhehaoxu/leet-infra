@@ -1,0 +1,11 @@
+{
+  "title": "按轴求和归约",
+  "difficulty": "Easy",
+  "tags": ["operator", "tensor"],
+  "order": 56,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}
