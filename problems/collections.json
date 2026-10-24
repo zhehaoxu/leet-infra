@@ -121,12 +121,16 @@
   {
     "slug": "distributed",
     "name": "分布式训练原语合集",
-    "description": "集合通信与数据并行基础：All-Gather / Reduce-Scatter / All-Reduce 与分布式梯度裁剪（多 rank 张量模拟、逐 rank 终值对拍）。",
+    "description": "集合通信与数据并行基础：Broadcast / Scatter / All-Gather / Reduce-Scatter / All-Reduce、Ring All-Reduce 逐步通信模拟、分布式梯度裁剪与 ZeRO 通信量计算（多 rank 张量模拟、逐 rank 终值/中间态对拍）。",
     "problems": [
       "distributed-all-gather",
       "distributed-reduce-scatter",
       "distributed-all-reduce",
-      "distributed-clip-grad-norm"
+      "distributed-clip-grad-norm",
+      "distributed-broadcast",
+      "distributed-scatter",
+      "distributed-zero-communication",
+      "distributed-ring-allreduce-steps"
     ]
   }
 ]
