@@ -33,6 +33,7 @@ onBeforeUnmount(() => window.removeEventListener('keydown', onKey))
       <h3>评测环境</h3>
       <ul>
         <li>代码在你本机独立的 Python 虚拟环境（.venv-eval）中以子进程真实运行</li>
+        <li>预装 <code>torch</code> / <code>numpy</code>；<code>llm-models</code> 合集的参考解还可用 <code>transformers</code>（离线）作为大模型组件的对拍 oracle</li>
         <li>评测前固定随机种子 <code>torch.manual_seed(42)</code>：请保证解法可复现，不要依赖外部随机状态</li>
         <li>请在函数内部创建新张量完成计算；单次评测默认 30 秒超时（JUDGE_TIMEOUT_S 可调）</li>
       </ul>

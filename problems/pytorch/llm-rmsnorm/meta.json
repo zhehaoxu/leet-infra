@@ -1,0 +1,11 @@
+{
+  "title": "大模型组件：RMSNorm",
+  "difficulty": "Easy",
+  "tags": ["operator", "llm"],
+  "order": 108,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

@@ -254,6 +254,10 @@ def _proc_env() -> dict:
     env["CUDA_VISIBLE_DEVICES"] = ""
     env["PYTHONHASHSEED"] = "0"
     env["PYTHONDONTWRITEBYTECODE"] = "1"
+    # llm-models 合集的参考解会 import transformers 做 oracle 对拍：
+    # 强制离线，判题子进程绝不联网（否则 HF 会尝试访问 hub 拖慢/挂起），保证确定性。
+    env.setdefault("TRANSFORMERS_OFFLINE", "1")
+    env.setdefault("HF_HUB_OFFLINE", "1")
     return env
 
 
@@ -452,6 +456,9 @@ def _run_judgement_legacy(code: str, test_cases_src: str, mode: str) -> dict:
     env["PYTHONHASHSEED"] = "0"
     # keep the runner's own interpreter noise away from stdout parsing
     env["PYTHONDONTWRITEBYTECODE"] = "1"
+    # 与 warm worker 路径一致：禁止 transformers 联网（llm-models 合集 oracle 用）
+    env.setdefault("TRANSFORMERS_OFFLINE", "1")
+    env.setdefault("HF_HUB_OFFLINE", "1")
 
     t0 = time.perf_counter()
     with tempfile.TemporaryDirectory(prefix="leet-infra-judge-") as tmp:

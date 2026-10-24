@@ -54,8 +54,9 @@ create_venv() {
 create_venv .venv-eval
 create_venv .venv-backend
 
-echo "=> 安装评测环境依赖（torch/numpy，首次约 100+MB）"
-uv pip install -p .venv-eval torch numpy
+echo "=> 安装评测环境依赖（torch/numpy/transformers，首次约 100+MB）"
+# transformers 供 llm-models 合集的参考解做 oracle 对拍，版本固定以保证判题可复现
+uv pip install -p .venv-eval torch numpy "transformers==5.20.2"
 
 echo "=> 安装后端依赖"
 uv pip install -p .venv-backend fastapi "uvicorn[standard]" pytest pytest-xdist httpx

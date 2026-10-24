@@ -12,7 +12,7 @@
 FastAPI 后端 (:8000)
    │  写入临时目录 → subprocess 调用评测环境 python（30s 超时）
    ▼
-专用评测 venv (.venv-eval, Python + PyTorch, CPU)
+专用评测 venv (.venv-eval, Python + PyTorch, CPU；llm-models 合集参考解另用 transformers 做 oracle，离线固定版本)
    runner.py 逐用例执行 → 返回 { passed, total, cases[], stdout, error, elapsed_ms }
 ```
 
@@ -35,7 +35,7 @@ data/             本地进度（自动生成）
 前置：[uv](https://docs.astral.sh/uv/)（`brew install uv`）与 Node.js 18+。
 
 ```bash
-# 1. 创建两个虚拟环境并安装依赖（评测环境含 torch，约 100+MB）
+# 1. 创建两个虚拟环境并安装依赖（评测环境含 torch + transformers，约 100+MB）
 bash scripts/setup_eval_env.sh
 
 # 2. 前端依赖
