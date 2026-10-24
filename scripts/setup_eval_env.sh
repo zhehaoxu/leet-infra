@@ -58,7 +58,7 @@ echo "=> 安装评测环境依赖（torch/numpy，首次约 100+MB）"
 uv pip install -p .venv-eval torch numpy
 
 echo "=> 安装后端依赖"
-uv pip install -p .venv-backend fastapi "uvicorn[standard]" pytest httpx
+uv pip install -p .venv-backend fastapi "uvicorn[standard]" pytest pytest-xdist httpx
 
 echo "=> 冒烟验证：评测环境内 import torch"
 .venv-eval/bin/python -c "import torch; print('torch', torch.__version__, 'OK')"

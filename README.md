@@ -71,5 +71,12 @@ bash scripts/dev.sh
 ## 后端测试
 
 ```bash
+# 全量串行：每题参考解跑全部用例必须 AC（新题/改用例后必跑）
 .venv-backend/bin/pytest backend/tests -v
+
+# 并行加速：pytest-xdist 多 worker，各自起 warm judge 进程真并行
+.venv-backend/bin/pytest backend/tests -v -n auto
+
+# 冒烟档：只跑每题样例用例（/run），最快内循环，可与 -n auto 叠加
+.venv-backend/bin/pytest backend/tests -v --smoke -n auto
 ```

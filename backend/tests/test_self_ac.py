@@ -1,6 +1,11 @@
 """全量自测：每道题的参考解必须能通过自己的全部用例（真实 judge 评测）。
 
-兜底题面/用例数值错误——新题或改用例后必跑。约 1-2 分钟。
+兜底题面/用例数值错误——新题或改用例后必跑。
+
+提速两档（可叠加）：
+- 并行：加 pytest-xdist 的 `-n auto`，每个 worker 各自起 warm judge 进程，真并行。
+- 冒烟：加 `--smoke`，只打 `/run` 跑每题样例用例（命中题面/示例数值的最快内循环），
+  默认不带则打 `/submit` 跑全量用例。
 """
 
 import sys
@@ -33,12 +38,14 @@ def client(tmp_path, monkeypatch):
 
 
 @pytest.mark.parametrize("slug", _all_slugs())
-def test_reference_solution_gets_accepted(client, slug):
+def test_reference_solution_gets_accepted(client, slug, pytestconfig):
     if not Path(judge.EVAL_PYTHON).exists():
         pytest.skip("评测环境未安装")
+    smoke = pytestconfig.getoption("--smoke")
+    endpoint = "run" if smoke else "submit"
     problem = problems.get_problem(slug)
     result = client.post(
-        f"/api/problems/{slug}/submit",
+        f"/api/problems/{slug}/{endpoint}",
         json={"code": problem.solution(), "variant": problem.default_variant},
     ).json()
     failed = [c["name"] for c in result["cases"] if not c["passed"]]
