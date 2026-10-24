@@ -1,0 +1,11 @@
+{
+  "title": "ReLU6",
+  "difficulty": "Easy",
+  "tags": ["operator", "activation"],
+  "order": 68,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "title": "SELU 自归一化激活",
+  "difficulty": "Easy",
+  "tags": ["operator", "activation"],
+  "order": 69,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

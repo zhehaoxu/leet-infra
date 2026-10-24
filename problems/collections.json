@@ -18,6 +18,7 @@
     "description": "手写神经网络激活与归一化算子，支持多实现语言（当前 PyTorch）。",
     "problems": [
       "relu",
+      "relu6",
       "sigmoid",
       "swish",
       "softmax",
@@ -26,6 +27,7 @@
       "tanh-activation",
       "leaky-relu",
       "elu",
+      "selu",
       "prelu",
       "hardswish",
       "hardsigmoid",
