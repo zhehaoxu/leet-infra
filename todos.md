@@ -3,8 +3,9 @@
 > 按建议实施顺序编号；完成一项勾选一项。⭐ = 收益/成本比最高，优先做。
 > 未完成事项在前，已完成事项统一归档在末尾「已完成」区。
 > 近期批次：算子补全 24 题 + 扩展组 E/H/I 8 题 + 缺口批次 7 题（lrn/conv1d/conv3d/mqa/gru_cell/roi_pool/roi_align，其中 roi_* 用纯 torch + 独立 numpy 校验）已完成，operators 合集 44→68→76→83 题、题库总计 89 题；全量 self_ac 已并行化（`-n auto` 约 14s，串行约 57s）。
-> 笔记覆盖面：operators 83 + 框架 6 + perf-systems 9 共 98 题全部含 notes.md 详解；题面示例值均实跑 dump 对拍（perf-systems 9 题为纯计算，用独立重算交叉核对）。
+> 笔记覆盖面：operators 83 + 框架 6 + perf-systems 9 + distributed 4 共 102 题全部含 notes.md 详解；题面示例值均实跑 dump 对拍（perf-systems 为纯计算、distributed 为多 rank 张量模拟，均用独立重算交叉核对）。
 > perf-systems 已扩到 9 题：激活显存/梯度检查点、FLOPs/MFU、算子融合、参数量估算、训练态显存四件套+ZeRO、KV cache 显存（含 MQA/GQA）、Roofline 算术强度、环形 All-Reduce 通信量、LLM 推理 prefill/decode 吞吐账。
+> distributed 首批 4 题（order94–97）：All-Gather / Reduce-Scatter / All-Reduce 集合通信原语（多 rank 张量模拟逐 rank 终值）+ 分布式梯度裁剪（全局范数不能各 rank 独立裁）；前端新增 `distributed`→「分布式」族。
 > 下一批建议顺序：AI-infra 方向扩展（见「题库与内容」38–45，43 perf-systems 已落地两批；均可 CPU 确定性判题）；Triton/CUDA 真核仍卡在 item 7（需 GPU 容器化）。
 
 ## 题库与内容
@@ -17,7 +18,7 @@
 
 ### AI-infra 新合集候选（每个 = collections.json 新增一个 collection）
 
-- [ ] 39. ⭐ 新合集 `distributed` 分布式训练原语：ring all-reduce / all-gather / reduce-scatter / broadcast（用多 rank 列表模拟通信轮次、逐步核对每 rank 终值）+ ZeRO-1/2/3 显存与通信量计算 + 分布式 clip_grad_norm 聚合
+- [ ] 39. ⭐ 新合集 `distributed` 分布式训练原语（首批已落地 4 题 order94–97，见归档）：待续加 broadcast / ring 逐步通信轮次模拟 / ZeRO-1/2/3 显存与通信量计算
 - [ ] 40. ⭐ 新合集 `data-tokenization`：BPE 分词器（merge 训练 + 编码从零实现）+ data collator（padding/attention mask 生成）+ 序列 pack/pad——几乎无浮点、确定性最佳
 - [ ] 41. 新合集 `inference`（LLM 推理/Serving）：continuous batching 调度器 + speculative decoding 接受/拒绝准则（rejection sampling 精确对拍）+ beam search + typical/min-p 采样 + KV cache 分页/LRU 驱逐
 - [ ] 42. 新合集 `quantization`（现有对称/非对称 2 题独立扩展）：per-channel / group-wise fake-quant + weight-only 反量化 matmul 模拟 + autocast + loss scaling（fp16 溢出/下溢确定性模拟）
@@ -47,6 +48,8 @@
 - [x] 43（第二批）. `perf-systems` 续加 3 题 order88–90：`transformer-params`（按结构清点 4h²+2hf+4h/层 + 嵌入 tied/untied + final LN，GPT-2-small 风格≈123.6M）、`training-state-memory`（混合精度+Adam 16 bytes/参数四件套 + ZeRO stage1/2/3 每卡分区比）、`kv-cache-memory`（`2·L·kv_heads·d_head·seq·batch·dtype` 字节，MQA/GQA 共享 KV 头缩小比例）。仍为纯计算题，test_cases 用逐分量/逐层独立重算交叉核对、示例值草稿脚本跑实。perf-systems 3→6 题、题库总计 92→95。全量后端 `-n auto` **125 passed**、前端 33 vitest + build 全绿
 
 - [x] 43（第三批）. `perf-systems` 续加 3 题 order91–93：`roofline-arithmetic`（算术强度 AI=flops/bytes、屋脊点 peak/bw、可达=min(peak,AI·bw) 与 memory/compute-bound 判定，AI==ridge 归 compute）、`parallel-allreduce`（环形 2·(W-1)/W·S 每卡通信量 + 逐跳延迟耗时，W≤1 零通信）、`inference-throughput`（每 token 2N、prefill=batch·prompt·2N 定 TTFT、decode=batch·gen·2N，同一 effective_flops 折时）。仍为纯计算题，test_cases 用不同推导路径的独立重算 + 不变量（体积≤2S、total≥ttft、gen_len=0）交叉核对。perf-systems 6→9 题、题库总计 95→98。全量后端 `-n auto` **128 passed**、前端 33 vitest 全绿
+
+- [x] 39（首批）. ⭐ 新合集 `distributed` 分布式训练原语首批 4 题 order94–97（多 rank 张量模拟、非纯公式）：`distributed-all-gather`（Easy，各 rank 拿按 rank 顺序拼接的完整结果）、`distributed-reduce-scatter`（Medium，逐元素求和后 rank i 取第 i 段，各 rank 不同）、`distributed-all-reduce`（Medium，求和广播到所有 rank，含 gather∘scatter 组合恒等）、`distributed-clip-grad-norm`（Hard，全局 p-范数统一裁剪 scale，不能各 rank 独立裁，返回 (clipped, total_norm)，含不等长分片）。集合通信建模为纯函数（输入=通信前各 rank 数据列表、输出=通信后各 rank 数据列表）。前端 problemFilter 新增 `distributed`→「分布式」族、collections.json 加 `distributed` 合集。distributed 0→4 题、题库总计 98→102。全量后端 `-n auto` **132 passed**、前端 33 vitest + build 全绿
 
 - [x] 37. 孤儿 localStorage 一次性清理：新增 utils/storageCleanup.ts（`removeKeysWithPrefixes` + `cleanupOrphanStorage`，哨兵标记键 `leet-infra:storage-cleanup-v1` 保证只跑一次、后续启动 O(1) 跳过、隐私模式/配额异常静默不崩溃），main.ts 启动时调用，清除早期可编辑笔记遗留的 `leet-infra:notes:*` 键；前缀列表可续用于后续遗留键。6 个 vitest 用例 + `npm run build`(vue-tsc) 通过
 

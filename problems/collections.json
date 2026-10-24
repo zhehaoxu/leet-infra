@@ -117,5 +117,16 @@
       "parallel-allreduce",
       "inference-throughput"
     ]
+  },
+  {
+    "slug": "distributed",
+    "name": "分布式训练原语合集",
+    "description": "集合通信与数据并行基础：All-Gather / Reduce-Scatter / All-Reduce 与分布式梯度裁剪（多 rank 张量模拟、逐 rank 终值对拍）。",
+    "problems": [
+      "distributed-all-gather",
+      "distributed-reduce-scatter",
+      "distributed-all-reduce",
+      "distributed-clip-grad-norm"
+    ]
   }
 ]

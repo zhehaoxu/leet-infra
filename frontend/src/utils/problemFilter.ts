@@ -37,12 +37,13 @@ export const TAG_FAMILY: Record<string, string> = {
   rnn: '循环网络',
   metric: '检测 · 度量',
   systems: '显存 · 性能',
+  distributed: '分布式',
 }
 
 export const GROUP_ORDER = [
   '激活函数', '归一化', '卷积', '池化 · 视觉', '矩阵乘 · 线代', '注意力',
   '张量操作', '损失', '优化器', '量化', '采样', '循环网络', '检测 · 度量', '显存 · 性能',
-  '框架 / 其他',
+  '分布式', '框架 / 其他',
 ]
 
 /** 取 tags 中在 GROUP_ORDER 里排名最靠前的族；规避不可靠的「首个非 operator 标签」 */
