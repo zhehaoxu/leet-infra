@@ -217,5 +217,22 @@
     "problems": [
       "inf-continuous-batching-scheduler"
     ]
+  },
+  {
+    "slug": "kvcache",
+    "name": "KV Cache 压缩合集",
+    "description": "对齐 NVIDIA/kvpress 开源项目的 10 个代表性 KV 压缩算法：位置类 StreamingLLM sink+窗、无注意力 KNorm 反范数、基于注意义的 SnapKV 窗口+avg_pool 与 ObservedAttention 历史均分与 ExpectedAttention 高斯期望、多注意义聚合 TOVA 与全局 head-adaptive AdaKV 剪枝、金字塔层预算分配 PyramidKV、ThinK channel-wise 剪枝、Merging 驱逐合并。每题以小型 toy 张量为入参、将真实 forward hook 中需的部分拆开直接给定（attn、window queries、mu/cov、已选 n_kept）保障确定性，另设独立 oracle 对拍。",
+    "problems": [
+      "kv-streaming-llm-sink",
+      "kv-knorm-importance",
+      "kv-snapkv-pooling",
+      "kv-tova-head-mean",
+      "kv-observed-attention",
+      "kv-expected-attention",
+      "kv-adakv-headwise",
+      "kv-pyramid-layer-budget",
+      "kv-think-channel-mask",
+      "kv-merging-cos-nearest"
+    ]
   }
 ]

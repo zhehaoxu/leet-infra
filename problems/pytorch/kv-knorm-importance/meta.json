@@ -1,0 +1,11 @@
+{
+  "title": "KV Cache：KNorm 键范数打分",
+  "difficulty": "Easy",
+  "tags": ["operator", "kvcache"],
+  "order": 146,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

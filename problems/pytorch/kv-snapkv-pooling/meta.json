@@ -1,0 +1,11 @@
+{
+  "title": "KV Cache：SnapKV 注意力 + 池化打分",
+  "difficulty": "Medium",
+  "tags": ["operator", "kvcache"],
+  "order": 147,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

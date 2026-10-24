@@ -43,12 +43,13 @@ export const TAG_FAMILY: Record<string, string> = {
   moe: 'MoE 路由',
   inference: '推理 Serving',
   alignment: '对齐目标',
+  kvcache: 'KV Cache 压缩',
 }
 
 export const GROUP_ORDER = [
   '激活函数', '归一化', '卷积', '池化 · 视觉', '矩阵乘 · 线代', '注意力',
   '张量操作', '损失', '优化器', '量化', '采样', '循环网络', '检测 · 度量', '显存 · 性能',
-  '分词 · 数据', '分布式', '大模型结构', 'MoE 路由', '推理 Serving', '对齐目标',
+  '分词 · 数据', '分布式', '大模型结构', 'MoE 路由', '推理 Serving', '对齐目标', 'KV Cache 压缩',
   '框架 / 其他',
 ]
 
