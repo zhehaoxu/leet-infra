@@ -84,7 +84,11 @@
       "topk-select",
       "sort-argsort",
       "gumbel-softmax",
-      "top-p-sampling"
+      "top-p-sampling",
+      "mse-loss",
+      "cross-entropy-loss",
+      "bce-loss",
+      "huber-loss"
     ]
   }
 ]

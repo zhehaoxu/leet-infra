@@ -1,0 +1,11 @@
+{
+  "title": "交叉熵损失",
+  "difficulty": "Medium",
+  "tags": ["operator", "loss"],
+  "order": 71,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

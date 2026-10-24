@@ -1,0 +1,11 @@
+{
+  "title": "MSE 均方误差损失",
+  "difficulty": "Easy",
+  "tags": ["operator", "loss"],
+  "order": 70,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}
