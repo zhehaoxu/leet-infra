@@ -1,0 +1,11 @@
+{
+  "title": "数据整理：批 Padding 与 attention_mask / labels",
+  "difficulty": "Medium",
+  "tags": ["operator", "tokenization"],
+  "order": 119,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

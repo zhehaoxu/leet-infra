@@ -154,5 +154,16 @@
       "llm-decoder-layer",
       "llm-qwen2-model"
     ]
+  },
+  {
+    "slug": "data-tokenization",
+    "name": "分词与数据整理合集",
+    "description": "LLM 数据管线的两端：从零训练 BPE 合并规则、用 merges 把文本编码成子词，以及把变长 token 序列整理成批——逐条 padding（input_ids/attention_mask/labels）与序列打包（定长块 + position_ids/segment_ids 防跨序列注意力）。纯确定性运算，示例值均实跑 dump。",
+    "problems": [
+      "bpe-training",
+      "bpe-encoding",
+      "data-collator",
+      "sequence-pack-pad"
+    ]
   }
 ]

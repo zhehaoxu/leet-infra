@@ -1,0 +1,11 @@
+{
+  "title": "分词：用 BPE 规则编码文本",
+  "difficulty": "Medium",
+  "tags": ["operator", "tokenization"],
+  "order": 118,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

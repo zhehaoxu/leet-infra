@@ -1,0 +1,11 @@
+{
+  "title": "数据整理：序列打包成定长块（pack）",
+  "difficulty": "Medium",
+  "tags": ["operator", "tokenization"],
+  "order": 120,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

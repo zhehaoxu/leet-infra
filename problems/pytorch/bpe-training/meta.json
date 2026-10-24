@@ -1,0 +1,11 @@
+{
+  "title": "分词：从零训练 BPE 合并规则",
+  "difficulty": "Hard",
+  "tags": ["operator", "tokenization"],
+  "order": 117,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}
