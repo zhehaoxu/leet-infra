@@ -2,13 +2,26 @@
 
 > 按建议实施顺序编号；完成一项勾选一项。⭐ = 收益/成本比最高，优先做。
 > 未完成事项在前，已完成事项统一归档在末尾「已完成」区。
-> 近期批次：算子合集「遗漏算子补全」24 题（B1–B8）+ 扩展组 E 损失家族 / H 优化器数学 / I 量化共 8 题已完成，operators 合集 44→68→76 题、题库总计 82 题；全量 self_ac 已并行化（`-n auto` 约 14s，串行约 57s）。
-> 笔记覆盖面：operators 76 + 框架 6 共 82 题全部含 notes.md 详解；题面示例值均实跑 dump 对拍。
-> 下一批建议顺序：**7（Triton/CUDA 大方向，需先决策容器化）**；其余为可选激励项（29 统计小视图 / 37 孤儿键清理 / 16 用例级历史）。
+> 近期批次：算子补全 24 题 + 扩展组 E/H/I 8 题 + 缺口批次 7 题（lrn/conv1d/conv3d/mqa/gru_cell/roi_pool/roi_align，其中 roi_* 用纯 torch + 独立 numpy 校验）已完成，operators 合集 44→68→76→83 题、题库总计 89 题；全量 self_ac 已并行化（`-n auto` 约 14s，串行约 57s）。
+> 笔记覆盖面：operators 83 + 框架 6 + perf-systems 3 共 92 题全部含 notes.md 详解；题面示例值均实跑 dump 对拍。
+> 下一批建议顺序：AI-infra 方向扩展（见「题库与内容」38–45，43 perf-systems 已落地；均可 CPU 确定性判题）；Triton/CUDA 真核仍卡在 item 7（需 GPU 容器化）。
 
 ## 题库与内容
 
-（本区项目已完成，见末尾归档）
+> 选题标准：面试高频 + 判题确定性好 + 不与现有重复。判题环境仅 torch+numpy、强制 CPU、无 GPU/torchvision，故以下 AI-infra 题均按「算法/数据流/显存账可在 CPU 模拟」为前提设计；真 GPU kernel 归 item 7。
+
+### operators 零散承接（线代/损失缺口）
+
+- [ ] 38. 补 einsum / matmul·bmm / vector_norm·matrix_norm / logsumexp / bce_with_logits / kl_div / diff / repeat_interleave——均可直接对拍原生 torch，确定性最强，先做这批垫底座
+
+### AI-infra 新合集候选（每个 = collections.json 新增一个 collection）
+
+- [ ] 39. ⭐ 新合集 `distributed` 分布式训练原语：ring all-reduce / all-gather / reduce-scatter / broadcast（用多 rank 列表模拟通信轮次、逐步核对每 rank 终值）+ ZeRO-1/2/3 显存与通信量计算 + 分布式 clip_grad_norm 聚合
+- [ ] 40. ⭐ 新合集 `data-tokenization`：BPE 分词器（merge 训练 + 编码从零实现）+ data collator（padding/attention mask 生成）+ 序列 pack/pad——几乎无浮点、确定性最佳
+- [ ] 41. 新合集 `inference`（LLM 推理/Serving）：continuous batching 调度器 + speculative decoding 接受/拒绝准则（rejection sampling 精确对拍）+ beam search + typical/min-p 采样 + KV cache 分页/LRU 驱逐
+- [ ] 42. 新合集 `quantization`（现有对称/非对称 2 题独立扩展）：per-channel / group-wise fake-quant + weight-only 反量化 matmul 模拟 + autocast + loss scaling（fp16 溢出/下溢确定性模拟）
+- [ ] 44. 新合集 `training-objectives`（对齐/训练目标）：DPO loss + PPO/GRPO 目标片段 + reward modeling + label smoothing（与 kl_div 呼应）
+- [ ] 45. 新合集 `numerics`（数值稳定性显式成题）：softmax/logsumexp 减最大值、Welford/两-pass 方差、NaN/Inf 传播与归约
 
 ## 性能与新能力
 
@@ -27,6 +40,8 @@
   - 待做：为算子题补 `variants/triton/`、`variants/cuda/` 三件套并把 meta.json 的 available 改 true，评测链路容器化；建议从 relu/sigmoid/softmax 等逐元素题起步再攻 attn/conv
 
 ## 已完成（归档）
+
+- [x] 43. ⭐ 新合集 `perf-systems`（AI 系统性能，3 题 order85–87）：`transformer-mem`（逐层激活显存账 + 梯度检查点「存输入/重算一层」，返回整数字节）、`transformer-mfu`（每层 matmul 参数量 + attention 非参数 4sh FLOPs、step=3×前向≈6ND、MFU=achieved/peak）、`operator-fusion`（逐元素链 HBM 流量、融合收益、memory-bound 下 speedup=算子数）。均为**纯计算题**（题面自定简化教学公式，无外部 oracle），test_cases 用独立 Python 重算核对；示例值草稿脚本跑实。前端 problemFilter 新增 `systems`→「显存 · 性能」族、collections.json 加 `perf-systems` 合集。全量 self_ac 并行 122 passed、前端 33 vitest + build 全绿
 
 - [x] 37. 孤儿 localStorage 一次性清理：新增 utils/storageCleanup.ts（`removeKeysWithPrefixes` + `cleanupOrphanStorage`，哨兵标记键 `leet-infra:storage-cleanup-v1` 保证只跑一次、后续启动 O(1) 跳过、隐私模式/配额异常静默不崩溃），main.ts 启动时调用，清除早期可编辑笔记遗留的 `leet-infra:notes:*` 键；前缀列表可续用于后续遗留键。6 个 vitest 用例 + `npm run build`(vue-tsc) 通过
 

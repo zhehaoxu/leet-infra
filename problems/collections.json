@@ -101,5 +101,15 @@
       "roi_pool",
       "roi_align"
     ]
+  },
+  {
+    "slug": "perf-systems",
+    "name": "AI 系统性能合集",
+    "description": "训练/推理系统的性能与显存账：激活估算、梯度检查点、FLOPs/MFU、算子融合与 Roofline。",
+    "problems": [
+      "transformer-mem",
+      "transformer-mfu",
+      "operator-fusion"
+    ]
   }
 ]
