@@ -138,5 +138,18 @@
       "distributed-pipeline-1f1b-memory",
       "distributed-tensor-parallel-comm"
     ]
+  },
+  {
+    "slug": "llm-models",
+    "name": "大模型结构合集",
+    "description": "像 transformers 库那样逐个组件实现现代 LLM（Qwen2 为骨干，泛用于 Llama/Mistral/DeepSeek）：RMSNorm、RoPE、SwiGLU MLP、GQA 因果注意力、Pre-Norm Decoder Layer，最终拼装成完整因果语言模型。每题以同权重喂 transformers eager 参考实现对拍。",
+    "problems": [
+      "llm-rmsnorm",
+      "llm-rope-apply",
+      "llm-swiglu-mlp",
+      "llm-gqa-attention",
+      "llm-decoder-layer",
+      "llm-qwen2-model"
+    ]
   }
 ]
