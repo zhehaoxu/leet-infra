@@ -3,11 +3,12 @@
 > 按建议实施顺序编号；完成一项勾选一项。⭐ = 收益/成本比最高，优先做。
 > 未完成事项在前，已完成事项统一归档在末尾「已完成」区。
 > 近期批次：算子补全 24 题 + 扩展组 E/H/I 8 题 + 缺口批次 7 题（lrn/conv1d/conv3d/mqa/gru_cell/roi_pool/roi_align，其中 roi_* 用纯 torch + 独立 numpy 校验）已完成，operators 合集 44→68→76→83 题、题库总计 89 题；全量 self_ac 已并行化（`-n auto` 约 14s，串行约 57s）。
-> 笔记覆盖面：operators 83 + 框架 6 + perf-systems 9 + distributed 11 共 109 题全部含 notes.md 详解；题面示例值均实跑 dump 对拍（perf-systems 为纯计算、distributed 为多 rank 张量模拟，均用独立重算交叉核对）。
+> 笔记覆盖面：operators 83 + 框架 6 + perf-systems 9 + distributed 14 共 112 题全部含 notes.md 详解；题面示例值均实跑 dump 对拍（perf-systems 为纯计算、distributed 为多 rank 张量模拟，均用独立重算交叉核对）。
 > perf-systems 已扩到 9 题：激活显存/梯度检查点、FLOPs/MFU、算子融合、参数量估算、训练态显存四件套+ZeRO、KV cache 显存（含 MQA/GQA）、Roofline 算术强度、环形 All-Reduce 通信量、LLM 推理 prefill/decode 吞吐账。
 > distributed 首批 4 题（order94–97）：All-Gather / Reduce-Scatter / All-Reduce 集合通信原语（多 rank 张量模拟逐 rank 终值）+ 分布式梯度裁剪（全局范数不能各 rank 独立裁）；前端新增 `distributed`→「分布式」族。
 > distributed 第二批 4 题（order98–101）：Broadcast / Scatter 补全原语 + ZeRO-1/2/3 每 GPU 通信量计算（纯计算，接 training-state-memory）+ Ring All-Reduce 逐步通信轮次模拟（返回 2(W-1) 个中间态快照，按题面精确调度对拍）。
 > distributed 第三批 3 题（order102–104）：All-to-All（网格转置、MoE 专家并行核心）+ 流水线并行 GPipe 气泡率（(p-1)/(m+p-1) 纯计算）+ ZeRO-Offload 显存-PCIe 带宽取舍（Hard 计算）；合集从集合通信原语扩展到 DP/TP/PP/EP 多维并行的显存-带宽-气泡账本。
+> distributed 第四批 3 题（order105–107）：Gather（单目标拼接、补全 scatter/collect 对称）+ 1F1B 峰值激活显存（min(m,p-i)，接 pipeline-bubble）+ 张量并行每层通信（Megatron 每层 4 次 all-reduce 的激活量）；至此集合通信原语矩阵与 DP/TP/PP 账本基本齐备。
 > 下一批建议顺序：AI-infra 方向扩展（见「题库与内容」38–45，43 perf-systems 已落地两批；均可 CPU 确定性判题）；Triton/CUDA 真核仍卡在 item 7（需 GPU 容器化）。
 
 ## 题库与内容
@@ -20,7 +21,7 @@
 
 ### AI-infra 新合集候选（每个 = collections.json 新增一个 collection）
 
-- [ ] 39. ⭐ 新合集 `distributed` 分布式训练原语（已落地 11 题 order94–104，见归档）：待续加 1F1B 调度显存 / ring 与 recursive-doubling 延迟对比 / All-Reduce 与 tensor-parallel 每层通信量
+- [ ] 39. ⭐ 新合集 `distributed` 分布式训练原语（已落地 14 题 order94–107，见归档）：基本齐备；可选续加 Reduce（单目标求和）/ ring vs recursive-doubling 延迟 / ZeRO-Infinity NVMe / MoE 专家负载路由
 - [ ] 40. ⭐ 新合集 `data-tokenization`：BPE 分词器（merge 训练 + 编码从零实现）+ data collator（padding/attention mask 生成）+ 序列 pack/pad——几乎无浮点、确定性最佳
 - [ ] 41. 新合集 `inference`（LLM 推理/Serving）：continuous batching 调度器 + speculative decoding 接受/拒绝准则（rejection sampling 精确对拍）+ beam search + typical/min-p 采样 + KV cache 分页/LRU 驱逐
 - [ ] 42. 新合集 `quantization`（现有对称/非对称 2 题独立扩展）：per-channel / group-wise fake-quant + weight-only 反量化 matmul 模拟 + autocast + loss scaling（fp16 溢出/下溢确定性模拟）
@@ -56,6 +57,8 @@
 - [x] 39（第二批）. `distributed` 续加 4 题 order98–101：`distributed-broadcast`（Easy，src 张量复制给所有 rank，考 src≠0 取对应索引）、`distributed-scatter`（Medium，All-Gather 逆操作，src 完整数据均分 W 段，含 cat(scratch)==full 互逆不变量）、`distributed-zero-communication`（Medium 纯计算，DDP/ZeRO-1-2/ZeRO-3 每 GPU 每迭代通信字节，环系数 c=(W-1)/W，ZeRO-1/2≡DDP、ZeRO-3 多 2cP，接 training-state-memory）、`distributed-ring-allreduce-steps`（Hard，按题面精确调度模拟 Reduce-Scatter + All-Gather，返回 2(W-1) 个 (W,W) 中间态快照；同步轮语义+下标公式易错，题面给 W=3 完整轨迹）。示例值均用临时脚本实跑 dump（含 W=2..8 随机普适验证、ownership=q 诊断）后删脚本。collections.json `distributed` 4→8 slug、题库总计 102→106（前端 `分布式` 族已存在无需改）。全量后端 `-n auto` **136 passed**、前端 33 vitest + build 全绿
 
 - [x] 39（第三批）. `distributed` 续加 3 题 order102–104（合集从集合通信原语扩展到多维并行账本）：`distributed-all-to-all`（Medium，多 rank 张量模拟，out[j]=各 rank 发给 j 的分片按源序拼接，即 (src,dst) 网格转置；参考解用 reshape-transpose、测试用循环拼接两路独立对拍，含退化为 All-Gather 恒等与元素守恒）、`distributed-pipeline-bubble`（Medium 纯计算，GPipe 气泡率 (p-1)/(m+p-1)、利用率 m/(m+p-1)、makespan m+p-1；测试用对角填充数忙碌格的独立模拟做 oracle，校 bubble+util==1、p=1/m=1 边界、m 增气泡单调降）、`distributed-zero-offload`（Hard 纯计算，GPU 只留 fp16 参数=2N、CPU 扛梯度+优化器=14N、每迭代 PCIe=4N、t_pcie>BW 比较定瓶颈（严格大于），接 training-state-memory/zero-communication 凑齐 ZeRO 显存-带宽三角）。示例值用临时脚本实跑 dump（all-to-all 两路一致、pipeline/offload 多组）后删脚本。collections.json `distributed` 8→11 slug、题库总计 106→109（前端 `分布式` 族复用）。全量后端 `-n auto` **139 passed**、前端 33 vitest + build 全绿
+
+- [x] 39（第四批）. `distributed` 续加 3 题 order105–107：`distributed-gather`（Medium 多 rank 模拟，单目标拼接：out[dst]=各分片 cat、其余 rank 原样保留自己那片（区别于 all-gather），与 scatter 互逆）、`distributed-pipeline-1f1b-memory`（Hard 纯计算，GPipe 每段存 m 份 vs 1F1B 第 i 段存 min(m,p-i) 份，返回 (gpipe_peak, offfb_worst, offfb_best)；m≤p 最重段不省、m>p 比值 p/m；测试用逐段 profile 取 max/min 做独立 oracle）、`distributed-tensor-parallel-comm`（Medium 纯计算，Megatron TP 每层 4 次激活 all-reduce，act=batch·seq·hidden·dtype、per_layer=8·(W-1)/W·act、total×n_layers；W=1 零通信、act 与 world 无关）。示例值用临时脚本实跑 dump 后删。collections.json `distributed` 11→14 slug、题库总计 109→112（前端 `分布式` 族复用）。全量后端 `-n auto` **142 passed**、前端 33 vitest + build 全绿
 
 - [x] 37. 孤儿 localStorage 一次性清理：新增 utils/storageCleanup.ts（`removeKeysWithPrefixes` + `cleanupOrphanStorage`，哨兵标记键 `leet-infra:storage-cleanup-v1` 保证只跑一次、后续启动 O(1) 跳过、隐私模式/配额异常静默不崩溃），main.ts 启动时调用，清除早期可编辑笔记遗留的 `leet-infra:notes:*` 键；前缀列表可续用于后续遗留键。6 个 vitest 用例 + `npm run build`(vue-tsc) 通过
 
