@@ -2,20 +2,19 @@
 
 > 按建议实施顺序编号；完成一项勾选一项。⭐ = 收益/成本比最高，优先做。
 > 未完成事项在前，已完成事项统一归档在末尾「已完成」区。
-> 近期批次：算子合集 notes.md 算法详解（39 题）、实现方式下拉选择器、笔记标签改只读 均已完成提交。
-> 下一批建议顺序：**35（笔记覆盖面决策）→ 30（遗留算子题挂载）→ 32/34（规模化）→ 7（Triton/CUDA 大方向）**。
+> 近期批次：算子合集「遗漏算子补全」24 题（Attention 4 / 卷积 3 / 池化插值 3 / 归约扫描 4 / 张量线代 3 / 采样 2 / 检测序列 3 / 激活 2）已完成提交，operators 合集 44→68 题、全量 self_ac 74 passed；24 题均含 notes.md 详解、题面示例值实跑 dump 对拍。
+> 下一批建议顺序：**35（框架题/置灰题笔记覆盖面决策）→ 33（损失家族 E / 优化器数学 H / 量化 I 补题）→ 32/34（合集规模化与全量自测提速）→ 36/15（MarkdownView 回归单测）→ 7（Triton/CUDA 大方向）**。
 
 ## 题库与内容
 
-- [ ] 35. ⭐ 笔记内容覆盖面决策：目前仅算子合集 39 题有 notes.md 详解；6 道框架题、5 道置灰算子题（relu/sigmoid/leaky-relu/hardsigmoid/one-hot）无笔记。裁决「是否给框架题也写详解 / 置灰题是否确属无需详解」
-- [ ] 30. 遗留算子题归入合集：`attention-softmax` / `cross-entropy-loss` / `multi-head-self-attention` 三道早期算子题不在任何合集里，评估质量后并入 operators（或单列「进阶」合集）；**若挂载需顺带补 notes.md**，避免成孤儿题
-- [ ] 32. 合集详情页大数据量评估：operators 已达 44 题，确认 ProblemTable 是否需要按 family 折叠分组（激活/归一化/卷积/Attention/张量）或虚拟滚动
-- [ ] 33. （可选，用户裁决）候选扩展组 D 归约/扫描、E 损失家族、H 优化器数学、I 量化/低精度：候选题表已给过未入选；adam 类对拍建议 float64 或放宽 atol
+- [ ] 35. ⭐ 笔记内容覆盖面决策：operators 68 题中 63 题已有 notes.md 详解，仅 5 道早期/置灰算子题（relu/sigmoid/leaky-relu/hardsigmoid/one-hot-encoding）与 6 道框架题（tensor-shape-indexing/broadcast-ops/autograd-basics/nn-module-block/optimizer-training-loop/dataset-dataloader）无笔记。裁决「是否给框架题也写详解 / 这 5 道基础算子确属无需详解」
+- [ ] 32. 合集详情页大数据量评估：operators 已达 68 题，确认 ProblemTable 是否需要按 family 折叠分组（激活/归一化/卷积/池化插值/Attention/张量/采样/检测）或虚拟滚动
+- [ ] 33. （可选，用户裁决）候选扩展组 E 损失家族、H 优化器数学、I 量化/低精度：候选题表已给过未入选（D 归约/扫描已在补全批次完成）；adam 类对拍建议 float64 或放宽 atol
 
 ## 性能与新能力
 
 - [ ] 29. 进度统计小视图（可选）：利用 solved_at 时间戳做近 30 天做题热历/每日计数，纯激励向
-- [ ] 34. test_self_ac 全量耗时增长：49 题参考解全量 AC 已 ~37s，继续加题会线性变慢；评估 pytest-xdist 并行或拆「冒烟样例 / 全量」两档
+- [ ] 34. test_self_ac 全量耗时增长：74 题参考解全量 AC 约 36s（单线程 warm worker），继续加题会线性变慢；评估 pytest-xdist 并行或拆「冒烟样例 / 全量」两档
 
 ## 工程与健康度
 
@@ -26,7 +25,7 @@
 
 ## 大方向（需决策后再排期）
 
-- [ ] 7. 第二阶段 Triton/CUDA 真实实现（variants 框架与下拉 UI 已就绪，44 题均只有 pytorch 可用 + triton/cuda 置灰）
+- [ ] 7. 第二阶段 Triton/CUDA 真实实现（variants 框架与下拉 UI 已就绪，68 题均只有 pytorch 可用 + triton/cuda 置灰）
   - 卡点：官方 Triton 无 macOS wheel，需先二选一
   - 方案 A（推荐）：OrbStack + linux/arm64 容器跑官方 triton CPU backend
   - 方案 B：triton 源码编译到 macOS（有历史失败记录，耗时不可控）
@@ -34,6 +33,7 @@
 
 ## 已完成（归档）
 
+- [x] ⭐ 算子合集「遗漏算子补全」24 题（B1–B8，提交 45fcfaa/37a5858/73ca0d1/9542f9a/5d82c3e/25e4463/aa1361f/2e36e04）：B1 Attention(GQA/Flash分块/滑动窗口/Soft-Capping)、B2 卷积(分组/转置/深度可分离)、B3 池化插值(最近邻上采样/自适应最大池化/grid_sample)、B4 归约扫描(按轴求和/累积和/Top-K/排序argsort)、B5 张量线代(线性层/余弦相似度/log-softmax)、B6 采样(Gumbel-Softmax/Top-p核采样)、B7 检测序列(IoU/NMS/LSTM单元)、B8 激活(ReLU6/SELU)；operators 44→68、全量 self_ac 74 passed；每题 notes.md + 题面 dump 对拍；采样类噪声作显式输入保证确定性
 - [x] ⭐ 新批次前端 E2E 抽查（原 31）：浏览器验证 operators 合集 44 行渲染 + 实现方式下拉、rope/alibi 等题面 KaTeX、relu 走完整「提交→AC→参考答案解锁→重新做→再 AC」双轨与彩花/用时展示、笔记只读；**抽查抓到并修复一处渲染 bug**——rope 题面块级 `$$\begin{pmatrix}` 公式因 marked 误处理 `\\ & _` 导致 KaTeX 匹配不到定界符而裸奔，改 MarkdownView 先保护代码块再抽出数学占位、marked 处理后 HTML 转义回填根治（relu 代码块/softmax 混排/笔记均复验无回归、控制台 0 error）
 - [x] 笔记标签改为只读渲染 + 移除「编辑/预览」切换与顶部 A−/A+ 编辑器字号按钮（提交 003325f）
 - [x] 题目算法详解体系：为算子合集 39 题撰写 notes.md（推导/数值稳定/真实语义坑/跨题关联/对拍口径），后端 `Problem.notes()`+`get_problem.notes` 字段、前端笔记标签默认只读渲染并在无 notes.md 时置灰不可选（提交 95e3583）
