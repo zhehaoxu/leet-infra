@@ -1,0 +1,11 @@
+{
+  "title": "训练态显存四件套与 ZeRO 分片",
+  "difficulty": "Hard",
+  "tags": ["operator", "systems"],
+  "order": 89,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

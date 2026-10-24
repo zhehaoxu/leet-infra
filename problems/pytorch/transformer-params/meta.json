@@ -1,0 +1,11 @@
+{
+  "title": "Transformer 参数量估算",
+  "difficulty": "Medium",
+  "tags": ["operator", "systems"],
+  "order": 88,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}
