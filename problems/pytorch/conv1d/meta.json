@@ -1,0 +1,11 @@
+{
+  "title": "一维卷积 (conv1d)",
+  "difficulty": "Medium",
+  "tags": ["operator", "conv"],
+  "order": 79,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}
