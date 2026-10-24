@@ -1,0 +1,11 @@
+{
+  "title": "推测解码：Sequoia 多分支采样与验证",
+  "difficulty": "Medium",
+  "tags": ["operator", "speculative"],
+  "order": 176,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

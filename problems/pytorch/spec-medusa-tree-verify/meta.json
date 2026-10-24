@@ -1,0 +1,11 @@
+{
+  "title": "推测解码：Medusa 多头候选树验证",
+  "difficulty": "Medium",
+  "tags": ["operator", "speculative"],
+  "order": 175,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

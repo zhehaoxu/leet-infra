@@ -1,0 +1,11 @@
+{
+  "title": "推测解码：Suffix/REST 最长后缀检索草稿",
+  "difficulty": "Medium",
+  "tags": ["operator", "speculative"],
+  "order": 180,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

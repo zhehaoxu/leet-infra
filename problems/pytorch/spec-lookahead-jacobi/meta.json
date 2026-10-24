@@ -1,0 +1,11 @@
+{
+  "title": "推测解码：Lookahead 解码的 Jacobi n-gram 候选池",
+  "difficulty": "Medium",
+  "tags": ["operator", "speculative"],
+  "order": 179,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

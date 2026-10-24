@@ -261,5 +261,18 @@
       "to-reward-model-bradley-terry",
       "to-label-smoothing-ce"
     ]
+  },
+  {
+    "slug": "speculative-decoding",
+    "name": "推测解码合集",
+    "description": "对齐 SpeculativeDecodingPapers 里带源码链接的算法：Medusa 多头候选树的 typical acceptance 验证、Sequoia 单位置多分支采样与验证（Algorithm 2，残差分布动态收缩）、Sequoia 最优草稿树期望 token 数 DP（Algorithm 1，位置接受假设下的二维 T[n,b]）、Typical Acceptance 单序列逐 token 阈值接受、Lookahead 解码的 Jacobi n-gram 候选池匹配-回退-自学习、以及 REST/Suffix Decoding 的最长后缀检索草稿。随机性（采样、接受硬币、回退）一律以显式均匀数入参注入、树形/datastore 等结构作显式入参，保证判题确定；每题另设独立纯 Python oracle（CDF 反查 / 暴力枚举树 / 候选元组取最优）逐题对拍。",
+    "problems": [
+      "spec-medusa-tree-verify",
+      "spec-sequoia-sample-verify",
+      "spec-sequoia-optimal-tree",
+      "spec-typical-acceptance",
+      "spec-lookahead-jacobi",
+      "spec-suffix-draft"
+    ]
   }
 ]

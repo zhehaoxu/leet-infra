@@ -1,0 +1,11 @@
+{
+  "title": "推测解码：Typical Acceptance 逐 token 接受",
+  "difficulty": "Medium",
+  "tags": ["operator", "speculative"],
+  "order": 178,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}
