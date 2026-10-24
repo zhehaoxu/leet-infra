@@ -1,0 +1,11 @@
+{
+  "title": "Top-p 核采样",
+  "difficulty": "Hard",
+  "tags": ["operator", "sampling"],
+  "order": 64,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

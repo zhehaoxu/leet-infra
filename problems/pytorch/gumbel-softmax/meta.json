@@ -1,0 +1,11 @@
+{
+  "title": "Gumbel-Softmax 采样",
+  "difficulty": "Medium",
+  "tags": ["operator", "sampling"],
+  "order": 63,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}
