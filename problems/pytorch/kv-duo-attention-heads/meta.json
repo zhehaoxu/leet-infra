@@ -1,0 +1,11 @@
+{
+  "title": "KV Cache：DuoAttention 检索头/流式头分区保留",
+  "difficulty": "Medium",
+  "tags": ["operator", "kvcache"],
+  "order": 168,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}
