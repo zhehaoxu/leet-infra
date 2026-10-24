@@ -15,11 +15,8 @@
 
 ### AI-infra 新合集候选（每个 = collections.json 新增一个 collection）
 
-- [ ] 39. ⭐ 新合集 `distributed` 分布式训练原语（已落地 17 题 order94–107 + 114–116）：**已续 3 题**（reduce 根归约 / collective-latency ring-vs-recursive-doubling α-β 账 / zero-infinity 三层卸载）。可选续加：ring vs recursive-doubling 逐步轨迹 / 拓扑感知分块选型
-- [ ] 40. ⭐ 新合集 `data-tokenization`：**已落地 4 题**（order117–120：bpe-training 学 merges / bpe-encoding 用 merges 编码 / data-collator 批 padding+mask+labels / sequence-pack-pad 打包+position_ids+segment_ids），均经真实 judge AC、示例值 dump；前端已登记 `tokenization→「分词 · 数据」` 族。可选续加：WordPiece 训练、多语种分词正则、chunk 注意力数据整理
 - [ ] 47. ⭐ 新合集 `moe`（专家并行/路由）：top-k gating（softmax→top-k→renorm）+ 负载均衡 aux loss（switch / coefficient of variation）+ capacity factor 丢 token + 专家分发（可与 `distributed-all-to-all` 交叉引用）——面试热词、CPU 确定性佳
-- [ ] 41. ⭐ 新合集 `sampling`（LLM 解码头采样策略）：**已落地 12 题**（从 operators 迁入 top-p + 新增 order126–136：截断类 top-k/min-p/typical/top-n-sigma、免超参 p-less 家族（p-less / p-less-norm，arXiv:2509.23234）、惩罚类 penalty(repeat+freq+present) / dry(反 n-gram Z-algorithm)、自适应带状态 mirostat-v2(mu 入/出) / adaptive-p(EMA 入/出) + dynatemp），均以 llama.cpp 源码为准、随机数 `u` 显式入参注入保确定性、逐题独立 oracle 对拍并经真实 judge AC；前端已登记 `sampling→「采样」` 族。可选续加：epsilon/xtc/min-t、beam search。`inference` 合集其余候选（continuous batching 调度器 / speculative decoding 接受-拒绝准则 / KV cache 分页-LRU 驱逐）另起 item
-- [ ] 42. 新合集 `quantization`：**已落地 7 题**（从 operators 迁入 symmetric/asymmetric，新增 order121–125：per-channel(oracle fake_quantize_per_channel_affine)/group-wise(INT4 粒度)/weight-only-int8-matmul/fp16-loss-scaling/fp8-quantize(oracle float8_e4m3fn)），均经真实 judge AC；「量化」族已在前端登记。可选续加：E5M2、per- Tensor 动态激活量化、SmoothQuant
+- [ ] 41. ⭐ 新合集 `inference`（LLM 推理/Serving）：continuous batching 调度器 + speculative decoding 接受/拒绝准则（rejection sampling 精确对拍）+ beam search + KV cache 分页/LRU 驱逐
 - [ ] 44. 新合集 `training-objectives`（对齐/训练目标）：DPO loss + PPO/GRPO 目标片段 + reward modeling + label smoothing（与 kl_div 呼应）
 - [ ] 45. 新合集 `numerics`（数值稳定性显式成题）：softmax/logsumexp 减最大值、Welford/两-pass 方差、NaN/Inf 传播与归约
 - [ ] 51. ⭐ 新合集 `llm-models`（大模型结构，像 transformers 逐组件实现→拼成整模型）：**Batch 1 Qwen2 骨干 6 题已落地**（order108–113：RMSNorm/RoPE/SwiGLU/GQA 注意力/decoder 层/整模型），均经真实 judge 对拍 HF eager AC。续做：Llama·Mistral（去 q/k/v bias、head_dim 由 hidden/nh 推）、DeepSeek-V3（MLA / noaux_tc MoE / QK-Norm）、Gemma 等其余家族复用同一 HF-oracle 范式
