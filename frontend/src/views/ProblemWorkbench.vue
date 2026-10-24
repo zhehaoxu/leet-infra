@@ -26,6 +26,11 @@ const solutionCode = ref<string | null>(null)
 const activeTab = ref<'desc' | 'solution' | 'notes'>('desc')
 const accepted = ref(false)
 
+// 参考答案以只读 markdown 代码块呈现（复用题面/笔记同款 MarkdownView，不再走 Monaco）
+const solutionMarkdown = computed(() =>
+  solutionCode.value ? '```python\n' + solutionCode.value.trim() + '\n```' : ''
+)
+
 // ---- 实现变体（pytorch/triton/cuda）----
 // 用户期望的 variant：URL query > 合集偏好 > 题目默认；后端对不可用的回退默认
 const preferredVariant = ref('')
@@ -400,8 +405,8 @@ onBeforeUnmount(() => {
                   <span class="btn-icon">⧉</span>{{ copied ? '已复制' : '复制代码' }}
                 </button>
               </div>
-              <div class="solution-editor">
-                <CodeEditor :model-value="solutionCode ?? ''" read-only />
+              <div class="solution-preview">
+                <MarkdownView :key="problem.slug + '-solution'" :source="solutionMarkdown" />
               </div>
             </div>
           </div>
@@ -660,12 +665,10 @@ button.run:disabled {
 .copy-btn:hover {
   border-color: var(--text-dim);
 }
-.solution-editor {
+.solution-preview {
   flex: 1;
   min-height: 0;
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  overflow: hidden;
+  overflow-y: auto;
 }
 .notes-view {
   flex: 1;
