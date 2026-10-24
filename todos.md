@@ -3,8 +3,9 @@
 > 按建议实施顺序编号；完成一项勾选一项。⭐ = 收益/成本比最高，优先做。
 > 未完成事项在前，已完成事项统一归档在末尾「已完成」区。
 > 近期批次：算子补全 24 题 + 扩展组 E/H/I 8 题 + 缺口批次 7 题（lrn/conv1d/conv3d/mqa/gru_cell/roi_pool/roi_align，其中 roi_* 用纯 torch + 独立 numpy 校验）已完成，operators 合集 44→68→76→83 题、题库总计 89 题；全量 self_ac 已并行化（`-n auto` 约 14s，串行约 57s）。
-> 笔记覆盖面：operators 83 + 框架 6 + perf-systems 3 共 92 题全部含 notes.md 详解；题面示例值均实跑 dump 对拍。
-> 下一批建议顺序：AI-infra 方向扩展（见「题库与内容」38–45，43 perf-systems 已落地；均可 CPU 确定性判题）；Triton/CUDA 真核仍卡在 item 7（需 GPU 容器化）。
+> 笔记覆盖面：operators 83 + 框架 6 + perf-systems 6 共 95 题全部含 notes.md 详解；题面示例值均实跑 dump 对拍（perf-systems 6 题为纯计算，用独立重算交叉核对）。
+> perf-systems 已扩到 6 题：激活显存/梯度检查点、FLOPs/MFU、算子融合、参数量估算、训练态显存四件套+ZeRO、KV cache 显存（含 MQA/GQA）。
+> 下一批建议顺序：AI-infra 方向扩展（见「题库与内容」38–45，43 perf-systems 已落地两批；均可 CPU 确定性判题）；Triton/CUDA 真核仍卡在 item 7（需 GPU 容器化）。
 
 ## 题库与内容
 
@@ -42,6 +43,8 @@
 ## 已完成（归档）
 
 - [x] 43. ⭐ 新合集 `perf-systems`（AI 系统性能，3 题 order85–87）：`transformer-mem`（逐层激活显存账 + 梯度检查点「存输入/重算一层」，返回整数字节）、`transformer-mfu`（每层 matmul 参数量 + attention 非参数 4sh FLOPs、step=3×前向≈6ND、MFU=achieved/peak）、`operator-fusion`（逐元素链 HBM 流量、融合收益、memory-bound 下 speedup=算子数）。均为**纯计算题**（题面自定简化教学公式，无外部 oracle），test_cases 用独立 Python 重算核对；示例值草稿脚本跑实。前端 problemFilter 新增 `systems`→「显存 · 性能」族、collections.json 加 `perf-systems` 合集。全量 self_ac 并行 122 passed、前端 33 vitest + build 全绿
+
+- [x] 43（第二批）. `perf-systems` 续加 3 题 order88–90：`transformer-params`（按结构清点 4h²+2hf+4h/层 + 嵌入 tied/untied + final LN，GPT-2-small 风格≈123.6M）、`training-state-memory`（混合精度+Adam 16 bytes/参数四件套 + ZeRO stage1/2/3 每卡分区比）、`kv-cache-memory`（`2·L·kv_heads·d_head·seq·batch·dtype` 字节，MQA/GQA 共享 KV 头缩小比例）。仍为纯计算题，test_cases 用逐分量/逐层独立重算交叉核对、示例值草稿脚本跑实。perf-systems 3→6 题、题库总计 92→95。全量后端 `-n auto` **125 passed**、前端 33 vitest + build 全绿
 
 - [x] 37. 孤儿 localStorage 一次性清理：新增 utils/storageCleanup.ts（`removeKeysWithPrefixes` + `cleanupOrphanStorage`，哨兵标记键 `leet-infra:storage-cleanup-v1` 保证只跑一次、后续启动 O(1) 跳过、隐私模式/配额异常静默不崩溃），main.ts 启动时调用，清除早期可编辑笔记遗留的 `leet-infra:notes:*` 键；前缀列表可续用于后续遗留键。6 个 vitest 用例 + `npm run build`(vue-tsc) 通过
 

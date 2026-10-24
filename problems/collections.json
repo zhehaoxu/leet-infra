@@ -109,7 +109,10 @@
     "problems": [
       "transformer-mem",
       "transformer-mfu",
-      "operator-fusion"
+      "operator-fusion",
+      "transformer-params",
+      "training-state-memory",
+      "kv-cache-memory"
     ]
   }
 ]
