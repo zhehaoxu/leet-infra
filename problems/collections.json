@@ -92,7 +92,14 @@
       "sgd-momentum-step",
       "adam-step",
       "symmetric-quantize",
-      "asymmetric-quantize"
+      "asymmetric-quantize",
+      "lrn",
+      "conv1d",
+      "conv3d",
+      "mqa",
+      "gru_cell",
+      "roi_pool",
+      "roi_align"
     ]
   }
 ]
