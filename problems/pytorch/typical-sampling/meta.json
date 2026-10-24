@@ -1,0 +1,11 @@
+{
+  "title": "Typical (局部典型) 采样",
+  "difficulty": "Hard",
+  "tags": ["operator", "sampling"],
+  "order": 128,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

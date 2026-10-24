@@ -1,0 +1,11 @@
+{
+  "title": "动态温度采样 (Dynatemp)",
+  "difficulty": "Medium",
+  "tags": ["operator", "sampling"],
+  "order": 136,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

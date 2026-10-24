@@ -84,7 +84,6 @@
       "topk-select",
       "sort-argsort",
       "gumbel-softmax",
-      "top-p-sampling",
       "mse-loss",
       "cross-entropy-loss",
       "bce-loss",
@@ -176,6 +175,25 @@
       "weight-only-int8-matmul",
       "fp16-loss-scaling",
       "fp8-quantize"
+    ]
+  },
+  {
+    "slug": "sampling",
+    "name": "采样策略合集",
+    "description": "LLM 解码头的数据驱动采样管线：从截断类（top-k / top-p / min-p / typical / top-n-sigma）、免超参的 p-less 家族，到惩罚类（repeat+freq+present、DRY 的反 n-gram Z-algorithm），再到带状态的自适应类（mirostat-v2 困惑度控制、adaptive-p 的 EMA 塑形）与动态温度。以 llama.cpp 源码与 p-less 论文（arXiv:2509.23234）为准；随机数以显式入参 u 注入、自适应类状态作显式入/出参，保证判题确定性，每题另设独立 oracle 对拍。",
+    "problems": [
+      "top-p-sampling",
+      "top-k-sampling",
+      "min-p-sampling",
+      "typical-sampling",
+      "top-n-sigma-sampling",
+      "p-less-sampling",
+      "p-less-norm-sampling",
+      "penalty-sampling",
+      "dry-sampling",
+      "mirostat-v2-sampling",
+      "adaptive-p-sampling",
+      "dynatemp-sampling"
     ]
   }
 ]

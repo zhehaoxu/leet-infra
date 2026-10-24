@@ -1,0 +1,11 @@
+{
+  "title": "Top-k 采样",
+  "difficulty": "Medium",
+  "tags": ["operator", "sampling"],
+  "order": 126,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}
