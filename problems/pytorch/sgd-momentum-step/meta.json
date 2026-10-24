@@ -1,0 +1,11 @@
+{
+  "title": "SGD 动量更新单步",
+  "difficulty": "Easy",
+  "tags": ["operator", "optimizer"],
+  "order": 74,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}
