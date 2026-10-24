@@ -1,0 +1,11 @@
+{
+  "title": "ZeRO 通信量：DDP vs Stage 1/2 vs Stage 3",
+  "difficulty": "Medium",
+  "tags": ["operator", "distributed"],
+  "order": 100,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

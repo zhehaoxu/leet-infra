@@ -1,0 +1,11 @@
+{
+  "title": "集合通信：Broadcast",
+  "difficulty": "Easy",
+  "tags": ["operator", "distributed"],
+  "order": 98,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

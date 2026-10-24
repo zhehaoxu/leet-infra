@@ -1,0 +1,11 @@
+{
+  "title": "Ring All-Reduce 逐步通信模拟",
+  "difficulty": "Hard",
+  "tags": ["operator", "distributed"],
+  "order": 101,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}
