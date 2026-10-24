@@ -10,6 +10,8 @@ const props = defineProps<{
   error?: string | null
   emptyText?: string
   persistKey?: string
+  /** 允许按 family 折叠分组（数据量大时提升可导航性），工具栏会出现「分组」开关 */
+  groupable?: boolean
   /** 合集详情页的实现方式偏好，注入行链接 ?variant= */
   variant?: string
 }>()
@@ -36,12 +38,17 @@ function restoreFilter<T extends string>(field: string, allowed: readonly T[], f
 const keyword = ref(props.persistKey ? localStorage.getItem(filterKey('kw')) ?? '' : '')
 const difficulty = ref<'' | 'Easy' | 'Medium' | 'Hard'>(restoreFilter('diff', DIFFS, ''))
 const status = ref<'' | 'solved' | 'unsolved'>(restoreFilter('status', STATUSES, ''))
+// 分组开关：仅当父组件允许分组时生效；默认开启（除非用户显式关过并存了 '0'）
+const groupOn = ref<boolean>(
+  props.groupable && (props.persistKey ? localStorage.getItem(filterKey('group')) !== '0' : true),
+)
 
-watch([keyword, difficulty, status], ([kw, d, s]) => {
+watch([keyword, difficulty, status, groupOn], ([kw, d, s, g]) => {
   if (!props.persistKey) return
   localStorage.setItem(filterKey('kw'), kw)
   localStorage.setItem(filterKey('diff'), d)
   localStorage.setItem(filterKey('status'), s)
+  localStorage.setItem(filterKey('group'), g ? '1' : '0')
 })
 
 const filtered = computed(() =>
@@ -53,6 +60,69 @@ const filtered = computed(() =>
     return true
   })
 )
+
+// family 归组：operators 按领域标签归族，非 operator（框架题）统一归「框架 / 其他」
+const TAG_FAMILY: Record<string, string> = {
+  activation: '激活函数',
+  normalization: '归一化',
+  conv: '卷积',
+  cnn: '卷积',
+  vision: '池化 · 视觉',
+  pooling: '池化 · 视觉',
+  gemm: '矩阵乘 · 线代',
+  attention: '注意力',
+  tensor: '张量操作',
+  loss: '损失',
+  optimizer: '优化器',
+  quantization: '量化',
+  sampling: '采样',
+  rnn: '循环网络',
+  metric: '检测 · 度量',
+}
+const GROUP_ORDER = [
+  '激活函数', '归一化', '卷积', '池化 · 视觉', '矩阵乘 · 线代', '注意力',
+  '张量操作', '损失', '优化器', '量化', '采样', '循环网络', '检测 · 度量',
+  '框架 / 其他',
+]
+function familyOf(p: ProblemSummary): string {
+  if (!p.tags.includes('operator')) return '框架 / 其他'
+  let best = ''
+  let bestRank = Infinity
+  for (const t of p.tags) {
+    const fam = TAG_FAMILY[t]
+    if (!fam) continue
+    const r = GROUP_ORDER.indexOf(fam)
+    if (r >= 0 && r < bestRank) {
+      bestRank = r
+      best = fam
+    }
+  }
+  return best || '框架 / 其他'
+}
+
+// 折叠状态（组名集合）；整体替换 Set 以触发响应式
+const collapsed = ref<Set<string>>(new Set())
+function toggleGroup(name: string) {
+  const next = new Set(collapsed.value)
+  if (next.has(name)) next.delete(name)
+  else next.add(name)
+  collapsed.value = next
+}
+
+// sections：分组开启时按 family 切段（按 GROUP_ORDER 排序），否则单段平铺
+const sections = computed(() => {
+  if (!groupOn.value) return [{ name: '', items: filtered.value }]
+  const buckets = new Map<string, ProblemSummary[]>()
+  for (const p of filtered.value) {
+    const f = familyOf(p)
+    const arr = buckets.get(f)
+    if (arr) arr.push(p)
+    else buckets.set(f, [p])
+  }
+  return [...buckets.entries()]
+    .sort((a, b) => GROUP_ORDER.indexOf(a[0]) - GROUP_ORDER.indexOf(b[0]))
+    .map(([name, items]) => ({ name, items }))
+})
 
 // 列表本身为空用调用方文案；仅在筛选掉全部题目时才说「没有匹配」
 const emptyMessage = computed(() =>
@@ -75,6 +145,10 @@ const emptyMessage = computed(() =>
         <option value="solved">已解决</option>
         <option value="unsolved">未解决</option>
       </select>
+      <label v-if="groupable" class="group-toggle" title="按 family 分组折叠">
+        <input type="checkbox" v-model="groupOn" />
+        <span>分组</span>
+      </label>
     </div>
 
     <div v-if="loading" class="empty">加载中…</div>
@@ -85,29 +159,42 @@ const emptyMessage = computed(() =>
       <div class="row head">
         <span>状态</span><span>标题</span><span>难度</span><span>标签</span><span></span>
       </div>
-      <router-link
-        v-for="p in filtered"
-        :key="p.slug"
-        :to="{ path: `/problems/${p.slug}`, query: variant ? { variant } : {} }"
-        class="row"
-      >
-        <span class="status-dot" :class="{ done: p.solved }">{{ p.solved ? '✓' : '' }}</span>
-        <span class="title">{{ p.title }}</span>
-        <span><em class="badge" :class="p.difficulty">{{ p.difficulty }}</em></span>
-        <span class="tags">
-          {{ p.tags.join(' · ') }}
-          <span
-            v-for="col in p.collections ?? []"
-            :key="col.slug"
-            class="col-badge"
-            :title="`合集：${col.name}`"
-            @click.stop.prevent="goCollection(col.slug)"
+      <template v-for="sec in sections" :key="sec.name || '__flat'">
+        <button
+          v-if="sec.name"
+          class="group-head"
+          @click="toggleGroup(sec.name)"
+        >
+          <span class="chev">{{ collapsed.has(sec.name) ? '▸' : '▾' }}</span>
+          <span class="gname">{{ sec.name }}</span>
+          <span class="gcount">{{ sec.items.length }}</span>
+        </button>
+        <template v-if="!sec.name || !collapsed.has(sec.name)">
+          <router-link
+            v-for="p in sec.items"
+            :key="p.slug"
+            :to="{ path: `/problems/${p.slug}`, query: variant ? { variant } : {} }"
+            class="row"
           >
-            ▤ {{ col.name }}
-          </span>
-        </span>
-        <span class="go">解答 →</span>
-      </router-link>
+            <span class="status-dot" :class="{ done: p.solved }">{{ p.solved ? '✓' : '' }}</span>
+            <span class="title">{{ p.title }}</span>
+            <span><em class="badge" :class="p.difficulty">{{ p.difficulty }}</em></span>
+            <span class="tags">
+              {{ p.tags.join(' · ') }}
+              <span
+                v-for="col in p.collections ?? []"
+                :key="col.slug"
+                class="col-badge"
+                :title="`合集：${col.name}`"
+                @click.stop.prevent="goCollection(col.slug)"
+              >
+                ▤ {{ col.name }}
+              </span>
+            </span>
+            <span class="go">解答 →</span>
+          </router-link>
+        </template>
+      </template>
     </div>
   </div>
 </template>
@@ -158,6 +245,57 @@ select {
 .head {
   color: var(--text-dim);
   font-size: 12px;
+}
+.group-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 8px 12px;
+  color: var(--text-dim);
+  font-size: 13px;
+  cursor: pointer;
+  user-select: none;
+  white-space: nowrap;
+}
+.group-toggle:hover {
+  color: var(--text);
+  border-color: var(--accent);
+}
+.group-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  text-align: left;
+  padding: 10px 18px;
+  background: var(--bg-elevated);
+  border: none;
+  border-bottom: 1px solid var(--border);
+  color: var(--text);
+  font: inherit;
+  font-weight: 600;
+  font-size: 13px;
+  cursor: pointer;
+}
+.group-head:hover {
+  color: var(--accent);
+}
+.group-head .chev {
+  color: var(--text-dim);
+  width: 12px;
+}
+.group-head .gcount {
+  margin-left: auto;
+  color: var(--text-dim);
+  font-weight: 400;
+  font-size: 12px;
+  background: var(--bg-panel);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 0 8px;
 }
 .title {
   font-weight: 600;

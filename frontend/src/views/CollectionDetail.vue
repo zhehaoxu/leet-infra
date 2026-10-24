@@ -97,6 +97,7 @@ onMounted(load)
         :problems="collection.problems"
         :persist-key="`collection-${slug}`"
         :variant="variantPref"
+        groupable
         empty-text="该合集暂无题目"
       />
     </template>

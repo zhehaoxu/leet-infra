@@ -144,6 +144,7 @@ const filteredCollections = computed(() =>
       :loading="store.loading"
       :error="store.error"
       persist-key="home-all"
+      groupable
     />
 
     <template v-else>
