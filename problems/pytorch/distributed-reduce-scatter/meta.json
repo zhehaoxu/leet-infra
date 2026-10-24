@@ -1,0 +1,11 @@
+{
+  "title": "集合通信：Reduce-Scatter",
+  "difficulty": "Medium",
+  "tags": ["operator", "distributed"],
+  "order": 95,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

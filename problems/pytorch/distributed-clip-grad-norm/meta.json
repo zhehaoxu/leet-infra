@@ -1,0 +1,11 @@
+{
+  "title": "分布式梯度裁剪（全局范数）",
+  "difficulty": "Hard",
+  "tags": ["operator", "distributed"],
+  "order": 97,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

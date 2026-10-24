@@ -1,0 +1,11 @@
+{
+  "title": "集合通信：All-Reduce",
+  "difficulty": "Medium",
+  "tags": ["operator", "distributed"],
+  "order": 96,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}
