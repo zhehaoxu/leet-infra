@@ -1,0 +1,11 @@
+{
+  "title": "大模型拼装：Qwen2 完整因果语言模型",
+  "difficulty": "Hard",
+  "tags": ["operator", "llm"],
+  "order": 113,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

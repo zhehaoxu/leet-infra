@@ -1,0 +1,11 @@
+{
+  "title": "大模型组件：GQA 因果注意力",
+  "difficulty": "Hard",
+  "tags": ["operator", "llm"],
+  "order": 111,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}
