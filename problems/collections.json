@@ -240,5 +240,16 @@
       "kv-think-channel-mask",
       "kv-merging-cos-nearest"
     ]
+  },
+  {
+    "slug": "training-objectives",
+    "name": "对齐与训练目标合集",
+    "description": "RLHF/对齐链路常用的 4 个训练目标：DPO 直接偏好优化损失（策略与参考策略对数比组装成 Bradley-Terry logistic 目标）、PPO/GRPO 截断代理目标（概率比 exp(Δlogprob) 的 min+clip 信任域）、Bradley-Terry 奖励模型损失（末位有效 token 池化 + 价值头打分 + 成对排序）、Label Smoothing 交叉熵（软标签拆成 NLL 与均匀分布 KL 正则两项）。每题给定序列级 logprob / 优势 / 隐藏态等预计算量，log-sigmoid 与 log-softmax 均要求数值稳定，逐题独立 oracle 对拍；α=0、β=0 等退化情形有专项断言。",
+    "problems": [
+      "to-dpo-loss",
+      "to-ppo-clipped-surrogate",
+      "to-reward-model-bradley-terry",
+      "to-label-smoothing-ce"
+    ]
   }
 ]

@@ -1,0 +1,11 @@
+{
+  "title": "对齐训练：PPO/GRPO 截断代理目标",
+  "difficulty": "Medium",
+  "tags": ["operator", "alignment"],
+  "order": 162,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

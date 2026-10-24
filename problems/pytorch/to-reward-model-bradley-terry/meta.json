@@ -1,0 +1,11 @@
+{
+  "title": "对齐训练：Bradley-Terry 奖励模型损失",
+  "difficulty": "Medium",
+  "tags": ["operator", "alignment"],
+  "order": 163,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

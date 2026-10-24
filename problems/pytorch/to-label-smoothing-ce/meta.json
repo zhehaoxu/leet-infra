@@ -1,0 +1,11 @@
+{
+  "title": "对齐训练：Label Smoothing 交叉熵",
+  "difficulty": "Medium",
+  "tags": ["operator", "alignment"],
+  "order": 164,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

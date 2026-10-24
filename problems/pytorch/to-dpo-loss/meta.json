@@ -1,0 +1,11 @@
+{
+  "title": "对齐训练：DPO 直接偏好优化损失",
+  "difficulty": "Medium",
+  "tags": ["operator", "alignment"],
+  "order": 161,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}
