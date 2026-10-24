@@ -1,0 +1,11 @@
+{
+  "title": "Weight-Only INT8 反量化矩阵乘",
+  "difficulty": "Medium",
+  "tags": ["operator", "quantization"],
+  "order": 123,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

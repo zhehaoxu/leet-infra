@@ -1,0 +1,11 @@
+{
+  "title": "分组量化（Group-wise Fake-Quant）",
+  "difficulty": "Hard",
+  "tags": ["operator", "quantization"],
+  "order": 122,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

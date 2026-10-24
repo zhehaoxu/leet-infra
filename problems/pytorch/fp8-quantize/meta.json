@@ -1,0 +1,11 @@
+{
+  "title": "FP8 (E4M3) 量化往返",
+  "difficulty": "Hard",
+  "tags": ["operator", "quantization"],
+  "order": 125,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

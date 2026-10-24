@@ -91,8 +91,6 @@
       "huber-loss",
       "sgd-momentum-step",
       "adam-step",
-      "symmetric-quantize",
-      "asymmetric-quantize",
       "lrn",
       "conv1d",
       "conv3d",
@@ -164,6 +162,20 @@
       "bpe-encoding",
       "data-collator",
       "sequence-pack-pad"
+    ]
+  },
+  {
+    "slug": "quantization",
+    "name": "量化与低精度合集",
+    "description": "从「怎么量」到「量完怎么算」的量化谱系：per-tensor 对称/非对称 fake-quant、按通道与按分组（GPTQ/AWQ 的 INT4 粒度）的更细量化、weight-only INT8 反量化矩阵乘（推理落地），以及低位宽浮点的数值边界——FP16 动态 loss scaling 的上/下溢与 FP8(E4M3) 就近舍入往返。均经内置 torch 量化/float8 oracle 或独立重算对拍。",
+    "problems": [
+      "symmetric-quantize",
+      "asymmetric-quantize",
+      "per-channel-quantize",
+      "group-wise-quantize",
+      "weight-only-int8-matmul",
+      "fp16-loss-scaling",
+      "fp8-quantize"
     ]
   }
 ]

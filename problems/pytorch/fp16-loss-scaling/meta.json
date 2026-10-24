@@ -1,0 +1,11 @@
+{
+  "title": "FP16 动态 Loss Scaling 单步",
+  "difficulty": "Medium",
+  "tags": ["operator", "quantization"],
+  "order": 124,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}
