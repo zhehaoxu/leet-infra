@@ -2,25 +2,21 @@
 
 > 按建议实施顺序编号；完成一项勾选一项。⭐ = 收益/成本比最高，优先做。
 > 未完成事项在前，已完成事项统一归档在末尾「已完成」区。
-> 近期批次：算子合集「遗漏算子补全」24 题（Attention 4 / 卷积 3 / 池化插值 3 / 归约扫描 4 / 张量线代 3 / 采样 2 / 检测序列 3 / 激活 2）已完成提交，operators 合集 44→68 题、全量 self_ac 74 passed；24 题均含 notes.md 详解、题面示例值实跑 dump 对拍。
-> 下一批建议顺序：**35（框架题/置灰题笔记覆盖面决策）→ 33（损失家族 E / 优化器数学 H / 量化 I 补题）→ 32/34（合集规模化与全量自测提速）→ 36/15（MarkdownView 回归单测）→ 7（Triton/CUDA 大方向）**。
+> 近期批次：算子合集「遗漏算子补全」24 题（B1–B8）+ 扩展组 E 损失家族 / H 优化器数学 / I 量化共 8 题已完成，operators 合集 44→68→76 题、题库总计 82 题；全量 self_ac 已并行化（`-n auto` 约 14s，串行约 57s）。
+> 笔记覆盖面：operators 76 + 框架 6 共 82 题全部含 notes.md 详解；题面示例值均实跑 dump 对拍。
+> 下一批建议顺序：**7（Triton/CUDA 大方向，需先决策容器化）**；其余为可选激励项（29 统计小视图 / 37 孤儿键清理 / 16 用例级历史）。
 
 ## 题库与内容
 
-- [ ] 35. ⭐ 笔记内容覆盖面决策：operators 68 题中 63 题已有 notes.md 详解，仅 5 道早期/置灰算子题（relu/sigmoid/leaky-relu/hardsigmoid/one-hot-encoding）与 6 道框架题（tensor-shape-indexing/broadcast-ops/autograd-basics/nn-module-block/optimizer-training-loop/dataset-dataloader）无笔记。裁决「是否给框架题也写详解 / 这 5 道基础算子确属无需详解」
-- [ ] 32. 合集详情页大数据量评估：operators 已达 68 题，确认 ProblemTable 是否需要按 family 折叠分组（激活/归一化/卷积/池化插值/Attention/张量/采样/检测）或虚拟滚动
-- [ ] 33. （可选，用户裁决）候选扩展组 E 损失家族、H 优化器数学、I 量化/低精度：候选题表已给过未入选（D 归约/扫描已在补全批次完成）；adam 类对拍建议 float64 或放宽 atol
+（本区项目已完成，见末尾归档）
 
 ## 性能与新能力
 
 - [ ] 29. 进度统计小视图（可选）：利用 solved_at 时间戳做近 30 天做题热历/每日计数，纯激励向
-- [ ] 34. test_self_ac 全量耗时增长：74 题参考解全量 AC 约 36s（单线程 warm worker），继续加题会线性变慢；评估 pytest-xdist 并行或拆「冒烟样例 / 全量」两档
 
 ## 工程与健康度
 
-- [ ] 36. MarkdownView 数学保护逻辑的回归单测：`extractMath`/回填目前仅靠人工 E2E 保障（本轮就靠它抓到 rope 块级 pmatrix 裸奔 bug），建议加 vitest 用例锁住「$$块级 + \\ & _ 混合、代码块不被误吞、行内 $」几类场景防回归（与 15 合并做）
 - [ ] 37. 孤儿 localStorage 清理：笔记改只读后历史键 `leet-infra:notes:<slug>` 已无引用，可加一次性清理或惰性忽略
-- [ ] 15. 前端逻辑单测（vitest：store 过滤、草稿读写、tabs 记忆、MarkdownView 数学保护）
 - [ ] 16. 后端评测结果的用例级历史（最近 N 次提交记录、失败 diff 回看；涉及存储结构，先想清楚再做）
 
 ## 大方向（需决策后再排期）
@@ -33,6 +29,11 @@
 
 ## 已完成（归档）
 
+- [x] 35. 笔记覆盖面补齐（提交 5675789）：为 5 道基础算子（relu/sigmoid/leaky-relu/hardsigmoid/one-hot-encoding）+ 6 道框架题（tensor-shape-indexing/broadcast-ops/autograd-basics/nn-module-block/optimizer-training-loop/dataset-dataloader）补 notes.md，题库 82 题全含详解；同步修正 test_api 的「notes 缺失返回空」断言改为 tmp 目录单元隔离（不再依赖 relu 恰好无笔记）
+- [x] 33. 候选扩展组 E/H/I 新题 8 道（提交 fe98e35/580a2c3/b761ee8）：E 损失家族 mse/cross-entropy/bce/huber（对拍 F.mse_loss/F.cross_entropy/F.binary_cross_entropy/F.huber_loss）、H 优化器数学 sgd-momentum-step/adam-step（复刻 torch.optim 单步、float64 对拍 <1e-12）、I 量化 symmetric/asymmetric fake-quant（对拍 torch.fake_quantize、zero_point 越界 clamp）；operators 68→76，全量 self_ac 全绿；负例均用 try/except ValueError（判题 worker 无 pytest）
+- [x] 32. ProblemTable 按 family 折叠分组（提交 928f75a）：68 题合集可导航，curated tag→族映射 + 固定族顺序、组头可折叠、分组开关随 persistKey 持久化、首页与合集页启用 groupable（68 行无需虚拟滚动）；vue-tsc + build 通过
+- [x] 34. test_self_ac 提速（提交 0447112/aa97ac2）：新增 backend/tests/conftest.py（sys.path 注入 + `--smoke` 档），test_self_ac 按 --smoke 切 /run(样例) 与 /submit(全量)；setup_eval_env.sh 后端依赖加 pytest-xdist；README 补 `-n auto`/`--smoke` 用法。实测 82 题：串行~57s → `-n auto` 并行~14s；并修复并行暴露的基准 daemon 竞态（首 AC 后台线程赶在响应前落盘，禁用该次 spawn 消除竞态），连续多次并行全绿
+- [x] 36+15. 前端 vitest 单测（提交 bee7ea2）：装 vitest@2 + @vue/test-utils + jsdom，vite.config 加 test 段、package.json 加 test/test:watch；抽纯逻辑到 utils/{markdownMath,problemFilter,draft,uiPrefs}.ts（组件改为 import 消费、行为不变）；27 用例覆盖 extractMath 块/行内/代码保护/转义 + MarkdownView 挂载回归（`_ & \` 不生成 `<em>`）+ 过滤三重条件 + familyOf 归族优先级 + buildSections 排序 + draftKey 隔离 + 首页标签记忆 + pinia store；`npm test` 全绿、`npm run build` 通过
 - [x] ⭐ 算子合集「遗漏算子补全」24 题（B1–B8，提交 45fcfaa/37a5858/73ca0d1/9542f9a/5d82c3e/25e4463/aa1361f/2e36e04）：B1 Attention(GQA/Flash分块/滑动窗口/Soft-Capping)、B2 卷积(分组/转置/深度可分离)、B3 池化插值(最近邻上采样/自适应最大池化/grid_sample)、B4 归约扫描(按轴求和/累积和/Top-K/排序argsort)、B5 张量线代(线性层/余弦相似度/log-softmax)、B6 采样(Gumbel-Softmax/Top-p核采样)、B7 检测序列(IoU/NMS/LSTM单元)、B8 激活(ReLU6/SELU)；operators 44→68、全量 self_ac 74 passed；每题 notes.md + 题面 dump 对拍；采样类噪声作显式输入保证确定性
 - [x] ⭐ 新批次前端 E2E 抽查（原 31）：浏览器验证 operators 合集 44 行渲染 + 实现方式下拉、rope/alibi 等题面 KaTeX、relu 走完整「提交→AC→参考答案解锁→重新做→再 AC」双轨与彩花/用时展示、笔记只读；**抽查抓到并修复一处渲染 bug**——rope 题面块级 `$$\begin{pmatrix}` 公式因 marked 误处理 `\\ & _` 导致 KaTeX 匹配不到定界符而裸奔，改 MarkdownView 先保护代码块再抽出数学占位、marked 处理后 HTML 转义回填根治（relu 代码块/softmax 混排/笔记均复验无回归、控制台 0 error）
 - [x] 笔记标签改为只读渲染 + 移除「编辑/预览」切换与顶部 A−/A+ 编辑器字号按钮（提交 003325f）
