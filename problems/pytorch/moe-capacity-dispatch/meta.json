@@ -1,0 +1,11 @@
+{
+  "title": "MoE 路由：容量分派与 Token Dropping",
+  "difficulty": "Medium",
+  "tags": ["operator", "moe"],
+  "order": 140,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "title": "MoE 路由：Top-k Gating",
+  "difficulty": "Medium",
+  "tags": ["operator", "moe"],
+  "order": 137,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "title": "MoE 路由：z-loss 稳定性正则",
+  "difficulty": "Easy",
+  "tags": ["operator", "moe"],
+  "order": 141,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

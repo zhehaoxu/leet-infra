@@ -1,0 +1,11 @@
+{
+  "title": "MoE 路由：Expert-Choice 路由",
+  "difficulty": "Hard",
+  "tags": ["operator", "moe"],
+  "order": 142,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

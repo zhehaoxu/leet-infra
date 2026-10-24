@@ -195,5 +195,19 @@
       "adaptive-p-sampling",
       "dynatemp-sampling"
     ]
+  },
+  {
+    "slug": "moe",
+    "name": "MoE 路由与专家并行合集",
+    "description": "混合专家模型的路由与分发管线：top-k gating 与 renorm、Switch / CV 两种负载均衡辅助损失、位置式 capacity 分派与 token dropping、router z-loss 稳定性正则、Expert-Choice 反序路由、以及专家并行下的 all-to-all 分派与加权合并。算法均对齐 HF Mixtral / Megatron-LM / Shazeer OLNN / ST-MoE / Expert-Choice 官方实现，逐题独立 oracle 对拍。",
+    "problems": [
+      "moe-topk-gating",
+      "moe-switch-aux-loss",
+      "moe-cv-aux-loss",
+      "moe-capacity-dispatch",
+      "moe-router-z-loss",
+      "moe-expert-choice-routing",
+      "moe-all-to-all-dispatch"
+    ]
   }
 ]

@@ -1,0 +1,11 @@
+{
+  "title": "MoE 并行：All-to-All 分派与合并",
+  "difficulty": "Hard",
+  "tags": ["operator", "moe"],
+  "order": 143,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

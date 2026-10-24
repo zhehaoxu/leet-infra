@@ -1,0 +1,11 @@
+{
+  "title": "MoE 路由：Switch 负载均衡辅助损失",
+  "difficulty": "Medium",
+  "tags": ["operator", "moe"],
+  "order": 138,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}
