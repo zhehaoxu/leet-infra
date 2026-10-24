@@ -1,0 +1,11 @@
+{
+  "title": "GRU 单元 (GRUCell)",
+  "difficulty": "Medium",
+  "tags": ["operator", "rnn"],
+  "order": 82,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

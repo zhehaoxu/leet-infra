@@ -1,0 +1,11 @@
+{
+  "title": "局部响应归一化 (LRN)",
+  "difficulty": "Medium",
+  "tags": ["operator", "normalization"],
+  "order": 78,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}
