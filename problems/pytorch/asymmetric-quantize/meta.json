@@ -1,0 +1,11 @@
+{
+  "title": "非对称量化（Fake-Quant）",
+  "difficulty": "Medium",
+  "tags": ["operator", "quantization"],
+  "order": 77,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}
