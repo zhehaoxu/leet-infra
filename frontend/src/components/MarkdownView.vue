@@ -3,40 +3,13 @@ import { computed, onMounted, nextTick, ref, watch } from 'vue'
 import { marked } from 'marked'
 import renderMathInElement from 'katex/contrib/auto-render'
 import 'katex/dist/katex.min.css'
+import { extractMath, escapeHtml } from '../utils/markdownMath'
 
 const props = defineProps<{ source: string }>()
 const root = ref<HTMLElement | null>(null)
 
 // 先保护代码块/行内码，再把 $$..$$、$..$ 抽出成占位符交给 marked，
-// marked 处理完再原样回填。避免 LaTeX 里的 _ & \\ 等被 Markdown 当强调/实体破坏，
-// 致使 KaTeX auto-render 匹配不到定界符（历史上 rope 题面块级矩阵公式裸奔的根因）。
-function extractMath(src: string): { text: string; math: string[] } {
-  const code: string[] = []
-  const math: string[] = []
-  const noCode = src.replace(
-    /(```[\s\S]*?```|~~~[\s\S]*?~~~|`+[^`\n]+`+)/g,
-    (c) => {
-      code.push(c)
-      return `\uE000C${code.length - 1}\uE000`
-    }
-  )
-  const noMath = noCode
-    .replace(/\$\$[\s\S]+?\$\$/g, (mm) => {
-      math.push(mm)
-      return `\uE000M${math.length - 1}\uE000`
-    })
-    .replace(/\$[^$\n]+?\$/g, (mm) => {
-      math.push(mm)
-      return `\uE000M${math.length - 1}\uE000`
-    })
-  const restored = noMath.replace(/\uE000C(\d+)\uE000/g, (_m, i) => code[+i])
-  return { text: restored, math }
-}
-
-function escapeHtml(s: string): string {
-  return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
-}
-
+// marked 处理完再原样回填。逻辑见 utils/markdownMath.ts（含单测）。
 const html = computed(() => {
   const { text, math } = extractMath(props.source)
   const parsed = marked.parse(text, { async: false }) as string

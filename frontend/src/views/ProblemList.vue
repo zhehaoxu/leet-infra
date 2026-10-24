@@ -4,12 +4,10 @@ import { useProblemStore } from '../stores/problems'
 import { api, type CollectionSummary } from '../api'
 import ProblemTable from '../components/ProblemTable.vue'
 import ProgressRing from '../components/ProgressRing.vue'
+import { readHomeTab, writeHomeTab, type HomeTab } from '../utils/uiPrefs'
 
 const store = useProblemStore()
-const HOME_TAB_KEY = 'leet-infra:home-tab'
-const activeTab = ref<'all' | 'collections'>(
-  localStorage.getItem(HOME_TAB_KEY) === 'collections' ? 'collections' : 'all'
-)
+const activeTab = ref<HomeTab>(readHomeTab())
 
 // 合集标签的搜索词（全部标签的题目搜索在 ProblemTable 组件内部）
 const collectionKeyword = ref('')
@@ -37,9 +35,9 @@ async function ensureCollections() {
   }
 }
 
-function setTab(tab: 'all' | 'collections') {
+function setTab(tab: HomeTab) {
   activeTab.value = tab
-  localStorage.setItem(HOME_TAB_KEY, tab)
+  writeHomeTab(tab)
   if (tab === 'collections') ensureCollections()
 }
 

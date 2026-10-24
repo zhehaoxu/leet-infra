@@ -7,6 +7,7 @@ import CodeEditor from '../components/CodeEditor.vue'
 import MarkdownView from '../components/MarkdownView.vue'
 import RunResultPanel from '../components/RunResultPanel.vue'
 import { burstConfetti } from '../utils/confetti'
+import { draftKey } from '../utils/draft'
 
 const props = defineProps<{ slug: string }>()
 const store = useProblemStore()
@@ -59,15 +60,9 @@ function selectVariant(key: string) {
   router.replace({ query: { ...route.query, variant: key } })
 }
 
-// ---- 草稿持久化（localStorage，每题一份）----
-const DRAFT_PREFIX = 'leet-infra:draft:'
+// ---- 草稿持久化（localStorage，每题一份；key 规则见 utils/draft.ts）----
 const draftRestored = ref(false)
 let draftTimer: ReturnType<typeof setTimeout> | null = null
-
-function draftKey(slug: string, variant: string) {
-  // 草稿按 题目×实现 隔离；pytorch 沿用无前缀旧 key（旧题作废后无碰撞）
-  return variant && variant !== 'pytorch' ? `${DRAFT_PREFIX}${slug}:${variant}` : DRAFT_PREFIX + slug
-}
 
 function flushDraft() {
   if (draftTimer) {

@@ -2,6 +2,7 @@
 import { computed, ref, watch } from 'vue'
 import { useRouter } from 'vue-router'
 import type { ProblemSummary } from '../api'
+import { filterProblems, buildSections } from '../utils/problemFilter'
 
 // 题目表格 + 搜索/难度/状态筛选，首页「全部」标签与合集详情页共用
 const props = defineProps<{
@@ -52,53 +53,12 @@ watch([keyword, difficulty, status, groupOn], ([kw, d, s, g]) => {
 })
 
 const filtered = computed(() =>
-  props.problems.filter((p) => {
-    if (keyword.value && !p.title.toLowerCase().includes(keyword.value.toLowerCase())) return false
-    if (difficulty.value && p.difficulty !== difficulty.value) return false
-    if (status.value === 'solved' && !p.solved) return false
-    if (status.value === 'unsolved' && p.solved) return false
-    return true
+  filterProblems(props.problems, {
+    keyword: keyword.value,
+    difficulty: difficulty.value,
+    status: status.value,
   })
 )
-
-// family 归组：operators 按领域标签归族，非 operator（框架题）统一归「框架 / 其他」
-const TAG_FAMILY: Record<string, string> = {
-  activation: '激活函数',
-  normalization: '归一化',
-  conv: '卷积',
-  cnn: '卷积',
-  vision: '池化 · 视觉',
-  pooling: '池化 · 视觉',
-  gemm: '矩阵乘 · 线代',
-  attention: '注意力',
-  tensor: '张量操作',
-  loss: '损失',
-  optimizer: '优化器',
-  quantization: '量化',
-  sampling: '采样',
-  rnn: '循环网络',
-  metric: '检测 · 度量',
-}
-const GROUP_ORDER = [
-  '激活函数', '归一化', '卷积', '池化 · 视觉', '矩阵乘 · 线代', '注意力',
-  '张量操作', '损失', '优化器', '量化', '采样', '循环网络', '检测 · 度量',
-  '框架 / 其他',
-]
-function familyOf(p: ProblemSummary): string {
-  if (!p.tags.includes('operator')) return '框架 / 其他'
-  let best = ''
-  let bestRank = Infinity
-  for (const t of p.tags) {
-    const fam = TAG_FAMILY[t]
-    if (!fam) continue
-    const r = GROUP_ORDER.indexOf(fam)
-    if (r >= 0 && r < bestRank) {
-      bestRank = r
-      best = fam
-    }
-  }
-  return best || '框架 / 其他'
-}
 
 // 折叠状态（组名集合）；整体替换 Set 以触发响应式
 const collapsed = ref<Set<string>>(new Set())
@@ -110,19 +70,7 @@ function toggleGroup(name: string) {
 }
 
 // sections：分组开启时按 family 切段（按 GROUP_ORDER 排序），否则单段平铺
-const sections = computed(() => {
-  if (!groupOn.value) return [{ name: '', items: filtered.value }]
-  const buckets = new Map<string, ProblemSummary[]>()
-  for (const p of filtered.value) {
-    const f = familyOf(p)
-    const arr = buckets.get(f)
-    if (arr) arr.push(p)
-    else buckets.set(f, [p])
-  }
-  return [...buckets.entries()]
-    .sort((a, b) => GROUP_ORDER.indexOf(a[0]) - GROUP_ORDER.indexOf(b[0]))
-    .map(([name, items]) => ({ name, items }))
-})
+const sections = computed(() => buildSections(filtered.value, groupOn.value))
 
 // 列表本身为空用调用方文案；仅在筛选掉全部题目时才说「没有匹配」
 const emptyMessage = computed(() =>
