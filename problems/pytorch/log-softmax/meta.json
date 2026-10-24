@@ -1,0 +1,11 @@
+{
+  "title": "数值稳定 Log-Softmax",
+  "difficulty": "Easy",
+  "tags": ["operator", "activation"],
+  "order": 62,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

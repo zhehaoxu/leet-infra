@@ -1,0 +1,11 @@
+{
+  "title": "余弦相似度",
+  "difficulty": "Easy",
+  "tags": ["operator", "metric"],
+  "order": 61,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

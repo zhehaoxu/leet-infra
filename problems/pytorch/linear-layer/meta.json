@@ -1,0 +1,11 @@
+{
+  "title": "全连接线性层",
+  "difficulty": "Easy",
+  "tags": ["operator", "tensor"],
+  "order": 60,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}
