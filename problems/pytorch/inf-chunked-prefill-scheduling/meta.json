@@ -1,0 +1,11 @@
+{
+  "title": "LLM Serving：Chunked Prefill 分块预填充",
+  "difficulty": "Medium",
+  "tags": ["operator", "inference"],
+  "order": 159,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

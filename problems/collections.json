@@ -219,7 +219,9 @@
       "inf-spec-decoding-rejection",
       "inf-beam-search-step",
       "inf-paged-kv-block-alloc",
-      "inf-lru-kv-cache-eviction"
+      "inf-lru-kv-cache-eviction",
+      "inf-chunked-prefill-scheduling",
+      "inf-prefix-cache-block-hit"
     ]
   },
   {
