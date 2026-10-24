@@ -16,7 +16,6 @@
 
 ## 工程与健康度
 
-- [ ] 37. 孤儿 localStorage 清理：笔记改只读后历史键 `leet-infra:notes:<slug>` 已无引用，可加一次性清理或惰性忽略
 - [ ] 16. 后端评测结果的用例级历史（最近 N 次提交记录、失败 diff 回看；涉及存储结构，先想清楚再做）
 
 ## 大方向（需决策后再排期）
@@ -28,6 +27,8 @@
   - 待做：为算子题补 `variants/triton/`、`variants/cuda/` 三件套并把 meta.json 的 available 改 true，评测链路容器化；建议从 relu/sigmoid/softmax 等逐元素题起步再攻 attn/conv
 
 ## 已完成（归档）
+
+- [x] 37. 孤儿 localStorage 一次性清理：新增 utils/storageCleanup.ts（`removeKeysWithPrefixes` + `cleanupOrphanStorage`，哨兵标记键 `leet-infra:storage-cleanup-v1` 保证只跑一次、后续启动 O(1) 跳过、隐私模式/配额异常静默不崩溃），main.ts 启动时调用，清除早期可编辑笔记遗留的 `leet-infra:notes:*` 键；前缀列表可续用于后续遗留键。6 个 vitest 用例 + `npm run build`(vue-tsc) 通过
 
 - [x] 35. 笔记覆盖面补齐（提交 5675789）：为 5 道基础算子（relu/sigmoid/leaky-relu/hardsigmoid/one-hot-encoding）+ 6 道框架题（tensor-shape-indexing/broadcast-ops/autograd-basics/nn-module-block/optimizer-training-loop/dataset-dataloader）补 notes.md，题库 82 题全含详解；同步修正 test_api 的「notes 缺失返回空」断言改为 tmp 目录单元隔离（不再依赖 relu 恰好无笔记）
 - [x] 33. 候选扩展组 E/H/I 新题 8 道（提交 fe98e35/580a2c3/b761ee8）：E 损失家族 mse/cross-entropy/bce/huber（对拍 F.mse_loss/F.cross_entropy/F.binary_cross_entropy/F.huber_loss）、H 优化器数学 sgd-momentum-step/adam-step（复刻 torch.optim 单步、float64 对拍 <1e-12）、I 量化 symmetric/asymmetric fake-quant（对拍 torch.fake_quantize、zero_point 越界 clamp）；operators 68→76，全量 self_ac 全绿；负例均用 try/except ValueError（判题 worker 无 pytest）
