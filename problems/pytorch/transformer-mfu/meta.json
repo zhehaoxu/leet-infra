@@ -1,0 +1,11 @@
+{
+  "title": "Transformer FLOPs 与 MFU",
+  "difficulty": "Medium",
+  "tags": ["operator", "systems"],
+  "order": 86,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

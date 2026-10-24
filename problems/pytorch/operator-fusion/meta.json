@@ -1,0 +1,11 @@
+{
+  "title": "算子融合的显存带宽收益",
+  "difficulty": "Easy",
+  "tags": ["operator", "systems"],
+  "order": 87,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

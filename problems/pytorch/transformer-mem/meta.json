@@ -1,0 +1,11 @@
+{
+  "title": "Transformer 激活显存账",
+  "difficulty": "Medium",
+  "tags": ["operator", "systems"],
+  "order": 85,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}
