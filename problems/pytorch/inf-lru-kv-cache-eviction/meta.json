@@ -1,0 +1,11 @@
+{
+  "title": "LLM Serving：KV / Prefix Cache 的 LRU 驱逐",
+  "difficulty": "Medium",
+  "tags": ["operator", "inference"],
+  "order": 158,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "title": "LLM Serving：PagedAttention KV Block 分配",
+  "difficulty": "Medium",
+  "tags": ["operator", "inference"],
+  "order": 157,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

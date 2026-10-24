@@ -215,7 +215,11 @@
     "name": "LLM 推理 Serving 合集",
     "description": "持续 batching 调度、推测解码拒绝采样、beam search、paged KV block 分配、LRU 驱逐、chunked prefill、prefix-cache 命中。",
     "problems": [
-      "inf-continuous-batching-scheduler"
+      "inf-continuous-batching-scheduler",
+      "inf-spec-decoding-rejection",
+      "inf-beam-search-step",
+      "inf-paged-kv-block-alloc",
+      "inf-lru-kv-cache-eviction"
     ]
   },
   {
