@@ -15,6 +15,7 @@ EXPECTED_TOTAL = sum(
     1 for p in (ROOT / "problems").glob("*/*") if (p / "meta.json").exists()
 )
 
+from backend import app as app_module  # noqa: E402
 from backend import benchmarks, judge, problems, progress  # noqa: E402
 from fastapi.testclient import TestClient  # noqa: E402
 
@@ -48,10 +49,16 @@ def test_get_problem_detail(client):
     assert data["notes"].strip()
 
 
-def test_get_problem_detail_notes_empty_when_absent(client):
-    # 无 notes.md 的题目返回空串，前端据此置灰笔记标签
-    data = client.get("/api/problems/relu").json()
-    assert data["notes"] == ""
+def test_notes_empty_when_notes_md_absent(tmp_path, monkeypatch):
+    # 无 notes.md 的题目 notes() 返回空串（前端据此置灰笔记标签）；存在则原样读出。
+    # 单元级隔离：不依赖真实题库（现每题都已带 notes.md），用 tmp 目录造一个无笔记的题。
+    monkeypatch.setattr(problems, "PROBLEMS_DIR", tmp_path)
+    d = tmp_path / "pytorch" / "no-notes"
+    d.mkdir(parents=True)
+    p = problems.Problem(slug="no-notes", framework="pytorch", title="T", difficulty="Easy")
+    assert p.notes() == ""
+    (d / "notes.md").write_text("# 详解", encoding="utf-8")
+    assert p.notes() == "# 详解"
 
 
 def test_get_missing_problem_404(client):
@@ -229,7 +236,9 @@ def test_first_ac_triggers_benchmark_and_submit_carries_it(client, tmp_path, mon
         "/api/problems/softmax/submit", json={"code": "def solve(x): pass"}
     ).json()
     assert r1["accepted"] is True
-    deadline = time.time() + 5
+    # 后台基准 daemon 线程通常毫秒级落盘；但 `-n auto` 并行下多个 worker 的 torch
+    # judge 子进程会抢占 CPU 使该轻量线程被饿死，故给足宽容等待窗口（仍轮询到即退出）。
+    deadline = time.time() + 30
     while not bench_file.exists() and time.time() < deadline:
         time.sleep(0.05)
     assert bench_file.exists(), "首次 AC 后应后台记录参考解基准"
@@ -243,5 +252,10 @@ def test_first_ac_triggers_benchmark_and_submit_carries_it(client, tmp_path, mon
     # run 模式同样附带已有基准；未 AC 过的题不带
     r3 = client.post("/api/problems/softmax/run", json={"code": "x"}).json()
     assert r3["benchmark"] == {"basic": 5.0}
+    # 未 AC 过（无基准）的题不带 benchmark。
+    # 并行(-n auto)下首次 AC 的后台基准 daemon 线程可能在本次响应构建前就落盘，
+    # 使 relu 自己的首 AC 响应提前带上基准，与断言相冲（调度竞态，非逻辑错）。
+    # 本断言要验的是“无基准则不带”（与 softmax 异步生成无关），故禁用后台生成消除竞态。
+    monkeypatch.setattr(app_module, "_spawn_benchmark", lambda *a, **k: None)
     r4 = client.post("/api/problems/relu/submit", json={"code": "x"}).json()
     assert "benchmark" not in r4
