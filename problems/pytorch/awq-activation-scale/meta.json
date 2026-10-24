@@ -1,0 +1,11 @@
+{
+  "title": "量化：AWQ 激活感知逐通道缩放",
+  "difficulty": "Medium",
+  "tags": ["operator", "quantization"],
+  "order": 170,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "title": "量化：GPTQ 逐列误差补偿量化",
+  "difficulty": "Medium",
+  "tags": ["operator", "quantization"],
+  "order": 173,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

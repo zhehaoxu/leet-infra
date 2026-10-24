@@ -1,0 +1,11 @@
+{
+  "title": "量化：SpQR 稀疏离群权重保留",
+  "difficulty": "Medium",
+  "tags": ["operator", "quantization"],
+  "order": 174,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

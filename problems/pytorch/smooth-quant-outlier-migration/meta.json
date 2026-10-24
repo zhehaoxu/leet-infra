@@ -1,0 +1,11 @@
+{
+  "title": "量化：SmoothQuant 激活离群通道迁移",
+  "difficulty": "Medium",
+  "tags": ["operator", "quantization"],
+  "order": 169,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

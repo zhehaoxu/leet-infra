@@ -1,0 +1,11 @@
+{
+  "title": "量化：QuaRot Hadamard 旋转量化",
+  "difficulty": "Medium",
+  "tags": ["operator", "quantization"],
+  "order": 172,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

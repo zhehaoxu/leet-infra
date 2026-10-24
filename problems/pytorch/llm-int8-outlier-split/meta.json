@@ -1,0 +1,11 @@
+{
+  "title": "量化：LLM.int8() 离群列混合精度拆分",
+  "difficulty": "Medium",
+  "tags": ["operator", "quantization"],
+  "order": 171,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}
