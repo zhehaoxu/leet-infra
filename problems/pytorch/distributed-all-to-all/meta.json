@@ -1,0 +1,11 @@
+{
+  "title": "集合通信：All-to-All",
+  "difficulty": "Medium",
+  "tags": ["operator", "distributed"],
+  "order": 102,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

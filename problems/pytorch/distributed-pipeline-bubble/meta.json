@@ -1,0 +1,11 @@
+{
+  "title": "流水线并行的气泡率（GPipe）",
+  "difficulty": "Medium",
+  "tags": ["operator", "distributed"],
+  "order": 103,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

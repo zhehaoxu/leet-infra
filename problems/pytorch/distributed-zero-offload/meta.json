@@ -1,0 +1,11 @@
+{
+  "title": "ZeRO-Offload：显存与 PCIe 带宽的取舍",
+  "difficulty": "Hard",
+  "tags": ["operator", "distributed"],
+  "order": 104,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}
