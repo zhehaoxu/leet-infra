@@ -1,0 +1,11 @@
+{
+  "title": "分布式原语：Reduce（根归约求和）",
+  "difficulty": "Medium",
+  "tags": ["operator", "distributed"],
+  "order": 114,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

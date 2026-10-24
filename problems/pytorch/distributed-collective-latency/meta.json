@@ -1,0 +1,11 @@
+{
+  "title": "分布式通信账：Ring vs Recursive-Doubling 延迟",
+  "difficulty": "Medium",
+  "tags": ["operator", "distributed"],
+  "order": 115,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

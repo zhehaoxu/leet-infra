@@ -2,7 +2,7 @@
 
 > 按建议实施顺序编号；⭐ = 收益/成本比最高，优先做。
 > **本清单只保留待办**：已完成项做完即分批提交，由 `git log` 追溯，不再在此归档。
-> 当前题库状态：operators 83 + 框架 6 + perf-systems 9 + distributed 14 + llm-models 6 ＝ **118 题**，全部含 notes.md 详解、示例值实跑 dump 对拍；判题环境 torch+numpy（+ llm-models 合集 oracle 用离线 `transformers==5.20.2`）、强制 CPU、无 GPU/torchvision。全量后端 `-n auto` 380 passed（含题库完整性护栏 test_problem_integrity）+ 前端 33 vitest + build 全绿。
+> 当前题库状态：operators 83 + 框架 6 + perf-systems 9 + distributed 17 + llm-models 6 ＝ **121 题**，全部含 notes.md 详解、示例值实跑 dump 对拍；判题环境 torch+numpy（+ llm-models 合集 oracle 用离线 `transformers==5.20.2`）、强制 CPU、无 GPU/torchvision。全量后端 `-n auto` 389 passed（含题库完整性护栏 test_problem_integrity）+ 前端 33 vitest + build 全绿。
 
 ## 题库与内容
 
@@ -15,7 +15,7 @@
 
 ### AI-infra 新合集候选（每个 = collections.json 新增一个 collection）
 
-- [ ] 39. ⭐ 新合集 `distributed` 分布式训练原语（已落地 14 题 order94–107）：原语矩阵与 DP/TP/PP 显存-带宽-气泡账本基本齐备；可选续加 Reduce（单目标求和）/ ring vs recursive-doubling 延迟 / ZeRO-Infinity NVMe / MoE 专家负载路由
+- [ ] 39. ⭐ 新合集 `distributed` 分布式训练原语（已落地 17 题 order94–107 + 114–116）：**已续 3 题**（reduce 根归约 / collective-latency ring-vs-recursive-doubling α-β 账 / zero-infinity 三层卸载）。可选续加：ring vs recursive-doubling 逐步轨迹 / 拓扑感知分块选型
 - [ ] 40. ⭐ 新合集 `data-tokenization`：BPE 分词器（merge 训练 + 编码从零实现）+ data collator（padding/attention mask 生成）+ 序列 pack/pad——几乎无浮点、确定性最佳
 - [ ] 47. ⭐ 新合集 `moe`（专家并行/路由）：top-k gating（softmax→top-k→renorm）+ 负载均衡 aux loss（switch / coefficient of variation）+ capacity factor 丢 token + 专家分发（可与 `distributed-all-to-all` 交叉引用）——面试热词、CPU 确定性佳
 - [ ] 41. 新合集 `inference`（LLM 推理/Serving）：continuous batching 调度器 + speculative decoding 接受/拒绝准则（rejection sampling 精确对拍）+ beam search + typical/min-p 采样 + KV cache 分页/LRU 驱逐

@@ -136,7 +136,10 @@
       "distributed-zero-offload",
       "distributed-gather",
       "distributed-pipeline-1f1b-memory",
-      "distributed-tensor-parallel-comm"
+      "distributed-tensor-parallel-comm",
+      "distributed-reduce",
+      "distributed-collective-latency",
+      "distributed-zero-infinity"
     ]
   },
   {
