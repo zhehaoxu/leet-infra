@@ -112,7 +112,10 @@
       "operator-fusion",
       "transformer-params",
       "training-state-memory",
-      "kv-cache-memory"
+      "kv-cache-memory",
+      "roofline-arithmetic",
+      "parallel-allreduce",
+      "inference-throughput"
     ]
   }
 ]
