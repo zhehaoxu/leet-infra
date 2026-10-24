@@ -121,7 +121,7 @@
   {
     "slug": "distributed",
     "name": "分布式训练原语合集",
-    "description": "集合通信与数据并行基础：Broadcast / Scatter / All-Gather / Reduce-Scatter / All-Reduce、Ring All-Reduce 逐步通信模拟、分布式梯度裁剪与 ZeRO 通信量计算（多 rank 张量模拟、逐 rank 终值/中间态对拍）。",
+    "description": "集合通信与并行训练基础：Broadcast / Scatter / All-Gather / Reduce-Scatter / All-Reduce / All-to-All、Ring All-Reduce 逐步模拟、分布式梯度裁剪，以及 ZeRO 通信量 / 流水线气泡率 / ZeRO-Offload 显存-带宽取舍等并行计算（多 rank 张量模拟与纯公式，终值/中间态对拍）。",
     "problems": [
       "distributed-all-gather",
       "distributed-reduce-scatter",
@@ -130,7 +130,10 @@
       "distributed-broadcast",
       "distributed-scatter",
       "distributed-zero-communication",
-      "distributed-ring-allreduce-steps"
+      "distributed-ring-allreduce-steps",
+      "distributed-all-to-all",
+      "distributed-pipeline-bubble",
+      "distributed-zero-offload"
     ]
   }
 ]
