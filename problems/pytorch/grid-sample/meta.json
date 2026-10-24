@@ -1,0 +1,11 @@
+{
+  "title": "双线性网格采样",
+  "difficulty": "Hard",
+  "tags": ["operator", "vision"],
+  "order": 55,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

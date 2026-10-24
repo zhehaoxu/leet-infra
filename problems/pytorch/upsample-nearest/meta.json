@@ -1,0 +1,11 @@
+{
+  "title": "最近邻上采样",
+  "difficulty": "Easy",
+  "tags": ["operator", "vision"],
+  "order": 53,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

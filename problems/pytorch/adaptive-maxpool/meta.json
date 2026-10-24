@@ -1,0 +1,11 @@
+{
+  "title": "自适应最大池化",
+  "difficulty": "Medium",
+  "tags": ["operator", "cnn"],
+  "order": 54,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}
