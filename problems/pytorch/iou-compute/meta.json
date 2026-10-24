@@ -1,0 +1,11 @@
+{
+  "title": "交并比 IoU",
+  "difficulty": "Easy",
+  "tags": ["operator", "vision"],
+  "order": 65,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}
