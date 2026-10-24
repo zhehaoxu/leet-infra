@@ -1,0 +1,11 @@
+{
+  "title": "1F1B 流水线的峰值激活显存",
+  "difficulty": "Hard",
+  "tags": ["operator", "distributed"],
+  "order": 106,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

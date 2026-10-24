@@ -1,0 +1,11 @@
+{
+  "title": "张量并行的每层通信量（Megatron TP）",
+  "difficulty": "Medium",
+  "tags": ["operator", "distributed"],
+  "order": 107,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}
