@@ -1,0 +1,11 @@
+{
+  "title": "Diffusion：DDPM 反向后验一步 p(x_{t-1}|x_t,x_0)",
+  "difficulty": "Hard",
+  "tags": ["operator", "diffusion"],
+  "order": 208,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

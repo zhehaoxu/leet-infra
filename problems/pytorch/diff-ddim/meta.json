@@ -1,0 +1,11 @@
+{
+  "title": "Diffusion：DDIM 确定性去噪一步",
+  "difficulty": "Medium",
+  "tags": ["operator", "diffusion"],
+  "order": 209,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

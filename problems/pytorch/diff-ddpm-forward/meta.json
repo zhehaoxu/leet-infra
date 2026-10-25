@@ -1,0 +1,11 @@
+{
+  "title": "Diffusion：DDPM 前向加噪 q(x_t|x_0)",
+  "difficulty": "Easy",
+  "tags": ["operator", "diffusion"],
+  "order": 207,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

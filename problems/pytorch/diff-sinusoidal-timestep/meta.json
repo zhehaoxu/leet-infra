@@ -1,0 +1,11 @@
+{
+  "title": "Diffusion：正弦时间步嵌入",
+  "difficulty": "Medium",
+  "tags": ["operator", "diffusion"],
+  "order": 205,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "title": "Diffusion：线性 / 余弦噪声调度 ᾱ 序列",
+  "difficulty": "Medium",
+  "tags": ["operator", "diffusion"],
+  "order": 206,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

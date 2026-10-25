@@ -1,0 +1,11 @@
+{
+  "title": "Diffusion：无分类器引导 (CFG)",
+  "difficulty": "Medium",
+  "tags": ["operator", "diffusion"],
+  "order": 210,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}
