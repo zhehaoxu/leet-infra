@@ -17,10 +17,6 @@ function benchLabel(c: CaseResult): string {
   return `参考 ${b.toFixed(1)}ms · ${ratio}×`
 }
 
-function hasBench(c: CaseResult): boolean {
-  return benchLabel(c) !== ''
-}
-
 function isFast(c: CaseResult): boolean {
   const b = benchmark.value?.[c.name]
   return b != null && c.elapsed_ms <= b
@@ -57,7 +53,11 @@ const statusClass = computed(() => {
 
 // 失败用例置顶展开，通过用例默认折叠；全通过时正常展开
 const failedCases = computed(() => props.result?.cases.filter((c) => !c.passed) ?? [])
-const passedCases = computed(() => props.result?.cases.filter((c) => c.passed) ?? [])
+const passedRows = computed(() =>
+  (props.result?.cases ?? [])
+    .filter((c) => c.passed)
+    .map((c) => ({ ...c, bench: benchLabel(c), fast: isFast(c) }))
+)
 const showPassed = ref(false)
 const panelEl = ref<HTMLDivElement | null>(null)
 
@@ -65,8 +65,8 @@ watch(
   () => props.result,
   async (r) => {
     if (!r) return
-    showPassed.value = failedCases.value.length === 0
-    if (failedCases.value.length) {
+    showPassed.value = r.cases.every((c) => c.passed)
+    if (!showPassed.value) {
       await nextTick()
       panelEl.value?.querySelector('.case.fail')?.scrollIntoView({ block: 'nearest' })
     }
@@ -105,16 +105,16 @@ watch(
           <span class="case-time">{{ c.elapsed_ms.toFixed(1) }}ms</span>
         </div>
 
-        <template v-if="passedCases.length">
+        <template v-if="passedRows.length">
           <button
             v-if="failedCases.length"
             class="passed-toggle"
             @click="showPassed = !showPassed"
           >
-            {{ showPassed ? '▾' : '▸' }} ✓ {{ passedCases.length }} 个用例通过
+            {{ showPassed ? '▾' : '▸' }} ✓ {{ passedRows.length }} 个用例通过
           </button>
           <div v-if="showPassed" class="passed-list">
-            <div v-for="c in passedCases" :key="'p-' + c.name" class="case">
+            <div v-for="c in passedRows" :key="'p-' + c.name" class="case">
               <span class="case-icon">✓</span>
               <div class="case-body">
                 <div class="case-name">{{ c.name }}</div>
@@ -122,11 +122,11 @@ watch(
               <div class="case-times">
                 <span class="case-time">{{ c.elapsed_ms.toFixed(1) }}ms</span>
                 <span
-                  v-if="hasBench(c)"
+                  v-if="c.bench"
                   class="case-bench"
-                  :class="{ fast: isFast(c) }"
+                  :class="{ fast: c.fast }"
                   title="参考解在本机的实测耗时，仅作对比"
-                  >{{ benchLabel(c) }}</span
+                  >{{ c.bench }}</span
                 >
               </div>
             </div>
@@ -295,5 +295,19 @@ watch(
 .stdout-title {
   color: var(--text-dim);
   font-size: 12px;
+}
+
+@media (max-width: 720px), (max-height: 700px) {
+  .result-panel {
+    padding: 10px 12px;
+    max-height: 45vh;
+  }
+  .summary {
+    flex-wrap: wrap;
+    gap: 4px 12px;
+  }
+  .case {
+    padding: 7px 10px;
+  }
 }
 </style>

@@ -100,4 +100,28 @@ const showHelp = ref(false)
   min-height: 0;
   overflow: auto;
 }
+
+@media (max-width: 640px) {
+  .topbar {
+    padding: 0 12px;
+  }
+  .logo {
+    font-size: 16px;
+    gap: 7px;
+  }
+  .logo-mark {
+    width: 22px;
+    height: 22px;
+  }
+  .topbar-right {
+    gap: 8px;
+  }
+  .env-chip {
+    display: none;
+  }
+  .progress-chip {
+    font-size: 11.5px;
+    padding: 2px 9px;
+  }
+}
 </style>

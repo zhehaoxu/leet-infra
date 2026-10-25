@@ -132,9 +132,18 @@ def _fingerprint() -> float:
     return max(stamps)
 
 
-def get_problem(slug: str) -> Problem | None:
+def _ensure_index() -> dict[str, Problem]:
     global _INDEX
     fingerprint = _fingerprint()
     if _INDEX is None or _INDEX[0] != fingerprint:
         _INDEX = (fingerprint, {p.slug: p for p in load_problems()})
-    return _INDEX[1].get(slug)
+    return _INDEX[1]
+
+
+def get_problem(slug: str) -> Problem | None:
+    return _ensure_index().get(slug)
+
+
+def all_problems() -> list[Problem]:
+    """按题库顺序返回全部题目；与 get_problem 共用同一份 mtime 缓存。"""
+    return list(_ensure_index().values())

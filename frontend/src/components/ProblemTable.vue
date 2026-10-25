@@ -125,7 +125,7 @@ const emptyMessage = computed(() =>
             class="row"
           >
             <span class="status-dot" :class="{ done: p.solved }">{{ p.solved ? '✓' : '' }}</span>
-            <span class="title">{{ p.title }}</span>
+            <span class="title" :title="p.title">{{ p.title }}</span>
             <span><em class="badge" :class="p.difficulty">{{ p.difficulty }}</em></span>
             <span class="tags">
               {{ p.tags.join(' · ') }}
@@ -150,11 +150,13 @@ const emptyMessage = computed(() =>
 <style scoped>
 .toolbar {
   display: flex;
+  flex-wrap: wrap;
   gap: 10px;
   margin-bottom: 18px;
 }
 .search {
-  flex: 1;
+  flex: 1 1 220px;
+  min-width: 0;
 }
 .search,
 select {
@@ -177,7 +179,7 @@ select {
 }
 .row {
   display: grid;
-  grid-template-columns: 56px 1.4fr 90px 1.2fr 80px;
+  grid-template-columns: 56px minmax(0, 1.4fr) 90px minmax(0, 1.2fr) 80px;
   align-items: center;
   gap: 12px;
   padding: 13px 18px;
@@ -247,10 +249,15 @@ select {
 }
 .title {
   font-weight: 600;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .tags {
   color: var(--text-dim);
   font-size: 12px;
+  min-width: 0;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -298,5 +305,45 @@ select {
 }
 .empty.error {
   color: var(--red);
+}
+
+@media (max-width: 760px) {
+  .toolbar {
+    gap: 8px;
+    margin-bottom: 14px;
+  }
+  .search {
+    flex-basis: 100%;
+  }
+  .toolbar select {
+    flex: 1;
+    min-width: 0;
+  }
+  .group-toggle {
+    white-space: nowrap;
+  }
+  .head {
+    display: none;
+  }
+  .row {
+    grid-template-columns: 28px minmax(0, 1fr) auto;
+    gap: 10px;
+    padding: 11px 12px;
+  }
+  .row > .tags,
+  .row > .go {
+    display: none;
+  }
+  .status-dot {
+    width: 20px;
+    height: 20px;
+    font-size: 12px;
+  }
+  .group-head {
+    padding: 9px 12px;
+  }
+  .empty {
+    padding: 40px 0;
+  }
 }
 </style>

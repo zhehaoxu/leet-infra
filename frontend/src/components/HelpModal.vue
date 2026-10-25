@@ -105,4 +105,21 @@ code {
   border-radius: 6px;
   padding: 1px 6px;
 }
+
+@media (max-width: 640px) {
+  .overlay {
+    padding: 12px 0;
+    align-items: flex-start;
+  }
+  .modal {
+    width: 94vw;
+    max-height: 88vh;
+    border-radius: 12px;
+    padding: 22px 18px;
+  }
+  ul {
+    font-size: 13px;
+    line-height: 1.75;
+  }
+}
 </style>

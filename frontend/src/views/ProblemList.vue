@@ -96,33 +96,37 @@ async function onImportFile(ev: Event) {
   }
 }
 
-const filteredCollections = computed(() =>
-  collections.value.filter((c) => {
-    if (!collectionKeyword.value) return true
-    const kw = collectionKeyword.value.toLowerCase()
-    return c.name.toLowerCase().includes(kw) || c.description.toLowerCase().includes(kw)
-  })
-)
+const filteredCollections = computed(() => {
+  const kw = collectionKeyword.value.trim().toLowerCase()
+  if (!kw) return collections.value
+  return collections.value.filter(
+    (c) => c.name.toLowerCase().includes(kw) || c.description.toLowerCase().includes(kw)
+  )
+})
 </script>
 
 <template>
   <div class="list-page">
     <div class="hero">
       <h1>AI Infra 从动手写开始</h1>
-      <p>
-        PyTorch 题库 · 代码在你本机 Python 虚拟环境中真实运行 · {{ store.solvedCount }}/{{ store.problems.length }} 已解决
+      <p>PyTorch 题库 · 代码在你本机 Python 虚拟环境中真实运行 · {{ store.solvedCount }}/{{ store.problems.length }} 已解决</p>
+      <div class="hero-actions">
         <button
           v-if="store.solvedCount > 0"
-          class="reset-progress"
+          class="link-btn danger"
           title="清空全部已解决记录，用于二刷题目"
           @click="resetProgress"
         >
           重置进度
         </button>
-        <button class="io-progress" title="下载进度文件 progress.json" @click="exportProgress">导出进度</button>
-        <button class="io-progress" title="从导出的 JSON 恢复进度（覆盖当前）" @click="triggerImport">导入进度</button>
+        <button class="link-btn" title="下载进度文件 progress.json" @click="exportProgress">
+          导出进度
+        </button>
+        <button class="link-btn" title="从导出的 JSON 恢复进度（覆盖当前）" @click="triggerImport">
+          导入进度
+        </button>
         <input ref="importInput" type="file" accept="application/json,.json" class="hidden-file" @change="onImportFile" />
-      </p>
+      </div>
     </div>
 
     <div class="tabs">
@@ -189,33 +193,29 @@ const filteredCollections = computed(() =>
 }
 .hero p {
   color: var(--text-dim);
-  margin: 0 0 28px;
+  margin: 0 0 12px;
 }
-.reset-progress {
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 18px;
+  margin-bottom: 28px;
+}
+.link-btn {
   border: none;
   background: none;
+  padding: 0;
   color: var(--text-dim);
   font-size: 12.5px;
   text-decoration: underline;
   text-underline-offset: 3px;
   cursor: pointer;
-  margin-left: 10px;
 }
-.reset-progress:hover {
-  color: var(--red);
-}
-.io-progress {
-  border: none;
-  background: none;
-  color: var(--text-dim);
-  font-size: 12.5px;
-  text-decoration: underline;
-  text-underline-offset: 3px;
-  cursor: pointer;
-  margin-left: 10px;
-}
-.io-progress:hover {
+.link-btn:hover {
   color: var(--accent);
+}
+.link-btn.danger:hover {
+  color: var(--red);
 }
 .hidden-file {
   display: none;
@@ -265,7 +265,7 @@ const filteredCollections = computed(() =>
 }
 .row {
   display: grid;
-  grid-template-columns: 56px 1.4fr 90px 1.2fr 80px;
+  grid-template-columns: 56px minmax(0, 1.4fr) 90px minmax(0, 1.2fr) 80px;
   align-items: center;
   gap: 12px;
   padding: 13px 18px;
@@ -279,7 +279,7 @@ const filteredCollections = computed(() =>
   background: var(--bg-elevated);
 }
 .row.collection-row {
-  grid-template-columns: 40px 1.6fr 90px 100px;
+  grid-template-columns: 40px minmax(0, 1.6fr) 90px 100px;
 }
 .collection-mark {
   display: inline-flex;
@@ -319,5 +319,48 @@ const filteredCollections = computed(() =>
 }
 .empty.error {
   color: var(--red);
+}
+
+@media (max-width: 900px) {
+  .list-page {
+    padding: 28px 18px;
+  }
+}
+@media (max-width: 720px) {
+  .list-page {
+    padding: 22px 14px;
+  }
+  .hero h1 {
+    font-size: 22px;
+  }
+  .hero-actions {
+    margin-bottom: 22px;
+    gap: 6px 14px;
+  }
+  .tabs,
+  .toolbar {
+    margin-bottom: 12px;
+  }
+  .row,
+  .row.collection-row {
+    grid-template-columns: 32px minmax(0, 1fr) auto;
+    gap: 10px;
+    padding: 11px 12px;
+  }
+  .row.collection-row > .go {
+    display: none;
+  }
+  .collection-desc {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .collection-progress {
+    font-size: 12px;
+  }
+  .empty {
+    padding: 40px 0;
+  }
 }
 </style>

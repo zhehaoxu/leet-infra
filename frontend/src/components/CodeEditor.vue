@@ -1,9 +1,8 @@
 <script setup lang="ts">
 import { onBeforeUnmount, onMounted, ref, watch } from 'vue'
-import { editorFontSize } from '../utils/editorSettings'
 import monaco from '../monaco-setup'
 
-const props = defineProps<{ modelValue: string; readOnly?: boolean }>()
+const props = defineProps<{ modelValue: string }>()
 const emit = defineEmits<{
   (e: 'update:modelValue', v: string): void
   (e: 'run'): void
@@ -20,25 +19,19 @@ onMounted(() => {
     language: 'python',
     theme: 'leet-infra',
     automaticLayout: true,
-    fontSize: editorFontSize.value,
-    fontFamily: 'var(--font-mono), monospace',
+    fontSize: 13,
+    fontFamily: "'JetBrains Mono', 'SF Mono', Menlo, Consolas, monospace",
     minimap: { enabled: false },
     scrollBeyondLastLine: false,
     tabSize: 4,
-    readOnly: props.readOnly ?? false,
-    lineNumbers: props.readOnly ? 'off' : 'on',
-    renderLineHighlight: props.readOnly ? 'none' : 'line',
   })
   editor.onDidChangeModelContent(() => {
     emit('update:modelValue', editor?.getValue() ?? '')
   })
-  // Cmd+Enter / Ctrl+Enter 运行样例；Cmd+Shift+Enter / Ctrl+Shift+Enter 提交（只读实例不注册）
-  if (!props.readOnly) {
-    editor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.Enter, () => emit('run'))
-    editor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyMod.Shift | monaco.KeyCode.Enter, () =>
-      emit('submit')
-    )
-  }
+  editor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.Enter, () => emit('run'))
+  editor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyMod.Shift | monaco.KeyCode.Enter, () =>
+    emit('submit')
+  )
 })
 
 watch(
@@ -47,9 +40,6 @@ watch(
     if (editor && editor.getValue() !== v) editor.setValue(v)
   }
 )
-
-// 字号全局变化时实时更新本实例（A−/A+ 控件驱动）
-watch(editorFontSize, (v) => editor?.updateOptions({ fontSize: v }))
 
 onBeforeUnmount(() => {
   editor?.dispose()

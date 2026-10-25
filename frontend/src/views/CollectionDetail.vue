@@ -128,6 +128,7 @@ onMounted(load)
 .hero p {
   color: var(--text-dim);
   margin: 0;
+  overflow-wrap: anywhere;
 }
 .hero .progress {
   margin-top: 6px;
@@ -139,8 +140,9 @@ onMounted(load)
 }
 .variant-bar {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
-  gap: 12px;
+  gap: 8px 12px;
   margin-bottom: 16px;
 }
 .variant-label {
@@ -187,5 +189,24 @@ onMounted(load)
 }
 .empty.error {
   color: var(--red);
+}
+
+@media (max-width: 720px) {
+  .detail-page {
+    padding: 20px 14px;
+  }
+  .hero {
+    margin-top: 14px;
+    margin-bottom: 18px;
+  }
+  .hero h1 {
+    font-size: 21px;
+  }
+  .variant-hint {
+    flex-basis: 100%;
+  }
+  .empty {
+    padding: 40px 0;
+  }
 }
 </style>

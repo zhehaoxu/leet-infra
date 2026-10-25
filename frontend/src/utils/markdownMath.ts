@@ -1,6 +1,6 @@
 // Markdown 数学保护：把代码块与 $..$/$$..$$ 数学段抽出为占位符，
 // 交 marked 处理正文后再原样回填，避免 LaTeX 里的 _ & \\ 等被 Markdown 当强调/实体破坏，
-// 致使 KaTeX auto-render 匹配不到定界符（历史上 rope 题面块级矩阵公式裸奔的根因）。
+// 致使 KaTeX auto-render 匹配不到定界符（rope 题面块级公式曾因此失效）。
 
 /** 抽取代码块与数学段，返回把数学替换为占位符的正文 + 被保护的数学原文列表 */
 export function extractMath(src: string): { text: string; math: string[] } {

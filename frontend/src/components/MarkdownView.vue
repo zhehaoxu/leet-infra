@@ -77,6 +77,7 @@ watch(html, renderMath)
   border-radius: 8px;
   padding: 12px 14px;
   overflow-x: auto;
+  max-width: 100%;
 }
 .markdown :deep(pre code) {
   background: transparent;
@@ -90,7 +91,14 @@ watch(html, renderMath)
   background: var(--accent-dim);
   border-radius: 0 6px 6px 0;
 }
+.markdown :deep(img) {
+  max-width: 100%;
+  height: auto;
+}
 .markdown :deep(table) {
+  display: block;
+  max-width: 100%;
+  overflow-x: auto;
   border-collapse: collapse;
   margin: 10px 0;
 }

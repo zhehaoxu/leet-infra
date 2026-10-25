@@ -41,7 +41,7 @@ def _summary_with_collections(problem, solved: bool) -> dict:
 @app.get("/api/problems")
 def list_problems():
     solved = progress.solved_map()
-    return [_summary_with_collections(p, p.slug in solved) for p in problems.load_problems()]
+    return [_summary_with_collections(p, p.slug in solved) for p in problems.all_problems()]
 
 
 @app.get("/api/problems/{slug}")
@@ -122,7 +122,7 @@ def _evaluate(slug: str, submission: Submission, mode: str):
     return result
 
 
-def _spawn_benchmark(problem, variant: str) -> threading.Thread:
+def _spawn_benchmark(problem, variant: str) -> None:
     """后台用指定 variant 的参考解全量跑一遍记录用例耗时；失败静默，不阻塞用户请求。"""
 
     def _measure() -> None:
@@ -131,11 +131,9 @@ def _spawn_benchmark(problem, variant: str) -> threading.Thread:
             if res["accepted"]:
                 benchmarks.record(problem.slug, variant, res)
         except Exception:
-            pass  # 基准是锦上添花，失败不影响主流程
+            pass  # 基准仅用于展示，失败不影响主流程
 
-    t = threading.Thread(target=_measure, daemon=True, name=f"benchmark-{problem.slug}-{variant}")
-    t.start()
-    return t
+    threading.Thread(target=_measure, daemon=True, name=f"benchmark-{problem.slug}-{variant}").start()
 
 
 @app.post("/api/judge/cancel")
@@ -157,7 +155,7 @@ def get_solution(slug: str, variant: str | None = Query(default=None)):
 
 @app.get("/api/progress")
 def get_progress():
-    all_problems = problems.load_problems()
+    all_problems = problems.all_problems()
     solved = progress.solved_map()
     return {
         "total": len(all_problems),
@@ -198,11 +196,11 @@ async def import_progress(req: Request):
     try:
         payload = await req.json()
     except Exception:
-        raise HTTPException(status_code=400, detail="无法解析 JSON，请选择 leet-infra 导出的进度文件")
+        raise HTTPException(status_code=400, detail="无法解析 JSON，请选择 leet-infra 导出的进度文件") from None
     solved = payload.get("solved") if isinstance(payload, dict) else None
     if not isinstance(solved, dict):
         raise HTTPException(status_code=400, detail="进度文件格式不正确（缺少 solved 字段）")
-    known = {p.slug for p in problems.load_problems()}
+    known = {p.slug for p in problems.all_problems()}
     valid = {s: ts for s, ts in solved.items() if s in known and isinstance(ts, str)}
     progress.replace_all(valid)
     return {"imported": len(valid), "skipped": len(solved) - len(valid)}

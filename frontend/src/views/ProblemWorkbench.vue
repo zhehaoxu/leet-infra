@@ -26,7 +26,7 @@ const solutionCode = ref<string | null>(null)
 const activeTab = ref<'desc' | 'solution' | 'notes'>('desc')
 const accepted = ref(false)
 
-// 参考答案以只读 markdown 代码块呈现（复用题面/笔记同款 MarkdownView，不再走 Monaco）
+// 参考答案以 Markdown 代码块渲染，复用题面同款 MarkdownView
 const solutionMarkdown = computed(() =>
   solutionCode.value ? '```python\n' + solutionCode.value.trim() + '\n```' : ''
 )
@@ -85,30 +85,31 @@ watch(code, () => {
   draftTimer = setTimeout(flushDraft, 400)
 })
 
-// ---- 题目笔记（只读）----
-// 内容来自后端 notes.md（题目算法详解，不便写进题面）；无 notes.md 时该标签置灰不可选。
-// 不提供编辑/预览切换，直接渲染详解正文。
+// ---- 题目笔记：来自后端 notes.md，缺失时该标签置灰 ----
 const notes = ref('')
 const hasNotes = computed(() => notes.value.trim().length > 0)
 
-// 左右分栏拖拽
+// 左右分栏拖拽（仅桌面双栏布局可见分隔条）
 const splitRatio = ref(0.45)
+const splitStyle = computed(() => ({ '--split': String(splitRatio.value) }))
 const bodyEl = ref<HTMLDivElement | null>(null)
+let detachDrag: (() => void) | null = null
 
 function onDragStart(e: MouseEvent) {
   e.preventDefault()
   const move = (ev: MouseEvent) => {
     const rect = bodyEl.value?.getBoundingClientRect()
     if (!rect) return
-    const ratio = Math.min(0.75, Math.max(0.25, (ev.clientX - rect.left) / rect.width))
-    splitRatio.value = ratio
+    splitRatio.value = Math.min(0.75, Math.max(0.25, (ev.clientX - rect.left) / rect.width))
   }
   const up = () => {
     window.removeEventListener('mousemove', move)
     window.removeEventListener('mouseup', up)
+    detachDrag = null
   }
   window.addEventListener('mousemove', move)
   window.addEventListener('mouseup', up)
+  detachDrag = up
 }
 
 async function load() {
@@ -291,6 +292,7 @@ watch([() => props.slug, () => route.query.variant], ([slug, q], [oldSlug, oldQ]
 })
 onMounted(load)
 onBeforeUnmount(() => {
+  detachDrag?.()
   flushDraft()
 })
 </script>
@@ -302,7 +304,7 @@ onBeforeUnmount(() => {
     <template v-else>
       <div class="subheader">
         <router-link to="/" class="back">← 题库</router-link>
-        <span class="title">{{ problem.title }}</span>
+        <span class="title" :title="problem.title">{{ problem.title }}</span>
         <em class="badge" :class="problem.difficulty">{{ problem.difficulty }}</em>
         <span v-if="accepted" class="ac-tag">✓ 已解决</span>
         <span v-if="draftRestored" class="draft-hint" title="已从 localStorage 恢复上次编辑的草稿">草稿已恢复</span>
@@ -353,9 +355,9 @@ onBeforeUnmount(() => {
           下一道未解 →
         </router-link>
         <div class="actions">
-          <button v-if="accepted" class="ghost" :disabled="running" @click="redoProblem" title="清除本题已解记录与草稿，重新做一遍"><span class="btn-icon">⟳</span>重新做</button>
-          <button class="ghost" :disabled="running" @click="resetCode"><span class="btn-icon">↺</span>重置</button>
-          <button class="ghost" :disabled="running" @click="runCode"><span class="btn-icon play">▶</span>运行</button>
+          <button v-if="accepted && !running" class="ghost" @click="redoProblem" title="清除本题已解记录与草稿，重新做一遍"><span class="btn-icon">⟳</span>重新做</button>
+          <button v-if="!running" class="ghost" @click="resetCode"><span class="btn-icon">↺</span>重置</button>
+          <button v-if="!running" class="ghost" @click="runCode"><span class="btn-icon play">▶</span>运行</button>
           <button v-if="running" class="ghost danger" @click="cancelRun"><span class="btn-icon">✕</span>取消</button>
           <button class="run" :disabled="running" @click="submitCode">
             <span v-if="running" class="loading">{{ runningKind === 'submit' ? '提交中…' : '运行中…' }}</span>
@@ -364,8 +366,8 @@ onBeforeUnmount(() => {
         </div>
       </div>
 
-      <div class="split-body" ref="bodyEl">
-        <section class="pane desc" :style="{ width: `${splitRatio * 100}%` }">
+      <div class="split-body" ref="bodyEl" :style="splitStyle">
+        <section class="pane desc">
           <div class="tabbar">
             <button class="tab" :class="{ active: activeTab === 'desc' }" @click="activeTab = 'desc'">
               题目说明
@@ -414,7 +416,7 @@ onBeforeUnmount(() => {
 
         <div class="divider" @mousedown="onDragStart"></div>
 
-        <section class="pane code-pane" :style="{ width: `${(1 - splitRatio) * 100 - 0.5}%` }">
+        <section class="pane code-pane">
           <div class="editor-wrap">
             <CodeEditor v-model="code" @run="runCode" @submit="submitCode" />
           </div>
@@ -439,8 +441,9 @@ onBeforeUnmount(() => {
 .subheader {
   flex: none;
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
-  gap: 12px;
+  gap: 10px 12px;
   padding: 10px 18px;
   border-bottom: 1px solid var(--border);
   background: var(--bg-panel);
@@ -448,6 +451,7 @@ onBeforeUnmount(() => {
 .back {
   color: var(--text-dim);
   font-size: 13px;
+  white-space: nowrap;
 }
 .back:hover {
   color: var(--accent);
@@ -455,6 +459,11 @@ onBeforeUnmount(() => {
 .title {
   font-size: 16px;
   font-weight: 700;
+  min-width: 0;
+  max-width: 40vw;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .ac-tag {
   color: var(--accent);
@@ -526,10 +535,6 @@ button {
 button.ghost:hover:not(:disabled) {
   border-color: var(--text-dim);
 }
-button.ghost:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
 button.run {
   background: var(--accent);
   border-color: var(--accent);
@@ -588,19 +593,18 @@ button.run:disabled {
   background: rgba(241, 106, 106, 0.08);
 }
 .split-body {
+  --split: 0.45;
   flex: 1;
   min-height: 0;
   display: flex;
 }
 .pane {
   min-width: 0;
-  overflow-y: auto;
-  padding: 18px 20px;
 }
 .desc {
+  width: calc(var(--split) * 100%);
   display: flex;
   flex-direction: column;
-  padding: 0;
   overflow: hidden;
   border-right: 1px solid var(--border);
 }
@@ -611,6 +615,7 @@ button.run:disabled {
   padding: 0 12px;
   border-bottom: 1px solid var(--border);
   background: var(--bg-panel);
+  overflow-x: auto;
 }
 .tab {
   border: none;
@@ -619,6 +624,7 @@ button.run:disabled {
   font-size: 13.5px;
   padding: 12px 14px;
   cursor: pointer;
+  white-space: nowrap;
 }
 .tab:hover:not(:disabled) {
   color: var(--text);
@@ -703,12 +709,87 @@ button.run:disabled {
   opacity: 0.35;
 }
 .code-pane {
+  width: calc((1 - var(--split)) * 100% - 5px);
   display: flex;
   flex-direction: column;
-  padding: 0;
+  overflow: hidden;
 }
 .editor-wrap {
   flex: 1;
   min-height: 260px;
+}
+
+@media (max-width: 1100px) {
+  .title {
+    max-width: 30vw;
+  }
+}
+@media (max-width: 900px) {
+  .split-body {
+    flex-direction: column;
+    overflow-y: auto;
+  }
+  .divider {
+    display: none;
+  }
+  .desc,
+  .code-pane {
+    width: 100%;
+  }
+  .desc {
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+    overflow: visible;
+  }
+  .tab-content,
+  .tab-content.solution-mode,
+  .solution-preview,
+  .notes-preview {
+    overflow: visible;
+  }
+  .code-pane {
+    flex: none;
+  }
+  .editor-wrap {
+    flex: none;
+    height: 50vh;
+    min-height: 300px;
+  }
+}
+@media (max-width: 720px) {
+  .subheader {
+    gap: 8px;
+    padding: 8px 12px;
+  }
+  .title {
+    max-width: none;
+    flex: 1 1 60%;
+    font-size: 14px;
+  }
+  .pager {
+    order: 5;
+    width: 100%;
+    justify-content: space-between;
+    margin-left: 0;
+    gap: 8px;
+  }
+  .actions {
+    order: 10;
+    width: 100%;
+    margin-left: 0;
+    gap: 6px;
+  }
+  .actions button {
+    flex: 1;
+    padding: 8px 6px;
+    white-space: nowrap;
+  }
+  .tab-content {
+    padding: 14px;
+  }
+  .tab {
+    padding: 10px 10px;
+    font-size: 13px;
+  }
 }
 </style>

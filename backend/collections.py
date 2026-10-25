@@ -8,7 +8,7 @@ from __future__ import annotations
 
 import json
 
-from .problems import PROBLEMS_DIR, load_problems
+from .problems import PROBLEMS_DIR, all_problems
 
 COLLECTIONS_FILE = PROBLEMS_DIR / "collections.json"
 
@@ -19,7 +19,7 @@ def _load() -> list[dict]:
     if not COLLECTIONS_FILE.exists():
         return []
     raw = json.loads(COLLECTIONS_FILE.read_text(encoding="utf-8"))
-    valid = {p.slug for p in load_problems()}
+    valid = {p.slug for p in all_problems()}
     result = []
     for item in raw:
         problems = [s for s in item.get("problems", []) if s in valid]
