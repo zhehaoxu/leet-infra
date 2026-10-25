@@ -1,0 +1,11 @@
+{
+  "title": "SFT 数据：逐轮损失权重",
+  "difficulty": "Hard",
+  "tags": ["operator", "tokenization"],
+  "order": 243,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

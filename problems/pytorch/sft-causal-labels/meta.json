@@ -1,0 +1,11 @@
+{
+  "title": "SFT 数据：因果 LM 移位标签",
+  "difficulty": "Medium",
+  "tags": ["operator", "tokenization"],
+  "order": 242,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

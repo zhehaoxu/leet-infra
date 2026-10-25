@@ -1,0 +1,11 @@
+{
+  "title": "分词：Unigram 最优子词切分（Viterbi）",
+  "difficulty": "Hard",
+  "tags": ["operator", "tokenization"],
+  "order": 244,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

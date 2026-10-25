@@ -1,0 +1,11 @@
+{
+  "title": "SFT 数据：助手回复损失掩码",
+  "difficulty": "Medium",
+  "tags": ["operator", "tokenization"],
+  "order": 241,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}
