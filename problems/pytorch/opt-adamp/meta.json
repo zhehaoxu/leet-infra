@@ -1,5 +1,6 @@
 {
   "title": "优化器：AdamP 尺度不变方向投影",
+  "title_en": "Optimizer: AdamP Scale-Invariant Direction Projection",
   "difficulty": "Hard",
   "tags": ["operator", "optimizer"],
   "order": 189,

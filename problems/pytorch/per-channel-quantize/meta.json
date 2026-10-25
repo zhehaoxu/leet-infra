@@ -1,5 +1,6 @@
 {
   "title": "按通道量化（Per-Channel Fake-Quant）",
+  "title_en": "Per-Channel Fake-Quant",
   "difficulty": "Medium",
   "tags": ["operator", "quantization"],
   "order": 121,

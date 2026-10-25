@@ -1,5 +1,6 @@
 {
   "title": "Adaptive-p 采样",
+  "title_en": "Adaptive-p Sampling",
   "difficulty": "Hard",
   "tags": ["operator", "sampling"],
   "order": 135,

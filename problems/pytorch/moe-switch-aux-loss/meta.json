@@ -1,5 +1,6 @@
 {
   "title": "MoE 路由：Switch 负载均衡辅助损失",
+  "title_en": "MoE Routing: Switch Load-Balancing Auxiliary Loss",
   "difficulty": "Medium",
   "tags": ["operator", "moe"],
   "order": 138,

@@ -1,5 +1,6 @@
 {
   "title": "KV Cache：Merging 驱逐值余弦合并",
+  "title_en": "Merging: Fold Evicted Values into Nearest Survivor",
   "difficulty": "Medium",
   "tags": ["operator", "kvcache"],
   "order": 154,

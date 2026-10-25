@@ -1,5 +1,6 @@
 {
   "title": "优化器：Prodigy 自适应学习率（D-Adaptation）",
+  "title_en": "Optimizer: Prodigy Adaptive Learning Rate (D-Adaptation)",
   "difficulty": "Hard",
   "tags": ["operator", "optimizer"],
   "order": 195,

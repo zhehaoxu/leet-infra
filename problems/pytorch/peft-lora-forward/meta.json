@@ -1,5 +1,6 @@
 {
   "title": "PEFT：LoRA 低秩适配前向",
+  "title_en": "PEFT: LoRA Low-Rank Adaptation Forward",
   "difficulty": "Medium",
   "tags": ["operator", "peft"],
   "order": 199,

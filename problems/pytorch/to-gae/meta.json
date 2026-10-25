@@ -1,5 +1,6 @@
 {
   "title": "对齐训练：广义优势估计 GAE",
+  "title_en": "Generalized Advantage Estimation (GAE)",
   "difficulty": "Hard",
   "tags": ["operator", "alignment"],
   "order": 211,

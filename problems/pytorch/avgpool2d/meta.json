@@ -1,5 +1,6 @@
 {
   "title": "2D 平均池化",
+  "title_en": "2D Average Pooling",
   "difficulty": "Medium",
   "tags": ["operator", "cnn"],
   "order": 23,

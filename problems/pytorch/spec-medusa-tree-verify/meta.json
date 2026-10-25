@@ -1,5 +1,6 @@
 {
   "title": "推测解码：Medusa 多头候选树验证",
+  "title_en": "Speculative Decoding: Medusa Multi-Head Candidate Tree Verification",
   "difficulty": "Medium",
   "tags": ["operator", "speculative"],
   "order": 175,

@@ -1,5 +1,6 @@
 {
   "title": "优化器：Yogi 符号控制的二阶矩",
+  "title_en": "Optimizer: Yogi Sign-controlled Second Moment",
   "difficulty": "Medium",
   "tags": ["operator", "optimizer"],
   "order": 191,

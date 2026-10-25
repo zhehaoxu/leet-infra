@@ -1,5 +1,6 @@
 {
   "title": "算子融合的显存带宽收益",
+  "title_en": "Memory Bandwidth Gains from Operator Fusion",
   "difficulty": "Easy",
   "tags": ["operator", "systems"],
   "order": 87,

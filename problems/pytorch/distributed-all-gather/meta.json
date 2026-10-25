@@ -1,5 +1,6 @@
 {
   "title": "集合通信：All-Gather",
+  "title_en": "Collective Communication: All-Gather",
   "difficulty": "Easy",
   "tags": ["operator", "distributed"],
   "order": 94,

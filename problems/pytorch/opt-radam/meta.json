@@ -1,5 +1,6 @@
 {
   "title": "优化器：RAdam 整流自适应矩估计",
+  "title_en": "Optimizer: RAdam Rectified Adaptive Moment Estimation",
   "difficulty": "Hard",
   "tags": ["operator", "optimizer"],
   "order": 187,

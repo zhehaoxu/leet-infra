@@ -1,5 +1,6 @@
 {
   "title": "检索：HNSW 贪心图层搜索",
+  "title_en": "Retrieval: HNSW Greedy Layer Search",
   "difficulty": "Hard",
   "tags": ["operator", "retrieval"],
   "order": 233,

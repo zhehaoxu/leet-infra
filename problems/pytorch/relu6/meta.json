@@ -1,5 +1,6 @@
 {
   "title": "ReLU6",
+  "title_en": "ReLU6",
   "difficulty": "Easy",
   "tags": ["operator", "activation"],
   "order": 68,

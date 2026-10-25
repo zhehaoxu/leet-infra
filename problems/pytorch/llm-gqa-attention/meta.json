@@ -1,5 +1,6 @@
 {
   "title": "大模型组件：GQA 因果注意力",
+  "title_en": "LLM Components: GQA Causal Attention",
   "difficulty": "Hard",
   "tags": ["operator", "llm"],
   "order": 111,

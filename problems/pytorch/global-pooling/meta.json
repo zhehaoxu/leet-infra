@@ -1,5 +1,6 @@
 {
   "title": "全局池化",
+  "title_en": "Global Pooling",
   "difficulty": "Easy",
   "tags": ["operator", "cnn"],
   "order": 25,

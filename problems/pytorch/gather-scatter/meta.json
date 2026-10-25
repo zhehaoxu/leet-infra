@@ -1,5 +1,6 @@
 {
   "title": "Gather 索引取值",
+  "title_en": "Gather Index Selection",
   "difficulty": "Medium",
   "tags": [
     "operator",

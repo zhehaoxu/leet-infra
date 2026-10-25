@@ -1,5 +1,6 @@
 {
   "title": "优化器：Tiger 动量符号更新",
+  "title_en": "Optimizer: Tiger Sign-of-Momentum Update",
   "difficulty": "Medium",
   "tags": ["operator", "optimizer"],
   "order": 192,

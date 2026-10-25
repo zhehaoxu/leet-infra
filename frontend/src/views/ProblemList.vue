@@ -1,9 +1,10 @@
 <script setup lang="ts">
-import { computed, onMounted, ref } from 'vue'
+import { computed, onMounted, ref, watch } from 'vue'
 import { useProblemStore } from '../stores/problems'
 import { api, type CollectionSummary } from '../api'
 import ProblemTable from '../components/ProblemTable.vue'
 import ProgressRing from '../components/ProgressRing.vue'
+import { locale, t } from '../i18n'
 import { readHomeTab, writeHomeTab, type HomeTab } from '../utils/uiPrefs'
 
 const store = useProblemStore()
@@ -20,6 +21,12 @@ const collectionsError = ref<string | null>(null)
 onMounted(() => {
   if (!store.problems.length) store.fetchProblems()
   if (activeTab.value === 'collections') ensureCollections()
+})
+
+watch(locale, () => {
+  if (activeTab.value !== 'collections') return
+  collections.value = []
+  ensureCollections()
 })
 
 async function ensureCollections() {
@@ -42,11 +49,11 @@ function setTab(tab: HomeTab) {
 }
 
 async function resetProgress() {
-  if (!window.confirm('清空全部解题进度？题目代码草稿不受影响。此操作不可撤销。')) return
+  if (!window.confirm(t('home.resetConfirm'))) return
   try {
     await api.resetProgress()
   } catch (e) {
-    window.alert(`重置失败：${e instanceof Error ? e.message : e}`)
+    window.alert(t('home.resetFailed', { error: e instanceof Error ? e.message : String(e) }))
     return
   }
   await store.fetchProblems()
@@ -68,7 +75,7 @@ async function exportProgress() {
     a.click()
     URL.revokeObjectURL(a.href)
   } catch (e) {
-    window.alert(`导出失败：${e instanceof Error ? e.message : e}`)
+    window.alert(t('home.exportFailed', { error: e instanceof Error ? e.message : String(e) }))
   }
 }
 
@@ -81,7 +88,7 @@ async function onImportFile(ev: Event) {
   const file = input.files?.[0]
   input.value = '' // 允许连续选同一文件
   if (!file) return
-  if (!window.confirm('导入将覆盖当前全部解题进度，继续？')) return
+  if (!window.confirm(t('home.importConfirm'))) return
   try {
     const data = JSON.parse(await file.text()) as unknown
     const r = await api.importProgress(data)
@@ -90,9 +97,14 @@ async function onImportFile(ev: Event) {
       collections.value = []
       ensureCollections()
     }
-    window.alert(`导入完成：恢复 ${r.imported} 题` + (r.skipped ? `，跳过不认识的条目 ${r.skipped} 个` : ''))
+    window.alert(
+      t('home.importDone', { imported: r.imported }) +
+        (r.skipped ? t('home.importSkipped', { skipped: r.skipped }) : '')
+    )
   } catch (e) {
-    window.alert(`导入失败：${e instanceof Error ? e.message : e}，请确认选择的是 leet-infra 导出的进度文件`)
+    window.alert(
+      t('home.importFailed', { error: e instanceof Error ? e.message : String(e) })
+    )
   }
 }
 
@@ -108,35 +120,44 @@ const filteredCollections = computed(() => {
 <template>
   <div class="list-page">
     <div class="hero">
-      <h1>AI Infra 从动手写开始</h1>
-      <p>PyTorch 题库 · 代码在你本机 Python 虚拟环境中真实运行 · {{ store.solvedCount }}/{{ store.problems.length }} 已解决</p>
+      <h1>{{ t('home.heroTitle') }}</h1>
+      <p>
+        {{
+          t('home.heroSubtitle', {
+            solved: store.solvedCount,
+            total: store.problems.length,
+          })
+        }}
+      </p>
       <div class="hero-actions">
         <button
           v-if="store.solvedCount > 0"
           class="link-btn danger"
-          title="清空全部已解决记录，用于二刷题目"
+          :title="t('home.resetTitle')"
           @click="resetProgress"
         >
-          重置进度
+          {{ t('home.reset') }}
         </button>
-        <button class="link-btn" title="下载进度文件 progress.json" @click="exportProgress">
-          导出进度
+        <button class="link-btn" :title="t('home.exportTitle')" @click="exportProgress">
+          {{ t('home.export') }}
         </button>
-        <button class="link-btn" title="从导出的 JSON 恢复进度（覆盖当前）" @click="triggerImport">
-          导入进度
+        <button class="link-btn" :title="t('home.importTitle')" @click="triggerImport">
+          {{ t('home.import') }}
         </button>
         <input ref="importInput" type="file" accept="application/json,.json" class="hidden-file" @change="onImportFile" />
       </div>
     </div>
 
     <div class="tabs">
-      <button class="tab" :class="{ active: activeTab === 'all' }" @click="setTab('all')">全部</button>
+      <button class="tab" :class="{ active: activeTab === 'all' }" @click="setTab('all')">
+        {{ t('home.tabAll') }}
+      </button>
       <button
         class="tab"
         :class="{ active: activeTab === 'collections' }"
         @click="setTab('collections')"
       >
-        合集
+        {{ t('home.tabCollections') }}
       </button>
     </div>
 
@@ -151,11 +172,19 @@ const filteredCollections = computed(() => {
 
     <template v-else>
       <div class="toolbar">
-        <input v-model="collectionKeyword" class="search" placeholder="搜索合集…" />
+        <input
+          v-model="collectionKeyword"
+          class="search"
+          :placeholder="t('home.searchCollections')"
+        />
       </div>
-      <div v-if="collectionsLoading" class="empty">加载中…</div>
-      <div v-else-if="collectionsError" class="empty error">加载失败：{{ collectionsError }}</div>
-      <div v-else-if="!filteredCollections.length" class="empty">没有匹配的合集</div>
+      <div v-if="collectionsLoading" class="empty">{{ t('common.loading') }}</div>
+      <div v-else-if="collectionsError" class="empty error">
+        {{ t('common.loadFailed', { error: collectionsError }) }}
+      </div>
+      <div v-else-if="!filteredCollections.length" class="empty">
+        {{ t('home.noCollections') }}
+      </div>
 
       <div class="table" v-else>
         <router-link
@@ -164,7 +193,10 @@ const filteredCollections = computed(() => {
           :to="`/collections/${c.slug}`"
           class="row collection-row"
         >
-          <span class="collection-mark" :title="`${c.solved_count}/${c.problem_count} 已解决`">
+          <span
+            class="collection-mark"
+            :title="t('common.solvedOf', { solved: c.solved_count, total: c.problem_count })"
+          >
             <ProgressRing :value="c.solved_count" :total="c.problem_count" />
           </span>
           <span class="collection-body">
@@ -174,7 +206,7 @@ const filteredCollections = computed(() => {
           <span class="collection-progress" :class="{ done: c.solved_count === c.problem_count }">
             {{ c.solved_count }}/{{ c.problem_count }}
           </span>
-          <span class="go">进入合集 →</span>
+          <span class="go">{{ t('home.enterCollection') }}</span>
         </router-link>
       </div>
     </template>

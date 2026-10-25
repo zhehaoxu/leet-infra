@@ -1,5 +1,6 @@
 {
   "title": "稀疏化：逐行（局部）幅值剪枝",
+  "title_en": "Sparsification: Row-wise (Local) Magnitude Pruning",
   "difficulty": "Medium",
   "tags": ["operator", "sparsity"],
   "order": 220,

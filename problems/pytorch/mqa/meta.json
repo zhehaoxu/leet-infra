@@ -1,5 +1,6 @@
 {
   "title": "多查询注意力 (MQA)",
+  "title_en": "Multi-Query Attention (MQA)",
   "difficulty": "Medium",
   "tags": ["operator", "attention"],
   "order": 81,

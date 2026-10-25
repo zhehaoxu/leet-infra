@@ -1,5 +1,6 @@
 {
   "title": "LLM Serving：Beam Search 单步打分与回退",
+  "title_en": "LLM Serving: Beam Search Single-step Scoring and Backtracking",
   "difficulty": "Medium",
   "tags": ["operator", "inference"],
   "order": 156,

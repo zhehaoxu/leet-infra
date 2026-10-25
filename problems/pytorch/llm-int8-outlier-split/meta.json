@@ -1,5 +1,6 @@
 {
   "title": "量化：LLM.int8() 离群列混合精度拆分",
+  "title_en": "LLM.int8(): Outlier-column Mixed-precision Split",
   "difficulty": "Medium",
   "tags": ["operator", "quantization"],
   "order": 171,

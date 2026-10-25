@@ -1,5 +1,6 @@
 {
   "title": "张量并行的每层通信量（Megatron TP）",
+  "title_en": "Per-Layer Communication Volume of Tensor Parallelism (Megatron TP)",
   "difficulty": "Medium",
   "tags": ["operator", "distributed"],
   "order": 107,

@@ -1,5 +1,6 @@
 {
   "title": "GroupNorm",
+  "title_en": "GroupNorm",
   "difficulty": "Medium",
   "tags": ["operator", "normalization"],
   "order": 19,

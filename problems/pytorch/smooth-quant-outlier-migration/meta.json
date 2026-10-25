@@ -1,5 +1,6 @@
 {
   "title": "量化：SmoothQuant 激活离群通道迁移",
+  "title_en": "SmoothQuant Activation Outlier Migration",
   "difficulty": "Medium",
   "tags": ["operator", "quantization"],
   "order": 169,

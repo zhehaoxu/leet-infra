@@ -1,5 +1,6 @@
 {
   "title": "KV Cache：ThinK 通道维度剪枝",
+  "title_en": "KV Cache: ThinK Channel-Dimension Pruning",
   "difficulty": "Medium",
   "tags": ["operator", "kvcache"],
   "order": 153,

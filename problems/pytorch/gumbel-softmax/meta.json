@@ -1,5 +1,6 @@
 {
   "title": "Gumbel-Softmax 采样",
+  "title_en": "Gumbel-Softmax Sampling",
   "difficulty": "Medium",
   "tags": ["operator", "sampling"],
   "order": 63,

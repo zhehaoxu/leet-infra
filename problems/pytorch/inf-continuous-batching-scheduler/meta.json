@@ -1,5 +1,6 @@
 {
   "title": "LLM Serving：Continuous Batching 调度器",
+  "title_en": "LLM Serving: Continuous Batching Scheduler",
   "difficulty": "Hard",
   "tags": ["operator", "inference"],
   "order": 144,

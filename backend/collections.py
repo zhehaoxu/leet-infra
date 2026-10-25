@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import json
 
+from .i18n import normalize
 from .problems import PROBLEMS_DIR, all_problems
 
 COLLECTIONS_FILE = PROBLEMS_DIR / "collections.json"
@@ -27,7 +28,9 @@ def _load() -> list[dict]:
             {
                 "slug": item["slug"],
                 "name": item.get("name", item["slug"]),
+                "name_en": item.get("name_en", ""),
                 "description": item.get("description", ""),
+                "description_en": item.get("description_en", ""),
                 "problems": problems,
             }
         )
@@ -49,10 +52,22 @@ def get_collection(slug: str) -> dict | None:
     return None
 
 
-def collections_of(problem_slug: str) -> list[dict]:
+def localized_name(collection: dict, lang: str | None = "zh") -> str:
+    if normalize(lang) == "en" and collection.get("name_en"):
+        return collection["name_en"]
+    return collection["name"]
+
+
+def localized_description(collection: dict, lang: str | None = "zh") -> str:
+    if normalize(lang) == "en" and collection.get("description_en"):
+        return collection["description_en"]
+    return collection["description"]
+
+
+def collections_of(problem_slug: str, lang: str | None = "zh") -> list[dict]:
     """反查题目所属合集（保持合集配置顺序）。"""
     return [
-        {"slug": c["slug"], "name": c["name"]}
+        {"slug": c["slug"], "name": localized_name(c, lang)}
         for c in all_collections()
         if problem_slug in c["problems"]
     ]

@@ -1,5 +1,6 @@
 {
   "title": "KL 散度（前向与反向）",
+  "title_en": "KL Divergence (Forward and Reverse)",
   "difficulty": "Medium",
   "tags": ["operator", "loss"],
   "order": 237,

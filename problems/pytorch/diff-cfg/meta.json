@@ -1,5 +1,6 @@
 {
   "title": "Diffusion：无分类器引导 (CFG)",
+  "title_en": "Diffusion: Classifier-Free Guidance (CFG)",
   "difficulty": "Medium",
   "tags": ["operator", "diffusion"],
   "order": 210,

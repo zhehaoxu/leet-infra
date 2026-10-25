@@ -1,5 +1,6 @@
 {
   "title": "交并比 IoU",
+  "title_en": "Intersection over Union (IoU)",
   "difficulty": "Easy",
   "tags": ["operator", "vision"],
   "order": 65,

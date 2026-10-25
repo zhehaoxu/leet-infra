@@ -1,5 +1,6 @@
 {
   "title": "转置卷积（反卷积）",
+  "title_en": "Transposed Convolution / Deconvolution (ConvTranspose2d)",
   "difficulty": "Hard",
   "tags": ["operator", "conv"],
   "order": 51,

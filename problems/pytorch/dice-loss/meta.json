@@ -1,5 +1,6 @@
 {
   "title": "Soft Dice 损失",
+  "title_en": "Soft Dice Loss",
   "difficulty": "Medium",
   "tags": ["operator", "loss"],
   "order": 236,

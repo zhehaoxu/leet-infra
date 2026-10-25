@@ -1,5 +1,6 @@
 {
   "title": "推测解码：Typical Acceptance 逐 token 接受",
+  "title_en": "Speculative Decoding: Typical Acceptance Per-Token Verification",
   "difficulty": "Medium",
   "tags": ["operator", "speculative"],
   "order": 178,

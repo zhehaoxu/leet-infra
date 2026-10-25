@@ -1,5 +1,6 @@
 {
   "title": "Diffusion：DDPM 前向加噪 q(x_t|x_0)",
+  "title_en": "Diffusion: DDPM Forward Noising q(x_t|x_0)",
   "difficulty": "Easy",
   "tags": ["operator", "diffusion"],
   "order": 207,

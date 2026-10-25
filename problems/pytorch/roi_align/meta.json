@@ -1,5 +1,6 @@
 {
   "title": "RoI 对齐 (RoI Align)",
+  "title_en": "RoI Align",
   "difficulty": "Hard",
   "tags": ["operator", "vision"],
   "order": 84,

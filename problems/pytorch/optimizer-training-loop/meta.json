@@ -1,5 +1,6 @@
 {
   "title": "SGD 训练循环与数值复现",
+  "title_en": "SGD Training Loop and Numerical Reproduction",
   "difficulty": "Hard",
   "tags": ["optimizer", "training-loop"],
   "order": 5

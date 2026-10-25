@@ -1,5 +1,6 @@
 {
   "title": "对齐训练：KTO 前景理论损失",
+  "title_en": "KTO Prospect-Theoretic Loss",
   "difficulty": "Hard",
   "tags": ["operator", "alignment"],
   "order": 214,

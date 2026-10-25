@@ -1,5 +1,6 @@
 {
   "title": "MoE 路由：z-loss 稳定性正则",
+  "title_en": "MoE Routing: z-loss Stability Regularizer",
   "difficulty": "Easy",
   "tags": ["operator", "moe"],
   "order": 141,

@@ -1,5 +1,6 @@
 {
   "title": "Roofline 算术强度与性能上限",
+  "title_en": "Roofline Arithmetic Intensity and Performance Ceiling",
   "difficulty": "Medium",
   "tags": ["operator", "systems"],
   "order": 91,

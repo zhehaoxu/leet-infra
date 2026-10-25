@@ -1,5 +1,6 @@
 {
   "title": "最近邻上采样",
+  "title_en": "Nearest-Neighbor Upsampling",
   "difficulty": "Easy",
   "tags": ["operator", "vision"],
   "order": 53,

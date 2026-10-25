@@ -1,5 +1,6 @@
 {
   "title": "数据整理：序列打包成定长块（pack）",
+  "title_en": "Data Prep: Packing Sequences into Fixed-Length Blocks",
   "difficulty": "Medium",
   "tags": ["operator", "tokenization"],
   "order": 120,

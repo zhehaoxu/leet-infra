@@ -1,5 +1,6 @@
 {
   "title": "PEFT：IA3 逐元素激活重标定",
+  "title_en": "PEFT: IA3 Element-wise Activation Rescaling",
   "difficulty": "Medium",
   "tags": ["operator", "peft"],
   "order": 201,

@@ -1,5 +1,6 @@
 {
   "title": "稀疏化：三次渐稀疏调度 (GSL)",
+  "title_en": "Cubic Gradual Sparsity Schedule (GSL)",
   "difficulty": "Medium",
   "tags": ["operator", "sparsity"],
   "order": 219,

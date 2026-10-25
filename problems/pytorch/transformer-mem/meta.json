@@ -1,5 +1,6 @@
 {
   "title": "Transformer 激活显存账",
+  "title_en": "Transformer Activation Memory",
   "difficulty": "Medium",
   "tags": ["operator", "systems"],
   "order": 85,

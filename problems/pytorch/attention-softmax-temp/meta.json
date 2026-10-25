@@ -1,5 +1,6 @@
 {
   "title": "温度缩放与 Top-p 采样",
+  "title_en": "Temperature Scaling & Top-p Sampling",
   "difficulty": "Medium",
   "tags": ["operator", "attention"],
   "order": 36,

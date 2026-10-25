@@ -1,5 +1,6 @@
 {
   "title": "对齐训练：GRPO 组内标准化优势",
+  "title_en": "GRPO Group-Normalized Advantage",
   "difficulty": "Medium",
   "tags": ["operator", "alignment"],
   "order": 213,

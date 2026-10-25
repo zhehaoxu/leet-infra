@@ -1,5 +1,6 @@
 {
   "title": "LSTM 单元",
+  "title_en": "LSTM Cell",
   "difficulty": "Medium",
   "tags": ["operator", "rnn"],
   "order": 67,

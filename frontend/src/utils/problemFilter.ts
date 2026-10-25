@@ -22,50 +22,81 @@ export function filterProblems(list: ProblemSummary[], f: FilterState): ProblemS
   })
 }
 
-// family 归组：operators 按领域标签归族，非 operator（框架题）统一归「框架 / 其他」
-export const TAG_FAMILY: Record<string, string> = {
-  activation: '激活函数',
-  normalization: '归一化',
-  conv: '卷积',
-  cnn: '卷积',
-  vision: '池化 · 视觉',
-  pooling: '池化 · 视觉',
-  gemm: '矩阵乘 · 线代',
-  attention: '注意力',
-  tensor: '张量操作',
-  loss: '损失',
-  optimizer: '优化器',
-  quantization: '量化',
-  sampling: '采样',
-  rnn: '循环网络',
-  metric: '检测 · 度量',
-  systems: '显存 · 性能',
-  tokenization: '分词 · 数据',
-  distributed: '分布式',
-  llm: '大模型结构',
-  moe: 'MoE 路由',
-  inference: '推理 Serving',
-  alignment: '对齐目标',
-  kvcache: 'KV Cache 压缩',
-  speculative: '推测解码',
-  peft: '参数高效微调',
-  diffusion: '扩散生成',
-  sparsity: '稀疏剪枝',
-  multimodal: '多模态',
-  retrieval: '向量检索',
+// family 归组：operators 按领域标签归族，非 operator（框架题）统一归 other。
+// 返回稳定的族 key，展示文案由 i18n 的 family.* 提供。
+export type FamilyKey =
+  | 'activation'
+  | 'normalization'
+  | 'conv'
+  | 'vision'
+  | 'gemm'
+  | 'attention'
+  | 'tensor'
+  | 'loss'
+  | 'optimizer'
+  | 'quantization'
+  | 'sampling'
+  | 'rnn'
+  | 'metric'
+  | 'systems'
+  | 'tokenization'
+  | 'distributed'
+  | 'llm'
+  | 'moe'
+  | 'inference'
+  | 'alignment'
+  | 'kvcache'
+  | 'speculative'
+  | 'peft'
+  | 'diffusion'
+  | 'sparsity'
+  | 'multimodal'
+  | 'retrieval'
+  | 'other'
+
+export const TAG_FAMILY: Record<string, FamilyKey> = {
+  activation: 'activation',
+  normalization: 'normalization',
+  conv: 'conv',
+  cnn: 'conv',
+  vision: 'vision',
+  pooling: 'vision',
+  gemm: 'gemm',
+  attention: 'attention',
+  tensor: 'tensor',
+  loss: 'loss',
+  optimizer: 'optimizer',
+  quantization: 'quantization',
+  sampling: 'sampling',
+  rnn: 'rnn',
+  metric: 'metric',
+  systems: 'systems',
+  tokenization: 'tokenization',
+  distributed: 'distributed',
+  llm: 'llm',
+  moe: 'moe',
+  inference: 'inference',
+  alignment: 'alignment',
+  kvcache: 'kvcache',
+  speculative: 'speculative',
+  peft: 'peft',
+  diffusion: 'diffusion',
+  sparsity: 'sparsity',
+  multimodal: 'multimodal',
+  retrieval: 'retrieval',
 }
 
-export const GROUP_ORDER = [
-  '激活函数', '归一化', '卷积', '池化 · 视觉', '矩阵乘 · 线代', '注意力',
-  '张量操作', '损失', '优化器', '量化', '采样', '循环网络', '检测 · 度量', '显存 · 性能',
-  '分词 · 数据', '分布式', '大模型结构', 'MoE 路由', '推理 Serving', '对齐目标', 'KV Cache 压缩', '推测解码', '参数高效微调', '扩散生成', '稀疏剪枝', '多模态', '向量检索',
-  '框架 / 其他',
+export const GROUP_ORDER: FamilyKey[] = [
+  'activation', 'normalization', 'conv', 'vision', 'gemm', 'attention',
+  'tensor', 'loss', 'optimizer', 'quantization', 'sampling', 'rnn', 'metric', 'systems',
+  'tokenization', 'distributed', 'llm', 'moe', 'inference', 'alignment', 'kvcache', 'speculative', 'peft', 'diffusion', 'sparsity', 'multimodal', 'retrieval',
+  'other',
 ]
 
 /** 取 tags 中在 GROUP_ORDER 里排名最靠前的族；规避不可靠的「首个非 operator 标签」 */
-export function familyOf(p: ProblemSummary): string {
-  if (!p.tags.includes('operator')) return '框架 / 其他'
-  let best = ''
+export function familyOf(p: ProblemSummary): FamilyKey {
+  if (!p.tags.includes('operator')) return 'other'
+  let best: FamilyKey = 'other'
   let bestRank = Infinity
   for (const t of p.tags) {
     const fam = TAG_FAMILY[t]
@@ -76,18 +107,19 @@ export function familyOf(p: ProblemSummary): string {
       best = fam
     }
   }
-  return best || '框架 / 其他'
+  return best
 }
 
 export interface Section {
-  name: string
+  /** family key；关闭分组时为空字符串 */
+  name: FamilyKey | ''
   items: ProblemSummary[]
 }
 
 /** 分组开启时按 family 切段（按 GROUP_ORDER 排序），否则单段平铺（name 为空） */
 export function buildSections(filtered: ProblemSummary[], groupOn: boolean): Section[] {
   if (!groupOn) return [{ name: '', items: filtered }]
-  const buckets = new Map<string, ProblemSummary[]>()
+  const buckets = new Map<FamilyKey, ProblemSummary[]>()
   for (const p of filtered) {
     const fam = familyOf(p)
     const arr = buckets.get(fam)

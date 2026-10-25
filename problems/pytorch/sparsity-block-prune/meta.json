@@ -1,5 +1,6 @@
 {
   "title": "稀疏化：块结构剪枝（按块范数）",
+  "title_en": "Block Structured Pruning by Block Norm",
   "difficulty": "Hard",
   "tags": ["operator", "sparsity"],
   "order": 222,

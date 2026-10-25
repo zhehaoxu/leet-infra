@@ -1,5 +1,6 @@
 {
   "title": "余弦相似度",
+  "title_en": "Cosine Similarity",
   "difficulty": "Easy",
   "tags": ["operator", "metric"],
   "order": 61,

@@ -1,5 +1,6 @@
 {
   "title": "PReLU（可学习负斜率）",
+  "title_en": "PReLU (Learnable Negative Slope)",
   "difficulty": "Medium",
   "tags": ["operator", "activation"],
   "order": 10,

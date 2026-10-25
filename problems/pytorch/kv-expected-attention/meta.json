@@ -1,5 +1,6 @@
 {
   "title": "KV Cache：ExpectedAttention 期望注意力打分",
+  "title_en": "KV Cache: ExpectedAttention Expected-Attention Scoring",
   "difficulty": "Medium",
   "tags": ["operator", "kvcache"],
   "order": 150,

@@ -1,5 +1,6 @@
 {
   "title": "Transformer FLOPs 与 MFU",
+  "title_en": "Transformer FLOPs and MFU",
   "difficulty": "Medium",
   "tags": ["operator", "systems"],
   "order": 86,

@@ -1,5 +1,6 @@
 {
   "title": "二元交叉熵损失",
+  "title_en": "Binary Cross-Entropy Loss",
   "difficulty": "Easy",
   "tags": ["operator", "loss"],
   "order": 72,

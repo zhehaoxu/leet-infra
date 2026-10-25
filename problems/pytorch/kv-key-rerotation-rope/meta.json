@@ -1,5 +1,6 @@
 {
   "title": "KV Cache：KeyRerotation 驱逐后 RoPE 重旋转",
+  "title_en": "KeyRerotation: RoPE Re-rotation After Eviction",
   "difficulty": "Medium",
   "tags": ["operator", "kvcache"],
   "order": 167,

@@ -1,5 +1,6 @@
 {
   "title": "PEFT：Adapter 瓶颈前馈与残差",
+  "title_en": "PEFT: Adapter Bottleneck Feed-Forward with Residual",
   "difficulty": "Medium",
   "tags": ["operator", "peft"],
   "order": 202,

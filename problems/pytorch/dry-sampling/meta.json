@@ -1,5 +1,6 @@
 {
   "title": "DRY 采样 (Dont Repeat Yourself)",
+  "title_en": "DRY Sampling (Dont Repeat Yourself)",
   "difficulty": "Hard",
   "tags": ["operator", "sampling"],
   "order": 133,

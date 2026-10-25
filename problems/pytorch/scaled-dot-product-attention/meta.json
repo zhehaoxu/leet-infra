@@ -1,5 +1,6 @@
 {
   "title": "缩放点积注意力",
+  "title_en": "Scaled Dot-Product Attention",
   "difficulty": "Medium",
   "tags": ["operator", "attention"],
   "order": 30,

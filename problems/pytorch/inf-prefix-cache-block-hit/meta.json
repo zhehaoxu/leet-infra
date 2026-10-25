@@ -1,5 +1,6 @@
 {
   "title": "LLM Serving：Automatic Prefix Caching 命中",
+  "title_en": "LLM Serving: Automatic Prefix Caching Hits",
   "difficulty": "Medium",
   "tags": ["operator", "inference"],
   "order": 160,

@@ -1,5 +1,6 @@
 {
   "title": "集合通信：All-Reduce",
+  "title_en": "Collective Communication: All-Reduce",
   "difficulty": "Medium",
   "tags": ["operator", "distributed"],
   "order": 96,

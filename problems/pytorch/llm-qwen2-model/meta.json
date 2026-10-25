@@ -1,5 +1,6 @@
 {
   "title": "大模型拼装：Qwen2 完整因果语言模型",
+  "title_en": "Full Qwen2 Causal Language Model",
   "difficulty": "Hard",
   "tags": ["operator", "llm"],
   "order": 113,

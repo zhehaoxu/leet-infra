@@ -1,5 +1,6 @@
 {
   "title": "GELU（精确与 tanh 近似）",
+  "title_en": "GELU (Exact and tanh Approximation)",
   "difficulty": "Medium",
   "tags": ["operator", "activation", "transformer"],
   "order": 5,

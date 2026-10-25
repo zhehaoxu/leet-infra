@@ -1,5 +1,6 @@
 {
   "title": "滑动窗口注意力",
+  "title_en": "Sliding-Window Attention",
   "difficulty": "Medium",
   "tags": ["operator", "attention"],
   "order": 48,

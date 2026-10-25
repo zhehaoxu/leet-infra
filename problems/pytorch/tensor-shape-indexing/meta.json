@@ -1,5 +1,6 @@
 {
   "title": "张量形状与索引操作",
+  "title_en": "Tensor Shape and Indexing Operations",
   "difficulty": "Easy",
   "tags": ["tensor", "indexing", "stride"],
   "order": 1

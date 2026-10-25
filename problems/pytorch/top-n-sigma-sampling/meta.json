@@ -1,5 +1,6 @@
 {
   "title": "Top-n-sigma 采样",
+  "title_en": "Top-n-sigma Sampling",
   "difficulty": "Medium",
   "tags": ["operator", "sampling"],
   "order": 129,

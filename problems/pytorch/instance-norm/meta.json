@@ -1,5 +1,6 @@
 {
   "title": "InstanceNorm",
+  "title_en": "InstanceNorm",
   "difficulty": "Easy",
   "tags": ["operator", "normalization"],
   "order": 20,

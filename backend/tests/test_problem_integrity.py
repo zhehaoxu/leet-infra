@@ -1,11 +1,13 @@
 """题库完整性护栏：纯读文件系统、零运行时依赖（不导入 backend / torch / judge）。
 
-兜住「靠人工记忆」最易漏的三类结构漂移，加/删/改题目后立即暴露：
+兜住「靠人工记忆」最易漏的四类结构漂移，加/删/改题目后立即暴露：
   (a) collections.json 引用的每个 slug 都在盘上有对应题目录（删题/改 slug 后不留悬挂引用）。
   (b) 每题五件套齐全：meta.json / description.md / notes.md + variants/pytorch/{starter,solution,test_cases}.py。
   (c) 每个含 `operator` 标签的题都至少有一个领域标签能在前端 problemFilter.ts 的 TAG_FAMILY 命中族
       —— 否则前端 familyOf 会把它静默归入「框架 / 其他」，新族漏登记不报错也不红。
       （框架题本身不带 operator，合法落入「框架 / 其他」，故不参与 (c) 断言。）
+  (d) 每题英文三件套齐全：title_en + description.en.md + notes.en.md，合集也有 name_en
+      —— 前端切到 EN 时后端会回落中文，漏译只能靠这条护栏发现。
 
 命名以 test_ 前缀被后端 pytest 采集；因不依赖评测环境，`--smoke` 与 `-n auto` 均可叠加、秒级完成。
 """
@@ -25,6 +27,8 @@ FILTER_TS = ROOT / "frontend" / "src" / "utils" / "problemFilter.ts"
 # 每题根目录必备文件 + variants/pytorch 下必备三件套
 ROOT_FILES = ("meta.json", "description.md", "notes.md")
 VARIANT_FILES = ("starter.py", "solution.py", "test_cases.py")
+# 英文版必备：两份 Markdown + meta.json 里的 title_en
+ROOT_EN_FILES = ("description.en.md", "notes.en.md")
 
 
 def _tag_family_keys() -> set[str]:
@@ -90,3 +94,20 @@ def test_operator_problem_maps_to_a_family(slug):
         f"（tags={sorted(tags)}）——会被 familyOf 静默归入「框架 / 其他」；"
         f"请在 problemFilter.ts 的 TAG_FAMILY 补登记该领域标签"
     )
+
+
+# ---- (d) 双语内容齐全 ---------------------------------------------------------------
+@pytest.mark.parametrize("slug", PROBLEM_DIRS)
+def test_problem_has_english_pair(slug):
+    d = PYTORCH_DIR / slug
+    meta = json.loads((d / "meta.json").read_text(encoding="utf-8"))
+    missing = [str(d / f) for f in ROOT_EN_FILES if not (d / f).is_file()]
+    if not meta.get("title_en", "").strip():
+        missing.append(f"{slug}/meta.json: title_en")
+    assert not missing, f"{slug} 缺少英文内容，EN 语言下会回落中文: {missing}"
+
+
+def test_collections_have_english_names():
+    collections = json.loads(COLLECTIONS_FILE.read_text(encoding="utf-8"))
+    missing = [c["slug"] for c in collections if not c.get("name_en", "").strip()]
+    assert not missing, f"合集缺少 name_en，EN 语言下合集名会回落中文: {missing}"

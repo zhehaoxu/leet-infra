@@ -1,5 +1,6 @@
 {
   "title": "Transformer 参数量估算",
+  "title_en": "Transformer Parameter Count",
   "difficulty": "Medium",
   "tags": ["operator", "systems"],
   "order": 88,

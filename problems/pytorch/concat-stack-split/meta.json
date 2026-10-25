@@ -1,5 +1,6 @@
 {
   "title": "Concat 拼接（沿现有维）",
+  "title_en": "Concat (along an existing dimension)",
   "difficulty": "Easy",
   "tags": [
     "operator",

@@ -1,5 +1,6 @@
 {
   "title": "分布式原语：Reduce（根归约求和）",
+  "title_en": "Distributed Primitive: Reduce (Root-Sum Reduction)",
   "difficulty": "Medium",
   "tags": ["operator", "distributed"],
   "order": 114,

@@ -1,5 +1,6 @@
 {
   "title": "KV Cache：KNorm 键范数打分",
+  "title_en": "KNorm: Importance from Key L2 Norms",
   "difficulty": "Easy",
   "tags": ["operator", "kvcache"],
   "order": 146,

@@ -1,5 +1,6 @@
 {
   "title": "对齐训练：DPO 直接偏好优化损失",
+  "title_en": "DPO Direct Preference Optimization Loss",
   "difficulty": "Medium",
   "tags": ["operator", "alignment"],
   "order": 161,

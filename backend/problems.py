@@ -11,6 +11,8 @@ import json
 from dataclasses import dataclass, field
 from pathlib import Path
 
+from .i18n import normalize
+
 ROOT = Path(__file__).resolve().parent.parent
 PROBLEMS_DIR = ROOT / "problems"
 
@@ -36,6 +38,7 @@ class Problem:
     tags: list[str] = field(default_factory=list)
     order: int = 0
     variants: list[VariantInfo] = field(default_factory=list)
+    title_en: str = ""
 
     @property
     def directory(self) -> Path:
@@ -59,13 +62,26 @@ class Problem:
     def _variant_dir(self, variant: str | None) -> Path:
         return self.directory / "variants" / (variant or self.default_variant)
 
-    def description(self) -> str:
-        return (self.directory / "description.md").read_text(encoding="utf-8")
+    def localized_title(self, lang: str | None = "zh") -> str:
+        if normalize(lang) == "en" and self.title_en:
+            return self.title_en
+        return self.title
 
-    def notes(self) -> str:
-        # 可选的题目详解笔记：与 description.md 同级；不存在则为空（前端据此置灰笔记标签）
-        p = self.directory / "notes.md"
+    def _localized_markdown(self, stem: str, lang: str | None) -> str:
+        """Prefer <stem>.en.md for English; fall back to the Chinese source."""
+        if normalize(lang) == "en":
+            en = self.directory / f"{stem}.en.md"
+            if en.exists():
+                return en.read_text(encoding="utf-8")
+        p = self.directory / f"{stem}.md"
         return p.read_text(encoding="utf-8") if p.exists() else ""
+
+    def description(self, lang: str | None = "zh") -> str:
+        return self._localized_markdown("description", lang)
+
+    def notes(self, lang: str | None = "zh") -> str:
+        # 可选的题目详解笔记：与 description.md 同级；不存在则为空（前端据此置灰笔记标签）
+        return self._localized_markdown("notes", lang)
 
     def starter(self, variant: str | None = None) -> str:
         return (self._variant_dir(variant) / "starter.py").read_text(encoding="utf-8")
@@ -76,11 +92,11 @@ class Problem:
     def solution(self, variant: str | None = None) -> str:
         return (self._variant_dir(variant) / "solution.py").read_text(encoding="utf-8")
 
-    def summary(self, solved: bool) -> dict:
+    def summary(self, solved: bool, lang: str | None = "zh") -> dict:
         return {
             "slug": self.slug,
             "framework": self.framework,
-            "title": self.title,
+            "title": self.localized_title(lang),
             "difficulty": self.difficulty,
             "tags": self.tags,
             "solved": solved,
@@ -109,6 +125,7 @@ def load_problems() -> list[Problem]:
                 tags=meta.get("tags", []),
                 order=meta.get("order", 0),
                 variants=_parse_variants(meta),
+                title_en=meta.get("title_en", ""),
             )
         )
     problems.sort(key=lambda p: (p.framework, p.order, p.slug))

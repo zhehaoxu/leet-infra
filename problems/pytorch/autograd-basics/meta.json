@@ -1,5 +1,6 @@
 {
   "title": "autograd 求导入门",
+  "title_en": "Autograd Basics",
   "difficulty": "Medium",
   "tags": ["autograd", "gradient"],
   "order": 3

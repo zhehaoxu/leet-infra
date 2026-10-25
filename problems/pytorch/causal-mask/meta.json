@@ -1,5 +1,6 @@
 {
   "title": "因果掩码",
+  "title_en": "Causal Mask",
   "difficulty": "Easy",
   "tags": ["operator", "attention"],
   "order": 32,

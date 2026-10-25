@@ -1,5 +1,6 @@
 {
   "title": "流水线并行的气泡率（GPipe）",
+  "title_en": "Pipeline Parallelism Bubble Ratio (GPipe)",
   "difficulty": "Medium",
   "tags": ["operator", "distributed"],
   "order": 103,

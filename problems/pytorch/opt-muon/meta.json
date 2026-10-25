@@ -1,5 +1,6 @@
 {
   "title": "优化器：Muon Newton-Schulz 正交化动量",
+  "title_en": "Muon Newton-Schulz Orthogonalized Momentum",
   "difficulty": "Hard",
   "tags": ["operator", "optimizer"],
   "order": 185,

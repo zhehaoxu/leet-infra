@@ -1,5 +1,6 @@
 {
   "title": "CTC 损失（前向算法）",
+  "title_en": "CTC Loss (Forward Algorithm)",
   "difficulty": "Hard",
   "tags": ["operator", "loss"],
   "order": 240,

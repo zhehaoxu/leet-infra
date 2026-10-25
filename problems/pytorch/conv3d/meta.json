@@ -1,5 +1,6 @@
 {
   "title": "三维卷积 (conv3d)",
+  "title_en": "3D Convolution (conv3d)",
   "difficulty": "Hard",
   "tags": ["operator", "conv"],
   "order": 80,

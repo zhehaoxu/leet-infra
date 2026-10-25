@@ -1,5 +1,6 @@
 {
   "title": "集合通信：All-to-All",
+  "title_en": "Collective Communication: All-to-All",
   "difficulty": "Medium",
   "tags": ["operator", "distributed"],
   "order": 102,

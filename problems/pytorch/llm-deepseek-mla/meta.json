@@ -1,5 +1,6 @@
 {
   "title": "大模型组件：DeepSeek 多头潜在注意力 (MLA)",
+  "title_en": "LLM Components: DeepSeek Multi-head Latent Attention (MLA)",
   "difficulty": "Hard",
   "tags": ["operator", "llm"],
   "order": 181,

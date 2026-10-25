@@ -1,5 +1,6 @@
 {
   "title": "QK 归一化注意力",
+  "title_en": "QK-Norm Attention",
   "difficulty": "Medium",
   "tags": ["operator", "attention"],
   "order": 37,

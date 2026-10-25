@@ -1,5 +1,6 @@
 {
   "title": "1F1B 流水线的峰值激活显存",
+  "title_en": "Peak Activation Memory of 1F1B Pipeline Parallelism",
   "difficulty": "Hard",
   "tags": ["operator", "distributed"],
   "order": 106,

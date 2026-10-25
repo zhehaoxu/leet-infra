@@ -1,5 +1,6 @@
 {
   "title": "Diffusion：DDIM 确定性去噪一步",
+  "title_en": "Diffusion: One Deterministic DDIM Denoising Step",
   "difficulty": "Medium",
   "tags": ["operator", "diffusion"],
   "order": 209,

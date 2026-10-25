@@ -1,5 +1,6 @@
 {
   "title": "FP16 动态 Loss Scaling 单步",
+  "title_en": "FP16 Dynamic Loss Scaling: Single Step",
   "difficulty": "Medium",
   "tags": ["operator", "quantization"],
   "order": 124,

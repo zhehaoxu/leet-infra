@@ -1,5 +1,6 @@
 {
   "title": "数值稳定 Log-Softmax",
+  "title_en": "Numerically Stable Log-Softmax",
   "difficulty": "Easy",
   "tags": ["operator", "activation"],
   "order": 62,

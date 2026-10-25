@@ -1,5 +1,6 @@
 {
   "title": "BatchNorm 前向（训练/推理）",
+  "title_en": "BatchNorm Forward (Training/Inference)",
   "difficulty": "Medium",
   "tags": ["operator", "normalization"],
   "order": 16,

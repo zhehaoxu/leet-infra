@@ -1,5 +1,6 @@
 {
   "title": "KV Cache：ChunkPress 分块独立 Top-K 保留",
+  "title_en": "KV Cache: ChunkPress Per-Chunk Independent Top-K Retention",
   "difficulty": "Medium",
   "tags": ["operator", "kvcache"],
   "order": 165,

@@ -1,5 +1,6 @@
 {
   "title": "PEFT：DoRA 幅值-方向分解低秩适配",
+  "title_en": "PEFT: DoRA Magnitude-Direction Decomposed Low-Rank Adaptation",
   "difficulty": "Hard",
   "tags": ["operator", "peft"],
   "order": 203,

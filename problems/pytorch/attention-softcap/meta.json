@@ -1,5 +1,6 @@
 {
   "title": "注意力 Soft-Capping",
+  "title_en": "Attention Soft-Capping",
   "difficulty": "Easy",
   "tags": ["operator", "attention"],
   "order": 49,

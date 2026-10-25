@@ -1,5 +1,6 @@
 {
   "title": "LLM 推理 prefill/decode 吞吐账",
+  "title_en": "LLM Inference Prefill/Decode Throughput Accounting",
   "difficulty": "Medium",
   "tags": ["operator", "systems"],
   "order": 93,

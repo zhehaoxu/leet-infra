@@ -1,5 +1,6 @@
 {
   "title": "SFT 数据：因果 LM 移位标签",
+  "title_en": "SFT Data: Causal LM Shifted Labels",
   "difficulty": "Medium",
   "tags": ["operator", "tokenization"],
   "order": 242,

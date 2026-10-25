@@ -1,5 +1,6 @@
 {
   "title": "动态温度采样 (Dynatemp)",
+  "title_en": "Dynamic Temperature Sampling (Dynatemp)",
   "difficulty": "Medium",
   "tags": ["operator", "sampling"],
   "order": 136,

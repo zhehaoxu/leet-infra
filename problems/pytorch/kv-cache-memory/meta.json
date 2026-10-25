@@ -1,5 +1,6 @@
 {
   "title": "KV Cache 显存估算",
+  "title_en": "KV Cache Memory Estimation",
   "difficulty": "Medium",
   "tags": ["operator", "systems"],
   "order": 90,

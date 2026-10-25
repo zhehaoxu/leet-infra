@@ -1,5 +1,6 @@
 {
   "title": "自适应平均池化",
+  "title_en": "Adaptive Average Pooling",
   "difficulty": "Medium",
   "tags": ["operator", "cnn"],
   "order": 24,

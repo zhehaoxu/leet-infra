@@ -1,5 +1,6 @@
 {
   "title": "量化：GPTQ 逐列误差补偿量化",
+  "title_en": "Quantization: GPTQ Column-wise Error Compensation",
   "difficulty": "Medium",
   "tags": ["operator", "quantization"],
   "order": 173,

@@ -1,5 +1,6 @@
 {
   "title": "2D 最大池化",
+  "title_en": "2D Max Pooling",
   "difficulty": "Medium",
   "tags": ["operator", "cnn"],
   "order": 22,

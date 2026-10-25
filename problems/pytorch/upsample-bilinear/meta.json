@@ -1,5 +1,6 @@
 {
   "title": "双线性插值上采样",
+  "title_en": "Bilinear Interpolation Upsampling",
   "difficulty": "Hard",
   "tags": ["operator", "vision"],
   "order": 28,

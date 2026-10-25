@@ -1,5 +1,6 @@
 {
   "title": "全连接线性层",
+  "title_en": "Fully Connected Linear Layer",
   "difficulty": "Easy",
   "tags": ["operator", "tensor"],
   "order": 60,

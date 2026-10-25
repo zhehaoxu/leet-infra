@@ -1,5 +1,6 @@
 {
   "title": "LLM Serving：Speculative Decoding 拒绝采样",
+  "title_en": "LLM Serving: Speculative Decoding Rejection Sampling",
   "difficulty": "Medium",
   "tags": ["operator", "inference"],
   "order": 155,

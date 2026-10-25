@@ -13,6 +13,7 @@ from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 
 from . import benchmarks, collections, judge, problems, progress
+from .i18n import tr
 
 app = FastAPI(title="leet-infra", docs_url=None, redoc_url=None)
 
@@ -28,45 +29,48 @@ app.add_middleware(
 class Submission(BaseModel):
     code: str
     variant: str = "pytorch"
+    lang: str = "zh"
 
 
-def _summary_with_collections(problem, solved: bool) -> dict:
+def _summary_with_collections(problem, solved: bool, lang: str) -> dict:
     """题目 summary 附加所属合集信息，供前端渲染合集徽章。"""
     return {
-        **problem.summary(solved),
-        "collections": collections.collections_of(problem.slug),
+        **problem.summary(solved, lang),
+        "collections": collections.collections_of(problem.slug, lang),
     }
 
 
 @app.get("/api/problems")
-def list_problems():
+def list_problems(lang: str = Query(default="zh")):
     solved = progress.solved_map()
-    return [_summary_with_collections(p, p.slug in solved) for p in problems.all_problems()]
+    return [
+        _summary_with_collections(p, p.slug in solved, lang) for p in problems.all_problems()
+    ]
 
 
 @app.get("/api/problems/{slug}")
-def get_problem(slug: str, variant: str | None = Query(default=None)):
+def get_problem(slug: str, variant: str | None = Query(default=None), lang: str = Query(default="zh")):
     problem = problems.get_problem(slug)
     if problem is None:
-        raise HTTPException(status_code=404, detail="题目不存在")
+        raise HTTPException(status_code=404, detail=tr(lang, "problem_not_found"))
     active = problem.resolve_variant(variant)
     return {
-        **_summary_with_collections(problem, progress.is_solved(slug)),
-        "description": problem.description(),
-        "notes": problem.notes(),
+        **_summary_with_collections(problem, progress.is_solved(slug), lang),
+        "description": problem.description(lang),
+        "notes": problem.notes(lang),
         "starter_code": problem.starter(active),
         "active_variant": active,
     }
 
 
 @app.get("/api/collections")
-def list_collections():
+def list_collections(lang: str = Query(default="zh")):
     solved = progress.solved_map()
     return [
         {
             "slug": c["slug"],
-            "name": c["name"],
-            "description": c["description"],
+            "name": collections.localized_name(c, lang),
+            "description": collections.localized_description(c, lang),
             "problem_count": len(c["problems"]),
             "solved_count": sum(1 for s in c["problems"] if s in solved),
         }
@@ -75,20 +79,20 @@ def list_collections():
 
 
 @app.get("/api/collections/{slug}")
-def get_collection_detail(slug: str):
+def get_collection_detail(slug: str, lang: str = Query(default="zh")):
     collection = collections.get_collection(slug)
     if collection is None:
-        raise HTTPException(status_code=404, detail="合集不存在")
+        raise HTTPException(status_code=404, detail=tr(lang, "collection_not_found"))
     solved = progress.solved_map()
     items = []
     for problem_slug in collection["problems"]:
         problem = problems.get_problem(problem_slug)
         if problem is not None:
-            items.append(_summary_with_collections(problem, problem_slug in solved))
+            items.append(_summary_with_collections(problem, problem_slug in solved, lang))
     return {
         "slug": collection["slug"],
-        "name": collection["name"],
-        "description": collection["description"],
+        "name": collections.localized_name(collection, lang),
+        "description": collections.localized_description(collection, lang),
         "problems": items,
     }
 
@@ -108,9 +112,11 @@ def submit_problem(slug: str, submission: Submission):
 def _evaluate(slug: str, submission: Submission, mode: str):
     problem = problems.get_problem(slug)
     if problem is None:
-        raise HTTPException(status_code=404, detail="题目不存在")
+        raise HTTPException(status_code=404, detail=tr(submission.lang, "problem_not_found"))
     variant = problem.resolve_variant(submission.variant)
-    result = judge.run_judgement(submission.code, problem.test_cases(variant), mode=mode)
+    result = judge.run_judgement(
+        submission.code, problem.test_cases(variant), mode=mode, lang=submission.lang
+    )
     if mode == "submit" and result["accepted"]:
         progress.mark_solved(slug)
         if benchmarks.get_benchmarks(slug, variant) is None:
@@ -143,12 +149,16 @@ def cancel_judge():
 
 
 @app.get("/api/problems/{slug}/solution")
-def get_solution(slug: str, variant: str | None = Query(default=None)):
+def get_solution(
+    slug: str,
+    variant: str | None = Query(default=None),
+    lang: str = Query(default="zh"),
+):
     problem = problems.get_problem(slug)
     if problem is None:
-        raise HTTPException(status_code=404, detail="题目不存在")
+        raise HTTPException(status_code=404, detail=tr(lang, "problem_not_found"))
     if not progress.is_solved(slug):
-        raise HTTPException(status_code=403, detail="通过全部测试用例后可查看参考答案")
+        raise HTTPException(status_code=403, detail=tr(lang, "solution_locked"))
     active = problem.resolve_variant(variant)
     return {"slug": slug, "variant": active, "solution_code": problem.solution(active)}
 
@@ -172,10 +182,10 @@ def reset_progress():
 
 
 @app.post("/api/problems/{slug}/unmark")
-def unmark_problem(slug: str):
+def unmark_problem(slug: str, lang: str = Query(default="zh")):
     """取消单题已解记录（重刷粒度），幂等；参考答案随之重新锁定。"""
     if problems.get_problem(slug) is None:
-        raise HTTPException(status_code=404, detail="题目不存在")
+        raise HTTPException(status_code=404, detail=tr(lang, "problem_not_found"))
     return {"slug": slug, "removed": progress.unmark(slug)}
 
 
@@ -191,15 +201,15 @@ def export_progress():
 
 
 @app.post("/api/progress/import")
-async def import_progress(req: Request):
+async def import_progress(req: Request, lang: str = Query(default="zh")):
     """全量恢复进度（覆盖当前记录）；不在当前题库内的 slug 被过滤，防止脏数据。"""
     try:
         payload = await req.json()
     except Exception:
-        raise HTTPException(status_code=400, detail="无法解析 JSON，请选择 leet-infra 导出的进度文件") from None
+        raise HTTPException(status_code=400, detail=tr(lang, "import_json_invalid")) from None
     solved = payload.get("solved") if isinstance(payload, dict) else None
     if not isinstance(solved, dict):
-        raise HTTPException(status_code=400, detail="进度文件格式不正确（缺少 solved 字段）")
+        raise HTTPException(status_code=400, detail=tr(lang, "import_format_invalid"))
     known = {p.slug for p in problems.all_problems()}
     valid = {s: ts for s, ts in solved.items() if s in known and isinstance(ts, str)}
     progress.replace_all(valid)

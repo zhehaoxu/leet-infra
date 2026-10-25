@@ -1,5 +1,6 @@
 {
   "title": "一维卷积 (conv1d)",
+  "title_en": "1D Convolution (conv1d)",
   "difficulty": "Medium",
   "tags": ["operator", "conv"],
   "order": 79,

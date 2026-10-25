@@ -1,5 +1,6 @@
 {
   "title": "知识蒸馏温度损失",
+  "title_en": "Knowledge Distillation Temperature Loss",
   "difficulty": "Hard",
   "tags": ["operator", "loss"],
   "order": 239,

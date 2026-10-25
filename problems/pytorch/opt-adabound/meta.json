@@ -1,5 +1,6 @@
 {
   "title": "优化器：AdaBound 动态学习率夹逼",
+  "title_en": "Optimizer: AdaBound Dynamic Learning-Rate Bounds",
   "difficulty": "Hard",
   "tags": ["operator", "optimizer"],
   "order": 188,

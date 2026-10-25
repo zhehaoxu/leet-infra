@@ -1,5 +1,6 @@
 {
   "title": "对齐训练：Label Smoothing 交叉熵",
+  "title_en": "Label Smoothing Cross-Entropy",
   "difficulty": "Medium",
   "tags": ["operator", "alignment"],
   "order": 164,

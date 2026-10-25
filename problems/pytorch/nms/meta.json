@@ -1,5 +1,6 @@
 {
   "title": "非极大值抑制 NMS",
+  "title_en": "Non-Maximum Suppression (NMS)",
   "difficulty": "Hard",
   "tags": ["operator", "vision"],
   "order": 66,

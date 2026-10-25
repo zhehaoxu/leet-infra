@@ -1,5 +1,6 @@
 {
   "title": "集合通信：Reduce-Scatter",
+  "title_en": "Collective Communication: Reduce-Scatter",
   "difficulty": "Medium",
   "tags": ["operator", "distributed"],
   "order": 95,

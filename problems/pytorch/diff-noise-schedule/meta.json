@@ -1,5 +1,6 @@
 {
   "title": "Diffusion：线性 / 余弦噪声调度 ᾱ 序列",
+  "title_en": "Diffusion: Linear / Cosine Noise Schedule ᾱ Sequence",
   "difficulty": "Medium",
   "tags": ["operator", "diffusion"],
   "order": 206,

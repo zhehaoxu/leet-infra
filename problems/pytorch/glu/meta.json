@@ -1,5 +1,6 @@
 {
   "title": "GLU（门控线性单元）",
+  "title_en": "GLU (Gated Linear Unit)",
   "difficulty": "Medium",
   "tags": ["operator", "activation", "gating"],
   "order": 15,

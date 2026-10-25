@@ -1,5 +1,6 @@
 {
   "title": "KV Cache：AdaKV 跨头自适应剪枝",
+  "title_en": "KV Cache: AdaKV Cross-Head Adaptive Pruning",
   "difficulty": "Medium",
   "tags": ["operator", "kvcache"],
   "order": 151,

@@ -1,5 +1,6 @@
 {
   "title": "KV Cache：StreamingLLM Sink + 滑窗打分",
+  "title_en": "KV Cache: StreamingLLM Sink + Sliding-Window Scoring",
   "difficulty": "Easy",
   "tags": ["operator", "kvcache"],
   "order": 145,

@@ -1,5 +1,6 @@
 {
   "title": "Mirostat v2 采样",
+  "title_en": "Mirostat v2 Sampling",
   "difficulty": "Hard",
   "tags": ["operator", "sampling"],
   "order": 134,

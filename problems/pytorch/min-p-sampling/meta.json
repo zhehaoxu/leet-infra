@@ -1,5 +1,6 @@
 {
   "title": "Min-p 采样",
+  "title_en": "Min-p Sampling",
   "difficulty": "Medium",
   "tags": ["operator", "sampling"],
   "order": 127,

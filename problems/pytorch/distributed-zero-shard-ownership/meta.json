@@ -1,5 +1,6 @@
 {
   "title": "ZeRO 一维分片归属：跨 rank 边界的参数切分",
+  "title_en": "ZeRO 1-D Shard Ownership: Splitting Parameters Across Rank Boundaries",
   "difficulty": "Medium",
   "tags": ["operator", "distributed"],
   "order": 245,

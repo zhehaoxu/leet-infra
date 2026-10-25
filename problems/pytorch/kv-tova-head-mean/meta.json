@@ -1,5 +1,6 @@
 {
   "title": "KV Cache：TOVA 末位 Query 跨头平均",
+  "title_en": "KV Cache: TOVA Last-Query Cross-Head Averaging",
   "difficulty": "Medium",
   "tags": ["operator", "kvcache"],
   "order": 148,

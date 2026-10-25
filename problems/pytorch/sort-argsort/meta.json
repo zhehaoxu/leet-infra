@@ -1,5 +1,6 @@
 {
   "title": "排序与 argsort",
+  "title_en": "Sort & Argsort",
   "difficulty": "Easy",
   "tags": ["operator", "tensor"],
   "order": 59,

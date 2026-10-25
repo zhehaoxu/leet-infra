@@ -1,5 +1,6 @@
 {
   "title": "GRU 单元 (GRUCell)",
+  "title_en": "GRU Cell (GRUCell)",
   "difficulty": "Medium",
   "tags": ["operator", "rnn"],
   "order": 82,

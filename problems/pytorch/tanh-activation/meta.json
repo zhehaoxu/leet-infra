@@ -1,5 +1,6 @@
 {
   "title": "Tanh",
+  "title_en": "Tanh",
   "difficulty": "Easy",
   "tags": ["operator", "activation"],
   "order": 7,

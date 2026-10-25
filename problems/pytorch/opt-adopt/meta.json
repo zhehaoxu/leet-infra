@@ -1,5 +1,6 @@
 {
   "title": "优化器：ADOPT 去偏差 + 前一步二阶矩",
+  "title_en": "Optimizer: ADOPT Bias-Correction-Free Update",
   "difficulty": "Hard",
   "tags": ["operator", "optimizer"],
   "order": 193,

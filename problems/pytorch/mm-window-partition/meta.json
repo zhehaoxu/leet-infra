@@ -1,5 +1,6 @@
 {
   "title": "多模态：Swin 窗口划分 Window Partition",
+  "title_en": "Multimodal: Swin Window Partition",
   "difficulty": "Medium",
   "tags": ["operator", "multimodal"],
   "order": 226,

@@ -1,5 +1,6 @@
 {
   "title": "KV Cache 追加",
+  "title_en": "KV Cache Append",
   "difficulty": "Medium",
   "tags": ["operator", "attention"],
   "order": 33,

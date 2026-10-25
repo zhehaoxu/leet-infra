@@ -1,5 +1,6 @@
 {
   "title": "ZeRO-Offload：显存与 PCIe 带宽的取舍",
+  "title_en": "ZeRO-Offload: The Tradeoff Between GPU Memory and PCIe Bandwidth",
   "difficulty": "Hard",
   "tags": ["operator", "distributed"],
   "order": 104,

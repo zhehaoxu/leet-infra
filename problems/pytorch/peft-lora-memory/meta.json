@@ -1,5 +1,6 @@
 {
   "title": "PEFT：LoRA 可训练参数量与显存账",
+  "title_en": "PEFT: LoRA Trainable Parameter Count and Memory Accounting",
   "difficulty": "Easy",
   "tags": ["operator", "peft"],
   "order": 204,

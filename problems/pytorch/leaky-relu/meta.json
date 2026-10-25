@@ -1,5 +1,6 @@
 {
   "title": "Leaky ReLU",
+  "title_en": "Leaky ReLU",
   "difficulty": "Easy",
   "tags": ["operator", "activation"],
   "order": 8,

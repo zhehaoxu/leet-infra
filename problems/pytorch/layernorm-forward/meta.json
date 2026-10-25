@@ -1,5 +1,6 @@
 {
   "title": "LayerNorm 前向",
+  "title_en": "LayerNorm Forward",
   "difficulty": "Medium",
   "tags": ["operator", "normalization"],
   "order": 17,

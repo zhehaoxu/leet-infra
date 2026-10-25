@@ -1,5 +1,6 @@
 {
   "title": "FP8 (E4M3) 量化往返",
+  "title_en": "FP8 (E4M3) Quantization Round Trip",
   "difficulty": "Hard",
   "tags": ["operator", "quantization"],
   "order": 125,

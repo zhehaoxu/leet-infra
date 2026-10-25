@@ -1,5 +1,6 @@
 {
   "title": "Adam 更新单步",
+  "title_en": "Single-Step Adam Update",
   "difficulty": "Medium",
   "tags": ["operator", "optimizer"],
   "order": 75,

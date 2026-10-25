@@ -1,5 +1,6 @@
 {
   "title": "SELU 自归一化激活",
+  "title_en": "SELU Self-Normalizing Activation",
   "difficulty": "Easy",
   "tags": ["operator", "activation"],
   "order": 69,

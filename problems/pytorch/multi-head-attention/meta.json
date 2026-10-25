@@ -1,5 +1,6 @@
 {
   "title": "多头注意力前向",
+  "title_en": "Multi-Head Attention Forward Pass",
   "difficulty": "Hard",
   "tags": ["operator", "attention"],
   "order": 31,

@@ -1,5 +1,6 @@
 {
   "title": "量化：SpQR 稀疏离群权重保留",
+  "title_en": "Quantization: SpQR Sparse Outlier Weight Retention",
   "difficulty": "Medium",
   "tags": ["operator", "quantization"],
   "order": 174,

@@ -1,5 +1,6 @@
 {
   "title": "对称量化（Fake-Quant）",
+  "title_en": "Symmetric Quantization (Fake-Quant)",
   "difficulty": "Medium",
   "tags": ["operator", "quantization"],
   "order": 76,

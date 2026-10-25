@@ -1,5 +1,6 @@
 {
   "title": "检索：IVF 粗量化器分配",
+  "title_en": "Retrieval: IVF Coarse Quantizer Assignment",
   "difficulty": "Medium",
   "tags": ["operator", "retrieval"],
   "order": 229,

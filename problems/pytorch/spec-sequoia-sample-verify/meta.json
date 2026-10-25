@@ -1,5 +1,6 @@
 {
   "title": "推测解码：Sequoia 多分支采样与验证",
+  "title_en": "Speculative Decoding: Sequoia Multi-Branch Sampling and Verification",
   "difficulty": "Medium",
   "tags": ["operator", "speculative"],
   "order": 176,

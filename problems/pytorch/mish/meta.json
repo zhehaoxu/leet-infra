@@ -1,5 +1,6 @@
 {
   "title": "Mish",
+  "title_en": "Mish",
   "difficulty": "Medium",
   "tags": ["operator", "activation", "numerical-stability"],
   "order": 14,

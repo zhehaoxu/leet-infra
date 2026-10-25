@@ -1,5 +1,6 @@
 {
   "title": "Softmax（数值稳定）",
+  "title_en": "Softmax (Numerically Stable)",
   "difficulty": "Medium",
   "tags": ["operator", "numerical-stability", "attention"],
   "order": 4,

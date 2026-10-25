@@ -1,5 +1,6 @@
 {
   "title": "优化器：NovoGrad 逐层梯度归一",
+  "title_en": "Optimizer: NovoGrad Layer-wise Gradient Normalization",
   "difficulty": "Medium",
   "tags": ["operator", "optimizer"],
   "order": 190,

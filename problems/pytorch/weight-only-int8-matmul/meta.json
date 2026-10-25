@@ -1,5 +1,6 @@
 {
   "title": "Weight-Only INT8 反量化矩阵乘",
+  "title_en": "Weight-Only INT8 Dequantized Matmul",
   "difficulty": "Medium",
   "tags": ["operator", "quantization"],
   "order": 123,

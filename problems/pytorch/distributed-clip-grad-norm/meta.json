@@ -1,5 +1,6 @@
 {
   "title": "分布式梯度裁剪（全局范数）",
+  "title_en": "Distributed Gradient Clipping (Global Norm)",
   "difficulty": "Hard",
   "tags": ["operator", "distributed"],
   "order": 97,

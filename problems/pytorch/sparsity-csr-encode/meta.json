@@ -1,5 +1,6 @@
 {
   "title": "稀疏化：稠密矩阵编码为 CSR",
+  "title_en": "Encode Dense Matrix as CSR",
   "difficulty": "Hard",
   "tags": ["operator", "sparsity"],
   "order": 221,

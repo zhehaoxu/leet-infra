@@ -1,5 +1,6 @@
 {
   "title": "PEFT：LoRA 权重合并（merge_and_unload）",
+  "title_en": "PEFT: LoRA Weight Merging (merge_and_unload)",
   "difficulty": "Medium",
   "tags": ["operator", "peft"],
   "order": 200,

@@ -1,5 +1,6 @@
 {
   "title": "分词：用 BPE 规则编码文本",
+  "title_en": "Tokenization: Encoding Text with BPE Rules",
   "difficulty": "Medium",
   "tags": ["operator", "tokenization"],
   "order": 118,

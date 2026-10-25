@@ -1,5 +1,6 @@
 {
   "title": "P-less 采样",
+  "title_en": "P-less Sampling",
   "difficulty": "Medium",
   "tags": ["operator", "sampling"],
   "order": 130,

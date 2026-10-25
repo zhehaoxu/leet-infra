@@ -1,5 +1,6 @@
 {
   "title": "Ring All-Reduce 逐步通信模拟",
+  "title_en": "Step-by-Step Ring All-Reduce Communication Simulation",
   "difficulty": "Hard",
   "tags": ["operator", "distributed"],
   "order": 101,

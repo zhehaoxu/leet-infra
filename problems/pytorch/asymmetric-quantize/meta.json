@@ -1,5 +1,6 @@
 {
   "title": "非对称量化（Fake-Quant）",
+  "title_en": "Asymmetric Quantization (Fake-Quant)",
   "difficulty": "Medium",
   "tags": ["operator", "quantization"],
   "order": 77,

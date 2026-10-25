@@ -1,5 +1,6 @@
 {
   "title": "优化器：Cautious 符号一致性掩码",
+  "title_en": "Cautious Optimizer: Sign-Consistency Mask",
   "difficulty": "Medium",
   "tags": ["operator", "optimizer"],
   "order": 194,

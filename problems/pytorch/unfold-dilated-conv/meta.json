@@ -1,5 +1,6 @@
 {
   "title": "Unfold 膨胀卷积取块",
+  "title_en": "Unfold Dilated Patch Extraction",
   "difficulty": "Medium",
   "tags": [
     "operator",

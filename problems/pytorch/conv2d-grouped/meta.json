@@ -1,5 +1,6 @@
 {
   "title": "分组卷积",
+  "title_en": "Grouped Convolution",
   "difficulty": "Medium",
   "tags": ["operator", "conv"],
   "order": 50,

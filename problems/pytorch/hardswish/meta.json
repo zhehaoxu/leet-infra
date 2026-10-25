@@ -1,5 +1,6 @@
 {
   "title": "HardSwish",
+  "title_en": "HardSwish",
   "difficulty": "Easy",
   "tags": ["operator", "activation"],
   "order": 11,

@@ -1,5 +1,6 @@
 {
   "title": "多模态：SigLIP Sigmoid 对比损失",
+  "title_en": "Multimodal: SigLIP Sigmoid Contrastive Loss",
   "difficulty": "Medium",
   "tags": ["operator", "multimodal"],
   "order": 225,

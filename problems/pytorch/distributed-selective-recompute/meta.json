@@ -1,5 +1,6 @@
 {
   "title": "选择性激活重算：显存预算下的最小重算代价",
+  "title_en": "Selective Activation Recomputation: Minimum Recomputation Cost Under a Memory Budget",
   "difficulty": "Hard",
   "tags": ["operator", "distributed"],
   "order": 247,

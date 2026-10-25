@@ -1,5 +1,6 @@
 {
   "title": "Top-k 采样",
+  "title_en": "Top-k Sampling",
   "difficulty": "Medium",
   "tags": ["operator", "sampling"],
   "order": 126,

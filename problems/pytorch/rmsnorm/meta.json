@@ -1,5 +1,6 @@
 {
   "title": "RMSNorm",
+  "title_en": "RMSNorm",
   "difficulty": "Medium",
   "tags": ["operator", "normalization"],
   "order": 18,

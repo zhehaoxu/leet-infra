@@ -1,5 +1,6 @@
 {
   "title": "RoI 池化 (RoI Pooling)",
+  "title_en": "RoI Pooling",
   "difficulty": "Hard",
   "tags": ["operator", "vision"],
   "order": 83,

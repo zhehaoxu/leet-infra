@@ -49,20 +49,20 @@ describe('filterProblems', () => {
 })
 
 describe('familyOf', () => {
-  it('非 operator 标签统一归「框架 / 其他」', () => {
-    expect(familyOf(p({ slug: 'x', tags: ['framework'] }))).toBe('框架 / 其他')
+  it('非 operator 标签统一归 other', () => {
+    expect(familyOf(p({ slug: 'x', tags: ['framework'] }))).toBe('other')
   })
-  it('operator 但无领域标签也归「框架 / 其他」', () => {
-    expect(familyOf(p({ slug: 'x', tags: ['operator'] }))).toBe('框架 / 其他')
+  it('operator 但无领域标签也归 other', () => {
+    expect(familyOf(p({ slug: 'x', tags: ['operator'] }))).toBe('other')
   })
-  it('多领域标签取 GROUP_ORDER 排名最靠前者（注意力优先于 numerical-stability 兜底）', () => {
+  it('多领域标签取 GROUP_ORDER 排名最靠前者（attention 优先于 num-stability 兜底）', () => {
     const rope = p({ slug: 'rope', tags: ['operator', 'numerical-stability', 'attention'] })
-    expect(familyOf(rope)).toBe('注意力')
+    expect(familyOf(rope)).toBe('attention')
   })
 })
 
 describe('buildSections', () => {
-  it('每个 TAG_FAMILY 族名都在 GROUP_ORDER 内（新合集登记后分组顺序完整）', () => {
+  it('每个 TAG_FAMILY 族 key 都在 GROUP_ORDER 内（新合集登记后分组顺序完整）', () => {
     const fams = [...new Set(Object.values(TAG_FAMILY))]
     for (const f of fams) expect(GROUP_ORDER).toContain(f)
   })
@@ -75,10 +75,10 @@ describe('buildSections', () => {
   it('开启分组时按 family 切段并按 GROUP_ORDER 排序', () => {
     const s = buildSections(list, true)
     const names = s.map((x) => x.name)
-    // 激活函数(2) 在 注意力(1) 之前，框架/其他 最后
-    expect(names).toEqual(['激活函数', '注意力', '框架 / 其他'])
-    expect(names.every((n) => GROUP_ORDER.indexOf(n) >= 0)).toBe(true)
-    const act = s.find((x) => x.name === '激活函数')!
+    // activation(2) 在 attention(1) 之前，other 最后
+    expect(names).toEqual(['activation', 'attention', 'other'])
+    expect(names.every((n) => n === '' || GROUP_ORDER.indexOf(n) >= 0)).toBe(true)
+    const act = s.find((x) => x.name === 'activation')!
     expect(act.items.map((x) => x.slug)).toEqual(['relu', 'gelu'])
   })
 })

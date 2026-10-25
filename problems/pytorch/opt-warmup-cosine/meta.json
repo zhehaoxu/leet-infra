@@ -1,5 +1,6 @@
 {
   "title": "调度器：线性 warmup + 余弦退火学习率",
+  "title_en": "Scheduler: Linear Warmup + Cosine Annealing Learning Rate",
   "difficulty": "Medium",
   "tags": ["operator", "optimizer"],
   "order": 196,

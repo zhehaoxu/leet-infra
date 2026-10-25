@@ -1,5 +1,6 @@
 {
   "title": "重复惩罚采样 (Penalties)",
+  "title_en": "Repetition Penalty Sampling (Penalties)",
   "difficulty": "Medium",
   "tags": ["operator", "sampling"],
   "order": 132,

@@ -1,5 +1,6 @@
 {
   "title": "Top-p 核采样",
+  "title_en": "Top-p / Nucleus Sampling",
   "difficulty": "Hard",
   "tags": ["operator", "sampling"],
   "order": 64,

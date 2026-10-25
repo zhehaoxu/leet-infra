@@ -1,5 +1,6 @@
 {
   "title": "自适应最大池化",
+  "title_en": "Adaptive Max Pooling",
   "difficulty": "Medium",
   "tags": ["operator", "cnn"],
   "order": 54,

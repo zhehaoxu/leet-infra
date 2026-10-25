@@ -1,5 +1,6 @@
 {
   "title": "按轴求和归约",
+  "title_en": "Sum Reduction along an Axis",
   "difficulty": "Easy",
   "tags": ["operator", "tensor"],
   "order": 56,

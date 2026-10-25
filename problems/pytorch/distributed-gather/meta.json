@@ -1,5 +1,6 @@
 {
   "title": "集合通信：Gather",
+  "title_en": "Collective Communication: Gather",
   "difficulty": "Medium",
   "tags": ["operator", "distributed"],
   "order": 105,

@@ -1,5 +1,6 @@
 {
   "title": "环形 All-Reduce 通信量与耗时",
+  "title_en": "Ring All-Reduce Communication Volume and Latency",
   "difficulty": "Hard",
   "tags": ["operator", "systems"],
   "order": 92,

@@ -1,5 +1,6 @@
 {
   "title": "交叉熵损失",
+  "title_en": "Cross-Entropy Loss",
   "difficulty": "Medium",
   "tags": ["operator", "loss"],
   "order": 71,

@@ -1,5 +1,6 @@
 {
   "title": "对齐训练：PPO/GRPO 截断代理目标",
+  "title_en": "PPO/GRPO Clipped Surrogate Objective",
   "difficulty": "Medium",
   "tags": ["operator", "alignment"],
   "order": 162,

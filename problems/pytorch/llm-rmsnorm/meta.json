@@ -1,5 +1,6 @@
 {
   "title": "大模型组件：RMSNorm",
+  "title_en": "RMSNorm",
   "difficulty": "Easy",
   "tags": ["operator", "llm"],
   "order": 108,

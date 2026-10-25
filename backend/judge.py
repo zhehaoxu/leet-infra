@@ -19,6 +19,8 @@ from pathlib import Path
 from queue import Empty as QueueEmpty
 from queue import Queue
 
+from .i18n import tr
+
 ROOT = Path(__file__).resolve().parent.parent
 
 EVAL_PYTHON = os.environ.get(
@@ -29,11 +31,6 @@ RUN_TIMEOUT_S = int(os.environ.get("JUDGE_TIMEOUT_S", "30"))
 WARM_IMPORT_BUDGET_S = int(os.environ.get("JUDGE_WARM_TIMEOUT_S", "60"))
 
 RESULT_MARKER = "###JUDGE_RESULT###"
-
-SETUP_HINT = (
-    "评测环境未找到（EVAL_PYTHON 指向的解释器不存在）。"
-    "请先运行 scripts/setup_eval_env.sh 创建 .venv-eval。"
-)
 
 # 预热 worker：启动即 import torch，就绪后从 stdin 读一个任务（JSON 单行），
 # 评测一次后退出；每次评测都是全新进程，保持进程级隔离。
@@ -129,16 +126,18 @@ def _failure(status: str, error: str) -> dict:
     }
 
 
-def run_judgement(code: str, test_cases_src: str, mode: str = "submit") -> dict:
+def run_judgement(
+    code: str, test_cases_src: str, mode: str = "submit", lang: str = "zh"
+) -> dict:
     """Run ``code`` as solution.py against ``test_cases_src`` in the eval env.
 
     mode="run" 只执行样例用例；mode="submit" 执行全部用例。
     每次评测由预热 worker 执行，免去重复 import torch 的冷启动开销。
     """
     if not Path(EVAL_PYTHON).exists():
-        result = _failure("env_missing", SETUP_HINT)
+        result = _failure("env_missing", tr(lang, "judge_setup_hint"))
     else:
-        result = _run_judgement_warm(code, test_cases_src, mode)
+        result = _run_judgement_warm(code, test_cases_src, mode, lang)
     result["mode"] = mode
     return result
 
@@ -221,7 +220,7 @@ def _build_result(payload: dict, user_stdout: str, elapsed_ms) -> dict:
     }
 
 
-def _run_judgement_warm(code: str, test_cases_src: str, mode: str) -> dict:
+def _run_judgement_warm(code: str, test_cases_src: str, mode: str, lang: str) -> dict:
     global _WARM, _CURRENT
     with _JUDGE_LOCK:
         if _WARM is None or _WARM.poll() is not None:
@@ -229,7 +228,10 @@ def _run_judgement_warm(code: str, test_cases_src: str, mode: str) -> dict:
             try:
                 _spawn_warm()
             except OSError as exc:
-                return _failure("environment", f"无法启动评测进程（{EVAL_PYTHON}）：{exc}")
+                return _failure(
+                    "environment",
+                    tr(lang, "judge_spawn_failed", python=EVAL_PYTHON, error=exc),
+                )
         proc = _WARM
         _WARM = None
         state = {"proc": proc, "cancelled": False, "started": 0.0, "timed_out": False,
@@ -305,7 +307,7 @@ def _run_judgement_warm(code: str, test_cases_src: str, mode: str) -> dict:
         try:
             item = box.get(timeout=overall)
         except QueueEmpty:
-            item = ("io_error", "评测调度超时")
+            item = ("io_error", tr(lang, "judge_schedule_timeout"))
         done.set()
         _reap(proc)
         with _STATE_LOCK:
@@ -321,23 +323,26 @@ def _run_judgement_warm(code: str, test_cases_src: str, mode: str) -> dict:
         base = state["started"] or state["t0"]
         elapsed_ms = round((time.perf_counter() - base) * 1000, 1)
         if state["cancelled"]:
-            return _failure("cancelled", "运行已取消，未记录任何进度。")
+            return _failure("cancelled", tr(lang, "judge_cancelled"))
         if state["timed_out"]:
             return _failure(
                 "timeout",
-                f"运行超时（>{RUN_TIMEOUT_S}s）。检查是否存在死循环或过大的计算规模。",
+                tr(lang, "judge_timeout", seconds=RUN_TIMEOUT_S),
             )
         if item[0] == "result":
             try:
                 payload = json.loads(item[1])
             except json.JSONDecodeError:
-                return _failure("crashed", "评测结果解析失败（worker 输出损坏）。")
+                return _failure("crashed", tr(lang, "judge_result_corrupt"))
             return _build_result(payload, item[2].rstrip("\n"), elapsed_ms)
         if item[0] == "envfail":
-            return _failure("environment", "评测环境加载失败（torch 导入异常）。\n" + (item[1].get("error") or ""))
+            return _failure(
+                "environment",
+                tr(lang, "judge_env_load_failed", detail=item[1].get("error") or ""),
+            )
         detail = ("".join(stderr_chunks) or "").strip()[:2000]
         return _failure(
             "crashed",
-            f"评测进程异常退出，已回退保护。\n{detail}",
+            tr(lang, "judge_worker_crashed", detail=detail),
         )
 

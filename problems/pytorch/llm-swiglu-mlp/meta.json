@@ -1,5 +1,6 @@
 {
   "title": "大模型组件：SwiGLU MLP",
+  "title_en": "LLM Component: SwiGLU MLP",
   "difficulty": "Medium",
   "tags": ["operator", "llm"],
   "order": 110,

@@ -1,5 +1,6 @@
 {
   "title": "分组量化（Group-wise Fake-Quant）",
+  "title_en": "Group-wise Fake-Quant",
   "difficulty": "Hard",
   "tags": ["operator", "quantization"],
   "order": 122,

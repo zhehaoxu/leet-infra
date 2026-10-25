@@ -1,5 +1,6 @@
 {
   "title": "稀疏化：全局幅值剪枝",
+  "title_en": "Global Magnitude Pruning",
   "difficulty": "Medium",
   "tags": ["operator", "sparsity"],
   "order": 217,

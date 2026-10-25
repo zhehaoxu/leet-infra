@@ -1,5 +1,6 @@
 {
   "title": "对齐训练：PPO 自适应 KL 系数控制器",
+  "title_en": "PPO Adaptive KL Coefficient Controller",
   "difficulty": "Medium",
   "tags": ["operator", "alignment"],
   "order": 216,

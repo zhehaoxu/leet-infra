@@ -1,5 +1,6 @@
 {
   "title": "二维卷积前向",
+  "title_en": "2D Convolution Forward (Naive Implementation)",
   "difficulty": "Hard",
   "tags": ["operator", "cnn"],
   "order": 26,

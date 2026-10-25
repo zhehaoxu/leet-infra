@@ -1,5 +1,6 @@
 {
   "title": "稀疏化：2:4 结构化 N:M 剪枝",
+  "title_en": "2:4 Structured N:M Pruning",
   "difficulty": "Medium",
   "tags": ["operator", "sparsity"],
   "order": 218,

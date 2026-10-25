@@ -1,5 +1,6 @@
 {
   "title": "MoE 并行：All-to-All 分派与合并",
+  "title_en": "MoE Parallelism: All-to-All Dispatch and Combine",
   "difficulty": "Hard",
   "tags": ["operator", "moe"],
   "order": 143,

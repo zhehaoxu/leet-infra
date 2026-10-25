@@ -1,5 +1,6 @@
 {
   "title": "Swish / SiLU",
+  "title_en": "Swish / SiLU",
   "difficulty": "Easy",
   "tags": ["operator", "activation"],
   "order": 3,

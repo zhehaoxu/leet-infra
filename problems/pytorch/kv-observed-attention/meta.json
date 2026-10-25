@@ -1,5 +1,6 @@
 {
   "title": "KV Cache：ObservedAttention 历史注意力打分",
+  "title_en": "ObservedAttention: Mean Historical Attention",
   "difficulty": "Medium",
   "tags": ["operator", "kvcache"],
   "order": 149,

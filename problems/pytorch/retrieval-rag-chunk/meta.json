@@ -1,5 +1,6 @@
 {
   "title": "检索：RAG 重叠滑窗分块",
+  "title_en": "RAG Overlapping Sliding-Window Chunking",
   "difficulty": "Medium",
   "tags": ["operator", "retrieval"],
   "order": 234,

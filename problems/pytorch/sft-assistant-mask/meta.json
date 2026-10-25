@@ -1,5 +1,6 @@
 {
   "title": "SFT 数据：助手回复损失掩码",
+  "title_en": "SFT Data: Assistant-Reply Loss Mask",
   "difficulty": "Medium",
   "tags": ["operator", "tokenization"],
   "order": 241,

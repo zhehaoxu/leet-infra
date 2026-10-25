@@ -1,5 +1,6 @@
 {
   "title": "推测解码：Suffix/REST 最长后缀检索草稿",
+  "title_en": "Speculative Decoding: Suffix/REST Longest-Suffix Retrieval Draft",
   "difficulty": "Medium",
   "tags": ["operator", "speculative"],
   "order": 180,

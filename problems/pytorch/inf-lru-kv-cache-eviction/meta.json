@@ -1,5 +1,6 @@
 {
   "title": "LLM Serving：KV / Prefix Cache 的 LRU 驱逐",
+  "title_en": "LLM Serving: LRU Eviction for KV / Prefix Cache",
   "difficulty": "Medium",
   "tags": ["operator", "inference"],
   "order": 158,

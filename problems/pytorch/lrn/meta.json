@@ -1,5 +1,6 @@
 {
   "title": "局部响应归一化 (LRN)",
+  "title_en": "Local Response Normalization (LRN)",
   "difficulty": "Medium",
   "tags": ["operator", "normalization"],
   "order": 78,

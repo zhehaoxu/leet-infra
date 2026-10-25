@@ -1,5 +1,6 @@
 {
   "title": "大模型组件：RoPE 旋转位置编码",
+  "title_en": "LLM Component: RoPE Rotary Position Embedding",
   "difficulty": "Medium",
   "tags": ["operator", "llm"],
   "order": 109,

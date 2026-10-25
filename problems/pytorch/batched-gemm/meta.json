@@ -1,5 +1,6 @@
 {
   "title": "批量矩阵乘",
+  "title_en": "Batched Matrix Multiplication",
   "difficulty": "Medium",
   "tags": ["operator", "gemm"],
   "order": 29,

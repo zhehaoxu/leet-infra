@@ -1,5 +1,6 @@
 {
   "title": "机制：指数滑动平均（EMA）权重与升温",
+  "title_en": "EMA Weights with Warmup",
   "difficulty": "Medium",
   "tags": ["operator", "optimizer"],
   "order": 198,

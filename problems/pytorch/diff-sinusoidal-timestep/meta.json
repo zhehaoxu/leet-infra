@@ -1,5 +1,6 @@
 {
   "title": "Diffusion：正弦时间步嵌入",
+  "title_en": "Diffusion: Sinusoidal Timestep Embedding",
   "difficulty": "Medium",
   "tags": ["operator", "diffusion"],
   "order": 205,

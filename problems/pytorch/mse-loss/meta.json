@@ -1,5 +1,6 @@
 {
   "title": "MSE 均方误差损失",
+  "title_en": "Mean Squared Error Loss (MSE Loss)",
   "difficulty": "Easy",
   "tags": ["operator", "loss"],
   "order": 70,

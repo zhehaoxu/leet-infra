@@ -1,5 +1,6 @@
 {
   "title": "优化器：AdamW 解耦权重衰减",
+  "title_en": "Optimizer: AdamW Decoupled Weight Decay",
   "difficulty": "Medium",
   "tags": ["operator", "optimizer"],
   "order": 182,

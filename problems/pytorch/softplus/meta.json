@@ -1,5 +1,6 @@
 {
   "title": "SoftPlus",
+  "title_en": "SoftPlus",
   "difficulty": "Easy",
   "tags": ["operator", "activation", "numerical-stability"],
   "order": 13,

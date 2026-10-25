@@ -1,5 +1,6 @@
 {
   "title": "WeightNorm 重参数化",
+  "title_en": "WeightNorm Reparameterization",
   "difficulty": "Medium",
   "tags": ["operator", "normalization"],
   "order": 21,

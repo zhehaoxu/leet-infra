@@ -1,5 +1,6 @@
 {
   "title": "检索：倒数排名融合 RRF",
+  "title_en": "Reciprocal Rank Fusion (RRF)",
   "difficulty": "Medium",
   "tags": ["operator", "retrieval"],
   "order": 231,

@@ -1,5 +1,6 @@
 {
   "title": "MoE 路由：容量分派与 Token Dropping",
+  "title_en": "MoE Routing: Capacity Dispatch and Token Dropping",
   "difficulty": "Medium",
   "tags": ["operator", "moe"],
   "order": 140,

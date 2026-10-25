@@ -1,10 +1,14 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 import { useProblemStore } from './stores/problems'
 import HelpModal from './components/HelpModal.vue'
+import { locale, localeButtonLabel, t, toggleLocale } from './i18n'
 
 const store = useProblemStore()
 const showHelp = ref(false)
+
+// 语言切换后题目/合集标题与题面由各视图按需重拉，这里先刷新列表标题
+watch(locale, () => void store.fetchProblems())
 </script>
 
 <template>
@@ -22,10 +26,18 @@ const showHelp = ref(false)
       </router-link>
       <div class="topbar-right">
         <span class="progress-chip" v-if="store.problems.length">
-          {{ store.solvedCount }} / {{ store.problems.length }} 已解决
+          {{ t('app.progress', { solved: store.solvedCount, total: store.problems.length }) }}
         </span>
-        <span class="env-chip">PyTorch · 本地 CPU</span>
-        <button class="help-btn" title="帮助（快捷键与评测规则）" @click="showHelp = true">?</button>
+        <span class="env-chip">{{ t('app.env') }}</span>
+        <button
+          class="lang-btn"
+          :title="t('app.langTitle')"
+          :aria-label="t('app.langTitle')"
+          @click="toggleLocale"
+        >
+          {{ localeButtonLabel }}
+        </button>
+        <button class="help-btn" :title="t('app.helpTitle')" @click="showHelp = true">?</button>
       </div>
     </header>
     <main class="content">
@@ -67,6 +79,23 @@ const showHelp = ref(false)
   display: flex;
   gap: 10px;
   align-items: center;
+}
+.lang-btn {
+  height: 24px;
+  min-width: 38px;
+  padding: 0 9px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--bg-elevated);
+  color: var(--text-dim);
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+  cursor: pointer;
+}
+.lang-btn:hover {
+  color: var(--accent);
+  border-color: var(--accent);
 }
 .help-btn {
   width: 24px;

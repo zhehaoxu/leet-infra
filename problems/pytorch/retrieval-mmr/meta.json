@@ -1,5 +1,6 @@
 {
   "title": "检索：最大边际相关 MMR 重排",
+  "title_en": "Retrieval: MMR Reranking",
   "difficulty": "Hard",
   "tags": ["operator", "retrieval"],
   "order": 232,

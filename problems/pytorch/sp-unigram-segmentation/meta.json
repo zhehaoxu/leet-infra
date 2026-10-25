@@ -1,5 +1,6 @@
 {
   "title": "分词：Unigram 最优子词切分（Viterbi）",
+  "title_en": "Unigram Optimal Subword Segmentation (Viterbi)",
   "difficulty": "Hard",
   "tags": ["operator", "tokenization"],
   "order": 244,

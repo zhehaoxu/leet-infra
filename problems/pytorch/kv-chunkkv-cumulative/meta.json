@@ -1,5 +1,6 @@
 {
   "title": "KV Cache：ChunkKV 语义块整体保留",
+  "title_en": "KV Cache: ChunkKV Whole-Chunk Semantic Retention",
   "difficulty": "Medium",
   "tags": ["operator", "kvcache"],
   "order": 166,

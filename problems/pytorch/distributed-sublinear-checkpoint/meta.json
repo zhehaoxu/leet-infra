@@ -1,5 +1,6 @@
 {
   "title": "次线性激活检查点：√n 重算调度的显存峰值",
+  "title_en": "Sublinear Activation Checkpointing: Peak Memory of the √n Recomputation Schedule",
   "difficulty": "Medium",
   "tags": ["operator", "distributed"],
   "order": 246,

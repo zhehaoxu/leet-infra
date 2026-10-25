@@ -1,5 +1,6 @@
 {
   "title": "对齐训练：PPO 截断价值损失",
+  "title_en": "PPO Clipped Value Loss",
   "difficulty": "Medium",
   "tags": ["operator", "alignment"],
   "order": 212,

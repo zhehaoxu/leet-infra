@@ -1,5 +1,6 @@
 {
   "title": "ELU",
+  "title_en": "ELU",
   "difficulty": "Easy",
   "tags": ["operator", "activation"],
   "order": 9,

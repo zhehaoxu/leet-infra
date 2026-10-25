@@ -1,5 +1,6 @@
 {
   "title": "MoE 路由：变异系数（CV）辅助损失",
+  "title_en": "MoE Routing: Coefficient of Variation (CV) Auxiliary Loss",
   "difficulty": "Medium",
   "tags": ["operator", "moe"],
   "order": 139,

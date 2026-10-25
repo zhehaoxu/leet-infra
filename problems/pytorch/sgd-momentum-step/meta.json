@@ -1,5 +1,6 @@
 {
   "title": "SGD 动量更新单步",
+  "title_en": "SGD Momentum Update Step",
   "difficulty": "Easy",
   "tags": ["operator", "optimizer"],
   "order": 74,

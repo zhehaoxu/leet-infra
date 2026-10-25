@@ -1,5 +1,6 @@
 {
   "title": "ALiBi 位置偏置",
+  "title_en": "ALiBi Positional Bias",
   "difficulty": "Medium",
   "tags": ["operator", "attention"],
   "order": 35,

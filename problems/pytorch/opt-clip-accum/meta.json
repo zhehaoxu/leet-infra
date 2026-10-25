@@ -1,5 +1,6 @@
 {
   "title": "优化器：梯度累积 + 全局范数裁剪 + 动量 SGD",
+  "title_en": "Gradient Accumulation + Global Norm Clipping + Momentum SGD",
   "difficulty": "Hard",
   "tags": ["operator", "optimizer"],
   "order": 197,

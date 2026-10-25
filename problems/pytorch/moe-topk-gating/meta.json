@@ -1,5 +1,6 @@
 {
   "title": "MoE 路由：Top-k Gating",
+  "title_en": "MoE Routing: Top-k Gating",
   "difficulty": "Medium",
   "tags": ["operator", "moe"],
   "order": 137,

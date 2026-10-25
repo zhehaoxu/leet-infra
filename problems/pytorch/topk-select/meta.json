@@ -1,5 +1,6 @@
 {
   "title": "Top-K 选择",
+  "title_en": "Top-K Selection",
   "difficulty": "Medium",
   "tags": ["operator", "tensor"],
   "order": 58,

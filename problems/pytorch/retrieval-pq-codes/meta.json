@@ -1,5 +1,6 @@
 {
   "title": "检索：乘积量化编码",
+  "title_en": "Retrieval: Product Quantization Encoding",
   "difficulty": "Medium",
   "tags": ["operator", "retrieval"],
   "order": 230,

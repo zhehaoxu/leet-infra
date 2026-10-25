@@ -2,6 +2,7 @@
 import { computed, ref, watch } from 'vue'
 import { useRouter } from 'vue-router'
 import type { ProblemSummary } from '../api'
+import { t, type MessageKey } from '../i18n'
 import { filterProblems, buildSections } from '../utils/problemFilter'
 
 // 题目表格 + 搜索/难度/状态筛选，首页「全部」标签与合集详情页共用
@@ -74,38 +75,49 @@ const sections = computed(() => buildSections(filtered.value, groupOn.value))
 
 // 列表本身为空用调用方文案；仅在筛选掉全部题目时才说「没有匹配」
 const emptyMessage = computed(() =>
-  props.problems.length ? '没有匹配的题目' : props.emptyText ?? '暂无题目'
+  props.problems.length ? t('common.noMatches') : props.emptyText ?? t('common.emptyProblems')
 )
+
+function difficultyLabel(d: 'Easy' | 'Medium' | 'Hard') {
+  return t(`difficulty.${d.toLowerCase()}` as MessageKey)
+}
+
+function familyLabel(key: string) {
+  return t(`family.${key}` as MessageKey)
+}
 </script>
 
 <template>
   <div class="problem-table">
     <div class="toolbar">
-      <input v-model="keyword" class="search" placeholder="搜索题目…" />
+      <input v-model="keyword" class="search" :placeholder="t('table.search')" />
       <select v-model="difficulty">
-        <option value="">全部难度</option>
-        <option value="Easy">Easy</option>
-        <option value="Medium">Medium</option>
-        <option value="Hard">Hard</option>
+        <option value="">{{ t('table.allDifficulties') }}</option>
+        <option value="Easy">{{ t('difficulty.easy') }}</option>
+        <option value="Medium">{{ t('difficulty.medium') }}</option>
+        <option value="Hard">{{ t('difficulty.hard') }}</option>
       </select>
       <select v-model="status">
-        <option value="">全部状态</option>
-        <option value="solved">已解决</option>
-        <option value="unsolved">未解决</option>
+        <option value="">{{ t('table.allStatuses') }}</option>
+        <option value="solved">{{ t('table.solved') }}</option>
+        <option value="unsolved">{{ t('table.unsolved') }}</option>
       </select>
-      <label v-if="groupable" class="group-toggle" title="按 family 分组折叠">
+      <label v-if="groupable" class="group-toggle" :title="t('table.groupTitle')">
         <input type="checkbox" v-model="groupOn" />
-        <span>分组</span>
+        <span>{{ t('table.group') }}</span>
       </label>
     </div>
 
-    <div v-if="loading" class="empty">加载中…</div>
-    <div v-else-if="error" class="empty error">加载失败：{{ error }}</div>
+    <div v-if="loading" class="empty">{{ t('common.loading') }}</div>
+    <div v-else-if="error" class="empty error">
+      {{ t('common.loadFailed', { error }) }}
+    </div>
     <div v-else-if="!filtered.length" class="empty">{{ emptyMessage }}</div>
 
     <div class="table" v-else>
       <div class="row head">
-        <span>状态</span><span>标题</span><span>难度</span><span>标签</span><span></span>
+        <span>{{ t('table.status') }}</span><span>{{ t('table.title') }}</span
+        ><span>{{ t('table.difficulty') }}</span><span>{{ t('table.tags') }}</span><span></span>
       </div>
       <template v-for="sec in sections" :key="sec.name || '__flat'">
         <button
@@ -114,7 +126,7 @@ const emptyMessage = computed(() =>
           @click="toggleGroup(sec.name)"
         >
           <span class="chev">{{ collapsed.has(sec.name) ? '▸' : '▾' }}</span>
-          <span class="gname">{{ sec.name }}</span>
+          <span class="gname">{{ familyLabel(sec.name) }}</span>
           <span class="gcount">{{ sec.items.length }}</span>
         </button>
         <template v-if="!sec.name || !collapsed.has(sec.name)">
@@ -126,20 +138,22 @@ const emptyMessage = computed(() =>
           >
             <span class="status-dot" :class="{ done: p.solved }">{{ p.solved ? '✓' : '' }}</span>
             <span class="title" :title="p.title">{{ p.title }}</span>
-            <span><em class="badge" :class="p.difficulty">{{ p.difficulty }}</em></span>
+            <span
+              ><em class="badge" :class="p.difficulty">{{ difficultyLabel(p.difficulty) }}</em></span
+            >
             <span class="tags">
               {{ p.tags.join(' · ') }}
               <span
                 v-for="col in p.collections ?? []"
                 :key="col.slug"
                 class="col-badge"
-                :title="`合集：${col.name}`"
+                :title="t('table.collectionTitle', { name: col.name })"
                 @click.stop.prevent="goCollection(col.slug)"
               >
                 ▤ {{ col.name }}
               </span>
             </span>
-            <span class="go">解答 →</span>
+            <span class="go">{{ t('table.solve') }}</span>
           </router-link>
         </template>
       </template>

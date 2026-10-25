@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed, nextTick, ref, watch } from 'vue'
 import type { CaseResult, RunResult } from '../api'
+import { t } from '../i18n'
 
 const props = defineProps<{ result: RunResult | null; running: boolean; error: string | null }>()
 
@@ -14,7 +15,7 @@ function benchLabel(c: CaseResult): string {
   if (b == null || !c.passed) return ''
   const r = c.elapsed_ms / b
   const ratio = r >= 10 ? r.toFixed(0) : r.toFixed(1)
-  return `参考 ${b.toFixed(1)}ms · ${ratio}×`
+  return t('result.bench', { ms: b.toFixed(1), ratio })
 }
 
 function isFast(c: CaseResult): boolean {
@@ -27,19 +28,19 @@ const statusText = computed(() => {
   if (!r) return ''
   switch (r.status) {
     case 'accepted':
-      return r.mode === 'run' ? '样例通过 · 可提交全量评测' : 'Accepted · 全部通过'
+      return r.mode === 'run' ? t('result.acceptedRun') : t('result.acceptedSubmit')
     case 'wrong_answer':
-      return r.mode === 'run' ? '样例未通过' : 'Wrong Answer'
+      return r.mode === 'run' ? t('result.wrongRun') : t('result.wrongSubmit')
     case 'timeout':
-      return 'Time Limit Exceeded'
+      return t('result.timeout')
     case 'syntax':
-      return 'Syntax Error'
+      return t('result.syntax')
     case 'no_solve':
-      return '未实现 solve()'
+      return t('result.noSolve')
     case 'cancelled':
-      return '已取消'
+      return t('result.cancelled')
     case 'env_missing':
-      return '评测环境缺失'
+      return t('result.envMissing')
     default:
       return r.status
   }
@@ -77,20 +78,24 @@ watch(
 <template>
   <div class="result-panel" ref="panelEl">
     <div v-if="running" class="hint">
-      <span class="spinner"></span> 正在本地评测环境运行…（子进程执行 PyTorch 代码）
+      <span class="spinner"></span> {{ t('result.running') }}
     </div>
-    <div v-else-if="error" class="hint fail-text">请求失败：{{ error }}</div>
-    <div v-else-if="!result" class="hint">
-      尚未运行。「运行」只跑样例用例（⌘/Ctrl+Enter），「提交」全量评测并记录进度（⌘/Ctrl+Shift+Enter）。
+    <div v-else-if="error" class="hint fail-text">
+      {{ t('result.requestFailed', { error }) }}
     </div>
+    <div v-else-if="!result" class="hint">{{ t('result.idle') }}</div>
 
     <template v-else>
       <div class="summary">
         <span class="status" :class="statusClass">{{ statusText }}</span>
-        <span class="metric">{{ result.passed }}/{{ result.total }} {{ isRunMode ? '样例用例通过' : '用例通过' }}</span>
-        <span class="metric" v-if="result.elapsed_ms != null"
-          >总耗时 {{ result.elapsed_ms.toFixed(0) }} ms</span
-        >
+        <span class="metric">{{
+          isRunMode
+            ? t('result.sampleMetric', { passed: result.passed, total: result.total })
+            : t('result.caseMetric', { passed: result.passed, total: result.total })
+        }}</span>
+        <span class="metric" v-if="result.elapsed_ms != null">{{
+          t('result.totalTime', { ms: result.elapsed_ms.toFixed(0) })
+        }}</span>
       </div>
 
       <div v-if="result.error" class="error-box">{{ result.error }}</div>
@@ -111,7 +116,8 @@ watch(
             class="passed-toggle"
             @click="showPassed = !showPassed"
           >
-            {{ showPassed ? '▾' : '▸' }} ✓ {{ passedRows.length }} 个用例通过
+            {{ showPassed ? '▾' : '▸' }} ✓
+            {{ t('result.passedToggle', { count: passedRows.length }) }}
           </button>
           <div v-if="showPassed" class="passed-list">
             <div v-for="c in passedRows" :key="'p-' + c.name" class="case">
@@ -125,7 +131,7 @@ watch(
                   v-if="c.bench"
                   class="case-bench"
                   :class="{ fast: c.fast }"
-                  title="参考解在本机的实测耗时，仅作对比"
+                  :title="t('result.benchTitle')"
                   >{{ c.bench }}</span
                 >
               </div>

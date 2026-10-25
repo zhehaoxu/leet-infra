@@ -1,5 +1,6 @@
 {
   "title": "分组查询注意力 GQA/MQA",
+  "title_en": "Grouped-Query Attention GQA/MQA",
   "difficulty": "Medium",
   "tags": ["operator", "attention"],
   "order": 46,

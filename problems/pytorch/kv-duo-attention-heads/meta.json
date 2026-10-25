@@ -1,5 +1,6 @@
 {
   "title": "KV Cache：DuoAttention 检索头/流式头分区保留",
+  "title_en": "KV Cache: DuoAttention Retrieval/Streaming Head Split Retention",
   "difficulty": "Medium",
   "tags": ["operator", "kvcache"],
   "order": 168,

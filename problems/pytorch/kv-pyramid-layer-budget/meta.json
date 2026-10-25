@@ -1,5 +1,6 @@
 {
   "title": "KV Cache：PyramidKV 层间金字塔预算",
+  "title_en": "PyramidKV: Inter-layer Budget Pyramid",
   "difficulty": "Easy",
   "tags": ["operator", "kvcache"],
   "order": 152,

@@ -1,5 +1,6 @@
 {
   "title": "Embedding 查表（padding_idx）",
+  "title_en": "Embedding Lookup (padding_idx)",
   "difficulty": "Easy",
   "tags": [
     "operator",

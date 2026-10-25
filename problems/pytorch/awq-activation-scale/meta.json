@@ -1,5 +1,6 @@
 {
   "title": "量化：AWQ 激活感知逐通道缩放",
+  "title_en": "Quantization: AWQ Activation-Aware Per-Channel Scaling",
   "difficulty": "Medium",
   "tags": ["operator", "quantization"],
   "order": 170,

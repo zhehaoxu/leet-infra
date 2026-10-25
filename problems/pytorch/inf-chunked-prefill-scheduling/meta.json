@@ -1,5 +1,6 @@
 {
   "title": "LLM Serving：Chunked Prefill 分块预填充",
+  "title_en": "LLM Serving: Chunked Prefill",
   "difficulty": "Medium",
   "tags": ["operator", "inference"],
   "order": 159,

@@ -1,5 +1,6 @@
 {
   "title": "分词：从零训练 BPE 合并规则",
+  "title_en": "Tokenization: Training BPE Merge Rules from Scratch",
   "difficulty": "Hard",
   "tags": ["operator", "tokenization"],
   "order": 117,

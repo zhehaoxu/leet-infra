@@ -1,3 +1,9 @@
+import { locale } from './i18n'
+
+function withLang(path: string): string {
+  return `${path}${path.includes('?') ? '&' : '?'}lang=${locale.value}`
+}
+
 export interface CollectionRef {
   slug: string
   name: string
@@ -81,26 +87,30 @@ async function request<T>(path: string, init?: RequestInit): Promise<T> {
 }
 
 export const api = {
-  listProblems: () => request<ProblemSummary[]>('/api/problems'),
+  listProblems: () => request<ProblemSummary[]>(withLang('/api/problems')),
   getProblem: (slug: string, variant?: string) =>
     request<ProblemDetail>(
-      `/api/problems/${slug}${variant ? `?variant=${encodeURIComponent(variant)}` : ''}`
+      withLang(
+        `/api/problems/${slug}${variant ? `?variant=${encodeURIComponent(variant)}` : ''}`
+      )
     ),
   run: (slug: string, code: string, variant?: string) =>
     request<RunResult>(`/api/problems/${slug}/run`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ code, variant }),
+      body: JSON.stringify({ code, variant, lang: locale.value }),
     }),
   submit: (slug: string, code: string, variant?: string) =>
     request<RunResult>(`/api/problems/${slug}/submit`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ code, variant }),
+      body: JSON.stringify({ code, variant, lang: locale.value }),
     }),
   getSolution: (slug: string, variant?: string) =>
     request<{ slug: string; variant: string; solution_code: string }>(
-      `/api/problems/${slug}/solution${variant ? `?variant=${encodeURIComponent(variant)}` : ''}`
+      withLang(
+        `/api/problems/${slug}/solution${variant ? `?variant=${encodeURIComponent(variant)}` : ''}`
+      )
     ),
   resetProgress: () =>
     request<{ total: number; solved: number }>('/api/progress/reset', { method: 'POST' }),
@@ -112,14 +122,14 @@ export const api = {
     return resp.blob()
   },
   importProgress: (data: unknown) =>
-    request<{ imported: number; skipped: number }>('/api/progress/import', {
+    request<{ imported: number; skipped: number }>(withLang('/api/progress/import'), {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data),
     }),
   cancelJudge: () =>
     request<{ cancelled: boolean }>('/api/judge/cancel', { method: 'POST' }),
-  collections: () => request<CollectionSummary[]>('/api/collections'),
+  collections: () => request<CollectionSummary[]>(withLang('/api/collections')),
   getCollection: (slug: string) =>
-    request<CollectionDetailInfo>(`/api/collections/${slug}`),
+    request<CollectionDetailInfo>(withLang(`/api/collections/${slug}`)),
 }

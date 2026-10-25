@@ -1,5 +1,6 @@
 {
   "title": "多模态：Qwen2-VL 风格 M-RoPE 位置编号",
+  "title_en": "Multimodal: Qwen2-VL-Style M-RoPE Position IDs",
   "difficulty": "Hard",
   "tags": ["operator", "multimodal"],
   "order": 228,

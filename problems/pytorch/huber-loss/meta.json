@@ -1,5 +1,6 @@
 {
   "title": "Huber 损失",
+  "title_en": "Huber Loss",
   "difficulty": "Medium",
   "tags": ["operator", "loss"],
   "order": 73,

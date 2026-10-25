@@ -229,7 +229,9 @@ _FAKE_JUDGE = {
 def test_first_ac_triggers_benchmark_and_submit_carries_it(client, tmp_path, monkeypatch):
     bench_file = tmp_path / "benchmarks.json"
     monkeypatch.setattr(benchmarks, "DATA_FILE", bench_file)
-    monkeypatch.setattr(judge, "run_judgement", lambda code, tests, mode="submit": dict(_FAKE_JUDGE))
+    monkeypatch.setattr(
+        judge, "run_judgement", lambda code, tests, mode="submit", lang="zh": dict(_FAKE_JUDGE)
+    )
 
     # 首次 AC：无基准 → 后台线程测参考解并落盘（本条响应可能还不带）
     r1 = client.post(

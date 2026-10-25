@@ -1,5 +1,6 @@
 {
   "title": "Dropout（train/eval）",
+  "title_en": "Dropout (train/eval)",
   "difficulty": "Medium",
   "tags": ["operator", "attention"],
   "order": 38,

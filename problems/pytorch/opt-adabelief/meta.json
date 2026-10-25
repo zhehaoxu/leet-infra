@@ -1,5 +1,6 @@
 {
   "title": "优化器：AdaBelief 置信度二阶矩",
+  "title_en": "Optimizer: AdaBelief Belief-Based Second Moment",
   "difficulty": "Medium",
   "tags": ["operator", "optimizer"],
   "order": 186,

@@ -1,5 +1,6 @@
 {
   "title": "ZeRO-Infinity：HBM/DRAM/NVMe 三层卸载账",
+  "title_en": "ZeRO-Infinity: HBM/DRAM/NVMe Three-Tier Offload Accounting",
   "difficulty": "Medium",
   "tags": ["operator", "distributed"],
   "order": 116,

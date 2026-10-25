@@ -1,5 +1,6 @@
 {
   "title": "Typical (局部典型) 采样",
+  "title_en": "Typical (Locally Typical) Sampling",
   "difficulty": "Hard",
   "tags": ["operator", "sampling"],
   "order": 128,

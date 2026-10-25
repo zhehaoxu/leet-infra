@@ -1,5 +1,6 @@
 {
   "title": "优化器：Lion 符号动量更新",
+  "title_en": "Lion Sign-Based Momentum Optimizer",
   "difficulty": "Medium",
   "tags": ["operator", "optimizer"],
   "order": 183,

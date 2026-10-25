@@ -1,5 +1,6 @@
 {
   "title": "推测解码：Lookahead 解码的 Jacobi n-gram 候选池",
+  "title_en": "Speculative Decoding: Lookahead Decoding with a Jacobi n-gram Pool",
   "difficulty": "Medium",
   "tags": ["operator", "speculative"],
   "order": 179,

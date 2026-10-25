@@ -1,5 +1,6 @@
 {
   "title": "量化：QuaRot Hadamard 旋转量化",
+  "title_en": "QuaRot Hadamard-Rotation Quantization",
   "difficulty": "Medium",
   "tags": ["operator", "quantization"],
   "order": 172,

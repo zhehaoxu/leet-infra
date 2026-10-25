@@ -1,5 +1,6 @@
 {
   "title": "KV Cache：SnapKV 注意力 + 池化打分",
+  "title_en": "KV Cache: SnapKV Attention + Pooled Scoring",
   "difficulty": "Medium",
   "tags": ["operator", "kvcache"],
   "order": 147,

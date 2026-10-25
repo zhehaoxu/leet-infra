@@ -1,5 +1,6 @@
 {
   "title": "多模态：CLIP 对称 InfoNCE 对比损失",
+  "title_en": "Multimodal: CLIP Symmetric InfoNCE Contrastive Loss",
   "difficulty": "Hard",
   "tags": ["operator", "multimodal"],
   "order": 224,

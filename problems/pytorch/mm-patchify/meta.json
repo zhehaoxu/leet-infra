@@ -1,5 +1,6 @@
 {
   "title": "多模态：ViT 图像分块 Patchify",
+  "title_en": "Multimodal: ViT Image Patchify",
   "difficulty": "Medium",
   "tags": ["operator", "multimodal"],
   "order": 223,

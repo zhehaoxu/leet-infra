@@ -1,5 +1,6 @@
 {
   "title": "Focal 损失",
+  "title_en": "Focal Loss",
   "difficulty": "Medium",
   "tags": ["operator", "loss"],
   "order": 235,

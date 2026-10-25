@@ -1,5 +1,6 @@
 {
   "title": "推测解码：Sequoia 最优草稿树 DP",
+  "title_en": "Speculative Decoding: Sequoia Optimal Draft Tree DP",
   "difficulty": "Hard",
   "tags": ["operator", "speculative"],
   "order": 177,

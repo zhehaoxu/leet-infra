@@ -1,5 +1,6 @@
 {
   "title": "im2col 加速卷积",
+  "title_en": "im2col Convolution Acceleration",
   "difficulty": "Hard",
   "tags": ["operator", "cnn"],
   "order": 27,

@@ -1,5 +1,6 @@
 {
   "title": "对齐训练：SimPO 长度归一化偏好损失",
+  "title_en": "SimPO Length-Normalized Preference Loss",
   "difficulty": "Medium",
   "tags": ["operator", "alignment"],
   "order": 215,

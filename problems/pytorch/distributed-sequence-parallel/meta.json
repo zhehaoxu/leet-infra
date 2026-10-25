@@ -1,5 +1,6 @@
 {
   "title": "序列/上下文并行：激活切分与通信账",
+  "title_en": "Sequence/Context Parallelism: Activation Sharding and the Communication Account",
   "difficulty": "Medium",
   "tags": ["operator", "distributed"],
   "order": 248,

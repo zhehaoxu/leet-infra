@@ -1,5 +1,6 @@
 {
   "title": "深度可分离卷积",
+  "title_en": "Depthwise Separable Convolution",
   "difficulty": "Medium",
   "tags": ["operator", "conv"],
   "order": 52,

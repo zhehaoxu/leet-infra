@@ -1,5 +1,6 @@
 {
   "title": "Jensen-Shannon 散度损失",
+  "title_en": "Jensen-Shannon Divergence Loss",
   "difficulty": "Medium",
   "tags": ["operator", "loss"],
   "order": 238,

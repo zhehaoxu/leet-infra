@@ -1,5 +1,6 @@
 {
   "title": "Diffusion：DDPM 反向后验一步 p(x_{t-1}|x_t,x_0)",
+  "title_en": "Diffusion: One DDPM Reverse Posterior Step p(x_{t-1}|x_t,x_0)",
   "difficulty": "Hard",
   "tags": ["operator", "diffusion"],
   "order": 208,

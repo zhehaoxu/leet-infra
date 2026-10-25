@@ -1,5 +1,6 @@
 {
   "title": "数据整理：批 Padding 与 attention_mask / labels",
+  "title_en": "Data Collation: Batch Padding with attention_mask / labels",
   "difficulty": "Medium",
   "tags": ["operator", "tokenization"],
   "order": 119,

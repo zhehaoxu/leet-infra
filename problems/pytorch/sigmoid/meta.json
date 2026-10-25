@@ -1,5 +1,6 @@
 {
   "title": "Sigmoid",
+  "title_en": "Sigmoid",
   "difficulty": "Easy",
   "tags": ["operator", "activation", "numerical-stability"],
   "order": 2,

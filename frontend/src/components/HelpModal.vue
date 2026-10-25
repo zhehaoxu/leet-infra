@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { onBeforeUnmount, onMounted } from 'vue'
+import { t } from '../i18n'
 
 const emit = defineEmits<{ (e: 'close'): void }>()
 
@@ -13,35 +14,35 @@ onBeforeUnmount(() => window.removeEventListener('keydown', onKey))
 
 <template>
   <div class="overlay" @click.self="emit('close')">
-    <div class="modal" role="dialog" aria-label="帮助">
-      <button class="close" title="关闭" @click="emit('close')">✕</button>
-      <h2>使用帮助</h2>
+    <div class="modal" role="dialog" :aria-label="t('help.title')">
+      <button class="close" :title="t('help.close')" @click="emit('close')">✕</button>
+      <h2>{{ t('help.title') }}</h2>
 
-      <h3>快捷键</h3>
+      <h3>{{ t('help.shortcuts') }}</h3>
       <ul>
-        <li><kbd>⌘/Ctrl + Enter</kbd> 运行：只跑样例用例</li>
-        <li><kbd>⌘/Ctrl + Shift + Enter</kbd> 提交：全量评测</li>
-        <li><kbd>Esc</kbd> 关闭本弹窗</li>
+        <li><kbd>⌘/Ctrl + Enter</kbd> {{ t('help.shortcutRun') }}</li>
+        <li><kbd>⌘/Ctrl + Shift + Enter</kbd> {{ t('help.shortcutSubmit') }}</li>
+        <li><kbd>Esc</kbd> {{ t('help.shortcutClose') }}</li>
       </ul>
 
-      <h3>运行 vs 提交</h3>
+      <h3>{{ t('help.runVsSubmit') }}</h3>
       <ul>
-        <li>「运行」只执行题目标注的样例用例，快速验证思路，<b>不记录进度</b></li>
-        <li>「提交」执行全部测试用例，全部通过才记为已解决并解锁参考答案</li>
+        <li>{{ t('help.runRule') }}</li>
+        <li>{{ t('help.submitRule') }}</li>
       </ul>
 
-      <h3>评测环境</h3>
+      <h3>{{ t('help.env') }}</h3>
       <ul>
-        <li>代码在你本机独立的 Python 虚拟环境（.venv-eval）中以子进程真实运行</li>
-        <li>预装 <code>torch</code> / <code>numpy</code>；<code>llm-models</code> 合集的参考解还可用 <code>transformers</code>（离线）作为大模型组件的对拍 oracle</li>
-        <li>评测前固定随机种子 <code>torch.manual_seed(42)</code>：请保证解法可复现，不要依赖外部随机状态</li>
-        <li>请在函数内部创建新张量完成计算；单次评测默认 30 秒超时（JUDGE_TIMEOUT_S 可调）</li>
+        <li>{{ t('help.envLocal') }}</li>
+        <li>{{ t('help.envPackages') }}</li>
+        <li>{{ t('help.envSeed') }}</li>
+        <li>{{ t('help.envTensors') }}</li>
       </ul>
 
-      <h3>扩充题库 / 合集</h3>
+      <h3>{{ t('help.extending') }}</h3>
       <ul>
-        <li>题库：<code>problems/pytorch/&lt;题目slug&gt;/</code>（meta.json、description.md、starter.py、test_cases.py、solution.py），热加载，免重启</li>
-        <li>合集：<code>problems/collections.json</code> 配置名称、描述与有序题目列表</li>
+        <li>{{ t('help.extendProblems') }}</li>
+        <li>{{ t('help.extendCollections') }}</li>
       </ul>
     </div>
   </div>

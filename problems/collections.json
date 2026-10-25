@@ -2,7 +2,9 @@
   {
     "slug": "pytorch",
     "name": "PyTorch 合集",
+    "name_en": "PyTorch Collection",
     "description": "PyTorch 框架使用：张量、广播、自动微分、模块与训练流程。",
+    "description_en": "Using the PyTorch framework: tensors, broadcasting, automatic differentiation, modules, and the training loop.",
     "problems": [
       "tensor-shape-indexing",
       "broadcast-ops",
@@ -15,7 +17,9 @@
   {
     "slug": "operators",
     "name": "算子合集",
+    "name_en": "Operators Collection",
     "description": "手写神经网络激活、归一化、卷积/注意力、损失与优化器更新等核心算子，支持多实现语言（当前 PyTorch）。",
+    "description_en": "Hand-write core neural network operators — activations, normalization, convolution/attention, losses, and optimizer updates — with support for multiple implementation languages (currently PyTorch).",
     "problems": [
       "relu",
       "relu6",
@@ -108,7 +112,9 @@
   {
     "slug": "perf-systems",
     "name": "AI 系统性能合集",
+    "name_en": "AI Systems Performance Collection",
     "description": "训练/推理系统的性能与显存账：激活估算、梯度检查点、FLOPs/MFU、算子融合与 Roofline。",
+    "description_en": "Performance and GPU memory accounting for training/inference systems: activation estimation, gradient checkpointing, FLOPs/MFU, operator fusion, and Roofline.",
     "problems": [
       "transformer-mem",
       "transformer-mfu",
@@ -124,7 +130,9 @@
   {
     "slug": "distributed",
     "name": "分布式训练原语合集",
+    "name_en": "Distributed Training Primitives Collection",
     "description": "集合通信与多维并行基础：Broadcast / Gather / Scatter / All-Gather / Reduce-Scatter / All-Reduce / All-to-All、Ring All-Reduce 逐步模拟、分布式梯度裁剪，以及 ZeRO 通信量 / ZeRO-Offload / ZeRO-Infinity / ZeRO 一维分片归属 / GPipe 气泡率 / 1F1B 激活显存 / 张量并行每层通信 / 序列·上下文并行显存-通信账，再加上次线性激活检查点与选择性重算背包等 DP+TP+PP+CP+ZeRO 显存-带宽-重算账本（多 rank 张量模拟、整数归属与纯公式，终值/中间态对拍）。",
+    "description_en": "Collective communication and multidimensional parallelism fundamentals: Broadcast / Gather / Scatter / All-Gather / Reduce-Scatter / All-Reduce / All-to-All, step-by-step Ring All-Reduce simulation, distributed gradient clipping, plus ZeRO communication volume / ZeRO-Offload / ZeRO-Infinity / ZeRO one-dimensional shard ownership / GPipe bubble ratio / 1F1B activation memory / per-layer tensor-parallel communication / sequence and context parallelism memory-communication accounting, and further sublinear activation checkpointing and the selective recomputation knapsack — that is, DP+TP+PP+CP+ZeRO memory-bandwidth-recomputation ledgers (multi-rank tensor simulation, integer ownership assignment, and pure formulas, cross-checked against an oracle on final values and intermediate states).",
     "problems": [
       "distributed-all-gather",
       "distributed-reduce-scatter",
@@ -152,7 +160,9 @@
   {
     "slug": "llm-models",
     "name": "大模型结构合集",
+    "name_en": "LLM Architecture Collection",
     "description": "像 transformers 库那样逐个组件实现现代 LLM（Qwen2 为骨干，泛用于 Llama/Mistral/DeepSeek）：RMSNorm、RoPE、SwiGLU MLP、GQA 因果注意力、Pre-Norm Decoder Layer，拼装成完整因果语言模型，并延伸 DeepSeek-V3 的 MLA 多头潜在注意力（低秩潜在压缩 + 解耦 RoPE）。每题以同权重喂 transformers eager 参考实现对拍。",
+    "description_en": "Implement a modern LLM component by component the way the transformers library does (Qwen2 as the backbone, generalized to Llama/Mistral/DeepSeek): RMSNorm, RoPE, SwiGLU MLP, GQA causal attention, Pre-Norm Decoder Layer, assembled into a complete causal language model, and extended to DeepSeek-V3's MLA multi-head latent attention (low-rank latent compression + decoupled RoPE). Each problem is cross-checked against the transformers eager reference implementation fed identical weights.",
     "problems": [
       "llm-rmsnorm",
       "llm-rope-apply",
@@ -166,7 +176,9 @@
   {
     "slug": "optimization",
     "name": "优化器与调度合集",
+    "name_en": "Optimizers & Schedules Collection",
     "description": "以 PyTorch 训练组件方式出题（多数继承 torch.optim.Optimizer 实现 step() 就地更新，另有 LRScheduler 子类与 EMA 机制对象），区别于函数式单步算子题。核心四题 AdamW 解耦权重衰减、Lion 符号动量、Adafactor 因子分解二阶矩 + RMS 更新裁剪、Muon Newton-Schulz 正交化动量；自适应家族 AdaBelief 置信二阶矩、RAdam 整流稳定系数、AdaBound 动态学习率夹逼、AdamP 尺度不变径向投影；LLM 前沿 NovoGrad 逐层标量二阶矩、Yogi 符号自适应、Tiger sign+动量、ADOPT 修正偏差时序、Cautious 方向一致性掩码、Prodigy D-Adaptation 在线估 lr；调度与机制 warmup+余弦退火、梯度累积+全局范数裁剪+动量 SGD、EMA 权重滑动平均含升温。每题由评测构造待优化对象、喂固定序列反复 step()/update()，与原生 torch.optim 或独立纯 torch 重算参照逐元素对拍；公式回源核实到论文与 kozistr/pytorch_optimizer 实现，CPU float32 保确定性。",
+    "description_en": "Problems are posed as PyTorch training components (most subclass torch.optim.Optimizer and implement step() with in-place updates; there are also LRScheduler subclasses and an EMA mechanism object), as opposed to functional single-step operator problems. The four core problems are AdamW decoupled weight decay, Lion sign momentum, Adafactor factorized second moment + RMS update clipping, and Muon Newton-Schulz orthogonalized momentum; the adaptive family covers AdaBelief confidence second moment, RAdam rectification stabilization coefficient, AdaBound dynamic learning-rate clamping, and AdamP scale-invariant radial projection; LLM frontier methods include NovoGrad per-layer scalar second moment, Yogi sign adaptivity, Tiger sign+momentum, ADOPT bias-corrected temporal ordering, Cautious direction-consistency masking, and Prodigy D-Adaptation online lr estimation; schedules and mechanisms include warmup+cosine annealing, gradient accumulation+global-norm clipping+momentum SGD, and EMA weight moving average with warmup. For each problem the evaluator constructs the object to be optimized, feeds a fixed sequence of repeated step()/update() calls, and cross-checks element-wise against native torch.optim or an independent pure-torch recomputation; formulas are traced back and verified against the papers and the kozistr/pytorch_optimizer implementation, with CPU float32 for determinism.",
     "problems": [
       "opt-adamw",
       "opt-lion",
@@ -190,7 +202,9 @@
   {
     "slug": "data-tokenization",
     "name": "分词与数据整理合集",
+    "name_en": "Tokenization & Data Collation Collection",
     "description": "LLM 数据管线的两端：从零训练 BPE 合并规则、用 merges 把文本编码成子词，Unigram 语言模型的 Viterbi 最优子词切分，以及把变长 token 序列整理成批——逐条 padding（input_ids/attention_mask/labels）、序列打包（定长块 + position_ids/segment_ids 防跨序列注意力）、SFT 仅监督助手回复的损失掩码与因果 LM 移位标签、多轮逐轮损失权重。纯确定性运算，示例值均实跑 dump。",
+    "description_en": "Both ends of the LLM data pipeline: training BPE merge rules from scratch, encoding text into subwords with merges, Viterbi optimal subword segmentation for the Unigram language model, and collating variable-length token sequences into batches — per-example padding (input_ids/attention_mask/labels), sequence packing (fixed-length blocks + position_ids/segment_ids to prevent cross-sequence attention), SFT loss masking that supervises only assistant replies with causal-LM shifted labels, and per-turn loss weights for multi-turn data. Purely deterministic computation; all example values are actually run and dumped.",
     "problems": [
       "bpe-training",
       "bpe-encoding",
@@ -205,7 +219,9 @@
   {
     "slug": "quantization",
     "name": "量化与低精度合集",
+    "name_en": "Quantization & Low Precision Collection",
     "description": "从「怎么量」到「量完怎么算」的量化谱系：per-tensor 对称/非对称 fake-quant、按通道与按分组（GPTQ/AWQ 的 INT4 粒度）的更细量化、weight-only INT8 反量化矩阵乘（推理落地），以及低位宽浮点的数值边界——FP16 动态 loss scaling 的上/下溢与 FP8(E4M3) 就近舍入往返。另附 LLM 压缩主流算法的算法骨架（对齐 LightCompress/LLMC 支持的量化方案）：SmoothQuant 激活离群迁移、AWQ 激活感知缩放、LLM.int8() 离群列混合精度、QuaRot Hadamard 旋转、GPTQ 逐列 Hessian 误差补偿、SpQR 稀疏离群保留。均经内置 torch 量化/float8 oracle 或独立纯 Python 重算对拍。",
+    "description_en": "The quantization spectrum from \"how to quantize\" to \"how to compute after quantizing\": per-tensor symmetric/asymmetric fake-quant, finer-grained per-channel and per-group quantization (the INT4 granularity of GPTQ/AWQ), weight-only INT8 dequantized matrix multiplication (inference deployment), and the numerical boundaries of low-bit floating point — FP16 dynamic loss scaling upper/lower overflow and FP8(E4M3) round-to-nearest round trip. Also included are algorithm skeletons of mainstream LLM compression methods (aligned with the quantization schemes supported by LightCompress/LLMC): SmoothQuant activation outlier migration, AWQ activation-aware scaling, LLM.int8() outlier-column mixed precision, QuaRot Hadamard rotation, GPTQ column-wise Hessian error compensation, and SpQR sparse outlier retention. All are cross-checked against the built-in torch quantization/float8 oracle or an independent pure-Python recomputation.",
     "problems": [
       "symmetric-quantize",
       "asymmetric-quantize",
@@ -225,7 +241,9 @@
   {
     "slug": "sampling",
     "name": "采样策略合集",
+    "name_en": "Sampling Strategies Collection",
     "description": "LLM 解码头的数据驱动采样管线：从截断类（top-k / top-p / min-p / typical / top-n-sigma）、免超参的 p-less 家族，到惩罚类（repeat+freq+present、DRY 的反 n-gram Z-algorithm），再到带状态的自适应类（mirostat-v2 困惑度控制、adaptive-p 的 EMA 塑形）与动态温度。以 llama.cpp 源码与 p-less 论文（arXiv:2509.23234）为准；随机数以显式入参 u 注入、自适应类状态作显式入/出参，保证判题确定性，每题另设独立 oracle 对拍。",
+    "description_en": "The data-driven sampling pipeline of the LLM decoding head: from truncation families (top-k / top-p / min-p / typical / top-n-sigma) and the hyperparameter-free p-less family, to penalty families (repeat+freq+present, DRY's anti-n-gram Z-algorithm), to stateful adaptive families (mirostat-v2 perplexity control, adaptive-p EMA shaping) and dynamic temperature. Based on the llama.cpp source code and the p-less paper (arXiv:2509.23234); random numbers are injected as an explicit input u and adaptive state is passed as explicit input/output, guaranteeing judging determinism, and each problem additionally has an independent oracle for cross-checking.",
     "problems": [
       "top-p-sampling",
       "top-k-sampling",
@@ -244,7 +262,9 @@
   {
     "slug": "moe",
     "name": "MoE 路由与专家并行合集",
+    "name_en": "MoE Routing & Expert Parallelism Collection",
     "description": "混合专家模型的路由与分发管线：top-k gating 与 renorm、Switch / CV 两种负载均衡辅助损失、位置式 capacity 分派与 token dropping、router z-loss 稳定性正则、Expert-Choice 反序路由、以及专家并行下的 all-to-all 分派与加权合并。算法均对齐 HF Mixtral / Megatron-LM / Shazeer OLNN / ST-MoE / Expert-Choice 官方实现，逐题独立 oracle 对拍。",
+    "description_en": "The routing and dispatch pipeline of mixture-of-experts models: top-k gating with renorm, the Switch / CV load-balancing auxiliary losses, position-based capacity dispatch with token dropping, router z-loss stability regularization, Expert-Choice reverse routing, and all-to-all dispatch with weighted combination under expert parallelism. All algorithms are aligned with the official HF Mixtral / Megatron-LM / Shazeer OLNN / ST-MoE / Expert-Choice implementations, with an independent oracle per problem for cross-checking.",
     "problems": [
       "moe-topk-gating",
       "moe-switch-aux-loss",
@@ -258,7 +278,9 @@
   {
     "slug": "inference",
     "name": "LLM 推理 Serving 合集",
+    "name_en": "LLM Inference Serving Collection",
     "description": "持续 batching 调度、推测解码拒绝采样、beam search、paged KV block 分配、LRU 驱逐、chunked prefill、prefix-cache 命中。",
+    "description_en": "Continuous batching scheduling, speculative decoding rejection sampling, beam search, paged KV block allocation, LRU eviction, chunked prefill, and prefix-cache hits.",
     "problems": [
       "inf-continuous-batching-scheduler",
       "inf-spec-decoding-rejection",
@@ -272,7 +294,9 @@
   {
     "slug": "kvcache",
     "name": "KV Cache 压缩合集",
+    "name_en": "KV Cache Compression Collection",
     "description": "对齐 NVIDIA/kvpress 开源项目的 14 个代表性 KV 压缩算法：位置类 StreamingLLM sink+窗、无注意力 KNorm 反范数、基于注意义的 SnapKV 窗口+avg_pool 与 ObservedAttention 历史均分与 ExpectedAttention 高斯期望、多注意义聚合 TOVA 与全局 head-adaptive AdaKV 剪枝、金字塔层预算分配 PyramidKV、ThinK channel-wise 剪枝、Merging 驱逐合并；第二批补上包装器式 ChunkPress 分块独立 top-k、ChunkKV 语义块整体保留、KeyRerotation 驱逐后 RoPE 重旋转、DuoAttention 检索头/流式头分区。每题以小型 toy 张量为入参、将真实 forward hook 中需的部分拆开直接给定（attn、window queries、mu/cov、已选 n_kept、indices 等）保障确定性，另设独立 oracle 对拍。",
+    "description_en": "14 representative KV compression algorithms aligned with the NVIDIA/kvpress open-source project: the positional StreamingLLM sink+window, attention-free KNorm inverse norm, attention-based SnapKV window+avg_pool alongside ObservedAttention historical mean and ExpectedAttention Gaussian expectation, multi-attention aggregation TOVA with global head-adaptive AdaKV pruning, pyramid layer budget allocation PyramidKV, ThinK channel-wise pruning, and Merging eviction-and-merge; the second batch adds the wrapper-style ChunkPress chunked independent top-k, ChunkKV semantic-chunk whole retention, KeyRerotation RoPE re-rotation after eviction, and DuoAttention retrieval-head/streaming-head partitioning. Each problem takes small toy tensors as input and directly supplies, split out, the parts needed inside a real forward hook (attn, window queries, mu/cov, the selected n_kept, indices, etc.) to ensure determinism, with an additional independent oracle for cross-checking.",
     "problems": [
       "kv-streaming-llm-sink",
       "kv-knorm-importance",
@@ -293,7 +317,9 @@
   {
     "slug": "training-objectives",
     "name": "对齐与训练目标合集",
+    "name_en": "Alignment & Training Objectives Collection",
     "description": "RLHF/对齐链路的 10 个训练目标与优势估计算子：DPO 直接偏好优化损失（策略与参考策略对数比组装成 Bradley-Terry logistic 目标）、PPO/GRPO 截断代理目标（概率比 exp(Δlogprob) 的 min+clip 信任域）、Bradley-Terry 奖励模型损失（末位有效 token 池化 + 价值头打分 + 成对排序）、Label Smoothing 交叉熵（软标签拆成 NLL 与均匀分布 KL 正则两项）；扩展批次含 GAE 广义优势估计（反向递推 advantages/returns）、PPO 价值函数裁剪（新旧估值与回报的 max-of-squares）、GRPO 组内标准化优势（按 group 求均值与有偏标准差）、KTO 前景理论损失（相对参考点的 desirable/undesirable 价值）、SimPO 长度归一化偏好损失（平均对数概率作奖励 + 目标边际）、PPO 自适应 KL 系数控制器（比例误差截断后平滑调节）。每题给定序列级 logprob / 优势 / 隐藏态等预计算量，log-sigmoid 与 log-softmax 均要求数值稳定，逐题独立 oracle 对拍；α=0、β=0、z=z_ref、KL 命中等退化情形有专项断言。",
+    "description_en": "10 training objectives and advantage estimation operators from the RLHF/alignment pipeline: the DPO direct preference optimization loss (policy and reference-policy log ratios assembled into a Bradley-Terry logistic objective), the PPO/GRPO clipped surrogate objective (min+clip trust region over the probability ratio exp(Δlogprob)), the Bradley-Terry reward model loss (last valid token pooling + value-head scoring + pairwise ranking), and Label Smoothing cross-entropy (soft labels split into an NLL term and a uniform-distribution KL regularization term); the extended batch includes GAE generalized advantage estimation (backward recursion for advantages/returns), PPO value function clipping (max-of-squares of old/new value estimates and returns), GRPO intra-group standardized advantages (per-group mean and biased standard deviation), the KTO prospect-theory loss (desirable/undesirable value relative to the reference point), the SimPO length-normalized preference loss (average log probability as reward + target margin), and a PPO adaptive KL coefficient controller (smooth adjustment after clipping the proportional error). Each problem provides precomputed quantities such as sequence-level logprob / advantages / hidden states, requires numerically stable log-sigmoid and log-softmax, and is cross-checked against an independent oracle per problem; degenerate cases such as α=0, β=0, z=z_ref, and KL hitting the bound have dedicated assertions.",
     "problems": [
       "to-dpo-loss",
       "to-ppo-clipped-surrogate",
@@ -310,7 +336,9 @@
   {
     "slug": "speculative-decoding",
     "name": "推测解码合集",
+    "name_en": "Speculative Decoding Collection",
     "description": "对齐 SpeculativeDecodingPapers 里带源码链接的算法：Medusa 多头候选树的 typical acceptance 验证、Sequoia 单位置多分支采样与验证（Algorithm 2，残差分布动态收缩）、Sequoia 最优草稿树期望 token 数 DP（Algorithm 1，位置接受假设下的二维 T[n,b]）、Typical Acceptance 单序列逐 token 阈值接受、Lookahead 解码的 Jacobi n-gram 候选池匹配-回退-自学习、以及 REST/Suffix Decoding 的最长后缀检索草稿。随机性（采样、接受硬币、回退）一律以显式均匀数入参注入、树形/datastore 等结构作显式入参，保证判题确定；每题另设独立纯 Python oracle（CDF 反查 / 暴力枚举树 / 候选元组取最优）逐题对拍。",
+    "description_en": "Algorithms with source links in SpeculativeDecodingPapers: Medusa multi-head candidate tree typical acceptance verification, Sequoia single-position multi-branch sampling and verification (Algorithm 2, residual distribution dynamically shrinking), Sequoia optimal draft tree expected token count DP (Algorithm 1, the two-dimensional T[n,b] under the positional acceptance assumption), Typical Acceptance single-sequence per-token threshold acceptance, Lookahead decoding's Jacobi n-gram candidate pool match-fallback-self-learning, and REST/Suffix Decoding longest-suffix retrieval drafting. Randomness (sampling, acceptance coins, fallback) is always injected as explicit uniform numbers, and structures such as trees and the datastore are explicit inputs, ensuring deterministic judging; each problem additionally has an independent pure-Python oracle (CDF inverse lookup / brute-force tree enumeration / best-of candidate tuples) for cross-checking.",
     "problems": [
       "spec-medusa-tree-verify",
       "spec-sequoia-sample-verify",
@@ -323,7 +351,9 @@
   {
     "slug": "peft",
     "name": "参数高效微调合集",
+    "name_en": "Parameter-Efficient Fine-Tuning Collection",
     "description": "冻结主干、只训旁路小模块的 PEFT 谱系：LoRA 前向（缩放 s=alpha/r 的低秩旁路）与权重合并（W'=W0+s·BA 后单次 matmul）、IA³ 逐输出神经元缩放的 re-parameterization、Adapter 瓶颈降维-ReLU-升维-残差、DoRA 把权重按幅值×方向拆解后只对方向做低秩更新，以及 LoRA 可训练参数量与压缩比账（full=Σ d_in·d_out vs lora=Σ r·(d_in+d_out)）。公式全部回源核实到 Hu(2106.09685)/Liu(2205.05638)/Houlsby(1902.00751)/Liu(2402.09353) 原论文，采用 nn.Linear 行向量惯例 y=x·Wᵀ；为判题确定性去掉 Dropout，每题另设独立 oracle（合并矩阵重算 / 逐元素三重循环 / 逐样本列向量 / 逐行范数）与 α=0、λ=1、m=‖V‖ 等退化不变量专项断言，CPU float32 对拍。",
+    "description_en": "The PEFT spectrum of freezing the backbone and training only small side modules: LoRA forward (a low-rank side path scaled by s=alpha/r) and weight merging (a single matmul after W'=W0+s·BA), IA³ per-output-neuron scaling re-parameterization, Adapter bottleneck down-projection–ReLU–up-projection–residual, DoRA decomposing the weight into magnitude×direction and applying the low-rank update only to the direction, plus the LoRA trainable parameter count and compression ratio ledger (full=Σ d_in·d_out vs lora=Σ r·(d_in+d_out)). All formulas are traced back and verified against the original papers Hu(2106.09685)/Liu(2205.05638)/Houlsby(1902.00751)/Liu(2402.09353), using the nn.Linear row-vector convention y=x·Wᵀ; Dropout is removed for judging determinism, each problem additionally has an independent oracle (merged-matrix recomputation / element-wise triple loop / per-sample column vector / per-row norm) plus dedicated assertions on degenerate invariants such as α=0, λ=1, m=‖V‖, with CPU float32 cross-checking.",
     "problems": [
       "peft-lora-forward",
       "peft-lora-merge",
@@ -336,7 +366,9 @@
   {
     "slug": "diffusion",
     "name": "扩散模型合集",
+    "name_en": "Diffusion Models Collection",
     "description": "扩散生成模型的采样与调度基建：正弦时间步嵌入（前半 sin、后半 cos、freq=10000^(-i/half)）、线性/余弦两种噪声调度输出 ᾱ 序列（Nichol-Dhariwal cosine + clip(0,0.999)）、DDPM 前向一步加噪 q(x_t|x_0)=√ᾱ_t·x_0+√(1-ᾱ_t)·ε、DDPM 反向后验单步 p(x_{t-1}|x_t,x_0)（含 tilde-beta 方差、z=0 退化为均值）、σ_t=0 的 DDIM 确定性去噪单步（ᾱ_prev=ᾱ_t 恒等、=1 回 x0 两个退化探针）与无分类器引导 ε_u+w(ε_c-ε_u)（w=0→uncond、w=1→cond）。公式全部回源核实到 Ho(2006.11239)/Nichol-Dhariwal(2102.09672)/Song(2010.02502)/Ho-Salimans(2207.12598) 原论文；噪声 ε/z 均作显式入参以保证 CPU float32 判题确定性，每题另设独立 oracle（math 逐频率/逐 t 累乘/逐元素双循环/等价式重算）与退化不变量专项断言。",
+    "description_en": "Sampling and scheduling infrastructure for diffusion generative models: sinusoidal timestep embedding (first half sin, second half cos, freq=10000^(-i/half)), linear and cosine noise schedules outputting the ᾱ sequence (Nichol-Dhariwal cosine + clip(0,0.999)), one-step DDPM forward noising q(x_t|x_0)=√ᾱ_t·x_0+√(1-ᾱ_t)·ε, the DDPM reverse posterior single step p(x_{t-1}|x_t,x_0) (with tilde-beta variance, degenerating to the mean when z=0), the DDIM deterministic denoising single step with σ_t=0 (two degenerate probes: ᾱ_prev=ᾱ_t identity, and =1 returning to x0) and classifier-free guidance ε_u+w(ε_c-ε_u) (w=0→uncond, w=1→cond). All formulas are traced back and verified against the original papers Ho(2006.11239)/Nichol-Dhariwal(2102.09672)/Song(2010.02502)/Ho-Salimans(2207.12598); the noise ε/z are explicit inputs to guarantee CPU float32 judging determinism, and each problem additionally has an independent oracle (math per-frequency / per-t cumulative product / element-wise double loop / equivalent-formula recomputation) plus dedicated assertions on degenerate invariants.",
     "problems": [
       "diff-sinusoidal-timestep",
       "diff-noise-schedule",
@@ -349,7 +381,9 @@
   {
     "slug": "sparsity",
     "name": "稀疏剪枝合集",
+    "name_en": "Sparse Pruning Collection",
     "description": "模型压缩里的剪枝与稀疏存储全家福：全局幅值剪枝（跨整层丢弃绝对值最小的一批权重，Han et al. Deep Compression 1510.00149）、逐行局部幅值剪枝（稀疏预算在每个输出神经元内部独立分配，与全局阀值形成对比）、面向 NVIDIA Ampere Sparse Tensor Core 的 2:4 半结构化剪枝（每连续 4 元素保留 top-2）、Zhu-Gupta 三次渐稀疏率调度 GSL（1710.01878，窗口内 (1-t/T)^3 平滑推稀疏率）、按块 L1 范数全局竞争的块结构剪枝，以及将稠密矩阵行主序编码为 CSR 三数组（indptr/indices/values）。并列、阈值取数与剪除单位均有确定性约定（stable argsort + 固定 tie-break）；每题另设独立纯 Python/torch 逐元素 oracle（结构异于参考解）与 sparsity=0/1、每块全留或全删、全零矩阵退化等专项断言，CPU float32 对拍。",
+    "description_en": "A full set of pruning and sparse storage techniques in model compression: global magnitude pruning (drop the lowest-absolute-value weights across the whole layer, Han et al. Deep Compression 1510.00149), per-row local magnitude pruning (the sparsity budget is allocated independently inside each output neuron, contrasting with a global threshold), 2:4 semi-structured pruning for NVIDIA Ampere Sparse Tensor Cores (keep the top-2 of every consecutive 4 elements), the Zhu-Gupta cubic sparsity schedule GSL (1710.01878, smoothly pushing the sparsity ratio via (1-t/T)^3 within a window), block-structured pruning competing globally by block L1 norm, and encoding a dense matrix row-major into the three CSR arrays (indptr/indices/values). Tie-breaking, threshold selection, and pruning units all have deterministic conventions (stable argsort + fixed tie-break); each problem additionally has an independent pure-Python/torch element-wise oracle (structurally different from the reference solution) plus dedicated assertions for sparsity=0/1, keep-all or drop-all per block, and all-zero matrix degeneracy, with CPU float32 cross-checking.",
     "problems": [
       "sparsity-magnitude-prune",
       "sparsity-rowwise-prune",
@@ -362,7 +396,9 @@
   {
     "slug": "multimodal",
     "name": "多模态合集",
+    "name_en": "Multimodal Collection",
     "description": "视觉-语言模型的几何重排与对比训练基建：ViT patchify（(B,C,H,W)→(B,N,C·p²)、块行优先且 token 内按通道-行-列，与 unpatchify 互逆）、Swin window partition（(B,H,W,C) 切成不重叠窗口批、窗内保留二维布局）、Qwen2-VL PatchMerger 的 2×2 空间合并（相邻四 patch 按左上-右上-左下-右下拼接、token 数↓4 通道↑4，剥离带权重 Linear）、CLIP 对称 InfoNCE 对比损失（图像↔文本双向行交叉熵取半均、对角为正对、可学温度 logit_scale）、SigLIP 逐对 sigmoid 对比损失（z=scale·sim+bias、±1 标签、分母取 batch 大小 B、无 softmax 全局归一）与 Qwen2-VL 风格 M-RoPE 位置编号（三轴 (t,h,w)、文本三轴同步递增、图像块内 t 恒定、h/w 按行列展开、块后 running+=max(h,w)）。前三题为无损双射重排（测试用逆操作还原校验），损失题为 CPU float32 标量；每题另设独立纯 Python 逐元素/逐对 oracle 与退化不变量专项断言；多模态机制公式回源核实到 Dosovitskiy(2010.11929)/Liu(2111.03861)/Radford(2103.00020)/Zhai(2303.15343)/Bai(2409.12191)。",
+    "description_en": "Geometric rearrangement and contrastive training infrastructure for vision-language models: ViT patchify ((B,C,H,W)→(B,N,C·p²), blocks in row-major order and channel-row-column within a token, mutually inverse with unpatchify), Swin window partition ((B,H,W,C) split into a batch of non-overlapping windows, preserving the 2D layout inside each window), Qwen2-VL PatchMerger 2×2 spatial merging (four adjacent patches concatenated as top-left, top-right, bottom-left, bottom-right, token count ↓4 and channels ↑4, with the weighted Linear stripped out), the CLIP symmetric InfoNCE contrastive loss (image↔text bidirectional row cross-entropy, halved average, diagonal as positive pairs, learnable temperature logit_scale), the SigLIP pairwise sigmoid contrastive loss (z=scale·sim+bias, ±1 labels, denominator equal to batch size B, no softmax global normalization), and Qwen2-VL-style M-RoPE position numbering (three axes (t,h,w), all three axes incrementing in sync for text, constant t within image blocks, h/w expanded by rows and columns, running+=max(h,w) after each block). The first three problems are lossless bijective rearrangements (tests verify by restoring with the inverse operation), and the loss problems produce CPU float32 scalars; each problem additionally has an independent pure-Python element-wise/pairwise oracle and dedicated assertions on degenerate invariants; the multimodal mechanism formulas are traced back and verified against Dosovitskiy(2010.11929)/Liu(2111.03861)/Radford(2103.00020)/Zhai(2303.15343)/Bai(2409.12191).",
     "problems": [
       "mm-patchify",
       "mm-window-partition",
@@ -375,7 +411,9 @@
   {
     "slug": "retrieval",
     "name": "向量检索合集",
+    "name_en": "Vector Retrieval Collection",
     "description": "近似最近邻与 RAG 检索基建的确定性核心子过程：IVF 粗量化器分配（逐向量取平方欧氏最近的粗中心、并列取小下标，Jégou TPAMI 2011 的 coarse quantizer）、乘积量化编码（D 维切成 m 段各 d=D/m 维、逐段在第 j 套子码本独立取最近码字、得 (n,m) 子码，Faiss IndexPQ）、倒数排名融合 RRF（只用 1-based 名次、score(d)=Σ 1/(k+rank) 且 k=60、0 表缺席、降序并列按文档下标升序，Cormack SIGIR 2009）、最大边际相关 MMR 重排（λ·cos(d,q)-(1-λ)·max_{s∈S}cos(d,s) 贪心 k 步、余弦、零范数记 0、λ=1 退化纯相关、λ=0 纯多样，Carbonell SIGIR 1998）、HNSW 单层贪心搜索（从入口沿边跳到更近邻居直至局部最优、ef=1、严格下降必收敛、可卡次优点，Malkov 1603.09320）与 RAG 重叠滑窗分块（步长=chunk_size-overlap、起点<num_tokens 即成块、越界填 -1、固定宽度矩阵，LangChain chunk_overlap）。分配/编码/重排类走 int64 索引输出、HNSW 返 0 维标量、分块返下标矩阵；每题独立纯 Python 逐元素/逐对/逐轮 oracle（与广播或矩阵化参考解结构不同、数值等价）+ 并列取小/精确重建/λ 退化/贪心卡局部最优/覆盖不丢 token 等专项断言；检索算法公式与哨兵约定一律回源核实。",
+    "description_en": "The deterministic core subroutines of approximate nearest neighbor and RAG retrieval infrastructure: IVF coarse quantizer assignment (nearest coarse center by squared Euclidean distance per vector, smallest index on ties — the coarse quantizer of Jégou TPAMI 2011), product quantization encoding (D dimensions split into m segments of d=D/m dimensions each, the nearest codeword selected independently per segment from the j-th sub-codebook, yielding (n,m) sub-codes, Faiss IndexPQ), reciprocal rank fusion RRF (using only 1-based ranks, score(d)=Σ 1/(k+rank) with k=60, 0 meaning absent, descending with ties broken by ascending document index, Cormack SIGIR 2009), maximal marginal relevance MMR reranking (λ·cos(d,q)-(1-λ)·max_{s∈S}cos(d,s) greedy for k steps, cosine, zero norm recorded as 0, λ=1 degenerating to pure relevance and λ=0 to pure diversity, Carbonell SIGIR 1998), HNSW single-layer greedy search (hop from the entry point along edges to nearer neighbors until a local optimum, ef=1, strictly descending so convergence is guaranteed, can get stuck at a suboptimal point, Malkov 1603.09320), and RAG overlapping sliding-window chunking (stride=chunk_size-overlap, a chunk forms as soon as the start < num_tokens, out-of-range filled with -1, fixed-width matrix, LangChain chunk_overlap). Assignment/encoding/reranking problems output int64 indices, HNSW returns a 0-dimensional scalar, and chunking returns an index matrix; each problem has an independent pure-Python element-wise/pairwise/per-round oracle (structurally different from the broadcast or matrix-based reference solution but numerically equivalent) plus dedicated assertions on smallest-index tie-breaking / exact reconstruction / λ degeneracy / greedy search sticking at a local optimum / coverage without dropping tokens; retrieval algorithm formulas and sentinel conventions are all traced back and verified.",
     "problems": [
       "retrieval-ivf-assign",
       "retrieval-pq-codes",
