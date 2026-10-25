@@ -1,22 +1,34 @@
 #!/usr/bin/env python3
-"""leet-infra 加题脚手架：交互式生成题目并自动挂进合集。
+"""leet-infra 加题脚手架：交互式生成题目、自动挂进合集，并固化两道人工步骤。
 
-用法:  .venv-backend/bin/python scripts/add_problem.py
+用法:
+  .venv-backend/bin/python scripts/add_problem.py                     # 交互式加题
+  .venv-backend/bin/python scripts/add_problem.py --selftest <slug>   # 用参考解自测某题
+  可选 --framework pytorch（默认）/ --mode run（只跑样例，默认）/ submit（全部用例）
+
 生成 problems/<framework>/<slug>/ 下 meta.json、description.md，以及
 variants/pytorch/ 三件套（starter.py、test_cases.py、solution.py），
 并把 slug 追加进所选合集的 collections.json。
 多实现算子题可选：meta.json 写入 pytorch(可用)+triton/cuda(置灰) 声明，
 不可用的 variant 不建目录，仅前端选择器置灰展示。
+加题流程内固化两步（事项 49）：① 校验题目领域标签是否已在前端
+ problemFilter.ts 的 TAG_FAMILY 登记（未登记则提示要补的那一行）；
+② 提供 `--selftest <slug>` 直接复用后端 judge 跑一遍用例、回显逐用例结果。
 新题落盘即被后端热加载（题库与合集均按 mtime 失效），免重启。
 """
 from __future__ import annotations
 
+import argparse
 import json
+import re
 import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 PROBLEMS_DIR = ROOT / "problems"
+FILTER_TS = ROOT / "frontend" / "src" / "utils" / "problemFilter.ts"
+# 非领域标签：这些是元/结构标签，不参与 family 归组，登记校验时忽略
+META_TAGS = {"operator", "framework", "todo"}
 
 TEMPLATE_META = '''{{
   "title": "{title}",
@@ -90,6 +102,83 @@ import torch
 def solve({params}):
     raise NotImplementedError("TODO: 参考实现待补全")
 '''
+
+
+def _tag_family_pairs() -> tuple[dict[str, str], list[str]] | None:
+    """解析前端 problemFilter.ts，返回 (TAG_FAMILY 映射, GROUP_ORDER 族顺序)；文件缺失返回 None。"""
+    if not FILTER_TS.exists():
+        return None
+    text = FILTER_TS.read_text(encoding="utf-8")
+    tm = re.search(r"TAG_FAMILY[^{]*\{(.*?)\}", text, re.S)
+    pairs = dict(re.findall(r"([A-Za-z_][A-Za-z0-9_]*)\s*:\s*'([^']*)'", tm.group(1))) if tm else {}
+    gm = re.search(r"GROUP_ORDER\s*=\s*\[(.*?)\]", text, re.S)
+    order = re.findall(r"'([^']*)'", gm.group(1)) if gm else []
+    return pairs, order
+
+
+def check_family_registered(tags: list[str]) -> None:
+    """算子题领域标签若未在前端 TAG_FAMILY 登记则提示补哪一行（事项 49）。"""
+    if "operator" not in tags:
+        return  # 非算子题统一落「框架 / 其他」，无需登记
+    parsed = _tag_family_pairs()
+    if parsed is None:
+        print("  ⚠ 未找到 problemFilter.ts，跳过族登记校验。")
+        return
+    pairs, order = parsed
+    domain = [t for t in tags if t not in META_TAGS]
+    bad_ident = [t for t in domain if not re.fullmatch(r"[A-Za-z_][A-Za-z0-9_]*", t)]
+    if bad_ident:
+        print(f"  ⚠ 标签 {bad_ident} 不是裸标识符（含连字符/空格等）："
+              f"TAG_FAMILY 的 key 必须为 [A-Za-z_][A-Za-z0-9_]*，否则后端完整性护栏抽不到。")
+    hit = [t for t in domain if t in pairs]
+    if hit:
+        fams = {pairs[t] for t in hit}
+        missing_order = [f for f in fams if f not in order]
+        if missing_order:
+            print(f"  ⚠ 标签已登记但族名不在 GROUP_ORDER：{missing_order}，"
+                  f"请在 GROUP_ORDER 补上以控制分组顺序。")
+        else:
+            print(f"  ✓ 族登记 OK：{', '.join(f'{t}→{pairs[t]}' for t in hit)}")
+    else:
+        line = ", ".join(f"{t}: '族名'" for t in domain) or "标签: '族名'"
+        print(f"  ⚠ 该算子题的领域标签 {domain} 未在 problemFilter.ts 的 TAG_FAMILY 登记，"
+              f"前端会把它归入「框架 / 其他」。如需单独成族，请在 TAG_FAMILY 增加一行：")
+        print(f"        {line},")
+        print("     并把新族名插入 GROUP_ORDER 期望位置。")
+
+
+def run_selftest(slug: str, framework: str, mode: str) -> int:
+    """复用后端 judge 跑参考解对拍，逐用例回显（事项 49）。返回退出码：0=AC，2=未 AC，1=环境/文件错误。"""
+    vdir = PROBLEMS_DIR / framework / slug / "variants" / "pytorch"
+    sol, tests = vdir / "solution.py", vdir / "test_cases.py"
+    if not sol.exists() or not tests.exists():
+        print(f"  ✗ 未找到 {sol} 或 {tests}", file=sys.stderr)
+        return 1
+    sys.path.insert(0, str(ROOT))
+    try:
+        from backend import judge
+    except Exception as exc:  # noqa: BLE001
+        print(f"  ✗ 无法导入后端 judge（请用 .venv-backend/bin/python 运行）：{exc}", file=sys.stderr)
+        return 1
+    res = judge.run_judgement(sol.read_text(encoding="utf-8"),
+                              tests.read_text(encoding="utf-8"), mode=mode)
+    cases = res.get("cases") or []
+    if not cases and res.get("error"):
+        print(f"  ✗ 评测未完成 [{res.get('status')}]：{res.get('error')}", file=sys.stderr)
+        if res.get("stdout"):
+            print(res["stdout"])
+        return 1
+    for c in cases:
+        icon = "✓" if c["passed"] else "✗"
+        msg = f"  — {c['message']}" if c.get("message") else ""
+        print(f"  {icon} {c['name']}{msg}")
+    if res.get("stdout"):
+        print("  ── 用户 stdout ──")
+        print(res["stdout"])
+    ok = bool(res.get("accepted"))
+    print(f"  => {res.get('passed')}/{res.get('total')} 通过；"
+          f"{'ACCEPTED' if ok else 'NOT accepted'}（mode={mode}）")
+    return 0 if ok else 2
 
 
 def ask(prompt: str, default: str = "") -> str:
@@ -173,10 +262,33 @@ def main() -> int:
             )
             print(f"已加入合集: {', '.join(picked)}")
 
-    print("\n下一步：补全 description.md / variants/pytorch/ 三件套中的 TODO，"
-          "再用参考解跑一次 POST /api/problems/{slug}/submit 自测判题链路。")
+    # 固化步骤①：校验领域标签是否已在前端 problemFilter 登记
+    check_family_registered(tags)
+
+    print("\n下一步：")
+    print("  1) 补全 description.md / variants/pytorch/ 三件套中的 TODO"
+          "（solution 填参考实现、test_cases 用独立纯 Python oracle 写 check_*）。")
+    print(f"  2) 用参考解自测判题链路（复用后端 judge，跑例值 dump）：")
+    print(f"       .venv-backend/bin/python scripts/add_problem.py --selftest {slug} --mode run")
+    print(f"     （--mode run 只跑样例用例；--mode submit 跑全部）")
+    if ask("\n现在就用占位参考解跑一次自测冒烟（验证链路接得通）？(y/N)", "n").lower() == "y":
+        run_selftest(slug, framework, "run")
     return 0
 
 
+def build_parser() -> argparse.ArgumentParser:
+    p = argparse.ArgumentParser(
+        description="leet-infra 加题脚手架：交互式加题，或 --selftest 复用后端 judge 自测。")
+    p.add_argument("--selftest", metavar="SLUG",
+                   help="用该题的参考解对拍 test_cases 并逐用例回显（不进入交互式加题）")
+    p.add_argument("--framework", default="pytorch", help="题目所在框架目录（默认 pytorch）")
+    p.add_argument("--mode", choices=["run", "submit"], default="run",
+                   help="selftest 模式：run 只跑样例（默认），submit 跑全部用例")
+    return p
+
+
 if __name__ == "__main__":
+    args = build_parser().parse_args()
+    if args.selftest:
+        sys.exit(run_selftest(args.selftest, args.framework, args.mode))
     sys.exit(main())
