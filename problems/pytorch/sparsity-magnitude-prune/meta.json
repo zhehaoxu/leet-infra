@@ -1,0 +1,11 @@
+{
+  "title": "稀疏化：全局幅值剪枝",
+  "difficulty": "Medium",
+  "tags": ["operator", "sparsity"],
+  "order": 217,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

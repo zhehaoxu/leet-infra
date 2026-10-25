@@ -1,0 +1,11 @@
+{
+  "title": "稀疏化：块结构剪枝（按块范数）",
+  "difficulty": "Hard",
+  "tags": ["operator", "sparsity"],
+  "order": 222,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "title": "稀疏化：2:4 结构化 N:M 剪枝",
+  "difficulty": "Medium",
+  "tags": ["operator", "sparsity"],
+  "order": 218,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

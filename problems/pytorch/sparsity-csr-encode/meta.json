@@ -1,0 +1,11 @@
+{
+  "title": "稀疏化：稠密矩阵编码为 CSR",
+  "difficulty": "Hard",
+  "tags": ["operator", "sparsity"],
+  "order": 221,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}
