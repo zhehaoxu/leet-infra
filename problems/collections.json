@@ -15,7 +15,7 @@
   {
     "slug": "operators",
     "name": "算子合集",
-    "description": "手写神经网络激活与归一化算子，支持多实现语言（当前 PyTorch）。",
+    "description": "手写神经网络激活、归一化、卷积/注意力、损失与优化器更新等核心算子，支持多实现语言（当前 PyTorch）。",
     "problems": [
       "relu",
       "relu6",
@@ -88,6 +88,12 @@
       "cross-entropy-loss",
       "bce-loss",
       "huber-loss",
+      "focal-loss",
+      "dice-loss",
+      "kl-divergence",
+      "jsd-loss",
+      "kd-temperature",
+      "ctc-loss",
       "sgd-momentum-step",
       "adam-step",
       "lrn",
@@ -118,7 +124,7 @@
   {
     "slug": "distributed",
     "name": "分布式训练原语合集",
-    "description": "集合通信与多维并行基础：Broadcast / Gather / Scatter / All-Gather / Reduce-Scatter / All-Reduce / All-to-All、Ring All-Reduce 逐步模拟、分布式梯度裁剪，以及 ZeRO 通信量 / ZeRO-Offload / GPipe 气泡率 / 1F1B 激活显存 / 张量并行每层通信等 DP+TP+PP+EP 显存-带宽-气泡账本（多 rank 张量模拟与纯公式，终值/中间态对拍）。",
+    "description": "集合通信与多维并行基础：Broadcast / Gather / Scatter / All-Gather / Reduce-Scatter / All-Reduce / All-to-All、Ring All-Reduce 逐步模拟、分布式梯度裁剪，以及 ZeRO 通信量 / ZeRO-Offload / ZeRO-Infinity / ZeRO 一维分片归属 / GPipe 气泡率 / 1F1B 激活显存 / 张量并行每层通信 / 序列·上下文并行显存-通信账，再加上次线性激活检查点与选择性重算背包等 DP+TP+PP+CP+ZeRO 显存-带宽-重算账本（多 rank 张量模拟、整数归属与纯公式，终值/中间态对拍）。",
     "problems": [
       "distributed-all-gather",
       "distributed-reduce-scatter",
@@ -136,31 +142,64 @@
       "distributed-tensor-parallel-comm",
       "distributed-reduce",
       "distributed-collective-latency",
-      "distributed-zero-infinity"
+      "distributed-zero-infinity",
+      "distributed-zero-shard-ownership",
+      "distributed-sublinear-checkpoint",
+      "distributed-selective-recompute",
+      "distributed-sequence-parallel"
     ]
   },
   {
     "slug": "llm-models",
     "name": "大模型结构合集",
-    "description": "像 transformers 库那样逐个组件实现现代 LLM（Qwen2 为骨干，泛用于 Llama/Mistral/DeepSeek）：RMSNorm、RoPE、SwiGLU MLP、GQA 因果注意力、Pre-Norm Decoder Layer，最终拼装成完整因果语言模型。每题以同权重喂 transformers eager 参考实现对拍。",
+    "description": "像 transformers 库那样逐个组件实现现代 LLM（Qwen2 为骨干，泛用于 Llama/Mistral/DeepSeek）：RMSNorm、RoPE、SwiGLU MLP、GQA 因果注意力、Pre-Norm Decoder Layer，拼装成完整因果语言模型，并延伸 DeepSeek-V3 的 MLA 多头潜在注意力（低秩潜在压缩 + 解耦 RoPE）。每题以同权重喂 transformers eager 参考实现对拍。",
     "problems": [
       "llm-rmsnorm",
       "llm-rope-apply",
       "llm-swiglu-mlp",
       "llm-gqa-attention",
       "llm-decoder-layer",
-      "llm-qwen2-model"
+      "llm-qwen2-model",
+      "llm-deepseek-mla"
+    ]
+  },
+  {
+    "slug": "optimization",
+    "name": "优化器与调度合集",
+    "description": "以 PyTorch 训练组件方式出题（多数继承 torch.optim.Optimizer 实现 step() 就地更新，另有 LRScheduler 子类与 EMA 机制对象），区别于函数式单步算子题。核心四题 AdamW 解耦权重衰减、Lion 符号动量、Adafactor 因子分解二阶矩 + RMS 更新裁剪、Muon Newton-Schulz 正交化动量；自适应家族 AdaBelief 置信二阶矩、RAdam 整流稳定系数、AdaBound 动态学习率夹逼、AdamP 尺度不变径向投影；LLM 前沿 NovoGrad 逐层标量二阶矩、Yogi 符号自适应、Tiger sign+动量、ADOPT 修正偏差时序、Cautious 方向一致性掩码、Prodigy D-Adaptation 在线估 lr；调度与机制 warmup+余弦退火、梯度累积+全局范数裁剪+动量 SGD、EMA 权重滑动平均含升温。每题由评测构造待优化对象、喂固定序列反复 step()/update()，与原生 torch.optim 或独立纯 torch 重算参照逐元素对拍；公式回源核实到论文与 kozistr/pytorch_optimizer 实现，CPU float32 保确定性。",
+    "problems": [
+      "opt-adamw",
+      "opt-lion",
+      "opt-adafactor",
+      "opt-muon",
+      "opt-adabelief",
+      "opt-radam",
+      "opt-adabound",
+      "opt-adamp",
+      "opt-novograd",
+      "opt-yogi",
+      "opt-tiger",
+      "opt-adopt",
+      "opt-cautious",
+      "opt-prodigy",
+      "opt-warmup-cosine",
+      "opt-clip-accum",
+      "opt-ema"
     ]
   },
   {
     "slug": "data-tokenization",
     "name": "分词与数据整理合集",
-    "description": "LLM 数据管线的两端：从零训练 BPE 合并规则、用 merges 把文本编码成子词，以及把变长 token 序列整理成批——逐条 padding（input_ids/attention_mask/labels）与序列打包（定长块 + position_ids/segment_ids 防跨序列注意力）。纯确定性运算，示例值均实跑 dump。",
+    "description": "LLM 数据管线的两端：从零训练 BPE 合并规则、用 merges 把文本编码成子词，Unigram 语言模型的 Viterbi 最优子词切分，以及把变长 token 序列整理成批——逐条 padding（input_ids/attention_mask/labels）、序列打包（定长块 + position_ids/segment_ids 防跨序列注意力）、SFT 仅监督助手回复的损失掩码与因果 LM 移位标签、多轮逐轮损失权重。纯确定性运算，示例值均实跑 dump。",
     "problems": [
       "bpe-training",
       "bpe-encoding",
       "data-collator",
-      "sequence-pack-pad"
+      "sequence-pack-pad",
+      "sft-assistant-mask",
+      "sft-causal-labels",
+      "sft-turn-loss-weight",
+      "sp-unigram-segmentation"
     ]
   },
   {
@@ -254,12 +293,18 @@
   {
     "slug": "training-objectives",
     "name": "对齐与训练目标合集",
-    "description": "RLHF/对齐链路常用的 4 个训练目标：DPO 直接偏好优化损失（策略与参考策略对数比组装成 Bradley-Terry logistic 目标）、PPO/GRPO 截断代理目标（概率比 exp(Δlogprob) 的 min+clip 信任域）、Bradley-Terry 奖励模型损失（末位有效 token 池化 + 价值头打分 + 成对排序）、Label Smoothing 交叉熵（软标签拆成 NLL 与均匀分布 KL 正则两项）。每题给定序列级 logprob / 优势 / 隐藏态等预计算量，log-sigmoid 与 log-softmax 均要求数值稳定，逐题独立 oracle 对拍；α=0、β=0 等退化情形有专项断言。",
+    "description": "RLHF/对齐链路的 10 个训练目标与优势估计算子：DPO 直接偏好优化损失（策略与参考策略对数比组装成 Bradley-Terry logistic 目标）、PPO/GRPO 截断代理目标（概率比 exp(Δlogprob) 的 min+clip 信任域）、Bradley-Terry 奖励模型损失（末位有效 token 池化 + 价值头打分 + 成对排序）、Label Smoothing 交叉熵（软标签拆成 NLL 与均匀分布 KL 正则两项）；扩展批次含 GAE 广义优势估计（反向递推 advantages/returns）、PPO 价值函数裁剪（新旧估值与回报的 max-of-squares）、GRPO 组内标准化优势（按 group 求均值与有偏标准差）、KTO 前景理论损失（相对参考点的 desirable/undesirable 价值）、SimPO 长度归一化偏好损失（平均对数概率作奖励 + 目标边际）、PPO 自适应 KL 系数控制器（比例误差截断后平滑调节）。每题给定序列级 logprob / 优势 / 隐藏态等预计算量，log-sigmoid 与 log-softmax 均要求数值稳定，逐题独立 oracle 对拍；α=0、β=0、z=z_ref、KL 命中等退化情形有专项断言。",
     "problems": [
       "to-dpo-loss",
       "to-ppo-clipped-surrogate",
       "to-reward-model-bradley-terry",
-      "to-label-smoothing-ce"
+      "to-label-smoothing-ce",
+      "to-gae",
+      "to-ppo-value-clip",
+      "to-grpo-advantage",
+      "to-kto-loss",
+      "to-simpo-loss",
+      "to-kl-controller"
     ]
   },
   {
@@ -273,6 +318,71 @@
       "spec-typical-acceptance",
       "spec-lookahead-jacobi",
       "spec-suffix-draft"
+    ]
+  },
+  {
+    "slug": "peft",
+    "name": "参数高效微调合集",
+    "description": "冻结主干、只训旁路小模块的 PEFT 谱系：LoRA 前向（缩放 s=alpha/r 的低秩旁路）与权重合并（W'=W0+s·BA 后单次 matmul）、IA³ 逐输出神经元缩放的 re-parameterization、Adapter 瓶颈降维-ReLU-升维-残差、DoRA 把权重按幅值×方向拆解后只对方向做低秩更新，以及 LoRA 可训练参数量与压缩比账（full=Σ d_in·d_out vs lora=Σ r·(d_in+d_out)）。公式全部回源核实到 Hu(2106.09685)/Liu(2205.05638)/Houlsby(1902.00751)/Liu(2402.09353) 原论文，采用 nn.Linear 行向量惯例 y=x·Wᵀ；为判题确定性去掉 Dropout，每题另设独立 oracle（合并矩阵重算 / 逐元素三重循环 / 逐样本列向量 / 逐行范数）与 α=0、λ=1、m=‖V‖ 等退化不变量专项断言，CPU float32 对拍。",
+    "problems": [
+      "peft-lora-forward",
+      "peft-lora-merge",
+      "peft-ia3",
+      "peft-adapter",
+      "peft-dora",
+      "peft-lora-memory"
+    ]
+  },
+  {
+    "slug": "diffusion",
+    "name": "扩散模型合集",
+    "description": "扩散生成模型的采样与调度基建：正弦时间步嵌入（前半 sin、后半 cos、freq=10000^(-i/half)）、线性/余弦两种噪声调度输出 ᾱ 序列（Nichol-Dhariwal cosine + clip(0,0.999)）、DDPM 前向一步加噪 q(x_t|x_0)=√ᾱ_t·x_0+√(1-ᾱ_t)·ε、DDPM 反向后验单步 p(x_{t-1}|x_t,x_0)（含 tilde-beta 方差、z=0 退化为均值）、σ_t=0 的 DDIM 确定性去噪单步（ᾱ_prev=ᾱ_t 恒等、=1 回 x0 两个退化探针）与无分类器引导 ε_u+w(ε_c-ε_u)（w=0→uncond、w=1→cond）。公式全部回源核实到 Ho(2006.11239)/Nichol-Dhariwal(2102.09672)/Song(2010.02502)/Ho-Salimans(2207.12598) 原论文；噪声 ε/z 均作显式入参以保证 CPU float32 判题确定性，每题另设独立 oracle（math 逐频率/逐 t 累乘/逐元素双循环/等价式重算）与退化不变量专项断言。",
+    "problems": [
+      "diff-sinusoidal-timestep",
+      "diff-noise-schedule",
+      "diff-ddpm-forward",
+      "diff-ddpm-step",
+      "diff-ddim",
+      "diff-cfg"
+    ]
+  },
+  {
+    "slug": "sparsity",
+    "name": "稀疏剪枝合集",
+    "description": "模型压缩里的剪枝与稀疏存储全家福：全局幅值剪枝（跨整层丢弃绝对值最小的一批权重，Han et al. Deep Compression 1510.00149）、逐行局部幅值剪枝（稀疏预算在每个输出神经元内部独立分配，与全局阀值形成对比）、面向 NVIDIA Ampere Sparse Tensor Core 的 2:4 半结构化剪枝（每连续 4 元素保留 top-2）、Zhu-Gupta 三次渐稀疏率调度 GSL（1710.01878，窗口内 (1-t/T)^3 平滑推稀疏率）、按块 L1 范数全局竞争的块结构剪枝，以及将稠密矩阵行主序编码为 CSR 三数组（indptr/indices/values）。并列、阈值取数与剪除单位均有确定性约定（stable argsort + 固定 tie-break）；每题另设独立纯 Python/torch 逐元素 oracle（结构异于参考解）与 sparsity=0/1、每块全留或全删、全零矩阵退化等专项断言，CPU float32 对拍。",
+    "problems": [
+      "sparsity-magnitude-prune",
+      "sparsity-rowwise-prune",
+      "sparsity-nm-2-4",
+      "sparsity-cubic-schedule",
+      "sparsity-block-prune",
+      "sparsity-csr-encode"
+    ]
+  },
+  {
+    "slug": "multimodal",
+    "name": "多模态合集",
+    "description": "视觉-语言模型的几何重排与对比训练基建：ViT patchify（(B,C,H,W)→(B,N,C·p²)、块行优先且 token 内按通道-行-列，与 unpatchify 互逆）、Swin window partition（(B,H,W,C) 切成不重叠窗口批、窗内保留二维布局）、Qwen2-VL PatchMerger 的 2×2 空间合并（相邻四 patch 按左上-右上-左下-右下拼接、token 数↓4 通道↑4，剥离带权重 Linear）、CLIP 对称 InfoNCE 对比损失（图像↔文本双向行交叉熵取半均、对角为正对、可学温度 logit_scale）、SigLIP 逐对 sigmoid 对比损失（z=scale·sim+bias、±1 标签、分母取 batch 大小 B、无 softmax 全局归一）与 Qwen2-VL 风格 M-RoPE 位置编号（三轴 (t,h,w)、文本三轴同步递增、图像块内 t 恒定、h/w 按行列展开、块后 running+=max(h,w)）。前三题为无损双射重排（测试用逆操作还原校验），损失题为 CPU float32 标量；每题另设独立纯 Python 逐元素/逐对 oracle 与退化不变量专项断言；多模态机制公式回源核实到 Dosovitskiy(2010.11929)/Liu(2111.03861)/Radford(2103.00020)/Zhai(2303.15343)/Bai(2409.12191)。",
+    "problems": [
+      "mm-patchify",
+      "mm-window-partition",
+      "mm-patch-merger",
+      "mm-clip-infonce",
+      "mm-siglip-loss",
+      "mm-mrope-position-ids"
+    ]
+  },
+  {
+    "slug": "retrieval",
+    "name": "向量检索合集",
+    "description": "近似最近邻与 RAG 检索基建的确定性核心子过程：IVF 粗量化器分配（逐向量取平方欧氏最近的粗中心、并列取小下标，Jégou TPAMI 2011 的 coarse quantizer）、乘积量化编码（D 维切成 m 段各 d=D/m 维、逐段在第 j 套子码本独立取最近码字、得 (n,m) 子码，Faiss IndexPQ）、倒数排名融合 RRF（只用 1-based 名次、score(d)=Σ 1/(k+rank) 且 k=60、0 表缺席、降序并列按文档下标升序，Cormack SIGIR 2009）、最大边际相关 MMR 重排（λ·cos(d,q)-(1-λ)·max_{s∈S}cos(d,s) 贪心 k 步、余弦、零范数记 0、λ=1 退化纯相关、λ=0 纯多样，Carbonell SIGIR 1998）、HNSW 单层贪心搜索（从入口沿边跳到更近邻居直至局部最优、ef=1、严格下降必收敛、可卡次优点，Malkov 1603.09320）与 RAG 重叠滑窗分块（步长=chunk_size-overlap、起点<num_tokens 即成块、越界填 -1、固定宽度矩阵，LangChain chunk_overlap）。分配/编码/重排类走 int64 索引输出、HNSW 返 0 维标量、分块返下标矩阵；每题独立纯 Python 逐元素/逐对/逐轮 oracle（与广播或矩阵化参考解结构不同、数值等价）+ 并列取小/精确重建/λ 退化/贪心卡局部最优/覆盖不丢 token 等专项断言；检索算法公式与哨兵约定一律回源核实。",
+    "problems": [
+      "retrieval-ivf-assign",
+      "retrieval-pq-codes",
+      "retrieval-rrf-fusion",
+      "retrieval-mmr",
+      "retrieval-hnsw-greedy",
+      "retrieval-rag-chunk"
     ]
   }
 ]
