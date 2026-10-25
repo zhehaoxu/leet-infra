@@ -7,11 +7,14 @@ export interface FilterState {
   status: '' | 'solved' | 'unsolved'
 }
 
-/** 关键词（标题子串，大小写不敏感）+ 难度 + 解题状态三重过滤 */
+/** 关键词（对标题 + slug + 领域标签拼接后子串匹配，大小写不敏感）+ 难度 + 解题状态三重过滤 */
 export function filterProblems(list: ProblemSummary[], f: FilterState): ProblemSummary[] {
-  const kw = f.keyword.toLowerCase()
+  const kw = f.keyword.trim().toLowerCase()
   return list.filter((p) => {
-    if (kw && !p.title.toLowerCase().includes(kw)) return false
+    if (kw) {
+      const hay = `${p.title} ${p.slug} ${p.tags.join(' ')}`.toLowerCase()
+      if (!hay.includes(kw)) return false
+    }
     if (f.difficulty && p.difficulty !== f.difficulty) return false
     if (f.status === 'solved' && !p.solved) return false
     if (f.status === 'unsolved' && p.solved) return false
@@ -45,12 +48,17 @@ export const TAG_FAMILY: Record<string, string> = {
   alignment: '对齐目标',
   kvcache: 'KV Cache 压缩',
   speculative: '推测解码',
+  peft: '参数高效微调',
+  diffusion: '扩散生成',
+  sparsity: '稀疏剪枝',
+  multimodal: '多模态',
+  retrieval: '向量检索',
 }
 
 export const GROUP_ORDER = [
   '激活函数', '归一化', '卷积', '池化 · 视觉', '矩阵乘 · 线代', '注意力',
   '张量操作', '损失', '优化器', '量化', '采样', '循环网络', '检测 · 度量', '显存 · 性能',
-  '分词 · 数据', '分布式', '大模型结构', 'MoE 路由', '推理 Serving', '对齐目标', 'KV Cache 压缩', '推测解码',
+  '分词 · 数据', '分布式', '大模型结构', 'MoE 路由', '推理 Serving', '对齐目标', 'KV Cache 压缩', '推测解码', '参数高效微调', '扩散生成', '稀疏剪枝', '多模态', '向量检索',
   '框架 / 其他',
 ]
 

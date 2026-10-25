@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest'
 import type { ProblemSummary } from '../api'
-import { filterProblems, familyOf, buildSections, GROUP_ORDER } from './problemFilter'
+import { filterProblems, familyOf, buildSections, GROUP_ORDER, TAG_FAMILY } from './problemFilter'
 
 function p(over: Partial<ProblemSummary> & { slug: string }): ProblemSummary {
   return {
@@ -24,6 +24,14 @@ describe('filterProblems', () => {
   it('关键词大小写不敏感匹配标题', () => {
     expect(filterProblems(list, { keyword: 'ge', difficulty: '', status: '' }).map((x) => x.slug))
       .toEqual(['gelu'])
+  })
+  it('关键词命中领域标签', () => {
+    expect(filterProblems(list, { keyword: 'attention', difficulty: '', status: '' }).map((x) => x.slug))
+      .toEqual(['rope'])
+  })
+  it('关键词命中 slug', () => {
+    expect(filterProblems(list, { keyword: 'dataloader', difficulty: '', status: '' }).map((x) => x.slug))
+      .toEqual(['dataloader'])
   })
   it('难度过滤', () => {
     expect(filterProblems(list, { keyword: '', difficulty: 'Easy', status: '' }).map((x) => x.slug))
@@ -54,6 +62,10 @@ describe('familyOf', () => {
 })
 
 describe('buildSections', () => {
+  it('每个 TAG_FAMILY 族名都在 GROUP_ORDER 内（新合集登记后分组顺序完整）', () => {
+    const fams = [...new Set(Object.values(TAG_FAMILY))]
+    for (const f of fams) expect(GROUP_ORDER).toContain(f)
+  })
   it('关闭分组时单段平铺，name 为空', () => {
     const s = buildSections(list, false)
     expect(s).toHaveLength(1)
