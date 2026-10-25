@@ -1,0 +1,11 @@
+{
+  "title": "优化器：Tiger 动量符号更新",
+  "difficulty": "Medium",
+  "tags": ["operator", "optimizer"],
+  "order": 192,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

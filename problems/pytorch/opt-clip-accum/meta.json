@@ -1,0 +1,11 @@
+{
+  "title": "优化器：梯度累积 + 全局范数裁剪 + 动量 SGD",
+  "difficulty": "Hard",
+  "tags": ["operator", "optimizer"],
+  "order": 197,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

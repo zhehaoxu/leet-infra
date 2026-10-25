@@ -1,0 +1,11 @@
+{
+  "title": "机制：指数滑动平均（EMA）权重与升温",
+  "difficulty": "Medium",
+  "tags": ["operator", "optimizer"],
+  "order": 198,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "title": "调度器：线性 warmup + 余弦退火学习率",
+  "difficulty": "Medium",
+  "tags": ["operator", "optimizer"],
+  "order": 196,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

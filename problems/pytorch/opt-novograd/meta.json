@@ -1,0 +1,11 @@
+{
+  "title": "优化器：NovoGrad 逐层梯度归一",
+  "difficulty": "Medium",
+  "tags": ["operator", "optimizer"],
+  "order": 190,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

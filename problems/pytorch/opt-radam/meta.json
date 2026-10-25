@@ -1,0 +1,11 @@
+{
+  "title": "优化器：RAdam 整流自适应矩估计",
+  "difficulty": "Hard",
+  "tags": ["operator", "optimizer"],
+  "order": 187,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

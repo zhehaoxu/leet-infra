@@ -1,0 +1,11 @@
+{
+  "title": "优化器：AdaBound 动态学习率夹逼",
+  "difficulty": "Hard",
+  "tags": ["operator", "optimizer"],
+  "order": 188,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

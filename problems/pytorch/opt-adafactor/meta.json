@@ -1,0 +1,11 @@
+{
+  "title": "优化器：Adafactor 因子分解二阶矩",
+  "difficulty": "Hard",
+  "tags": ["operator", "optimizer"],
+  "order": 184,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

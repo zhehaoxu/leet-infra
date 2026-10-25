@@ -1,0 +1,11 @@
+{
+  "title": "优化器：AdaBelief 置信度二阶矩",
+  "difficulty": "Medium",
+  "tags": ["operator", "optimizer"],
+  "order": 186,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

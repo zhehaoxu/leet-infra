@@ -1,0 +1,11 @@
+{
+  "title": "优化器：Muon Newton-Schulz 正交化动量",
+  "difficulty": "Hard",
+  "tags": ["operator", "optimizer"],
+  "order": 185,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}
