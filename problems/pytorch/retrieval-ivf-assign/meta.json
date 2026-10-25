@@ -1,0 +1,11 @@
+{
+  "title": "检索：IVF 粗量化器分配",
+  "difficulty": "Medium",
+  "tags": ["operator", "retrieval"],
+  "order": 229,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

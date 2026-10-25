@@ -1,0 +1,11 @@
+{
+  "title": "检索：RAG 重叠滑窗分块",
+  "difficulty": "Medium",
+  "tags": ["operator", "retrieval"],
+  "order": 234,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

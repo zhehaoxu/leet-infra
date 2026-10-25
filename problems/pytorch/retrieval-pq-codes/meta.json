@@ -1,0 +1,11 @@
+{
+  "title": "检索：乘积量化编码",
+  "difficulty": "Medium",
+  "tags": ["operator", "retrieval"],
+  "order": 230,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

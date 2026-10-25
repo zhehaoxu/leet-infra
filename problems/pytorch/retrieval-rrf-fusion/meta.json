@@ -1,0 +1,11 @@
+{
+  "title": "检索：倒数排名融合 RRF",
+  "difficulty": "Medium",
+  "tags": ["operator", "retrieval"],
+  "order": 231,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

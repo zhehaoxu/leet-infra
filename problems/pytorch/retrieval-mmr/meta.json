@@ -1,0 +1,11 @@
+{
+  "title": "检索：最大边际相关 MMR 重排",
+  "difficulty": "Hard",
+  "tags": ["operator", "retrieval"],
+  "order": 232,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}
