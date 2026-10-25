@@ -1,0 +1,11 @@
+{
+  "title": "PEFT：DoRA 幅值-方向分解低秩适配",
+  "difficulty": "Hard",
+  "tags": ["operator", "peft"],
+  "order": 203,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

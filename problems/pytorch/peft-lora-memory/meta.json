@@ -1,0 +1,11 @@
+{
+  "title": "PEFT：LoRA 可训练参数量与显存账",
+  "difficulty": "Easy",
+  "tags": ["operator", "peft"],
+  "order": 204,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}
