@@ -1,0 +1,11 @@
+{
+  "title": "多模态：SigLIP Sigmoid 对比损失",
+  "difficulty": "Medium",
+  "tags": ["operator", "multimodal"],
+  "order": 225,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "title": "多模态：Qwen2-VL 风格 M-RoPE 位置编号",
+  "difficulty": "Hard",
+  "tags": ["operator", "multimodal"],
+  "order": 228,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

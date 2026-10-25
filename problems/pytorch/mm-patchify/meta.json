@@ -1,0 +1,11 @@
+{
+  "title": "多模态：ViT 图像分块 Patchify",
+  "difficulty": "Medium",
+  "tags": ["operator", "multimodal"],
+  "order": 223,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

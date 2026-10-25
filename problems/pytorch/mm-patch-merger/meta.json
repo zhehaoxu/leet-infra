@@ -1,0 +1,11 @@
+{
+  "title": "多模态：Qwen2-VL 2×2 视觉 Token 合并",
+  "difficulty": "Medium",
+  "tags": ["operator", "multimodal"],
+  "order": 227,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}
