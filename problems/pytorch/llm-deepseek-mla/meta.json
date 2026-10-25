@@ -1,0 +1,11 @@
+{
+  "title": "大模型组件：DeepSeek 多头潜在注意力 (MLA)",
+  "difficulty": "Hard",
+  "tags": ["operator", "llm"],
+  "order": 181,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}
