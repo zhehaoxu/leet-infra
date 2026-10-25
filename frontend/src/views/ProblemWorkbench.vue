@@ -6,6 +6,7 @@ import { useProblemStore } from '../stores/problems'
 import CodeEditor from '../components/CodeEditor.vue'
 import MarkdownView from '../components/MarkdownView.vue'
 import RunResultPanel from '../components/RunResultPanel.vue'
+import { locale, t, type MessageKey } from '../i18n'
 import { burstConfetti } from '../utils/confetti'
 import { draftKey } from '../utils/draft'
 
@@ -33,9 +34,19 @@ const solutionMarkdown = computed(() =>
 
 // ---- 实现变体（pytorch/triton/cuda）----
 // 用户期望的 variant：URL query > 合集偏好 > 题目默认；后端对不可用的回退默认
+function difficultyLabel(d: 'Easy' | 'Medium' | 'Hard') {
+  return t(`difficulty.${d.toLowerCase()}` as MessageKey)
+}
+
 const preferredVariant = ref('')
 const variantList = computed(() => problem.value?.variants ?? [])
-const showVariantToggle = computed(() => variantList.value.length > 1)
+// 仅算子合集（operators）题目展示实现方式选择器，其他合集一律隐藏
+function isOperatorsProblem(p: ProblemDetail): boolean {
+  return (p.collections ?? []).some((c) => c.slug === 'operators')
+}
+const showVariantToggle = computed(
+  () => variantList.value.length > 1 && problem.value !== null && isOperatorsProblem(problem.value)
+)
 const activeVariant = computed(() => problem.value?.active_variant ?? 'pytorch')
 const variantFallbackNotice = computed(
   () =>
@@ -44,8 +55,9 @@ const variantFallbackNotice = computed(
     preferredVariant.value !== activeVariant.value
 )
 
-function collectionPreferenceKey(): string | null {
-  for (const c of problem.value?.collections ?? []) {
+function collectionPreferenceKey(p: ProblemDetail): string | null {
+  if (!isOperatorsProblem(p)) return null
+  for (const c of p.collections ?? []) {
     const v = localStorage.getItem(`leet-infra:variant:${c.slug}`)
     if (v) return v
   }
@@ -53,11 +65,13 @@ function collectionPreferenceKey(): string | null {
 }
 
 function resolvePreferred(p: ProblemDetail): string {
+  const fallback = p.variants?.find((v) => v.available)?.key ?? p.variants?.[0]?.key ?? 'pytorch'
+  if (!isOperatorsProblem(p)) return fallback // 非算子合集固定默认实现，不吃 URL/合集偏好
   const q = typeof route.query.variant === 'string' ? route.query.variant : ''
   if (q && p.variants?.some((v) => v.key === q)) return q
-  const col = collectionPreferenceKey()
+  const col = collectionPreferenceKey(p)
   if (col && p.variants?.some((v) => v.key === col)) return col
-  return p.variants?.find((v) => v.available)?.key ?? p.variants?.[0]?.key ?? 'pytorch'
+  return fallback
 }
 
 function selectVariant(key: string) {
@@ -112,11 +126,23 @@ function onDragStart(e: MouseEvent) {
   detachDrag = up
 }
 
+// 语言切换只重拉文案（题面/笔记/标题），保留编辑器内容、评测结果与当前标签页
+async function reloadForLocale() {
+  if (!problem.value) return
+  try {
+    const p = await api.getProblem(props.slug, activeVariant.value)
+    problem.value = p
+    notes.value = p.notes ?? ''
+  } catch (e) {
+    runError.value = e instanceof Error ? e.message : String(e)
+  }
+}
+
 async function load() {
   flushDraft() // 先把上一页的编辑存回对应草稿再切走
   if (!store.problems.length) void store.fetchProblems() // 导航需要全量题序
   const q = typeof route.query.variant === 'string' ? route.query.variant : ''
-  preferredVariant.value = q // 首次进入先取 URL；无则由 resolvePreferred 定默认
+  preferredVariant.value = q // 首次进入先取 URL；无/非算子合集则由 resolvePreferred 定默认
   problem.value = null
   result.value = null
   runError.value = null
@@ -238,7 +264,7 @@ async function redoProblem() {
   // 单题重刷：只清本题 solved + 本题草稿，笔记保留
   if (!problem.value || !accepted.value || running.value) return
   const slug = problem.value.slug
-  if (!confirm('重新做本题？将清除本题已解记录与代码草稿（笔记保留）。')) return
+  if (!confirm(t('workbench.redoConfirm'))) return
   try {
     await api.unmarkProblem(slug)
   } catch (e) {
@@ -290,6 +316,7 @@ watch([() => props.slug, () => route.query.variant], ([slug, q], [oldSlug, oldQ]
   }
   void load()
 })
+watch(locale, reloadForLocale)
 onMounted(load)
 onBeforeUnmount(() => {
   detachDrag?.()
@@ -300,15 +327,22 @@ onBeforeUnmount(() => {
 <template>
   <div class="workbench">
     <div v-if="loadError" class="empty">{{ loadError }}</div>
-    <div v-else-if="!problem" class="empty">加载题目中…</div>
+    <div v-else-if="!problem" class="empty">{{ t('workbench.loadingProblem') }}</div>
     <template v-else>
       <div class="subheader">
-        <router-link to="/" class="back">← 题库</router-link>
+        <router-link to="/" class="back">{{ t('workbench.back') }}</router-link>
         <span class="title" :title="problem.title">{{ problem.title }}</span>
-        <em class="badge" :class="problem.difficulty">{{ problem.difficulty }}</em>
-        <span v-if="accepted" class="ac-tag">✓ 已解决</span>
-        <span v-if="draftRestored" class="draft-hint" title="已从 localStorage 恢复上次编辑的草稿">草稿已恢复</span>
-        <div v-if="showVariantToggle" class="variant-select" title="实现方式">
+        <em class="badge" :class="problem.difficulty">{{
+          difficultyLabel(problem.difficulty)
+        }}</em>
+        <span v-if="accepted" class="ac-tag">{{ t('workbench.solved') }}</span>
+        <span
+          v-if="draftRestored"
+          class="draft-hint"
+          :title="t('workbench.draftRestoredTitle')"
+          >{{ t('workbench.draftRestored') }}</span
+        >
+        <div v-if="showVariantToggle" class="variant-select" :title="t('workbench.implementation')">
           <select
             :value="activeVariant"
             @change="selectVariant(($event.target as HTMLSelectElement).value)"
@@ -319,13 +353,18 @@ onBeforeUnmount(() => {
               :value="v.key"
               :disabled="!v.available"
             >
-              {{ v.label }}{{ v.available ? '' : '（即将支持）' }}
+              {{ v.label }}{{ v.available ? '' : t('workbench.comingSoon') }}
             </option>
           </select>
           <span class="variant-caret" aria-hidden="true">▾</span>
         </div>
         <span v-if="variantFallbackNotice" class="variant-notice">
-          {{ variantList.find((v) => v.key === preferredVariant)?.label }} 暂未支持，当前以 {{ activeVariant }} 评测
+          {{
+            t('workbench.variantFallback', {
+              variant: variantList.find((v) => v.key === preferredVariant)?.label ?? '',
+              active: activeVariant,
+            })
+          }}
         </span>
         <div class="pager" v-if="problemIndex >= 0">
           <router-link
@@ -334,7 +373,7 @@ onBeforeUnmount(() => {
             class="pager-link"
             :title="prevProblem.title"
           >
-            ← 上一题
+            {{ t('workbench.prev') }}
           </router-link>
           <span class="pager-pos">{{ problemIndex + 1 }}/{{ store.problems.length }}</span>
           <router-link
@@ -343,25 +382,42 @@ onBeforeUnmount(() => {
             class="pager-link"
             :title="nextProblem.title"
           >
-            下一题 →
+            {{ t('workbench.next') }}
           </router-link>
         </div>
         <router-link
           v-if="accepted && nextUnsolved"
           :to="{ path: `/problems/${nextUnsolved.slug}`, query: { variant: activeVariant } }"
           class="pager-link next-unsolved"
-          :title="`去做：${nextUnsolved.title}`"
+          :title="t('workbench.goTo', { title: nextUnsolved.title })"
         >
-          下一道未解 →
+          {{ t('workbench.nextUnsolved') }}
         </router-link>
         <div class="actions">
-          <button v-if="accepted && !running" class="ghost" @click="redoProblem" title="清除本题已解记录与草稿，重新做一遍"><span class="btn-icon">⟳</span>重新做</button>
-          <button v-if="!running" class="ghost" @click="resetCode"><span class="btn-icon">↺</span>重置</button>
-          <button v-if="!running" class="ghost" @click="runCode"><span class="btn-icon play">▶</span>运行</button>
-          <button v-if="running" class="ghost danger" @click="cancelRun"><span class="btn-icon">✕</span>取消</button>
+          <button
+            v-if="accepted && !running"
+            class="ghost"
+            :title="t('workbench.redoTitle')"
+            @click="redoProblem"
+          >
+            <span class="btn-icon">⟳</span>{{ t('workbench.redo') }}
+          </button>
+          <button v-if="!running" class="ghost" @click="resetCode">
+            <span class="btn-icon">↺</span>{{ t('workbench.reset') }}
+          </button>
+          <button v-if="!running" class="ghost" @click="runCode">
+            <span class="btn-icon play">▶</span>{{ t('workbench.run') }}
+          </button>
+          <button v-if="running" class="ghost danger" @click="cancelRun">
+            <span class="btn-icon">✕</span>{{ t('workbench.cancel') }}
+          </button>
           <button class="run" :disabled="running" @click="submitCode">
-            <span v-if="running" class="loading">{{ runningKind === 'submit' ? '提交中…' : '运行中…' }}</span>
-            <template v-else><span class="btn-icon">✓</span>提交</template>
+            <span v-if="running" class="loading">{{
+              runningKind === 'submit' ? t('workbench.submitting') : t('workbench.running')
+            }}</span>
+            <template v-else>
+              <span class="btn-icon">✓</span>{{ t('workbench.submit') }}
+            </template>
           </button>
         </div>
       </div>
@@ -369,33 +425,39 @@ onBeforeUnmount(() => {
       <div class="split-body" ref="bodyEl" :style="splitStyle">
         <section class="pane desc">
           <div class="tabbar">
-            <button class="tab" :class="{ active: activeTab === 'desc' }" @click="activeTab = 'desc'">
-              题目说明
+            <button
+              class="tab"
+              :class="{ active: activeTab === 'desc' }"
+              @click="activeTab = 'desc'"
+            >
+              {{ t('workbench.tabDescription') }}
             </button>
             <button
               class="tab"
               :class="{ active: activeTab === 'notes' }"
               :disabled="!hasNotes"
-              :title="hasNotes ? '题目算法详解' : '本题无附加算法笔记'"
+              :title="hasNotes ? t('workbench.notesTitle') : t('workbench.notesDisabled')"
               @click="hasNotes && (activeTab = 'notes')"
             >
-              笔记
+              {{ t('workbench.tabNotes') }}
             </button>
             <button
               class="tab"
               :class="{ active: activeTab === 'solution' }"
               :disabled="!accepted"
-              :title="accepted ? '查看参考答案' : '提交通过后解锁参考答案'"
+              :title="
+                accepted ? t('workbench.solutionUnlocked') : t('workbench.solutionLocked')
+              "
               @click="openSolution"
             >
-              参考答案
+              {{ t('workbench.tabSolution') }}
             </button>
           </div>
           <div class="tab-content" :class="{ 'solution-mode': activeTab !== 'desc' }">
             <MarkdownView v-if="activeTab === 'desc'" :key="problem.slug + '-desc'" :source="problem.description" />
             <div v-else-if="activeTab === 'notes'" class="notes-view">
               <div class="notes-toolbar">
-                <span class="notes-hint">题目算法详解</span>
+                <span class="notes-hint">{{ t('workbench.notesTitle') }}</span>
               </div>
               <div class="notes-preview">
                 <MarkdownView :key="problem.slug + '-notes'" :source="notes" />
@@ -404,7 +466,9 @@ onBeforeUnmount(() => {
             <div v-else class="solution-view">
               <div class="solution-toolbar">
                 <button class="copy-btn" @click="copySolution">
-                  <span class="btn-icon">⧉</span>{{ copied ? '已复制' : '复制代码' }}
+                  <span class="btn-icon">⧉</span>{{
+                    copied ? t('workbench.copied') : t('workbench.copyCode')
+                  }}
                 </button>
               </div>
               <div class="solution-preview">

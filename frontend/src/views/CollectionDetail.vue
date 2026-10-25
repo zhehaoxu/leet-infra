@@ -1,8 +1,9 @@
 <script setup lang="ts">
-import { computed, onMounted, ref } from 'vue'
+import { computed, onMounted, ref, watch } from 'vue'
 import { api, type CollectionDetailInfo } from '../api'
 import ProblemTable from '../components/ProblemTable.vue'
 import ProgressRing from '../components/ProgressRing.vue'
+import { locale, t } from '../i18n'
 
 const props = defineProps<{ slug: string }>()
 
@@ -10,12 +11,14 @@ const collection = ref<CollectionDetailInfo | null>(null)
 const loadError = ref<string | null>(null)
 const loading = ref(true)
 
-// ---- 实现方式偏好（仅含多 variant 题目时展示；存 localStorage 供做题页继承）----
+// ---- 实现方式偏好（仅算子合集 operators 提供多实现切换；存 localStorage 供做题页继承）----
 const VARIANT_PREFIX = 'leet-infra:variant:'
 const variantPref = ref('pytorch')
 
-const hasMultiVariant = computed(() =>
-  (collection.value?.problems ?? []).some((p) => (p.variants?.length ?? 0) > 1)
+const showVariantBar = computed(
+  () =>
+    props.slug === 'operators' &&
+    (collection.value?.problems ?? []).some((p) => (p.variants?.length ?? 0) > 1)
 )
 const variantKeys = computed(() => {
   const seen: string[] = []
@@ -58,13 +61,14 @@ async function load() {
 }
 
 onMounted(load)
+watch(locale, load)
 </script>
 
 <template>
   <div class="detail-page">
-    <router-link to="/" class="back">← 返回题库</router-link>
+    <router-link to="/" class="back">{{ t('collection.back') }}</router-link>
 
-    <div v-if="loading" class="empty">加载中…</div>
+    <div v-if="loading" class="empty">{{ t('common.loading') }}</div>
     <div v-else-if="loadError" class="empty error">{{ loadError }}</div>
 
     <template v-else-if="collection">
@@ -73,12 +77,12 @@ onMounted(load)
         <p>{{ collection.description }}</p>
         <p class="progress">
           <ProgressRing :value="solvedCount" :total="collection.problems.length" :size="16" />
-          {{ solvedCount }}/{{ collection.problems.length }} 已解决
+          {{ t('collection.progress', { solved: solvedCount, total: collection.problems.length }) }}
         </p>
       </div>
 
-      <div v-if="hasMultiVariant" class="variant-bar">
-        <span class="variant-label">实现方式</span>
+      <div v-if="showVariantBar" class="variant-bar">
+        <span class="variant-label">{{ t('collection.implementation') }}</span>
         <div class="variant-select">
           <select
             :value="variantPref"
@@ -90,15 +94,15 @@ onMounted(load)
           </select>
           <span class="variant-caret" aria-hidden="true">▾</span>
         </div>
-        <span class="variant-hint">题目入口将沿用该选择；尚未支持的实现方式在做题时自动回退</span>
+        <span class="variant-hint">{{ t('collection.variantHint') }}</span>
       </div>
 
       <ProblemTable
         :problems="collection.problems"
         :persist-key="`collection-${slug}`"
-        :variant="variantPref"
+        :variant="showVariantBar ? variantPref : undefined"
         groupable
-        empty-text="该合集暂无题目"
+        :empty-text="t('collection.empty')"
       />
     </template>
   </div>
