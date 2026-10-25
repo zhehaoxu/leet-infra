@@ -11,7 +11,16 @@
       "autograd-basics",
       "nn-module-block",
       "optimizer-training-loop",
-      "dataset-dataloader"
+      "dataset-dataloader",
+      "fw-state-dict-remap",
+      "fw-param-freeze",
+      "fw-autograd-function",
+      "fw-hooks",
+      "fw-distributed-sampler",
+      "fw-autocast-scaler",
+      "fw-scheduler-position",
+      "fw-resume-checkpoint",
+      "fw-train-eval-mode"
     ]
   },
   {
@@ -124,7 +133,14 @@
       "kv-cache-memory",
       "roofline-arithmetic",
       "parallel-allreduce",
-      "inference-throughput"
+      "inference-throughput",
+      "perf-kernel-launch-timeline",
+      "perf-step-time-amdahl",
+      "perf-scaling-efficiency",
+      "perf-checkpoint-io-bandwidth",
+      "perf-grad-compression",
+      "perf-decode-roofline-batch",
+      "perf-oom-boundary-search"
     ]
   },
   {
@@ -196,7 +212,18 @@
       "opt-prodigy",
       "opt-warmup-cosine",
       "opt-clip-accum",
-      "opt-ema"
+      "opt-ema",
+      "opt-wsd",
+      "opt-onecycle",
+      "opt-reduce-lr-plateau",
+      "opt-cyclic-restart",
+      "opt-inv-sqrt-noam",
+      "opt-sophia2",
+      "opt-galore",
+      "opt-copt",
+      "opt-mars",
+      "opt-adamuon",
+      "opt-lookahead"
     ]
   },
   {
@@ -256,7 +283,14 @@
       "dry-sampling",
       "mirostat-v2-sampling",
       "adaptive-p-sampling",
-      "dynatemp-sampling"
+      "dynatemp-sampling",
+      "contrastive-sampling",
+      "llama-sampling-pipeline",
+      "xtc-sampling",
+      "dripping-sampling",
+      "epsilon-sampling",
+      "moa-sampling",
+      "logit-bias-sampling"
     ]
   },
   {
@@ -311,7 +345,12 @@
       "kv-chunk-independent-topk",
       "kv-chunkkv-cumulative",
       "kv-key-rerotation-rope",
-      "kv-duo-attention-heads"
+      "kv-duo-attention-heads",
+      "kv-criticalkv",
+      "kv-finch",
+      "kv-qfilter",
+      "kv-simlayerkv",
+      "kv-random-eviction"
     ]
   },
   {
@@ -345,7 +384,12 @@
       "spec-sequoia-optimal-tree",
       "spec-typical-acceptance",
       "spec-lookahead-jacobi",
-      "spec-suffix-draft"
+      "spec-suffix-draft",
+      "spec-sequoia-depth-bounded-dp",
+      "spec-eagle2-dynamic-tree-prune",
+      "spec-specinfer-token-tree-verify",
+      "spec-layerskip-early-exit",
+      "spec-multi-candidate-draft"
     ]
   },
   {
@@ -421,6 +465,38 @@
       "retrieval-mmr",
       "retrieval-hnsw-greedy",
       "retrieval-rag-chunk"
+    ]
+  },
+  {
+    "slug": "evaluation",
+    "name": "LLM 评测指标合集",
+    "name_en": "LLM Evaluation Metrics",
+    "description": "训练后评估与数据卫生审计的确定性核心计算：困惑度、token 准确率、BLEU/ROUGE、pass@k、nDCG@k、few-shot 预算截断、跨集合污染检测。全部按论文原始定义手写实现，判题环境没有 nltk/rouge_score/sacrebleu/sklearn，靠独立纯 Python oracle 与退化不变量对拍。",
+    "description_en": "The deterministic core of post-training evaluation and data-hygiene auditing: perplexity, token accuracy, BLEU/ROUGE, pass@k, nDCG@k, few-shot budget truncation and cross-corpus contamination detection. Everything is hand-written from the original paper definitions - the judge environment has no nltk, rouge_score, sacrebleu or sklearn - and is checked against an independent pure-Python oracle plus degenerate invariants.",
+    "problems": [
+      "eval-perplexity-logits",
+      "eval-token-accuracy",
+      "eval-bleu-score",
+      "eval-rouge-score",
+      "eval-pass-at-k",
+      "eval-fewshot-truncation",
+      "eval-ndcg-at-k",
+      "eval-shingle-contamination"
+    ]
+  },
+  {
+    "slug": "rl-systems",
+    "name": "RL 基建合集",
+    "name_en": "RL Systems",
+    "description": "大模型强化学习训练栈的调度与数据流侧：优先经验回放与重要性采样权重、rollout 跨 rank 重分片与 padding-free 打包、actor/critic/ref 多模型 colocate 的显存与阶段时间线、奖励归一化的批统计管道、异步生成队列与陈旧度、多段 episode 拼装与截断 bootstrap。与「对齐与训练目标合集」的损失/优势公式明确分工：本合集只考系统账，凡需策略真实生成或环境动力学的一律不出题。",
+    "description_en": "The scheduling and data-flow side of the LLM RL training stack: prioritized experience replay with importance-sampling weights, cross-rank rollout re-sharding and padding-free packing, actor/critic/reference colocation memory and phase timelines, the reward-normalisation batch-statistics pipeline, asynchronous generation queues with staleness accounting, and multi-segment episode assembly with truncated-bootstrap handling. Deliberately split from the Alignment & Training Objectives collection, which owns the loss and advantage formulas: this collection is systems accounting only - anything requiring a real policy to generate, or an environment to simulate, is out of scope.",
+    "problems": [
+      "rl-per-priority-replay",
+      "rl-rollout-shard-repack",
+      "rl-colocate-memory-timeline",
+      "rl-reward-batch-norm",
+      "rl-async-rollout-staleness",
+      "rl-trajectory-episode-assembly"
     ]
   }
 ]

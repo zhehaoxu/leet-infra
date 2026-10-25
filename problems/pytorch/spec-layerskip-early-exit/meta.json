@@ -1,0 +1,12 @@
+{
+  "title": "推测解码：LayerSkip 逐层早退草稿与剩余层验证",
+  "title_en": "Speculative Decoding: LayerSkip Early-Exit Drafting and Remaining-Layer Verification",
+  "difficulty": "Medium",
+  "tags": ["operator", "speculative"],
+  "order": 286,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

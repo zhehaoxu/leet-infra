@@ -52,6 +52,8 @@ export type FamilyKey =
   | 'sparsity'
   | 'multimodal'
   | 'retrieval'
+  | 'evaluation'
+  | 'rl'
   | 'other'
 
 export const TAG_FAMILY: Record<string, FamilyKey> = {
@@ -84,12 +86,14 @@ export const TAG_FAMILY: Record<string, FamilyKey> = {
   sparsity: 'sparsity',
   multimodal: 'multimodal',
   retrieval: 'retrieval',
+  evaluation: 'evaluation',
+  rl: 'rl',
 }
 
 export const GROUP_ORDER: FamilyKey[] = [
   'activation', 'normalization', 'conv', 'vision', 'gemm', 'attention',
   'tensor', 'loss', 'optimizer', 'quantization', 'sampling', 'rnn', 'metric', 'systems',
-  'tokenization', 'distributed', 'llm', 'moe', 'inference', 'alignment', 'kvcache', 'speculative', 'peft', 'diffusion', 'sparsity', 'multimodal', 'retrieval',
+  'tokenization', 'distributed', 'llm', 'moe', 'inference', 'alignment', 'kvcache', 'speculative', 'peft', 'diffusion', 'sparsity', 'multimodal', 'retrieval', 'evaluation', 'rl',
   'other',
 ]
 

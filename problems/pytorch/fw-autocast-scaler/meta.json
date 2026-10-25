@@ -1,0 +1,12 @@
+{
+  "title": "autocast 与 GradScaler 训练循环账",
+  "title_en": "autocast + GradScaler Training Loop Accounting",
+  "difficulty": "Medium",
+  "tags": ["framework", "amp"],
+  "order": 254,
+  "variants": {
+    "pytorch": {"label": "PyTorch", "available": true},
+    "triton": {"label": "Triton", "available": false},
+    "cuda": {"label": "CUDA", "available": false}
+  }
+}

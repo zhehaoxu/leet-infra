@@ -1,0 +1,12 @@
+{
+  "title": "梯度压缩带宽账：1-bit 量化与低秩投影",
+  "title_en": "Gradient Compression Bandwidth: One-Bit Quantization vs Low-Rank Projections",
+  "difficulty": "Hard",
+  "tags": ["operator", "systems"],
+  "order": 280,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

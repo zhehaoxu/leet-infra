@@ -1,0 +1,12 @@
+{
+  "title": "KV Cache：FINCH 因果归一化窗口注意力打分",
+  "title_en": "FINCH: Causally Normalized Window-Attention Scoring",
+  "difficulty": "Hard",
+  "tags": ["operator", "kvcache"],
+  "order": 289,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

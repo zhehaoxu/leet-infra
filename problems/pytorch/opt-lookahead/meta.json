@@ -1,0 +1,12 @@
+{
+  "title": "优化器：Lookahead 快慢权重封装器（k 步前进、1 步回头）",
+  "title_en": "Optimizer: Lookahead Fast-Slow Weight Wrapper",
+  "difficulty": "Medium",
+  "tags": ["operator", "optimizer"],
+  "order": 268,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

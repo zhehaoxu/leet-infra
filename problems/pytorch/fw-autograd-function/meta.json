@@ -1,0 +1,12 @@
+{
+  "title": "自定义 autograd.Function 的前反向账",
+  "title_en": "Custom autograd.Function: Forward/Backward Ledger",
+  "difficulty": "Hard",
+  "tags": ["framework", "autograd"],
+  "order": 251,
+  "variants": {
+    "pytorch": {"label": "PyTorch", "available": true},
+    "triton": {"label": "Triton", "available": false},
+    "cuda": {"label": "CUDA", "available": false}
+  }
+}

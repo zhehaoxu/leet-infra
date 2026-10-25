@@ -1,0 +1,12 @@
+{
+  "title": "评测：nDCG@k 折损累积增益",
+  "title_en": "Evaluation: nDCG@k Discounted Cumulative Gain",
+  "difficulty": "Medium",
+  "tags": ["operator", "evaluation"],
+  "order": 299,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "title": "RL 基建：多段 episode 轨迹拼装与截断 bootstrap",
+  "title_en": "RL Systems: Multi-Segment Episode Assembly and Truncation Bootstrap",
+  "difficulty": "Medium",
+  "tags": ["operator", "rl"],
+  "order": 306,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

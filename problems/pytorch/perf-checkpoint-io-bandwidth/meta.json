@@ -1,0 +1,12 @@
+{
+  "title": "Checkpoint I/O 带宽账与异步持久化",
+  "title_en": "Checkpoint I/O Bandwidth and Asynchronous Persistence",
+  "difficulty": "Medium",
+  "tags": ["operator", "systems"],
+  "order": 279,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

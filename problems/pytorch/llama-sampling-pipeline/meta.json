@@ -1,0 +1,24 @@
+{
+  "title": "采样：llama.cpp 全管线阶段顺序装配",
+  "title_en": "Sampling: llama.cpp Full Pipeline Stage Ordering",
+  "difficulty": "Hard",
+  "tags": [
+    "operator",
+    "sampling"
+  ],
+  "order": 270,
+  "variants": {
+    "pytorch": {
+      "label": "PyTorch",
+      "available": true
+    },
+    "triton": {
+      "label": "Triton",
+      "available": false
+    },
+    "cuda": {
+      "label": "CUDA",
+      "available": false
+    }
+  }
+}

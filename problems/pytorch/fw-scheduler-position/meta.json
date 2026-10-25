@@ -1,0 +1,12 @@
+{
+  "title": "LR 调度器在训练循环中的位置",
+  "title_en": "Where lr_scheduler.step() Sits in the Training Loop",
+  "difficulty": "Medium",
+  "tags": ["framework", "scheduler"],
+  "order": 255,
+  "variants": {
+    "pytorch": {"label": "PyTorch", "available": true},
+    "triton": {"label": "Triton", "available": false},
+    "cuda": {"label": "CUDA", "available": false}
+  }
+}

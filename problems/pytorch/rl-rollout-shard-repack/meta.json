@@ -1,0 +1,12 @@
+{
+  "title": "RL 基建：Rollout 数据跨 rank 重分片与 padding-free 打包",
+  "title_en": "RL Systems: Rollout Re-sharding Across Ranks and Padding-Free Packing",
+  "difficulty": "Medium",
+  "tags": ["operator", "rl"],
+  "order": 302,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "title": "调度器：OneCycle 单周期学习率与动量",
+  "title_en": "Scheduler: OneCycle LR and Antisymmetric Momentum",
+  "difficulty": "Medium",
+  "tags": ["operator", "optimizer"],
+  "order": 259,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

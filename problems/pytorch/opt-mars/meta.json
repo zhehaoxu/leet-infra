@@ -1,0 +1,12 @@
+{
+  "title": "优化器：MARS 方差缩减动量与信任比",
+  "title_en": "Optimizer: MARS Variance-Reduced Momentum with Trust Ratio",
+  "difficulty": "Hard",
+  "tags": ["operator", "optimizer"],
+  "order": 266,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "title": "train/eval 模式、推理与 clip 的行为账",
+  "title_en": "Bookkeeping for train/eval Modes, Inference and Grad Clipping",
+  "difficulty": "Medium",
+  "tags": ["framework", "train-eval"],
+  "order": 257,
+  "variants": {
+    "pytorch": {"label": "PyTorch", "available": true},
+    "triton": {"label": "Triton", "available": false},
+    "cuda": {"label": "CUDA", "available": false}
+  }
+}

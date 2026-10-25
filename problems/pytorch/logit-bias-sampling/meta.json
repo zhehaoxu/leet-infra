@@ -1,0 +1,24 @@
+{
+  "title": "采样：logit 偏置与禁用 token",
+  "title_en": "Sampling: Logit Bias and Banned Tokens",
+  "difficulty": "Medium",
+  "tags": [
+    "operator",
+    "sampling"
+  ],
+  "order": 275,
+  "variants": {
+    "pytorch": {
+      "label": "PyTorch",
+      "available": true
+    },
+    "triton": {
+      "label": "Triton",
+      "available": false
+    },
+    "cuda": {
+      "label": "CUDA",
+      "available": false
+    }
+  }
+}

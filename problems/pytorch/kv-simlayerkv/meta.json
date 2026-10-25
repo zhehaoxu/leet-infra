@@ -1,0 +1,12 @@
+{
+  "title": "KV Cache：SimLayerKV 懒惰层二值保留",
+  "title_en": "SimLayerKV: Lazy-Layer Binary Retention",
+  "difficulty": "Hard",
+  "tags": ["operator", "kvcache"],
+  "order": 291,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

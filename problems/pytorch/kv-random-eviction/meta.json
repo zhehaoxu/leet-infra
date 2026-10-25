@@ -1,0 +1,12 @@
+{
+  "title": "KV Cache：Random Eviction 随机驱逐基线",
+  "title_en": "Random KV Eviction Baseline: Sink, Window and Seeded Draw",
+  "difficulty": "Easy",
+  "tags": ["operator", "kvcache"],
+  "order": 292,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

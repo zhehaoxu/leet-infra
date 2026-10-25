@@ -1,0 +1,12 @@
+{
+  "title": "OOM 边界搜索：峰值显存反解 micro batch 与序列长度",
+  "title_en": "OOM Boundary Search: Inverting Peak Memory for Micro-Batch and Sequence Length",
+  "difficulty": "Hard",
+  "tags": ["operator", "systems"],
+  "order": 282,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

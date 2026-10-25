@@ -1,0 +1,12 @@
+{
+  "title": "KV Cache：CriticalKV 两阶段 Wo·V 加权保留",
+  "title_en": "CriticalKV: Two-Stage Wo·V Weighted Retention",
+  "difficulty": "Medium",
+  "tags": ["operator", "kvcache"],
+  "order": 288,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

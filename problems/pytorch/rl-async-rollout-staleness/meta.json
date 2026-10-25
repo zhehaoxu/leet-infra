@@ -1,0 +1,12 @@
+{
+  "title": "RL 基建：异步 rollout 的准入、截断与陈旧度账",
+  "title_en": "RL Systems: Async Rollout Admission, Partial Truncation and Staleness Accounting",
+  "difficulty": "Hard",
+  "tags": ["operator", "rl"],
+  "order": 305,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

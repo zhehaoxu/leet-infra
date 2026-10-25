@@ -1,0 +1,12 @@
+{
+  "title": "解码 Roofline 的 Batch 账：KV 读与算力拐点",
+  "title_en": "Decode Roofline Batch Ledger: KV Traffic versus the Compute Knee",
+  "difficulty": "Hard",
+  "tags": ["operator", "systems"],
+  "order": 281,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

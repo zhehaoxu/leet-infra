@@ -1,0 +1,12 @@
+{
+  "title": "评测：语料级 BLEU",
+  "title_en": "Evaluation: Corpus BLEU",
+  "difficulty": "Medium",
+  "tags": ["operator", "evaluation"],
+  "order": 295,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

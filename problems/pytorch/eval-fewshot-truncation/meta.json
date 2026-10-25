@@ -1,0 +1,12 @@
+{
+  "title": "评测：few-shot 提示的预算截断",
+  "title_en": "Evaluation: Few-shot Prompt Truncation under a Token Budget",
+  "difficulty": "Medium",
+  "tags": ["operator", "evaluation"],
+  "order": 298,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

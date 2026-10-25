@@ -1,0 +1,12 @@
+{
+  "title": "前向/反向 Hook：抓激活与改梯度",
+  "title_en": "Forward/Backward Hooks: Capturing Activations and Rewriting Gradients",
+  "difficulty": "Medium",
+  "tags": ["framework", "hook"],
+  "order": 252,
+  "variants": {
+    "pytorch": {"label": "PyTorch", "available": true},
+    "triton": {"label": "Triton", "available": false},
+    "cuda": {"label": "CUDA", "available": false}
+  }
+}

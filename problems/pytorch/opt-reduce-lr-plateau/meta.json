@@ -1,0 +1,12 @@
+{
+  "title": "调度器：ReduceLROnPlateau 指标驱动平台期降速",
+  "title_en": "Scheduler: ReduceLROnPlateau Metric-Driven State Machine",
+  "difficulty": "Easy",
+  "tags": ["operator", "optimizer"],
+  "order": 260,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

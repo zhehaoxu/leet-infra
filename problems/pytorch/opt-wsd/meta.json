@@ -1,0 +1,12 @@
+{
+  "title": "调度器：WSD 预热-恒定-多项式退火",
+  "title_en": "Scheduler: WSD Warmup-Stable-Polynomial Decay",
+  "difficulty": "Medium",
+  "tags": ["operator", "optimizer"],
+  "order": 258,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

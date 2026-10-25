@@ -1,0 +1,12 @@
+{
+  "title": "强扩展与弱扩展：加速比、效率与饱和点",
+  "title_en": "Strong/Weak Scaling: Speedup, Efficiency and the Saturation Point",
+  "difficulty": "Medium",
+  "tags": ["operator", "systems"],
+  "order": 278,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

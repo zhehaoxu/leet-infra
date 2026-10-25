@@ -1,0 +1,12 @@
+{
+  "title": "Kernel 发射时间线：busy/idle 账与 CUDA Graph 收益",
+  "title_en": "Kernel Launch Timeline: Busy/Idle Accounting and CUDA Graph Gains",
+  "difficulty": "Medium",
+  "tags": ["operator", "systems"],
+  "order": 276,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

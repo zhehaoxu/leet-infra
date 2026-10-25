@@ -1,0 +1,24 @@
+{
+  "title": "采样：XTC 中间概率剔除",
+  "title_en": "Sampling: XTC Mid-Probability Elimination",
+  "difficulty": "Medium",
+  "tags": [
+    "operator",
+    "sampling"
+  ],
+  "order": 271,
+  "variants": {
+    "pytorch": {
+      "label": "PyTorch",
+      "available": true
+    },
+    "triton": {
+      "label": "Triton",
+      "available": false
+    },
+    "cuda": {
+      "label": "CUDA",
+      "available": false
+    }
+  }
+}

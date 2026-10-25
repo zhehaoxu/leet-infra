@@ -1,0 +1,12 @@
+{
+  "title": "RL 基建：多模型 colocate 的显存与阶段时间线账",
+  "title_en": "RL Systems: Colocated Multi-Model Memory and Phase Timeline Accounting",
+  "difficulty": "Hard",
+  "tags": ["operator", "rl"],
+  "order": 303,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

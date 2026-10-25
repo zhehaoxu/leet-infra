@@ -1,0 +1,12 @@
+{
+  "title": "优化器：C-Optimizer 连续余弦门与截幅",
+  "title_en": "Optimizer: C-Optimizer Continuous Cosine Gate with Clipping",
+  "difficulty": "Medium",
+  "tags": ["operator", "optimizer"],
+  "order": 265,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

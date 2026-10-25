@@ -1,0 +1,24 @@
+{
+  "title": "采样：多路分布混合（Mixture-of-Samplers）",
+  "title_en": "Sampling: Mixture-of-Samplers Distribution Blending",
+  "difficulty": "Medium",
+  "tags": [
+    "operator",
+    "sampling"
+  ],
+  "order": 274,
+  "variants": {
+    "pytorch": {
+      "label": "PyTorch",
+      "available": true
+    },
+    "triton": {
+      "label": "Triton",
+      "available": false
+    },
+    "cuda": {
+      "label": "CUDA",
+      "available": false
+    }
+  }
+}

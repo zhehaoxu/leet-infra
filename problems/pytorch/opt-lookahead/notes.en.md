@@ -1,0 +1,61 @@
+# In Depth: Lookahead Fast-Slow Weight Wrapper (k Steps Forward, 1 Step Back)
+
+## Source
+
+- The algorithm: Zhang, Lucas, Ba, Hinton, *Lookahead Optimizer: k steps forward, 1 step back*, arXiv:**1710.08983** (the id registered by todos #90 candidate ⑪; the paper is also usually cited as NeurIPS 2019 — that venue detail is **to be re-sourced** and nothing here depends on it). The judge environment is offline and has no copy of the paper, so **the algorithm is defined by the self-contained derivation below**: every \(k\) base steps the slow weights absorb a fraction \(\alpha\) of the fast weights, and the fast weights are then reset onto the slow weights.
+- Library side: kozistr/pytorch_optimizer ships a `Lookahead` (usually `pytorch_optimizer/lookahead.py` — the exact path and its attribute naming are **to be re-sourced**). Most implementations call the inner optimizer `base_optimizer` and the slow copy `slow_weights`; this problem simply **pins those two names as the contract** (the judge probes them) and does not rely on any library detail. The paper also mentions variants that adapt \(\alpha\) from the agreement between fast and slow updates (**to be re-sourced**); they are out of scope here — \(\alpha\) is a fixed argument.
+- One-line summary: **Lookahead does not change the update rule, it changes who gets written back and when.** It is a wrapper, so the inner optimizer here can be momentum SGD or Adam and the fast/slow bookkeeping is identical for both.
+
+## Full derivation and index convention
+
+Let \(d_t=\theta_t^{-}-\theta_{t-1}\) be the **increment** the base applies to a parameter during the \(t\)-th `step()` call, where \(\theta_t^{-}\) is "base has stepped, the sync has not happened yet". Because the problem pins the base to `weight_decay=0`, `nesterov=False`, `dampening=0`, `amsgrad=False`, we get
+
+- momentum SGD: \(m_t=\mu m_{t-1}+g_t,\ d_t=-\text{lr}\cdot m_t\)
+- Adam: \(m_t=\beta_1m_{t-1}+(1-\beta_1)g_t,\ v_t=\beta_2v_{t-1}+(1-\beta_2)g_t^2,\ d_t=-\dfrac{\text{lr}}{1-\beta_1^{\,\tau}}\cdot\dfrac{m_t}{\sqrt{v_t}/\sqrt{1-\beta_2^{\,\tau}}+\epsilon}\)
+
+which depend **only on the gradient sequence** (plus that parameter's own effective step count \(\tau\)) and **not** on where \(\theta\) currently sits. That single fact is what lets the oracle precompute the whole \(d\) sequence and then run the fast/slow ledger — and it is why the oracle's code path is structurally different from the reference solution's.
+
+Let \(q=\lfloor T/k\rfloor\) be the number of syncs inside \(T\) steps and \(S_j\) the slow weights right after the \(j\)-th sync (\(S_0=\theta_0\)). The fast weights seen at the \(j\)-th sync, before it, are
+\[A_j=S_{j-1}+\sum_{t=(j-1)k+1}^{jk} d_t\qquad(\text{the net displacement of those }k\text{ fast steps}),\]
+and the sync itself is
+\[S_j=S_{j-1}+\alpha(A_j-S_{j-1})=(1-\alpha)S_{j-1}+\alpha A_j
+\;\Longrightarrow\;
+S_q=(1-\alpha)^{q}\theta_0+\sum_{j=1}^{q}\alpha(1-\alpha)^{\,q-j}A_j .\]
+The right-hand side is a **geometric weighted sum**: for \(\alpha\in[0,1]\) the weights are non-negative and sum to 1, so \(S_q\) is a convex combination of \(\{\theta_0,A_1,\dots,A_q\}\). That is the origin of the containment invariant below, and it is also why a small \(\alpha\) means "roll back less". At any time the fast weights are
+\[\theta_T=S_q+\sum_{t=qk+1}^{T} d_t .\]
+
+All four degenerations are one-line substitutions:
+
+| setting | substitution | consequence |
+| --- | --- | --- |
+| \(k>T\) | \(q=0\) | \(\theta_T=\theta_0+\sum_{t\le T}d_t\): point-by-point the bare base optimizer, slow weights still the initial clone |
+| \(\alpha=1\) | \(S_q=A_q\) | \(\theta_T\) equals the bare base: the sync lifts \(s\) onto \(\theta\) and writes **the same** \(\theta\) back, so it is the **identity** on the training trajectory; \(s\) and \(\theta\) merely become bit-identical at sync points |
+| \(\alpha=0\) | \(S_q=\theta_0\) | the slow weights absorb nothing and every sync **hard-rolls** \(\theta\) back to the previous sync point: at the end of a full cycle \(\theta\) is back to \(\theta_0\) (`torch.equal` level), inside a cycle it is a sawtooth |
+| \(k=1\) | \(A_q=S_{q-1}+d_q\) | \(S_q=S_{q-1}+\alpha d_q\) ⇒ \(\theta_T=\theta_0+\alpha\sum_{t\le T}d_t\): **exactly the base optimizer with every step size scaled by \(\alpha\)**, while the base momentum still accumulates as if the steps were full |
+
+The index convention (the easiest thing to get wrong): \(t\) counts the **wrapper's `step()` calls**, is \(0\) at construction, and the divisibility test is evaluated **after** the counter has been advanced — so the first sync happens **after** the \(k\)-th call. It is **not** Adam's internal `state[p]["step"]`: that one is the base's own counter, advanced only for steps in which that parameter actually had a gradient, and it is the one feeding the bias corrections \(bc_1,bc_2\). The two counters coincide only when \(k=1\) and every parameter is stepped every time.
+
+## Core points and pitfalls
+
+1. **The order of the two lines**: \(s\leftarrow s+\alpha(\theta-s)\) **first**, \(\theta\leftarrow s\) **second**. Swapping them means \(\theta\leftarrow s\) happens while \(s\) is still the previous sync point, and then \(s\leftarrow s+\alpha(\theta-s)=s\) — the slow weights never absorb anything again, so every \(k\) steps the whole block of progress is erased; with \(\alpha=1\) the swapped version is outright absurd (\(\theta\) jumps onto the *old* slow weights). So the "\(\alpha=1\) ≡ bare base" assertion pins both the order and where \(\alpha\) is allowed to act.
+2. **The sync belongs after the fast step, not at the start of the next `step()`.** Those two writings agree on *every* step except the \(qk\)-th ones (the base increment does not depend on \(\theta\)), differing only in "the sync has not happened yet" at the exact end of a cycle. **Comparing the final parameters alone cannot catch it** — hence the judge replays the whole trajectory step by step and asserts the biconditional "\(\theta\) and \(s\) are bit-identical ⟺ this step was a sync".
+3. **The base's own state is never reset** (the trap this problem is built around). A sync writes \(\theta\) and \(s\) only; `momentum_buffer` / `exp_avg` / `exp_avg_sq` / Adam's `step` stay untouched and the base object is not rebuilt. The classic mistakes are "roll the momentum back together with the parameters" (or zero it) and "create a fresh base optimizer each cycle": the first shrinks all later increments, the second additionally resets Adam's bias-correction counter to 1. The judge cross-checks the inner buffers against a bare native optimizer on the same gradient sequence, and requires them to be non-zero even in the \(\alpha=0\) run whose parameters are bit-identical to their initial value.
+4. **\(\theta\leftarrow s\) is a full write-back, not a tug toward \(s\).** Writing \(\theta\leftarrow\theta+\alpha(s-\theta)\) is a different "soft Lookahead" and is not what the problem asks. Also note \(\alpha=0\) is **not** a no-op here: the slow update is, but the reset that follows still drags \(\theta\) back onto the stale slow weights.
+5. **The sync follows the counter, not the gradients.** A parameter with `grad is None` is skipped by the base and keeps its value, yet is still pulled onto its own slow weight when a sync is due — so a parameter whose gradients dried up is slowly dragged backwards. "Only sync the parameters that had a gradient this step" is a silent bug; the judge builds exactly that scenario (gradients stop for one parameter at step 5 while \(k=3\)).
+6. **The slow weights must be clones**: sharing storage with \(\theta\) turns the first fast step into a synchronous write to both, degrading the whole mechanism into an identity.
+7. **One shared counter, one shared \(\alpha\)**: whether to sync depends on \(t\bmod k\) alone, not per parameter, and \(\alpha\) is a single scalar.
+8. **Shapes and types**: float32 throughout, in place; each slow weight has the shape and dtype of its parameter; \(k\) is a positive integer (\(k\le0\) is meaningless and outside the constraints).
+
+## How it differs from the neighbouring problems
+
+- **vs `opt-ema` (EMA weights with warmup)**: the algebra is nearly identical (\(s\leftarrow s+\alpha(\theta-s)\) *is* an EMA update); everything hangs on **whether you write back**. EMA maintains a **shadow copy** used for evaluation/generation: it only reads the training weights, and the training weights are never touched, so the optimisation trajectory is unchanged. Lookahead **writes \(s\) back into \(\theta\)**, and from then on the base keeps walking from the rolled-back point — it changes the optimisation itself. An implementation that does the slow update and forgets the reset is precisely `opt-ema` (one line away), and the step-by-step trajectory comparison catches it. On the other side, `opt-ema`'s real subject is the warmup \(d_n=\min(decay,\frac{1+n}{10+n})\), whereas Lookahead's \(\alpha\) is a constant.
+- **vs `opt-adamw` / `opt-adopt` (and `opt-radam`, `opt-muon`, …)**: those are **inner optimizers** — each proposes a new formula mapping \(g\) to the increment of \(\theta\) (decoupled weight decay, dropping or reshuffling bias correction, orthogonalisation as preconditioner). Lookahead is an **outer wrapper**: it never looks at a gradient, it only rewrites the parameters periodically, and it is **orthogonal** to which inner optimizer is chosen (this problem switches `base` between SGD and Adam without touching a line of the fast/slow ledger). Judging-wise you can see it in the oracles: here the oracle first computes the increment sequence \(d_t\) and then does the sync ledger, while `opt-adamw`'s oracle replays the update rule element by element and has no \(k\) or \(\alpha\) at all.
+- **vs `opt-cautious` (sign-agreement gating)**: cautious is a **per-step direction gate** — it compares the update direction with the current gradient element by element, zeroes the conflicting coordinates and rescales by the surviving ratio, i.e. it edits the *inside* of one increment. Lookahead does nothing at all per step and instead, once every \(k\) steps, contracts the **whole tensor** onto the slow manifold, reading neither gradients nor signs. One reshapes a single step's direction, the other reshapes how much of a block of steps you are willing to trust; they compose.
+
+## Cross-check convention and complexity
+
+- Primary: the independent recomputation in `_oracle_lookahead` / `_oracle_snapshots`. It **builds no Optimizer object**: a plain Python loop first derives each parameter's whole increment sequence \(d_t\) from the update rule (including "no gradient ⇒ no increment and no advance of the base's own counter"), then walks the fast/slow ledger out of place with tensor rebinding, snapshotting every step and comparing against the reference solution (a real base optimizer plus in-place `copy_`). Floats use `allclose(atol=1e-5, rtol=1e-5)`; the only thing the two paths still share is the formula in the statement.
+- Hard references: the \(k>T\) and \(\alpha=1\) degenerations are checked against **native `torch.optim.SGD` / `Adam`** run on the same gradient sequence (tolerance \(10^{-6}\)); the \(k=1\) case assembles \(\theta_0+\alpha\sum d_t\) from the differences of the native base trajectory; the base-state probes are compared with the buffers of a native instance.
+- Bit-exact checks: `torch.equal` is used only where the maths is exact — the \(\alpha=0\) return to \(\theta_0\) at the end of a full cycle, the \(\alpha=0\) slow weights still being \(\theta_0\), the \(k>T\) slow weights still being the initial clone, and "this step was a sync ⇒ \(\theta\) equals \(s\)" (the reset is a `copy_`, not a new floating-point operation).
+- Shape invariants: with same-sign gradients the slow sequence is monotone (\(S_j-S_{j-1}=\alpha\sum_{\text{cycle}}d_t\)) and every \(S_q\) stays inside \([\min,\max]\) of the values the fast weights have actually taken — the direct corollary of the convex combination.
+- Complexity: the base still costs \(O(\text{numel})\) per step; the wrapper adds two elementwise read/write passes on sync steps only (an amortised \(O(\text{numel}/k)\)), plus the extra memory of one model-sized slow copy — as expensive as EMA.

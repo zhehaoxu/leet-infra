@@ -1,0 +1,12 @@
+{
+  "title": "推测解码：EAGLE-2 动态草稿树重排与剪枝",
+  "title_en": "Speculative Decoding: EAGLE-2 Dynamic Draft Tree Re-ranking and Pruning",
+  "difficulty": "Hard",
+  "tags": ["operator", "speculative"],
+  "order": 284,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

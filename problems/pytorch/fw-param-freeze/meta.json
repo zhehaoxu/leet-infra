@@ -1,0 +1,12 @@
+{
+  "title": "参数冻结、换 head 与优化器分组",
+  "title_en": "Parameter Freezing, Head Swap and Optimizer Groups",
+  "difficulty": "Medium",
+  "tags": ["framework", "freeze"],
+  "order": 250,
+  "variants": {
+    "pytorch": {"label": "PyTorch", "available": true},
+    "triton": {"label": "Triton", "available": false},
+    "cuda": {"label": "CUDA", "available": false}
+  }
+}

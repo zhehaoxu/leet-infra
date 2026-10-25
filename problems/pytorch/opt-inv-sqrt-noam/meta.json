@@ -1,0 +1,12 @@
+{
+  "title": "调度器：Noam 逆平方根学习率（inverse sqrt）",
+  "title_en": "Scheduler: Noam Inverse Square Root Learning Rate",
+  "difficulty": "Easy",
+  "tags": ["operator", "optimizer"],
+  "order": 262,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

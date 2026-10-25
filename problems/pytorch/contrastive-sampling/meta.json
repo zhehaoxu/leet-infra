@@ -1,0 +1,24 @@
+{
+  "title": "采样：Contrastive Search 候选退化惩罚选择",
+  "title_en": "Sampling: Contrastive Search with Degeneration Penalty",
+  "difficulty": "Medium",
+  "tags": [
+    "operator",
+    "sampling"
+  ],
+  "order": 269,
+  "variants": {
+    "pytorch": {
+      "label": "PyTorch",
+      "available": true
+    },
+    "triton": {
+      "label": "Triton",
+      "available": false
+    },
+    "cuda": {
+      "label": "CUDA",
+      "available": false
+    }
+  }
+}

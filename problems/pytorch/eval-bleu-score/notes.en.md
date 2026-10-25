@@ -1,0 +1,32 @@
+# In Depth: Corpus BLEU
+
+## Origin
+Papineni, Roukos, Ward, Zhu, *BLEU: a Method for Automatic Evaluation of Machine Translation* (ACL 2002). Its three equations:
+1. Precision \(p_n = \dfrac{\sum_{g\in n\text{-grams}}\text{Count}_{\text{clip}}(g)}{\sum_{g'\in n\text{-grams}}\text{Count}(g')}\) with \(\text{Count}_{\text{clip}}(g)=\min\big(\text{Count}(g),\ \max_i \text{Count}_i(g)\big)\), where \(i\) ranges over the references **of that same sentence** (Eq. (2)).
+2. Brevity penalty \(\text{BP}=\min\big(1,\ e^{1-r/c}\big)\), with \(c\) the total translation length and \(r\) the sum of "effective reference lengths" (Eqs. (3)(4)).
+3. Combination \(\text{BLEU}=\text{BP}\cdot\exp\big(\sum_{n=1}^{4}\lambda_n\log p_n\big)\); the paper only motivates \(\lambda\) theoretically (an order-N Markov entropy bound), and the engineering default is the uniform weighting \(\lambda_n = 1/4\) used here.
+
+Industrial implementations: `nltk.translate.bleu_score.corpus_bleu` (13a tokenization, uniform weights, optional `method1` smoothing), `sacrebleu` (its own tokenization, `exp` smoothing by default), `torchtext`'s BLEU, `tensor2tensor`/`tf.contrib` `BLEUScore`. Two of them can disagree by 1–2 points on the same output, and the reasons are exactly the conventions below; this problem pins every convention in the statement and takes token ids as input so tokenization cannot enter.
+
+## Core points and pitfalls
+1. **Clipping happens per hypothesis and per n-gram**: the numerator adds \(\min(\text{count}_h(g), \max_j \text{count}_{r_j}(g))\). Without clipping, the output `the the the the` against the reference `the cat sat mat` would score \(p_1 = 1\) — the paper's own motivating example. Writing the \(\max_j\) over the whole corpus instead of over that sentence's references borrows frequencies from other sentences and inflates the score.
+2. **Corpus level means summing numerator and denominator separately**: \(\big(\sum_i M_n^{(i)}\big)/\big(\sum_i C_n^{(i)}\big)\), not the arithmetic mean of sentence precisions — structurally identical to micro in `eval-token-accuracy`. A per-sentence mean gives a one-word translation the same weight as a two-hundred-word one.
+3. **The denominator \(C_n\) counts n-gram occurrences, not distinct n-grams** — \(\max(0, L-n+1)\) per sentence, never \(L-n+1\) when \(L < n\), and never the number of distinct grams.
+4. **Effective reference length (closest, ties to shorter)**: \(r\) is neither the shortest nor the average reference length. The paper picks the reference whose length is closest to the hypothesis, because with ragged multi-references the shortest over-penalises and the average charges length that was never required. "Ties go to the shorter one" is this problem's determinism convention; NLTK gets the same behaviour as a side effect of iteration order, which is why it should not be relied upon.
+5. **BP is active only when \(c < r\)**: at \(c = r\) the exponent is exactly \(e^0 = 1\), so the `min` is irrelevant there; but BP must never exceed 1, otherwise padding the output with extra tokens would earn score.
+6. **Zero precision and smoothing**: a single \(p_n = 0\) sends the whole geometric mean to 0 — on a short test set the 4-gram often never matches, which is precisely why smoothing methods exist. This problem uses the most transparent choice, Laplace add-one \(p_n = (M_n+1)/(C_n+1)\), rather than Chen & Koehnen (1999) `method1` (\(1 + \sum_{k=n+1}^{N} p_k\) times \(\max(1,p_n)^{\gamma/(n-1)}\)) or sacrebleu's `exp`; implementations disagreeing is expected, and **only the statement's convention is graded**.
+7. **Do not tokenize strings here**: neither `nltk` nor `sacrebleu` exists in the judge environment, and 13a rules, punctuation and case all change the n-gram sets. Feeding id lists removes tokenization — the single largest source of irreproducibility — from the problem. In real work, changing tokenizer means re-running every baseline.
+
+## Neighbouring metrics
+- **BLEU vs ROUGE** (`eval-rouge-score`): BLEU is precision-only plus a length penalty, so it favours "short and exact"; ROUGE is recall-driven with an F1 blend, so it favours "covering the reference content". An over-terse translation can keep a high BLEU while its ROUGE-1 recall drops.
+- **BLEU vs token accuracy** (`eval-token-accuracy`): both need external references, but the latter is a one-to-one positional comparison with no n-grams and no clipping; what they share is that both must aggregate at corpus level (micro).
+- **BLEU vs PPL** (`eval-perplexity-logits`): perplexity is an intrinsic, reference-free probabilistic metric whose trend is comparable across runs; BLEU is an extrinsic approximation heavily dependent on the reference set and the evaluation script.
+
+## Verification approach
+The reference solution builds `collections.Counter` n-gram frequency tables per hypothesis/reference, then adds \(\min(\text{hyp}, \max\_\text{ref})\) per distinct gram, and takes the geometric mean through `exp(mean(log p))`, with BP as an explicit branch. The judge's `_oracle` is an entirely different path: three nested explicit loops slicing tuples by hand, plain dicts accumulating counts, the reference maximum recounted sentence by sentence, the geometric mean recomputed as `math.prod(prec) ** (1/max_n)` and BP as `min(1, exp(...))` (different structure, numerically equivalent). Besides the worked example the suite asserts: perfect translation → 1.0, clipping of repeated grams (`[7,7,7,7]` vs `[7,7]` → \(p_1 = 0.5\)), \(p_4 = 0\) zeroing the unsmoothed score while the smoothed one stays positive, empty corpus and empty translations, BP saturation for \(c > r\), invariance when a reference is duplicated, plus randomised corpora cross-checked for every \(max\_n \in \{1,2,3,4\}\) × smoothing setting, all with `allclose(atol=1e-5, rtol=1e-5)`.
+
+## Complexity
+With total hypothesis length \(T_h\) and reference length \(T_r\): \(O(max\_n \cdot (T_h + T_r))\) n-gram constructions and hash lookups (each tuple build costs \(O(n)\)), no sorting or comparisons of scores; space for the per-order frequency tables.
+
+## Practical notes
+BLEU has huge variance on small test sets (fewer than ~500 sentences) — report bootstrap confidence intervals; the choice of effective reference length under multi-reference, and simply having a different number of references per sentence, already makes two runs incomparable. Changing evaluation script is changing metric.

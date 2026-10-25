@@ -1,0 +1,12 @@
+{
+  "title": "Checkpoint 键重映射与 strict=False 账目",
+  "title_en": "Checkpoint Key Remapping and strict=False Accounting",
+  "difficulty": "Medium",
+  "tags": ["framework", "state-dict"],
+  "order": 249,
+  "variants": {
+    "pytorch": {"label": "PyTorch", "available": true},
+    "triton": {"label": "Triton", "available": false},
+    "cuda": {"label": "CUDA", "available": false}
+  }
+}

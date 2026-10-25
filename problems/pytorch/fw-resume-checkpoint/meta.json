@@ -1,0 +1,12 @@
+{
+  "title": "断点续训的连续性账",
+  "title_en": "Training Resume Continuity Ledger",
+  "difficulty": "Hard",
+  "tags": ["framework", "checkpoint"],
+  "order": 256,
+  "variants": {
+    "pytorch": {"label": "PyTorch", "available": true},
+    "triton": {"label": "Triton", "available": false},
+    "cuda": {"label": "CUDA", "available": false}
+  }
+}

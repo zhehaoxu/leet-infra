@@ -1,0 +1,24 @@
+{
+  "title": "采样：Dripping 高概率抑制",
+  "title_en": "Sampling: Dripping Ultra-High Probability Cut",
+  "difficulty": "Medium",
+  "tags": [
+    "operator",
+    "sampling"
+  ],
+  "order": 272,
+  "variants": {
+    "pytorch": {
+      "label": "PyTorch",
+      "available": true
+    },
+    "triton": {
+      "label": "Triton",
+      "available": false
+    },
+    "cuda": {
+      "label": "CUDA",
+      "available": false
+    }
+  }
+}

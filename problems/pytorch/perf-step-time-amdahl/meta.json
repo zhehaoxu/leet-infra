@@ -1,0 +1,12 @@
+{
+  "title": "训练 step 时间分解与 Amdahl 上限",
+  "title_en": "Training Step Time Breakdown and the Amdahl Ceiling",
+  "difficulty": "Medium",
+  "tags": ["operator", "systems"],
+  "order": 277,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

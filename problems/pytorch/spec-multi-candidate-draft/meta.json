@@ -1,0 +1,12 @@
+{
+  "title": "推测解码：每位置多候选的批量验证与残差采样",
+  "title_en": "Speculative Decoding: Per-Position Multi-Candidate Batched Verification with Residual Sampling",
+  "difficulty": "Medium",
+  "tags": ["operator", "speculative"],
+  "order": 287,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

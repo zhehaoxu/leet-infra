@@ -1,0 +1,12 @@
+{
+  "title": "评测：shingle 污染审计",
+  "title_en": "Evaluation: Shingle Contamination Audit",
+  "difficulty": "Medium",
+  "tags": ["operator", "evaluation"],
+  "order": 300,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

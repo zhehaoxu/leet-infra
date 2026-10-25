@@ -161,6 +161,8 @@ const zh = {
   'family.sparsity': '稀疏剪枝',
   'family.multimodal': '多模态',
   'family.retrieval': '向量检索',
+  'family.evaluation': '评测指标',
+  'family.rl': 'RL 基建',
   'family.other': '框架 / 其他',
 } as const
 
@@ -333,6 +335,8 @@ const en: Record<MessageKey, string> = {
   'family.sparsity': 'Sparsity · Pruning',
   'family.multimodal': 'Multimodal',
   'family.retrieval': 'Vector Retrieval',
+  'family.evaluation': 'Evaluation Metrics',
+  'family.rl': 'RL Systems',
   'family.other': 'Framework / Other',
 }
 

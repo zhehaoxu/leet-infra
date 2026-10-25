@@ -1,0 +1,24 @@
+{
+  "title": "采样：Epsilon Sampling 相对阈值截断",
+  "title_en": "Sampling: Epsilon Sampling Relative Threshold Cut",
+  "difficulty": "Easy",
+  "tags": [
+    "operator",
+    "sampling"
+  ],
+  "order": 273,
+  "variants": {
+    "pytorch": {
+      "label": "PyTorch",
+      "available": true
+    },
+    "triton": {
+      "label": "Triton",
+      "available": false
+    },
+    "cuda": {
+      "label": "CUDA",
+      "available": false
+    }
+  }
+}

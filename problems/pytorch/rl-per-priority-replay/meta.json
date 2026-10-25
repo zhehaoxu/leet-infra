@@ -1,0 +1,12 @@
+{
+  "title": "RL 基建：优先经验回放采样与 IS 权重",
+  "title_en": "RL Systems: Prioritized Replay Sampling and Importance-Sampling Weights",
+  "difficulty": "Hard",
+  "tags": ["operator", "rl"],
+  "order": 301,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

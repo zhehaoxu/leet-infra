@@ -1,0 +1,12 @@
+{
+  "title": "推测解码：SpecInfer 通用 token-tree 并行验证",
+  "title_en": "Speculative Decoding: SpecInfer Token-Tree Parallel Verification",
+  "difficulty": "Medium",
+  "tags": ["operator", "speculative"],
+  "order": 285,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}
