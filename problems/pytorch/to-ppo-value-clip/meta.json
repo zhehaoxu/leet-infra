@@ -1,0 +1,11 @@
+{
+  "title": "对齐训练：PPO 截断价值损失",
+  "difficulty": "Medium",
+  "tags": ["operator", "alignment"],
+  "order": 212,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

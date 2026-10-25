@@ -1,0 +1,11 @@
+{
+  "title": "对齐训练：广义优势估计 GAE",
+  "difficulty": "Hard",
+  "tags": ["operator", "alignment"],
+  "order": 211,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

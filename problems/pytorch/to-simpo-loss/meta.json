@@ -1,0 +1,11 @@
+{
+  "title": "对齐训练：SimPO 长度归一化偏好损失",
+  "difficulty": "Medium",
+  "tags": ["operator", "alignment"],
+  "order": 215,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "title": "对齐训练：PPO 自适应 KL 系数控制器",
+  "difficulty": "Medium",
+  "tags": ["operator", "alignment"],
+  "order": 216,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}
