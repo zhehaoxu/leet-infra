@@ -1,0 +1,11 @@
+{
+  "title": "KL 散度（前向与反向）",
+  "difficulty": "Medium",
+  "tags": ["operator", "loss"],
+  "order": 237,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

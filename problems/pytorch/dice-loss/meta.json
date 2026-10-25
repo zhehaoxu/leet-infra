@@ -1,0 +1,11 @@
+{
+  "title": "Soft Dice 损失",
+  "difficulty": "Medium",
+  "tags": ["operator", "loss"],
+  "order": 236,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

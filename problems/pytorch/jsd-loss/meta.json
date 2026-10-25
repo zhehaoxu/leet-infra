@@ -1,0 +1,11 @@
+{
+  "title": "Jensen-Shannon 散度损失",
+  "difficulty": "Medium",
+  "tags": ["operator", "loss"],
+  "order": 238,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

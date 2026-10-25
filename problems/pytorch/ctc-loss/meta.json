@@ -1,0 +1,11 @@
+{
+  "title": "CTC 损失（前向算法）",
+  "difficulty": "Hard",
+  "tags": ["operator", "loss"],
+  "order": 240,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}
