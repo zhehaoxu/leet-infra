@@ -1,0 +1,11 @@
+{
+  "title": "序列/上下文并行：激活切分与通信账",
+  "difficulty": "Medium",
+  "tags": ["operator", "distributed"],
+  "order": 248,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

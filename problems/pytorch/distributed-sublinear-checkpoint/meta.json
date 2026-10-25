@@ -1,0 +1,11 @@
+{
+  "title": "次线性激活检查点：√n 重算调度的显存峰值",
+  "difficulty": "Medium",
+  "tags": ["operator", "distributed"],
+  "order": 246,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

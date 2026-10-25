@@ -1,0 +1,11 @@
+{
+  "title": "选择性激活重算：显存预算下的最小重算代价",
+  "difficulty": "Hard",
+  "tags": ["operator", "distributed"],
+  "order": 247,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

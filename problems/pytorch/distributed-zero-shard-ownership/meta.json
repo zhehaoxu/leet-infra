@@ -1,0 +1,11 @@
+{
+  "title": "ZeRO 一维分片归属：跨 rank 边界的参数切分",
+  "difficulty": "Medium",
+  "tags": ["operator", "distributed"],
+  "order": 245,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}
