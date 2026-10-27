@@ -1,0 +1,12 @@
+{
+  "title": "量化：double quantization 的 scale 二级量化",
+  "title_en": "Quantization: Second-Level Quantization of Scales (Double Quantization)",
+  "difficulty": "Medium",
+  "tags": ["operator", "quantization"],
+  "order": 266,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

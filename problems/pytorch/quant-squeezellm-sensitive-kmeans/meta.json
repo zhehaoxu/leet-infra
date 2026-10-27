@@ -1,0 +1,12 @@
+{
+  "title": "量化：SqueezeLLM 敏感度加权非均匀格点",
+  "title_en": "Quantization: SqueezeLLM Sensitivity-Weighted Non-Uniform Codebook",
+  "difficulty": "Hard",
+  "tags": ["operator", "quantization"],
+  "order": 265,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

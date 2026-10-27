@@ -1,0 +1,12 @@
+{
+  "title": "量化：HQQ 半二次闭式 scale 求解",
+  "title_en": "Quantization: HQQ Half-Quadratic Closed-Form Scale Solver",
+  "difficulty": "Hard",
+  "tags": ["operator", "quantization"],
+  "order": 264,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}
