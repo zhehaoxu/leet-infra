@@ -70,7 +70,8 @@ def test_collections_list_and_detail(client):
     data = client.get("/api/collections").json()
     assert {c["slug"] for c in data} == {c["slug"] for c in collections}
     pytorch = next(c for c in data if c["slug"] == "pytorch")
-    assert pytorch["problem_count"] == 6
+    expected_py = next(c for c in collections if c["slug"] == "pytorch")["problems"]
+    assert pytorch["problem_count"] == len(expected_py)
     assert pytorch["solved_count"] == 0
     operators = next(c for c in data if c["slug"] == "operators")
     expected_ops = next(c for c in collections if c["slug"] == "operators")["problems"]
