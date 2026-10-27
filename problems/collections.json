@@ -115,7 +115,21 @@
       "mqa",
       "gru_cell",
       "roi_pool",
-      "roi_align"
+      "roi_align",
+      "iou-variant-losses",
+      "soft-nms",
+      "triplet-margin-mining",
+      "embedding-margin-losses",
+      "scatter-reduce-aggregate",
+      "searchsorted-bincount",
+      "unfold-fold-roll",
+      "pixel-shuffle-space-depth",
+      "structured-dropout",
+      "lp-pool-unpool",
+      "antialias-upsample",
+      "powernorm-attention-pool",
+      "additive-attention-mask",
+      "cold-activations"
     ]
   },
   {
@@ -262,7 +276,12 @@
       "llm-int8-outlier-split",
       "quarot-hadamard-quant",
       "gptq-column-quantize",
-      "spqr-sparse-outlier"
+      "spqr-sparse-outlier",
+      "quant-nf4-quantile-grid",
+      "quant-kivi-kv-asym",
+      "quant-hqq-scale-solve",
+      "quant-squeezellm-sensitive-kmeans",
+      "quant-double-quant-scale"
     ]
   },
   {
@@ -322,7 +341,14 @@
       "inf-paged-kv-block-alloc",
       "inf-lru-kv-cache-eviction",
       "inf-chunked-prefill-scheduling",
-      "inf-prefix-cache-block-hit"
+      "inf-prefix-cache-block-hit",
+      "inf-paged-cow-block-share",
+      "inf-kv-block-admission",
+      "inf-edf-deadline-scheduler",
+      "inf-batch-spec-token-budget",
+      "inf-cache-aware-routing",
+      "inf-kv-residency-billing",
+      "inf-multi-lora-adapter-residency"
     ]
   },
   {
@@ -350,7 +376,14 @@
       "kv-finch",
       "kv-qfilter",
       "kv-simlayerkv",
-      "kv-random-eviction"
+      "kv-random-eviction",
+      "kv-h2o-heavy-hitters",
+      "kv-scissorhands-hysteresis",
+      "kv-fastgen-head-profiles",
+      "kv-cake-bidirectional-budget",
+      "kv-layer-budget-knapsack",
+      "kv-a2s-adaptive-sparse",
+      "kv-wkvd-least-squares-merge"
     ]
   },
   {
@@ -389,7 +422,12 @@
       "spec-eagle2-dynamic-tree-prune",
       "spec-specinfer-token-tree-verify",
       "spec-layerskip-early-exit",
-      "spec-multi-candidate-draft"
+      "spec-multi-candidate-draft",
+      "spec-tree-attention-builder",
+      "spec-acceptance-speedup",
+      "spec-cascade-residual",
+      "spec-suffix-automaton",
+      "spec-ngram-pool-aging"
     ]
   },
   {
@@ -404,22 +442,43 @@
       "peft-ia3",
       "peft-adapter",
       "peft-dora",
-      "peft-lora-memory"
+      "peft-lora-memory",
+      "peft-loha-hadamard",
+      "peft-lokr-factorization",
+      "peft-lokr-kron-merge",
+      "peft-oft-cayley",
+      "peft-ties-dare-merge",
+      "peft-adalora-budget",
+      "peft-rslora-loraplus",
+      "peft-qlora-nf4-forward",
+      "peft-prefix-tuning",
+      "peft-prompt-tuning",
+      "peft-bitfit-count",
+      "peft-vera-shared",
+      "peft-multi-adapter-batch"
     ]
   },
   {
     "slug": "diffusion",
     "name": "扩散模型合集",
     "name_en": "Diffusion Models Collection",
-    "description": "扩散生成模型的采样与调度基建：正弦时间步嵌入（前半 sin、后半 cos、freq=10000^(-i/half)）、线性/余弦两种噪声调度输出 ᾱ 序列（Nichol-Dhariwal cosine + clip(0,0.999)）、DDPM 前向一步加噪 q(x_t|x_0)=√ᾱ_t·x_0+√(1-ᾱ_t)·ε、DDPM 反向后验单步 p(x_{t-1}|x_t,x_0)（含 tilde-beta 方差、z=0 退化为均值）、σ_t=0 的 DDIM 确定性去噪单步（ᾱ_prev=ᾱ_t 恒等、=1 回 x0 两个退化探针）与无分类器引导 ε_u+w(ε_c-ε_u)（w=0→uncond、w=1→cond）。公式全部回源核实到 Ho(2006.11239)/Nichol-Dhariwal(2102.09672)/Song(2010.02502)/Ho-Salimans(2207.12598) 原论文；噪声 ε/z 均作显式入参以保证 CPU float32 判题确定性，每题另设独立 oracle（math 逐频率/逐 t 累乘/逐元素双循环/等价式重算）与退化不变量专项断言。",
-    "description_en": "Sampling and scheduling infrastructure for diffusion generative models: sinusoidal timestep embedding (first half sin, second half cos, freq=10000^(-i/half)), linear and cosine noise schedules outputting the ᾱ sequence (Nichol-Dhariwal cosine + clip(0,0.999)), one-step DDPM forward noising q(x_t|x_0)=√ᾱ_t·x_0+√(1-ᾱ_t)·ε, the DDPM reverse posterior single step p(x_{t-1}|x_t,x_0) (with tilde-beta variance, degenerating to the mean when z=0), the DDIM deterministic denoising single step with σ_t=0 (two degenerate probes: ᾱ_prev=ᾱ_t identity, and =1 returning to x0) and classifier-free guidance ε_u+w(ε_c-ε_u) (w=0→uncond, w=1→cond). All formulas are traced back and verified against the original papers Ho(2006.11239)/Nichol-Dhariwal(2102.09672)/Song(2010.02502)/Ho-Salimans(2207.12598); the noise ε/z are explicit inputs to guarantee CPU float32 judging determinism, and each problem additionally has an independent oracle (math per-frequency / per-t cumulative product / element-wise double loop / equivalent-formula recomputation) plus dedicated assertions on degenerate invariants.",
+    "description": "扩散生成模型的采样与调度基建：正弦时间步嵌入（前半 sin、后半 cos、freq=10000^(-i/half)）、线性/余弦两种噪声调度输出 ᾱ 序列（Nichol-Dhariwal cosine + clip(0,0.999)）、DDPM 前向一步加噪 q(x_t|x_0)=√ᾱ_t·x_0+√(1-ᾱ_t)·ε、DDPM 反向后验单步 p(x_{t-1}|x_t,x_0)（含 tilde-beta 方差、z=0 退化为均值）、σ_t=0 的 DDIM 确定性去噪单步（ᾱ_prev=ᾱ_t 恒等、=1 回 x0 两个退化探针）与无分类器引导 ε_u+w(ε_c-ε_u)（w=0→uncond、w=1→cond）。公式全部回源核实到 Ho(2006.11239)/Nichol-Dhariwal(2102.09672)/Song(2010.02502)/Ho-Salimans(2207.12598) 原论文；噪声 ε/z 均作显式入参以保证 CPU float32 判题确定性，每题另设独立 oracle（math 逐频率/逐 t 累乘/逐元素双循环/等价式重算）与退化不变量专项断言。续批 8 题把采样侧补全：ε/x₀/v 三种预测目标互转（(x₀,ε)→(x_t,v) 的正交旋转视角与两端奇点）、DPM-Solver++(2M) 的二阶更新（λ=log(α/σ) 指数积分器、order=1 与 DDIM 闭式逐位等价、二阶差分恒等式）、Flow Matching / Rectified Flow 的速度场 Euler 积分（直线路径下单步即精确还原 x₀）、RF 的 timestep shift（t′=s·t/(1+(s-1)t) 即 logit 域平移、µ 按序列长度线性插值、shift 可加）、zero-terminal-SNR 重标定与 log-SNR / 旋转角参数化（末端 ᾱ=0、λ=-inf、θ=π/2，说明为何必须配 v-prediction）、CFG 的 std rescale 与 guidance interval（逐样本总体标准差匹配、闭区间生效、φ 混合）、SDEdit strength 的截断起止步（i=floor(s·(T-1)) 与加噪落点）、VAE latent 的 shift/scale 与每通道先验白化（SDXL / SD3 / Flux 常数差异与编解码往返）。",
+    "description_en": "Sampling and scheduling infrastructure for diffusion generative models: sinusoidal timestep embedding (first half sin, second half cos, freq=10000^(-i/half)), linear and cosine noise schedules outputting the ᾱ sequence (Nichol-Dhariwal cosine + clip(0,0.999)), one-step DDPM forward noising q(x_t|x_0)=√ᾱ_t·x_0+√(1-ᾱ_t)·ε, the DDPM reverse posterior single step p(x_{t-1}|x_t,x_0) (with tilde-beta variance, degenerating to the mean when z=0), the DDIM deterministic denoising single step with σ_t=0 (two degenerate probes: ᾱ_prev=ᾱ_t identity, and =1 returning to x0) and classifier-free guidance ε_u+w(ε_c-ε_u) (w=0→uncond, w=1→cond). All formulas are traced back and verified against the original papers Ho(2006.11239)/Nichol-Dhariwal(2102.09672)/Song(2010.02502)/Ho-Salimans(2207.12598); the noise ε/z are explicit inputs to guarantee CPU float32 judging determinism, and each problem additionally has an independent oracle (math per-frequency / per-t cumulative product / element-wise double loop / equivalent-formula recomputation) plus dedicated assertions on degenerate invariants. This batch of 8 completes the sampling side: converting between the ε/x0/v targets (the orthogonal-rotation view of (x0,ε)→(x_t,v) plus both endpoint singularities), the DPM-Solver++(2M) second-order update (λ=log(α/σ) exponential integrator, order=1 bitwise equivalent to the DDIM closed form, plus the second-order difference identity), Euler integration of a Flow Matching / Rectified Flow velocity field (a single step is exact on the straight path), the RF timestep shift (t′=s·t/(1+(s-1)t), i.e. a logit-domain shift, with µ linearly interpolated from the sequence length and shifts composing multiplicatively), zero-terminal-SNR rescaling with log-SNR / rotation-angle parameterization (terminal ᾱ=0, λ=-inf, θ=π/2, explaining why v-prediction is mandatory), CFG std rescaling with the guidance interval (per-sample population std matching, closed interval, φ blending), the SDEdit strength truncation (i=floor(s·(T-1)) and the noising landing point), and the VAE latent shift/scale with per-channel prior whitening (SDXL / SD3 / Flux constant differences and the encode/decode round trip).",
     "problems": [
       "diff-sinusoidal-timestep",
       "diff-noise-schedule",
       "diff-ddpm-forward",
       "diff-ddpm-step",
       "diff-ddim",
-      "diff-cfg"
+      "diff-cfg",
+      "diff-v-prediction-convert",
+      "diff-dpmpp-2m",
+      "diff-flow-matching-euler",
+      "diff-rf-timestep-shift",
+      "diff-zero-terminal-snr",
+      "diff-guidance-rescale",
+      "diff-sdedit-strength",
+      "diff-vae-prior-correction"
     ]
   },
   {
@@ -450,6 +509,20 @@
       "mm-clip-infonce",
       "mm-siglip-loss",
       "mm-mrope-position-ids"
+    ]
+  },
+  {
+    "slug": "audio",
+    "name": "语音前端合集",
+    "name_en": "Speech Front-End Collection",
+    "description": "语音模型前端（Whisper / HuBERT / 声学模型）的确定性 DSP 流水线，全部按参考实现逐元素对拍：预加重与分帧加窗、STFT 幅度谱（n_fft / hop / center 反射填充）、Mel 滤波器组与 log-mel（HTK vs Slaney 刻度差异）、MFCC（正交 DCT-II + lifter + CMVN）、整数比多相重采样（windowed-sinc 核设计、相位对齐与增益归一）。与「多模态合集」的音频结构题分工：本合集只收纯信号处理，凡涉及 mel→卷积→audio token 的模型结构一律归多模态。",
+    "description_en": "The deterministic DSP pipeline in front of speech models (Whisper / HuBERT / acoustic models), every problem compared elementwise against the reference implementation: pre-emphasis with framing and windowing, STFT magnitude (n_fft / hop / center reflect padding), mel filterbanks and log-mel (the HTK vs Slaney scale difference), MFCC via an orthonormal DCT-II with lifter and CMVN, and integer-ratio polyphase resampling (windowed-sinc design, phase alignment, gain normalisation). Split from the Multimodal collection's audio-structure problems: this collection is pure signal processing, anything that goes mel -> strided conv -> audio tokens belongs to Multimodal.",
+    "problems": [
+      "audio-preemphasis-framing",
+      "audio-stft-frame",
+      "audio-mel-filterbank",
+      "audio-mfcc",
+      "audio-resample-polyphase"
     ]
   },
   {
@@ -497,6 +570,19 @@
       "rl-reward-batch-norm",
       "rl-async-rollout-staleness",
       "rl-trajectory-episode-assembly"
+    ]
+  },
+  {
+    "slug": "agentic-systems",
+    "name": "智能体系统合集",
+    "name_en": "Agentic Systems Collection",
+    "description": "LLM agent 运行时侧的可判部分：把「模型输出了什么」当作显式入参，只考系统对它的编排、解析、调度与预算决策。首批覆盖 ReAct 循环状态机（解析 Action / 执行工具 / 四种终止条件 / 死循环护栏）、工具调用参数的 JSON Schema 校验与归一（必填、类型兜底、枚举、默认值、多余字段）、任务 DAG 的拓扑执行与加权关键路径（小顶堆定序、并行波次、工期下界）、上下文窗口的优先级压缩（钉住片段、贪心装填、时间序还原）。红线：凡需模型真实生成或判断的一律不出题。",
+    "description_en": "The judgeable half of the LLM agent runtime: what the model emitted is taken as an explicit input, and only the system's orchestration, parsing, scheduling and budgeting decisions are graded. The first batch covers the ReAct loop state machine (Action parsing, tool execution, four termination sources, repeat guard), JSON-Schema validation and normalisation of tool-call arguments (required fields, type repair, enums, defaults, extra keys), task-DAG topological execution with a weighted critical path (min-heap ordering, parallel waves, makespan bound), and priority-based context-window compaction (pinned segments, greedy packing, chronological reassembly). Red line: anything requiring the model to actually generate or decide is out of scope.",
+    "problems": [
+      "agent-react-loop",
+      "agent-tool-call-schema",
+      "agent-task-dag-schedule",
+      "agent-context-compaction"
     ]
   }
 ]
