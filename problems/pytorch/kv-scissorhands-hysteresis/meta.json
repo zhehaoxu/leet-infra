@@ -1,0 +1,12 @@
+{
+  "title": "KV Cache：ScissorHands 时间一致性滞回驱逐",
+  "title_en": "KV Cache: ScissorHands Temporal Hysteresis Eviction",
+  "difficulty": "Medium",
+  "tags": ["operator", "kvcache"],
+  "order": 322,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

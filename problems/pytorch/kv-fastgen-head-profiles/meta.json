@@ -1,0 +1,12 @@
+{
+  "title": "KV Cache：FastGen 头型分类与差异化保留预算",
+  "title_en": "KV Cache: FastGen Head Profiling and Per-Type Retention Budgets",
+  "difficulty": "Medium",
+  "tags": ["operator", "kvcache"],
+  "order": 323,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

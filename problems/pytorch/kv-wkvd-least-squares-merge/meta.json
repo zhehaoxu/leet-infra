@@ -1,0 +1,12 @@
+{
+  "title": "KV Cache：WKVD 值向量的最小二乘合并",
+  "title_en": "KV Cache: WKVD Least-Squares Merging of Evicted Values",
+  "difficulty": "Hard",
+  "tags": ["operator", "kvcache"],
+  "order": 327,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

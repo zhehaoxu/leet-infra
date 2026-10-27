@@ -1,0 +1,12 @@
+{
+  "title": "KV Cache：CAKE 层间偏好预算与跨层级联传递",
+  "title_en": "KV Cache: CAKE Layer-Preference Budget and Cascading Propagation",
+  "difficulty": "Hard",
+  "tags": ["operator", "kvcache"],
+  "order": 324,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

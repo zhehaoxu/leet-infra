@@ -1,0 +1,12 @@
+{
+  "title": "KV Cache：H2O 累计注意力与重击手池",
+  "title_en": "KV Cache: H2O Cumulative Attention and Heavy-Hitter Pool",
+  "difficulty": "Medium",
+  "tags": ["operator", "kvcache"],
+  "order": 321,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

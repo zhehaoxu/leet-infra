@@ -1,0 +1,12 @@
+{
+  "title": "KV Cache：A2S 由上一步稀疏模式自适应选 top-n",
+  "title_en": "KV Cache: A2S Adaptive Top-n from the Previous Step's Sparsity Pattern",
+  "difficulty": "Medium",
+  "tags": ["operator", "kvcache"],
+  "order": 326,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

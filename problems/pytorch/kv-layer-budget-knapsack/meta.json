@@ -1,0 +1,12 @@
+{
+  "title": "KV Cache：层间保留名额的背包分配",
+  "title_en": "KV Cache: Knapsack Allocation of Per-Layer Retention Quotas",
+  "difficulty": "Hard",
+  "tags": ["operator", "kvcache"],
+  "order": 325,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}
