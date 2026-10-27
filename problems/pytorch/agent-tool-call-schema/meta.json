@@ -1,0 +1,12 @@
+{
+  "title": "Agent 基建：函数调用参数 JSON Schema 校验与归一",
+  "title_en": "Agent Infrastructure: Tool-Call Argument Validation against JSON Schema",
+  "difficulty": "Medium",
+  "tags": ["operator", "agentic"],
+  "order": 346,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

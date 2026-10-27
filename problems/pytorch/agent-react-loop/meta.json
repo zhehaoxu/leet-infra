@@ -1,0 +1,12 @@
+{
+  "title": "Agent 基建：ReAct 循环状态机",
+  "title_en": "Agent Infrastructure: ReAct Loop State Machine",
+  "difficulty": "Medium",
+  "tags": ["operator", "agentic"],
+  "order": 345,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

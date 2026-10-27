@@ -1,0 +1,12 @@
+{
+  "title": "Agent 基建：任务 DAG 拓扑执行与加权关键路径",
+  "title_en": "Agent Infrastructure: Task DAG Topological Execution and Weighted Critical Path",
+  "difficulty": "Medium",
+  "tags": ["operator", "agentic"],
+  "order": 347,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

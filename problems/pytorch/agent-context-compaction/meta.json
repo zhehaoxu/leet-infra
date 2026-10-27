@@ -1,0 +1,12 @@
+{
+  "title": "Agent 基建：上下文窗口预算压缩（优先级打包）",
+  "title_en": "Agent Infrastructure: Context Window Compaction under a Priority Budget",
+  "difficulty": "Medium",
+  "tags": ["operator", "agentic"],
+  "order": 348,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}
