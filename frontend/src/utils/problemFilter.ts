@@ -51,9 +51,11 @@ export type FamilyKey =
   | 'diffusion'
   | 'sparsity'
   | 'multimodal'
+  | 'audio'
   | 'retrieval'
   | 'evaluation'
   | 'rl'
+  | 'agentic'
   | 'other'
 
 export const TAG_FAMILY: Record<string, FamilyKey> = {
@@ -85,15 +87,17 @@ export const TAG_FAMILY: Record<string, FamilyKey> = {
   diffusion: 'diffusion',
   sparsity: 'sparsity',
   multimodal: 'multimodal',
+  audio: 'audio',
   retrieval: 'retrieval',
   evaluation: 'evaluation',
   rl: 'rl',
+  agentic: 'agentic',
 }
 
 export const GROUP_ORDER: FamilyKey[] = [
   'activation', 'normalization', 'conv', 'vision', 'gemm', 'attention',
   'tensor', 'loss', 'optimizer', 'quantization', 'sampling', 'rnn', 'metric', 'systems',
-  'tokenization', 'distributed', 'llm', 'moe', 'inference', 'alignment', 'kvcache', 'speculative', 'peft', 'diffusion', 'sparsity', 'multimodal', 'retrieval', 'evaluation', 'rl',
+  'tokenization', 'distributed', 'llm', 'moe', 'inference', 'alignment', 'kvcache', 'speculative', 'peft', 'diffusion', 'sparsity', 'multimodal', 'audio', 'retrieval', 'evaluation', 'rl', 'agentic',
   'other',
 ]
 

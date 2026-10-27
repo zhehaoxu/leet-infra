@@ -160,9 +160,11 @@ const zh = {
   'family.diffusion': '扩散生成',
   'family.sparsity': '稀疏剪枝',
   'family.multimodal': '多模态',
+  'family.audio': '语音前端',
   'family.retrieval': '向量检索',
   'family.evaluation': '评测指标',
   'family.rl': 'RL 基建',
+  'family.agentic': '智能体系统',
   'family.other': '框架 / 其他',
 } as const
 
@@ -334,9 +336,11 @@ const en: Record<MessageKey, string> = {
   'family.diffusion': 'Diffusion',
   'family.sparsity': 'Sparsity · Pruning',
   'family.multimodal': 'Multimodal',
+  'family.audio': 'Speech Front-End',
   'family.retrieval': 'Vector Retrieval',
   'family.evaluation': 'Evaluation Metrics',
   'family.rl': 'RL Systems',
+  'family.agentic': 'Agentic Systems',
   'family.other': 'Framework / Other',
 }
 
