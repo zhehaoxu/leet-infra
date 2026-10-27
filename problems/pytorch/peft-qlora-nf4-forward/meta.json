@@ -1,0 +1,12 @@
+{
+  "title": "PEFT：QLoRA NF4 反量化前向与显存账",
+  "title_en": "PEFT: QLoRA NF4 Dequantized Forward and Memory Accounting",
+  "difficulty": "Hard",
+  "tags": ["operator", "peft"],
+  "order": 256,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

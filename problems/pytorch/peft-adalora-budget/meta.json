@@ -1,0 +1,12 @@
+{
+  "title": "PEFT：AdaLoRA 预算内秩重分配",
+  "title_en": "PEFT: AdaLoRA Budgeted Rank Reallocation",
+  "difficulty": "Hard",
+  "tags": ["operator", "peft"],
+  "order": 254,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

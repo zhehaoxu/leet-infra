@@ -1,0 +1,12 @@
+{
+  "title": "PEFT：DARE 丢弃重缩放与 TIES 三步合并",
+  "title_en": "PEFT: DARE Drop-and-Rescale with TIES Merging",
+  "difficulty": "Hard",
+  "tags": ["operator", "peft"],
+  "order": 253,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

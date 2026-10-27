@@ -1,0 +1,12 @@
+{
+  "title": "PEFT：OFT 正交微调的 Cayley 参数化",
+  "title_en": "PEFT: OFT Orthogonal Finetuning via Cayley Transform",
+  "difficulty": "Hard",
+  "tags": ["operator", "peft"],
+  "order": 252,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

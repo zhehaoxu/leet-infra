@@ -1,0 +1,12 @@
+{
+  "title": "PEFT：LoKr Kronecker 因子分解",
+  "title_en": "PEFT: LoKr Kronecker Factorization",
+  "difficulty": "Easy",
+  "tags": ["operator", "peft"],
+  "order": 250,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

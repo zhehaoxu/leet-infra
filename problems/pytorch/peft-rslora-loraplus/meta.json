@@ -1,0 +1,12 @@
+{
+  "title": "PEFT：rsLoRA 缩放与 LoRA+ 差异化学习率",
+  "title_en": "PEFT: rsLoRA Scaling and LoRA+ Divergent Learning Rates",
+  "difficulty": "Easy",
+  "tags": ["operator", "peft"],
+  "order": 255,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}
