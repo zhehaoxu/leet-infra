@@ -1,0 +1,24 @@
+{
+  "title": "4D 加性注意力 mask 构造",
+  "title_en": "4-D Additive Attention Mask Construction",
+  "difficulty": "Medium",
+  "tags": [
+    "operator",
+    "attention"
+  ],
+  "order": 319,
+  "variants": {
+    "pytorch": {
+      "label": "PyTorch",
+      "available": true
+    },
+    "triton": {
+      "label": "Triton",
+      "available": false
+    },
+    "cuda": {
+      "label": "CUDA",
+      "available": false
+    }
+  }
+}

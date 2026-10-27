@@ -1,0 +1,24 @@
+{
+  "title": "嵌入 margin 损失：Hinge 与 Cosine",
+  "title_en": "Embedding Margin Losses: Hinge and Cosine",
+  "difficulty": "Medium",
+  "tags": [
+    "operator",
+    "loss"
+  ],
+  "order": 310,
+  "variants": {
+    "pytorch": {
+      "label": "PyTorch",
+      "available": true
+    },
+    "triton": {
+      "label": "Triton",
+      "available": false
+    },
+    "cuda": {
+      "label": "CUDA",
+      "available": false
+    }
+  }
+}

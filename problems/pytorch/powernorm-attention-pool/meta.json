@@ -1,0 +1,24 @@
+{
+  "title": "PowerNorm 与加性注意力池化读出",
+  "title_en": "PowerNorm and Additive Attention Pooling Readout",
+  "difficulty": "Medium",
+  "tags": [
+    "operator",
+    "attention"
+  ],
+  "order": 318,
+  "variants": {
+    "pytorch": {
+      "label": "PyTorch",
+      "available": true
+    },
+    "triton": {
+      "label": "Triton",
+      "available": false
+    },
+    "cuda": {
+      "label": "CUDA",
+      "available": false
+    }
+  }
+}

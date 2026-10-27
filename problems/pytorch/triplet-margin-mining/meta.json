@@ -1,0 +1,24 @@
+{
+  "title": "Triplet Margin 损失与在线难例挖掘",
+  "title_en": "Triplet Margin Loss with Online Hard Mining",
+  "difficulty": "Hard",
+  "tags": [
+    "operator",
+    "loss"
+  ],
+  "order": 309,
+  "variants": {
+    "pytorch": {
+      "label": "PyTorch",
+      "available": true
+    },
+    "triton": {
+      "label": "Triton",
+      "available": false
+    },
+    "cuda": {
+      "label": "CUDA",
+      "available": false
+    }
+  }
+}

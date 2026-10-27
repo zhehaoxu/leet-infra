@@ -1,0 +1,24 @@
+{
+  "title": "pixel_shuffle 与 space-to-depth/depth-to-space",
+  "title_en": "pixel_shuffle and space-to-depth/depth-to-space",
+  "difficulty": "Medium",
+  "tags": [
+    "operator",
+    "cnn"
+  ],
+  "order": 314,
+  "variants": {
+    "pytorch": {
+      "label": "PyTorch",
+      "available": true
+    },
+    "triton": {
+      "label": "Triton",
+      "available": false
+    },
+    "cuda": {
+      "label": "CUDA",
+      "available": false
+    }
+  }
+}

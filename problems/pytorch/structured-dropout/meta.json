@@ -1,0 +1,24 @@
+{
+  "title": "结构化丢弃：DropPath 与 Dropout2d/3d",
+  "title_en": "Structured Dropout: DropPath and Dropout2d/3d",
+  "difficulty": "Medium",
+  "tags": [
+    "operator",
+    "cnn"
+  ],
+  "order": 315,
+  "variants": {
+    "pytorch": {
+      "label": "PyTorch",
+      "available": true
+    },
+    "triton": {
+      "label": "Triton",
+      "available": false
+    },
+    "cuda": {
+      "label": "CUDA",
+      "available": false
+    }
+  }
+}

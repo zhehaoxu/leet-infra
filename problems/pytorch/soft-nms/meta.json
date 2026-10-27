@@ -1,0 +1,24 @@
+{
+  "title": "Soft-NMS 置信度连续衰减",
+  "title_en": "Soft-NMS Confidence Decay",
+  "difficulty": "Medium",
+  "tags": [
+    "operator",
+    "vision"
+  ],
+  "order": 308,
+  "variants": {
+    "pytorch": {
+      "label": "PyTorch",
+      "available": true
+    },
+    "triton": {
+      "label": "Triton",
+      "available": false
+    },
+    "cuda": {
+      "label": "CUDA",
+      "available": false
+    }
+  }
+}

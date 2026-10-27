@@ -1,0 +1,24 @@
+{
+  "title": "unfold/fold/roll：im2col、col2im 重叠累加与循环移位",
+  "title_en": "unfold/fold/roll: im2col, col2im Overlap Accumulation and Circular Shift",
+  "difficulty": "Hard",
+  "tags": [
+    "operator",
+    "cnn"
+  ],
+  "order": 313,
+  "variants": {
+    "pytorch": {
+      "label": "PyTorch",
+      "available": true
+    },
+    "triton": {
+      "label": "Triton",
+      "available": false
+    },
+    "cuda": {
+      "label": "CUDA",
+      "available": false
+    }
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "title": "searchsorted 分桶与 bincount 直方图",
+  "title_en": "searchsorted Bucketing and bincount Histogram",
+  "difficulty": "Easy",
+  "tags": [
+    "operator",
+    "tensor"
+  ],
+  "order": 312,
+  "variants": {
+    "pytorch": {
+      "label": "PyTorch",
+      "available": true
+    },
+    "triton": {
+      "label": "Triton",
+      "available": false
+    },
+    "cuda": {
+      "label": "CUDA",
+      "available": false
+    }
+  }
+}

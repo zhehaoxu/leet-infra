@@ -1,0 +1,24 @@
+{
+  "title": "检测框 IoU 变体损失：GIoU/DIoU/CIoU",
+  "title_en": "Detection Box IoU Variant Losses: GIoU/DIoU/CIoU",
+  "difficulty": "Medium",
+  "tags": [
+    "operator",
+    "loss"
+  ],
+  "order": 307,
+  "variants": {
+    "pytorch": {
+      "label": "PyTorch",
+      "available": true
+    },
+    "triton": {
+      "label": "Triton",
+      "available": false
+    },
+    "cuda": {
+      "label": "CUDA",
+      "available": false
+    }
+  }
+}

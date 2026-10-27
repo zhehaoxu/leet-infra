@@ -1,0 +1,24 @@
+{
+  "title": "冷门激活：softsign/hardtanh/celu/log-sigmoid",
+  "title_en": "Uncommon Activations: softsign/hardtanh/celu/log-sigmoid",
+  "difficulty": "Easy",
+  "tags": [
+    "operator",
+    "activation"
+  ],
+  "order": 320,
+  "variants": {
+    "pytorch": {
+      "label": "PyTorch",
+      "available": true
+    },
+    "triton": {
+      "label": "Triton",
+      "available": false
+    },
+    "cuda": {
+      "label": "CUDA",
+      "available": false
+    }
+  }
+}

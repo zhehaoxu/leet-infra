@@ -1,0 +1,24 @@
+{
+  "title": "scatter_reduce 聚合写入",
+  "title_en": "scatter_reduce Aggregating Writes",
+  "difficulty": "Medium",
+  "tags": [
+    "operator",
+    "tensor"
+  ],
+  "order": 311,
+  "variants": {
+    "pytorch": {
+      "label": "PyTorch",
+      "available": true
+    },
+    "triton": {
+      "label": "Triton",
+      "available": false
+    },
+    "cuda": {
+      "label": "CUDA",
+      "available": false
+    }
+  }
+}

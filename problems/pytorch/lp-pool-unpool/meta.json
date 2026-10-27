@@ -1,0 +1,24 @@
+{
+  "title": "LpPool 与 maxpool 索引/unpool",
+  "title_en": "LpPool and maxpool Indices/unpool",
+  "difficulty": "Medium",
+  "tags": [
+    "operator",
+    "cnn"
+  ],
+  "order": 316,
+  "variants": {
+    "pytorch": {
+      "label": "PyTorch",
+      "available": true
+    },
+    "triton": {
+      "label": "Triton",
+      "available": false
+    },
+    "cuda": {
+      "label": "CUDA",
+      "available": false
+    }
+  }
+}
