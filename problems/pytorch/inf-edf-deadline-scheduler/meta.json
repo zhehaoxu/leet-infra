@@ -1,0 +1,12 @@
+{
+  "title": "SLO 感知的 EDF 调度与等待老化",
+  "title_en": "SLO-Aware EDF Scheduling with Wait Aging",
+  "difficulty": "Medium",
+  "tags": ["operator", "inference"],
+  "order": 335,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

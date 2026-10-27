@@ -1,0 +1,12 @@
+{
+  "title": "PagedAttention 页表间接寻址与写时复制共享",
+  "title_en": "PagedAttention Page Tables with Copy-on-Write Sharing",
+  "difficulty": "Medium",
+  "tags": ["operator", "inference"],
+  "order": 333,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

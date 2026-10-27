@@ -1,0 +1,12 @@
+{
+  "title": "cache-aware 粘性路由：前缀命中与队列深度联合代价",
+  "title_en": "Cache-Aware Sticky Routing: Prefix Hits vs Queue Depth",
+  "difficulty": "Medium",
+  "tags": ["operator", "inference"],
+  "order": 337,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

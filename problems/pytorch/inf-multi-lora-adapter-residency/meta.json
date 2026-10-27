@@ -1,0 +1,12 @@
+{
+  "title": "multi-LoRA 热加载：adapter 驻留 LRU 与显存账",
+  "title_en": "Multi-LoRA Hot Swap: Adapter Residency LRU and Memory Accounting",
+  "difficulty": "Medium",
+  "tags": ["operator", "inference"],
+  "order": 339,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

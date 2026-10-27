@@ -1,0 +1,12 @@
+{
+  "title": "KV 块预算下的请求准入与顺延",
+  "title_en": "KV Block Budget Admission Control with Stalled Decodes",
+  "difficulty": "Medium",
+  "tags": ["operator", "inference"],
+  "order": 334,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

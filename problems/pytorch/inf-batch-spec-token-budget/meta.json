@@ -1,0 +1,12 @@
+{
+  "title": "批内推测解码的 token 名额分配",
+  "title_en": "Token Budget Allocation Across a Batch of Speculative Requests",
+  "difficulty": "Medium",
+  "tags": ["operator", "inference"],
+  "order": 336,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

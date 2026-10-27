@@ -1,0 +1,12 @@
+{
+  "title": "KV 驻留时长积分与 token 计费账",
+  "title_en": "KV Residency Integral and Token Billing Ledger",
+  "difficulty": "Easy",
+  "tags": ["operator", "inference"],
+  "order": 338,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}
