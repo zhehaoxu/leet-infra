@@ -1,0 +1,12 @@
+{
+  "title": "推测解码：候选树构造与 tree attention 掩码",
+  "title_en": "Speculative Decoding: Candidate Tree Construction and Tree Attention Mask",
+  "difficulty": "Medium",
+  "tags": ["operator", "speculative"],
+  "order": 328,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

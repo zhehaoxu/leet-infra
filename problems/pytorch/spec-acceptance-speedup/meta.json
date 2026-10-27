@@ -1,0 +1,12 @@
+{
+  "title": "推测解码：接受率到加速比的解析账与最优 γ",
+  "title_en": "Speculative Decoding: Closed-Form Speedup from Acceptance Rate and Optimal Gamma",
+  "difficulty": "Medium",
+  "tags": ["math", "speculative"],
+  "order": 329,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "title": "推测解码：n-gram 池的容量淘汰与老化",
+  "title_en": "Speculative Decoding: Capacity Eviction and Aging in an n-gram Pool",
+  "difficulty": "Medium",
+  "tags": ["algorithm", "speculative"],
+  "order": 332,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

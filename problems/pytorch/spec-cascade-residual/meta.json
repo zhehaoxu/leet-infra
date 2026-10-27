@@ -1,0 +1,12 @@
+{
+  "title": "推测解码：多 draft 级联的残差逐级补齐",
+  "title_en": "Speculative Decoding: Cascaded Multi-Draft Residual Filling",
+  "difficulty": "Medium",
+  "tags": ["operator", "speculative"],
+  "order": 330,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

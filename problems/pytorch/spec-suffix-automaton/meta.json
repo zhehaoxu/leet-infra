@@ -1,0 +1,12 @@
+{
+  "title": "推测解码：在线后缀自动机与最长后缀匹配",
+  "title_en": "Speculative Decoding: Online Suffix Automaton and Longest Suffix Match",
+  "difficulty": "Medium",
+  "tags": ["algorithm", "speculative"],
+  "order": 331,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}
