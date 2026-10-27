@@ -1,0 +1,12 @@
+{
+  "title": "音频前端：STFT 分帧频谱（n_fft / center / 反射填充）",
+  "title_en": "Audio Front-End: STFT Magnitude with Center Padding",
+  "difficulty": "Medium",
+  "tags": ["operator", "audio"],
+  "order": 341,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

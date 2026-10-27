@@ -1,0 +1,12 @@
+{
+  "title": "音频前端：Mel 滤波器组与 log-mel（HTK / Slaney 刻度）",
+  "title_en": "Audio Front-End: Mel Filterbank and Log-Mel (HTK vs Slaney)",
+  "difficulty": "Medium",
+  "tags": ["operator", "audio"],
+  "order": 342,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

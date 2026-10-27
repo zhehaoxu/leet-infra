@@ -1,0 +1,12 @@
+{
+  "title": "音频前端：预加重 + 分帧 + 加窗",
+  "title_en": "Audio Front-End: Pre-emphasis, Framing, and Windowing",
+  "difficulty": "Medium",
+  "tags": ["operator", "audio"],
+  "order": 340,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

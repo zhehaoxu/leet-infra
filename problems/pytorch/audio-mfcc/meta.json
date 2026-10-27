@@ -1,0 +1,12 @@
+{
+  "title": "音频前端：MFCC（正交 DCT-II + lifter + CMVN）",
+  "title_en": "Audio Front-End: MFCC via Orthonormal DCT-II",
+  "difficulty": "Medium",
+  "tags": ["operator", "audio"],
+  "order": 343,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}
