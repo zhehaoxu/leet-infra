@@ -1,0 +1,12 @@
+{
+  "title": "扩散采样：Flow Matching / Rectified Flow 的 Euler 积分",
+  "title_en": "Diffusion: Euler Integration of a Rectified-Flow Velocity Field",
+  "difficulty": "Medium",
+  "tags": ["operator", "diffusion"],
+  "order": 351,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

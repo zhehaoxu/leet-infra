@@ -1,0 +1,12 @@
+{
+  "title": "扩散采样：CFG 的 rescale 与 guidance interval",
+  "title_en": "Diffusion: CFG Rescaling and the Guidance Interval",
+  "difficulty": "Medium",
+  "tags": ["operator", "diffusion"],
+  "order": 354,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

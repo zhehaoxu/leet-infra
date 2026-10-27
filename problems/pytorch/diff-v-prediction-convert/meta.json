@@ -1,0 +1,12 @@
+{
+  "title": "扩散采样：ε / x₀ / v 三种预测目标互转",
+  "title_en": "Diffusion: Converting between ε, x0 and v Prediction Targets",
+  "difficulty": "Medium",
+  "tags": ["operator", "diffusion"],
+  "order": 349,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

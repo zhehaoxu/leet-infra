@@ -1,0 +1,12 @@
+{
+  "title": "扩散采样：VAE latent 的 shift / scale 与先验校正",
+  "title_en": "Diffusion: VAE Latent Shift/Scale and Prior Correction",
+  "difficulty": "Medium",
+  "tags": ["operator", "diffusion"],
+  "order": 356,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

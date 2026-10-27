@@ -1,0 +1,12 @@
+{
+  "title": "扩散采样：zero-terminal-SNR 重标定与 log-SNR 参数化",
+  "title_en": "Diffusion: Zero-Terminal-SNR Rescaling and log-SNR Parameterization",
+  "difficulty": "Medium",
+  "tags": ["operator", "diffusion"],
+  "order": 353,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

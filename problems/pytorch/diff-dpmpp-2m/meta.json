@@ -1,0 +1,12 @@
+{
+  "title": "扩散采样：DPM-Solver++(2M) 二阶更新（含 Euler 一阶）",
+  "title_en": "Diffusion: DPM-Solver++(2M) Second-Order Update with Euler Base",
+  "difficulty": "Hard",
+  "tags": ["operator", "diffusion"],
+  "order": 350,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

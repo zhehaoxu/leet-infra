@@ -1,0 +1,12 @@
+{
+  "title": "扩散采样：Rectified Flow 的 timestep shift 映射",
+  "title_en": "Diffusion: Timestep Shift for Rectified-Flow Sampling",
+  "difficulty": "Medium",
+  "tags": ["operator", "diffusion"],
+  "order": 352,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}
