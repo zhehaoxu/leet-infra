@@ -1,0 +1,34 @@
+# Deep Dive: YaRN's Wavelength Ramp and Attention Temperature
+
+## Where it comes from
+
+- YaRN: Peng et al., *YaRN: Efficient Context Window Extension of Large Language Models*, arXiv:2309.00071 — §3.2 (NTK-by-parts interpolation, split by wavelength) and §3.3 (the \(0.1\ln s+1\) attention temperature).
+- LongRoPE: microsoft/LongRoPE uses the same inv_freq blending; transformers' `modeling_rope_utils._compute_yarn_parameters` is the upstream port of this implementation, and the three modes of this problem map one-to-one onto its `yarn` / `linear` / `dynamic_ntk` functions.
+
+Upstream order of operations: compute `pos_freqs = base ** (arange(0, dim, 2)/dim)`, then `inv_freq_extrapolation = 1/pos_freqs` and `inv_freq_interpolation = 1/(factor*pos_freqs)`; the boundaries come from `find_correction_dim` (the \(c(n)\) here); `linear_ramp_factor` clamps and mixes via `inv_freq = interp*(1 - e) + extrap*e` with `e = 1 - ramp`. `attention_factor` is multiplied onto **both** cos and sin inside `LlamaRotaryEmbedding.forward`.
+
+## Core points and pitfalls
+
+1. **The two index spaces differ.** The boundaries \(low/high\) are derived on the \(d\) scale (`find_correction_dim` multiplies by `dim`), but the ramp argument only spans the \(h=d/2\) entries. Hence the extrapolation band covers the dimensions with \(i<low\); dividing \(low/high\) by two shifts the whole ramp left and puts the transition band in the wrong place. `check_ramp_structure` asserts the three-way split using independently computed \(low/high\).
+2. **`beta_fast` owns the extrapolation side, `beta_slow` the interpolation side.** \(low=\lfloor c(\text{beta\_fast})\rfloor\), \(high=\lceil c(\text{beta\_slow})\rceil\). Since \(c(n)\) decreases in \(n\), only `beta_fast > beta_slow` yields \(low<high\); swapping them makes the ramp slope negative, and after clamping you get a reversed blend. The solution rejects `beta_fast <= beta_slow` outright with `ValueError`.
+3. **`truncate` is a real numeric difference, not decoration.** Rounding snaps the boundaries onto integer dimensions. For the \(d=8\) example, \(c(32)=1.008\) and \(c(1)=2.513\), so with truncation \(low=1,high=3\) and \(i=2\) has ramp exactly 0.5 → `0.00625`; without truncation \(low=1.008,high=2.513\), the same \(i=2\) gets ramp \(0.6594\) → `0.00505697`. A 20%+ gap, easy to spot.
+4. **The temperature is not a rotation.** \(\gamma\) multiplies cos and sin alike, so \(\|q\cdot\cos+\mathrm{rot}(q)\cdot\sin\|=\gamma\|q\|\). Mathematically this is equivalent to scaling the attention logits by \(\gamma^2\) (each side of \(QK^\top\) carries one \(\gamma\)), which is exactly the paper's intent of restoring the entropy lost to interpolation. Multiplying only cos or only sin is neither a rotation nor a scaling — `check_cos_sin_amplitude` pins this with a length assertion.
+5. **Three-tier priority for \(\gamma\).** An explicit `attention_factor` wins; otherwise when **both** `mscale` and `mscale_all_dim` are given, take the ratio of the two `get_mscale` values; otherwise \(g(\text{factor},1)\). Supplying only one mscale must be ignored — upstream writes `if mscale and mscale_all_dim:`, which also carries truthiness semantics (`mscale=0` falls through to the else branch). This solution uses explicit `is not None` checks to sidestep that trap.
+6. **\(\gamma=1\) when `factor <= 1`.** `get_mscale` returns 1 without taking a log when `scale <= 1`, so YaRN with `factor=1` degenerates into plain RoPE with the untouched inv_freq and no temperature. `check_attention_scaling` and `check_linear_mode` each assert this.
+7. **`dynamic_ntk` rewrites the base from the current length.** \(\text{base}'=\text{base}\cdot((\text{factor}\ell/L)-(\text{factor}-1))^{d/(d-2)}\) where \(\ell\) is first raised to at least \(L\) (below the training length the multiplier is 1 and the exponent is irrelevant). The exponent is \(d/(d-2)\), which divides by zero at \(d=2\) — hence the `head_dim >= 4` floor.
+8. **`linear` is not YaRN.** `linear` divides **every** dimension by factor (high-frequency ones included), while YaRN only squashes the low-frequency band: `inv_freq[0]` is `1/factor` under `linear` but still `1` under YaRN. If only `linear` were tested, any "divide the whole table by factor" implementation would pass; that is why the tests also assert that the two ramp ends coincide with `inv_extrap` and `inv_interp`.
+9. **Singularity guard on the ramp.** Upstream does `max += 0.001` when `low == high`, which happens when both boundaries invert into the same dimension (extreme betas or a tiny \(d\)); without it, the division is 0/0 → NaN. The branch is kept, and since `beta_fast > beta_slow` is enforced up front, it can only be reached through extreme \(d\)/\(L\).
+
+## How it is judged
+
+The reference solution computes `inv_freq`, \(\gamma\) and cos/sin entirely in float64 and casts to float32 at the end. Judging happens on three layers:
+
+- **Example values**: the \(d=8\) group's `inv_freq` / \(\gamma\) / `cos(pos=3)` / `sin(pos=3)` are hard-coded to six decimals;
+- **Structural assertions**: the extrapolation / transition / interpolation bands checked against independently computed \(low/high\) (`interp < inv < extrap` in the middle); monotone non-increasing `inv_freq`; the numeric gap caused by `truncate` and the left shift of the transition band as `beta_fast` grows; all four sources of \(\gamma\) (default / factor=1 / mscale ratio / explicit `attention_factor`); "applying cos/sin multiplies the vector length by \(\gamma\)"; and the degeneracies of `linear` and `dynamic_ntk` (`seq_len < L` is raised to \(L\), the base is untouched below the training length);
+- **Two oracles**: (a) an independent numpy `_oracle` that recomputes `inv_freq`, `γ`, `cos` and `sin` from scalar formulas, compared element-wise over 5 `yarn` configs plus `linear` and `dynamic_ntk` at `1e-6`; (b) a direct comparison against `transformers==5.20.2`'s `LlamaRotaryEmbedding` (with `rope_parameters={"rope_type": "yarn", ...}`) and `modeling_rope_utils._compute_dynamic_ntk_parameters`, using `1e-5` for `inv_freq` and `1e-4` for cos/sin (upstream evaluates `pos·inv_freq` in float32, so at positions of a few hundred the phase error already reaches \(10^{-5}\); hence the looser band for cos/sin).
+
+Another 27 invalid-input cases must raise `ValueError`: odd or too-small `head_dim`, non-integer or `bool`, `base<=1`, `factor<=0`, `L<2`, `beta_fast<=beta_slow`, non-bool `truncate`, unknown `rope_type`, `position_ids` that is not a tensor / not 2-D / not integer / negative / empty, `attention_factor` or `mscale` passed under `linear`, non-positive \(\gamma\), and a non-positive-integer `seq_len` under `dynamic_ntk`.
+
+## Complexity
+
+`inv_freq` and cos/sin are \(O(d)\) and \(O(BSd)\) element-wise work respectively, and the boundary inversion is a constant number of `log`/`floor`/`ceil` calls: \(O(BSd)\) time and \(O(BSd)\) space (one copy each for cos and sin).

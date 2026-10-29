@@ -1,0 +1,12 @@
+{
+  "title": "SoftMax1（LLN）：给注意力分母加一个虚拟 sink",
+  "title_en": "SoftMax1 (LLN): Attention Sink as an Extra Denominator Term",
+  "difficulty": "Medium",
+  "tags": ["operator", "llm"],
+  "order": 526,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

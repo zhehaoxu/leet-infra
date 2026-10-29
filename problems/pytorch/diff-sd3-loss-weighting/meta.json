@@ -1,0 +1,12 @@
+{
+  "title": "训练损失：SD3 的 σ 损失加权与置信度感知交叉熵",
+  "title_en": "Training Losses: SD3 Sigma Weighting and Confidence-Aware Cross-Entropy",
+  "difficulty": "Medium",
+  "tags": ["operator", "diffusion"],
+  "order": 515,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

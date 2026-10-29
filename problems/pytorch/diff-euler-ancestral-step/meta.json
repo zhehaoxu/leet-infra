@@ -1,0 +1,12 @@
+{
+  "title": "EulerAncestral：σ_up/σ_down 拆分与祖先噪声注入",
+  "title_en": "EulerAncestral: σ_up/σ_down Split and Ancestral Noise Injection",
+  "difficulty": "Medium",
+  "tags": ["operator", "diffusion"],
+  "order": 522,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

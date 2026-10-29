@@ -1,0 +1,12 @@
+{
+  "title": "扩散采样：APG-Mix 的 CFG 预热与正交投影引导",
+  "title_en": "Diffusion: APG-Mix CFG Warmup and Orthogonal Projected Guidance",
+  "difficulty": "Hard",
+  "tags": ["operator", "diffusion"],
+  "order": 511,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

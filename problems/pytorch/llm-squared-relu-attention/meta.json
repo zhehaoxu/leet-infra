@@ -1,0 +1,12 @@
+{
+  "title": "Squared-ReLU 注意力：relu² 替代 softmax 的行归一前向",
+  "title_en": "Squared-ReLU Attention: relu² Instead of Softmax with Row Normalization",
+  "difficulty": "Medium",
+  "tags": ["operator", "llm"],
+  "order": 528,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

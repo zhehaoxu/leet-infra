@@ -1,0 +1,12 @@
+{
+  "title": "扩散采样：SEG 的查询平滑（方阵高斯模糊与均值守恒）",
+  "title_en": "Diffusion: SEG Query Smoothing (Square Gaussian Blur vs Mean Collapse)",
+  "difficulty": "Medium",
+  "tags": ["operator", "diffusion"],
+  "order": 513,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

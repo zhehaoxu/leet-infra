@@ -1,0 +1,12 @@
+{
+  "title": "Flow Matching 采样：动态时间平移与 terminal 拉伸",
+  "title_en": "Flow Match Sampling: Dynamic Time Shifting and Terminal Stretching",
+  "difficulty": "Medium",
+  "tags": ["operator", "diffusion"],
+  "order": 518,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "title": "扩散采样：EulerDiscrete 的时间栅格与 σ 转换",
+  "title_en": "Diffusion Sampling: EulerDiscrete Timestep Grids and Sigma Converters",
+  "difficulty": "Medium",
+  "tags": ["operator", "diffusion"],
+  "order": 517,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

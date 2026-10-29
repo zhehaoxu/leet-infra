@@ -1,0 +1,12 @@
+{
+  "title": "DPMSolverMultistep 的多步阶数与终步降阶调度",
+  "title_en": "DPMSolverMultistep Order Schedule and Final-Step Downgrade",
+  "difficulty": "Medium",
+  "tags": ["operator", "diffusion"],
+  "order": 520,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

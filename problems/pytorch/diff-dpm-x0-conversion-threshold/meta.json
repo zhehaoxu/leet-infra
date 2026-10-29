@@ -1,0 +1,12 @@
+{
+  "title": "DPM-Solver 的 x₀/ε 口径转换与动态阈值",
+  "title_en": "DPM-Solver Model-Output Conversion and Dynamic Thresholding",
+  "difficulty": "Medium",
+  "tags": ["operator", "diffusion"],
+  "order": 521,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

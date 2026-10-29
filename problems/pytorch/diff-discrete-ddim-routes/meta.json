@@ -1,0 +1,12 @@
+{
+  "title": "离散扩散：D3PM 均匀腐蚀的后验三路路由",
+  "title_en": "Discrete Diffusion: D3PM Uniform-Kernel Posterior Routes",
+  "difficulty": "Medium",
+  "tags": ["operator", "diffusion"],
+  "order": 514,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

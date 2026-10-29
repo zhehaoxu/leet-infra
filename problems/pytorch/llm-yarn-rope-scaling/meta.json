@@ -1,0 +1,12 @@
+{
+  "title": "YaRN / LongRoPE：波长 ramp 混合与注意力温度",
+  "title_en": "YaRN / LongRoPE: Wavelength Ramp Blending and Attention Temperature",
+  "difficulty": "Medium",
+  "tags": ["operator", "llm"],
+  "order": 524,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

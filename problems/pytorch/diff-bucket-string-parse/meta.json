@@ -1,0 +1,12 @@
+{
+  "title": "训练数据：分辨率分桶字符串的解析与校验",
+  "title_en": "Training Data: Parsing and Validating Aspect-Ratio Bucket Strings",
+  "difficulty": "Easy",
+  "tags": ["operator", "diffusion"],
+  "order": 516,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

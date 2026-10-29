@@ -1,0 +1,12 @@
+{
+  "title": "VE/EDM 预条件：四系数与带 churn 的 Euler 步",
+  "title_en": "VE/EDM Preconditioning: Four Coefficients and the Churned Euler Step",
+  "difficulty": "Medium",
+  "tags": ["operator", "diffusion"],
+  "order": 519,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

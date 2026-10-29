@@ -1,0 +1,12 @@
+{
+  "title": "Gemma2 整模型装配：配置推导、层型交替与绑定词表头",
+  "title_en": "Full Gemma2 Model: Config-Driven Dimensions, Alternating Layer Types and a Tied LM Head",
+  "difficulty": "Hard",
+  "tags": ["operator", "llm"],
+  "order": 529,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

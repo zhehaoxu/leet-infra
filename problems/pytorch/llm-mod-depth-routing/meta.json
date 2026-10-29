@@ -1,0 +1,12 @@
+{
+  "title": "Mixture-of-Depths：逐层 top-k 深度路由与残差传递",
+  "title_en": "Mixture-of-Depths: Per-Layer Top-k Depth Routing and Residual Flow",
+  "difficulty": "Hard",
+  "tags": ["operator", "llm"],
+  "order": 527,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

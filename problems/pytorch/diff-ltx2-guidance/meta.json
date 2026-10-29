@@ -1,0 +1,12 @@
+{
+  "title": "扩散采样：LTX-2 三路增量引导合成",
+  "title_en": "Diffusion: LTX-2 Three-Term Delta Guidance",
+  "difficulty": "Medium",
+  "tags": ["operator", "diffusion"],
+  "order": 512,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

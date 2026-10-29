@@ -1,0 +1,12 @@
+{
+  "title": "Gemma2 解码层：滑窗/全局掩码与双 post-norm 装配",
+  "title_en": "Gemma2 Decoder Layer: Sliding/Global Masks and Double Post-Norm",
+  "difficulty": "Hard",
+  "tags": ["operator", "llm"],
+  "order": 525,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

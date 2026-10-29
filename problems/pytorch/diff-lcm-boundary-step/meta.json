@@ -1,0 +1,12 @@
+{
+  "title": "LCM 边界条件系数与少步去噪单步",
+  "title_en": "LCM Boundary-Condition Scalings and the Few-Step Denoise Step",
+  "difficulty": "Medium",
+  "tags": ["operator", "diffusion"],
+  "order": 523,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}
