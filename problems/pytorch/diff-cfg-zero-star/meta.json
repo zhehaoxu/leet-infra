@@ -1,0 +1,12 @@
+{
+  "title": "扩散采样：CFG-Zero* 的零初始化与最优尺度",
+  "title_en": "Diffusion: CFG-Zero* Zero-Init and Optimal Scale",
+  "difficulty": "Medium",
+  "tags": ["operator", "diffusion"],
+  "order": 502,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

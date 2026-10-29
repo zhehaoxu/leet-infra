@@ -1,0 +1,12 @@
+{
+  "title": "扩散采样：MAMBO-G 的幅值自适应引导",
+  "title_en": "Diffusion: MAMBO-G Magnitude-Aware Guidance",
+  "difficulty": "Medium",
+  "tags": ["operator", "diffusion"],
+  "order": 505,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

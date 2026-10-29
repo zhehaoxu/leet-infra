@@ -1,0 +1,12 @@
+{
+  "title": "MTP：多 token 预测的深度融合栈",
+  "title_en": "MTP: Multi-Token Prediction Depth Stack",
+  "difficulty": "Medium",
+  "tags": ["llm", "training"],
+  "order": 508,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

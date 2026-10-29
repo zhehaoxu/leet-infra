@@ -1,0 +1,12 @@
+{
+  "title": "扩散采样：APG 的自适应投影引导",
+  "title_en": "Diffusion: Adaptive Projected Guidance",
+  "difficulty": "Hard",
+  "tags": ["operator", "diffusion"],
+  "order": 501,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "title": "扩散采样：PAG 的双尺度引导与两套窗口",
+  "title_en": "Diffusion: PAG Dual-Scale Guidance and Its Two Windows",
+  "difficulty": "Medium",
+  "tags": ["operator", "diffusion"],
+  "order": 504,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

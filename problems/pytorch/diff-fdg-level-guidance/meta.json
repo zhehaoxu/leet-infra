@@ -1,0 +1,12 @@
+{
+  "title": "扩散采样：FDG 的逐频层解耦引导",
+  "title_en": "Diffusion: Frequency-Decoupled Guidance (FDG)",
+  "difficulty": "Hard",
+  "tags": ["operator", "diffusion"],
+  "order": 506,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

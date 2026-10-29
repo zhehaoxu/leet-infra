@@ -1,0 +1,12 @@
+{
+  "title": "PEFT：GLoRA 权重合并与精确逆解",
+  "title_en": "PEFT: GLoRA Weight Merge and Exact Unmerge",
+  "difficulty": "Hard",
+  "tags": ["operator", "peft"],
+  "order": 509,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

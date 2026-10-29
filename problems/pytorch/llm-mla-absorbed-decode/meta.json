@@ -1,0 +1,12 @@
+{
+  "title": "MLA 解码：权重吸收后的潜在空间注意力",
+  "title_en": "MLA Decode: Latent-Space Attention via Weight Absorption",
+  "difficulty": "Hard",
+  "tags": ["llm", "attention"],
+  "order": 507,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

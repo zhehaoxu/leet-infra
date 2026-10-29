@@ -1,0 +1,12 @@
+{
+  "title": "扩散采样：TCFG 的 SVD 截断投影引导",
+  "title_en": "Diffusion: Tangential CFG with SVD Truncation",
+  "difficulty": "Hard",
+  "tags": ["operator", "diffusion"],
+  "order": 503,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}
