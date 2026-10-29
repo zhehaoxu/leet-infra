@@ -1,0 +1,12 @@
+{
+  "title": "安全 p 范数：先按段内最大幅值缩放再归约",
+  "title_en": "Safe p-Norm: Scale by the Segment Maximum Before Reducing",
+  "difficulty": "Medium",
+  "tags": ["operator", "numerics"],
+  "order": 448,
+  "variants": {
+    "pytorch": {"label": "PyTorch", "available": true},
+    "triton": {"label": "Triton", "available": false},
+    "cuda": {"label": "CUDA", "available": false}
+  }
+}
