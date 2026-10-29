@@ -1,0 +1,12 @@
+{
+  "title": "分布式：MoE EP all-to-all 通信量与 straggler 账",
+  "title_en": "Distributed: MoE EP all-to-all Communication Volume and Straggler Accounting",
+  "difficulty": "Medium",
+  "tags": ["operator", "distributed"],
+  "order": 436,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

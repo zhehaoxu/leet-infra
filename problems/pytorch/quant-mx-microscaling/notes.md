@@ -1,0 +1,2 @@
+- 本题聚焦 Microscaling 的共享指数编码（E8M0），而非下游 fp4/fp6 元素格式的 further 量化。
+- 与 `quant-double-quant-scale` 的区别：后者是对 scale 张量再做一次定点量化，本题是硬件原生的 power-of-two 共享指数。

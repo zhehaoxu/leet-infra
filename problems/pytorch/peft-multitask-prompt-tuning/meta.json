@@ -1,0 +1,12 @@
+{
+  "title": "PEFT：MultiTask-PromptTuning 任务共享池拼接",
+  "title_en": "PEFT: MultiTask-PromptTuning Shared Pool Concatenation",
+  "difficulty": "Easy",
+  "tags": ["operator", "peft"],
+  "order": 397,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

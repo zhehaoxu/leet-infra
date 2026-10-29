@@ -1,0 +1,2 @@
+- This problem compares RTN and GPTQ output errors under the same quantization grid, reusing the column update logic from `gptq-column-quantize` and adding statistical metrics.
+- Quantiles are computed from per-group mean absolute errors, returning the 0.25/0.5/0.75/0.9 levels.

@@ -1,0 +1,12 @@
+{
+  "title": "HRA：Householder 反射适配与紧凑 WY 合并",
+  "title_en": "HRA: Householder Reflection Adaptation with a Compact WY Merge",
+  "difficulty": "Hard",
+  "tags": ["operator", "peft"],
+  "order": 398,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

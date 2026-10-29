@@ -1,0 +1,12 @@
+{
+  "title": "分词：保留特殊 Token 的预算截断",
+  "title_en": "Budget Truncation with Protected Special Tokens",
+  "difficulty": "Medium",
+  "tags": ["operator", "tokenization"],
+  "order": 464,
+  "variants": {
+    "pytorch": {"label": "PyTorch", "available": true},
+    "triton": {"label": "Triton", "available": false},
+    "cuda": {"label": "CUDA", "available": false}
+  }
+}

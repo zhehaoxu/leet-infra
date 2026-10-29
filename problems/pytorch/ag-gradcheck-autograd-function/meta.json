@@ -1,0 +1,24 @@
+{
+  "title": "梯度校验：autograd.Function 解析梯度与中心差分的对拍",
+  "title_en": "GradCheck: Reconciling autograd.Function Analytic Gradients with Central Differences",
+  "difficulty": "Hard",
+  "tags": [
+    "operator",
+    "autograd"
+  ],
+  "order": 404,
+  "variants": {
+    "pytorch": {
+      "label": "PyTorch",
+      "available": true
+    },
+    "triton": {
+      "label": "Triton",
+      "available": false
+    },
+    "cuda": {
+      "label": "CUDA",
+      "available": false
+    }
+  }
+}

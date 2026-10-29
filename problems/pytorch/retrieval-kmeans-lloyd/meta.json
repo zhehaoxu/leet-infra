@@ -1,0 +1,24 @@
+{
+  "title": "检索：k-means Lloyd 迭代与空簇重播种",
+  "title_en": "Retrieval: k-means Lloyd Iterations with Empty-Cluster Reseeding",
+  "difficulty": "Medium",
+  "tags": [
+    "operator",
+    "retrieval"
+  ],
+  "order": 367,
+  "variants": {
+    "pytorch": {
+      "label": "PyTorch",
+      "available": true
+    },
+    "triton": {
+      "label": "Triton",
+      "available": false
+    },
+    "cuda": {
+      "label": "CUDA",
+      "available": false
+    }
+  }
+}

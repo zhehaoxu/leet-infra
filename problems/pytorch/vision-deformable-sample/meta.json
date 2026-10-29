@@ -1,0 +1,24 @@
+{
+  "title": "检测：可变形采样偏移聚合",
+  "title_en": "Detection: Deformable Sampling and Aggregation",
+  "difficulty": "Medium",
+  "tags": [
+    "operator",
+    "detection"
+  ],
+  "order": 380,
+  "variants": {
+    "pytorch": {
+      "label": "PyTorch",
+      "available": true
+    },
+    "triton": {
+      "label": "Triton",
+      "available": false
+    },
+    "cuda": {
+      "label": "CUDA",
+      "available": false
+    }
+  }
+}

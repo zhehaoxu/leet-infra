@@ -1,0 +1,24 @@
+{
+  "title": "检索：HNSW 建图插入与邻居选择",
+  "title_en": "Retrieval: HNSW Graph Insertion and Neighbor Selection",
+  "difficulty": "Hard",
+  "tags": [
+    "operator",
+    "retrieval"
+  ],
+  "order": 368,
+  "variants": {
+    "pytorch": {
+      "label": "PyTorch",
+      "available": true
+    },
+    "triton": {
+      "label": "Triton",
+      "available": false
+    },
+    "cuda": {
+      "label": "CUDA",
+      "available": false
+    }
+  }
+}

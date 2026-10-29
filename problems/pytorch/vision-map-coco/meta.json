@@ -1,0 +1,24 @@
+{
+  "title": "检测：mAP 计算（11-point / all-point / COCO 101-point）",
+  "title_en": "Detection: mAP Computation (11-point / All-point / COCO 101-point)",
+  "difficulty": "Medium",
+  "tags": [
+    "operator",
+    "detection"
+  ],
+  "order": 376,
+  "variants": {
+    "pytorch": {
+      "label": "PyTorch",
+      "available": true
+    },
+    "triton": {
+      "label": "Triton",
+      "available": false
+    },
+    "cuda": {
+      "label": "CUDA",
+      "available": false
+    }
+  }
+}

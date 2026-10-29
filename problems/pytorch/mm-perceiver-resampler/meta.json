@@ -1,0 +1,12 @@
+{
+  "title": "多模态：带掩码的 Perceiver Latent 压缩",
+  "title_en": "Multimodal: Masked Perceiver Latent Resampling",
+  "difficulty": "Hard",
+  "tags": ["operator", "multimodal"],
+  "order": 455,
+  "variants": {
+    "pytorch": {"label": "PyTorch", "available": true},
+    "triton": {"label": "Triton", "available": false},
+    "cuda": {"label": "CUDA", "available": false}
+  }
+}

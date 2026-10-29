@@ -1,0 +1,24 @@
+{
+  "title": "检测：FCOS center-ness 与多尺度层分配",
+  "title_en": "Detection: FCOS Center-ness and Multi-Level Assignment",
+  "difficulty": "Medium",
+  "tags": [
+    "operator",
+    "detection"
+  ],
+  "order": 374,
+  "variants": {
+    "pytorch": {
+      "label": "PyTorch",
+      "available": true
+    },
+    "triton": {
+      "label": "Triton",
+      "available": false
+    },
+    "cuda": {
+      "label": "CUDA",
+      "available": false
+    }
+  }
+}

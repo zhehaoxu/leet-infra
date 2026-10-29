@@ -1,0 +1,12 @@
+{
+  "title": "PEFT：SuperTuning 稀疏标量支撑与 LoRA 混合",
+  "title_en": "PEFT: SuperTuning Sparse Scalar Support with Optional LoRA",
+  "difficulty": "Easy",
+  "tags": ["operator", "peft"],
+  "order": 393,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

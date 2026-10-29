@@ -1,0 +1,12 @@
+{
+  "title": "RePaint 跳步表：逆向回跳的时间步安排",
+  "title_en": "RePaint Jump Schedule: Timesteps That Travel Backwards In Time",
+  "difficulty": "Medium",
+  "tags": ["operator", "diffusion"],
+  "order": 499,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

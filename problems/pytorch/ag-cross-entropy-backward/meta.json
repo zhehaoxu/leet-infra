@@ -1,0 +1,24 @@
+{
+  "title": "交叉熵反向：带 label smoothing 与 ignore_index 的 logits 梯度",
+  "title_en": "Cross-Entropy Backward: logits Gradient with Label Smoothing and ignore_index",
+  "difficulty": "Medium",
+  "tags": [
+    "operator",
+    "autograd"
+  ],
+  "order": 382,
+  "variants": {
+    "pytorch": {
+      "label": "PyTorch",
+      "available": true
+    },
+    "triton": {
+      "label": "Triton",
+      "available": false
+    },
+    "cuda": {
+      "label": "CUDA",
+      "available": false
+    }
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "title": "分词：语料词频与 OOV 覆盖率",
+  "title_en": "Corpus Token Frequency and OOV Coverage",
+  "difficulty": "Easy",
+  "tags": ["operator", "tokenization"],
+  "order": 465,
+  "variants": {
+    "pytorch": {"label": "PyTorch", "available": true},
+    "triton": {"label": "Triton", "available": false},
+    "cuda": {"label": "CUDA", "available": false}
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "title": "检索：BM25 完整打分",
+  "title_en": "Retrieval: Full BM25 Scoring",
+  "difficulty": "Medium",
+  "tags": [
+    "operator",
+    "retrieval"
+  ],
+  "order": 369,
+  "variants": {
+    "pytorch": {
+      "label": "PyTorch",
+      "available": true
+    },
+    "triton": {
+      "label": "Triton",
+      "available": false
+    },
+    "cuda": {
+      "label": "CUDA",
+      "available": false
+    }
+  }
+}

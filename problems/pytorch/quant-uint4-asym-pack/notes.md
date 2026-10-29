@@ -1,0 +1,2 @@
+- 本题复现 AutoGPTQ `qlinear` 中 per-group 非对称 uint4 的打包排布与反量化公式。
+- 与 `quant-mx-microscaling`/`quant-blockfp-tile` 的对称 2 的幂缩放不同，本题是 `x=s(q-z)` 的线性仿射量化。

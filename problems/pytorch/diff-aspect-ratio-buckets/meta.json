@@ -1,0 +1,12 @@
+{
+  "title": "扩散训练：分辨率分桶与最近桶分配",
+  "title_en": "Diffusion Training: Aspect-Ratio Buckets and Nearest-Bucket Assignment",
+  "difficulty": "Medium",
+  "tags": ["operator", "diffusion"],
+  "order": 496,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

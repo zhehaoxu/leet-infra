@@ -1,0 +1,24 @@
+{
+  "title": "检索：IVF-PQ 非对称 ADC 打分",
+  "title_en": "Retrieval: IVF-PQ Asymmetric Distance Computation",
+  "difficulty": "Hard",
+  "tags": [
+    "operator",
+    "retrieval"
+  ],
+  "order": 365,
+  "variants": {
+    "pytorch": {
+      "label": "PyTorch",
+      "available": true
+    },
+    "triton": {
+      "label": "Triton",
+      "available": false
+    },
+    "cuda": {
+      "label": "CUDA",
+      "available": false
+    }
+  }
+}

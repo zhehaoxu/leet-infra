@@ -1,0 +1,24 @@
+{
+  "title": "LSTM 反向与 BPTT：门控拆分与时间线累加",
+  "title_en": "LSTM Backward and BPTT: Gate Splitting and Accumulation along Time",
+  "difficulty": "Hard",
+  "tags": [
+    "operator",
+    "autograd"
+  ],
+  "order": 400,
+  "variants": {
+    "pytorch": {
+      "label": "PyTorch",
+      "available": true
+    },
+    "triton": {
+      "label": "Triton",
+      "available": false
+    },
+    "cuda": {
+      "label": "CUDA",
+      "available": false
+    }
+  }
+}

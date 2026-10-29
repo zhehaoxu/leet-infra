@@ -1,0 +1,12 @@
+{
+  "title": "MoE：共享专家与路由专家合成",
+  "title_en": "MoE: Shared and Routed Expert Composition",
+  "difficulty": "Medium",
+  "tags": ["operator", "moe"],
+  "order": 478,
+  "variants": {
+    "pytorch": {"label": "PyTorch", "available": true},
+    "triton": {"label": "Triton", "available": false},
+    "cuda": {"label": "CUDA", "available": false}
+  }
+}

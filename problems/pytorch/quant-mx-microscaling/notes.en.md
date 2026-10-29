@@ -1,0 +1,2 @@
+- This problem focuses on the shared-exponent encoding (E8M0) of Microscaling, not the downstream fp4/fp6 element quantization.
+- Difference from `quant-double-quant-scale`: the latter quantizes the scale tensor again with fixed-point, while this problem covers the hardware-native power-of-two shared exponent.

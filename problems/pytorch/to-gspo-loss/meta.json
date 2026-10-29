@@ -1,0 +1,24 @@
+{
+  "title": "GSPO：序列级重要性比与整条裁剪",
+  "title_en": "GSPO: Sequence-Level Importance Ratio and Clipping",
+  "difficulty": "Medium",
+  "tags": [
+    "operator",
+    "alignment"
+  ],
+  "order": 428,
+  "variants": {
+    "pytorch": {
+      "label": "PyTorch",
+      "available": true
+    },
+    "triton": {
+      "label": "Triton",
+      "available": false
+    },
+    "cuda": {
+      "label": "CUDA",
+      "available": false
+    }
+  }
+}

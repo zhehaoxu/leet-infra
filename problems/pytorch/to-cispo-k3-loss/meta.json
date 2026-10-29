@@ -1,0 +1,24 @@
+{
+  "title": "CISPO：停梯度裁剪权重与 K3 KL 估计",
+  "title_en": "CISPO: Detached Clipped Weights and the K3 KL Estimator",
+  "difficulty": "Hard",
+  "tags": [
+    "operator",
+    "alignment"
+  ],
+  "order": 429,
+  "variants": {
+    "pytorch": {
+      "label": "PyTorch",
+      "available": true
+    },
+    "triton": {
+      "label": "Triton",
+      "available": false
+    },
+    "cuda": {
+      "label": "CUDA",
+      "available": false
+    }
+  }
+}

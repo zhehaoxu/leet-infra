@@ -1,0 +1,24 @@
+{
+  "title": "稀疏化：soft-thresholding 与 ISTA 一步",
+  "title_en": "Sparsification: Soft-Thresholding and One ISTA Step",
+  "difficulty": "Easy",
+  "tags": [
+    "operator",
+    "sparsity"
+  ],
+  "order": 471,
+  "variants": {
+    "pytorch": {
+      "label": "PyTorch",
+      "available": true
+    },
+    "triton": {
+      "label": "Triton",
+      "available": false
+    },
+    "cuda": {
+      "label": "CUDA",
+      "available": false
+    }
+  }
+}

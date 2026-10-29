@@ -1,0 +1,24 @@
+{
+  "title": "matmul/linear 反向：dX 与 dW 的转置和广播账",
+  "title_en": "matmul/linear Backward: dX and dW with the Transpose and Broadcast Traps",
+  "difficulty": "Medium",
+  "tags": [
+    "operator",
+    "autograd"
+  ],
+  "order": 383,
+  "variants": {
+    "pytorch": {
+      "label": "PyTorch",
+      "available": true
+    },
+    "triton": {
+      "label": "Triton",
+      "available": false
+    },
+    "cuda": {
+      "label": "CUDA",
+      "available": false
+    }
+  }
+}

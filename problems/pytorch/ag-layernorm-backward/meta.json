@@ -1,0 +1,12 @@
+{
+  "title": "LayerNorm 反向：dX 的双减项与 γ/β 的折叠求和",
+  "title_en": "LayerNorm Backward: the Two Subtractions in dX and the γ/β Fold",
+  "difficulty": "Medium",
+  "tags": ["operator", "autograd"],
+  "order": 384,
+  "variants": {
+    "pytorch": {"label": "PyTorch", "available": true},
+    "triton": {"label": "Triton", "available": false},
+    "cuda": {"label": "CUDA", "available": false}
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "title": "检测：anchor 生成与 IoU 阈值匹配",
+  "title_en": "Detection: Anchor Generation and IoU Matching",
+  "difficulty": "Medium",
+  "tags": [
+    "operator",
+    "detection"
+  ],
+  "order": 373,
+  "variants": {
+    "pytorch": {
+      "label": "PyTorch",
+      "available": true
+    },
+    "triton": {
+      "label": "Triton",
+      "available": false
+    },
+    "cuda": {
+      "label": "CUDA",
+      "available": false
+    }
+  }
+}

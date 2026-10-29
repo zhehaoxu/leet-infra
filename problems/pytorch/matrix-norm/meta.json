@@ -1,0 +1,24 @@
+{
+  "title": "矩阵范数 matrix_norm（fro/nuc/诱导 1·2·inf 范数）",
+  "title_en": "Matrix Norm: fro/nuc and Induced 1/2/inf Norms",
+  "difficulty": "Medium",
+  "tags": [
+    "operator",
+    "tensor"
+  ],
+  "order": 359,
+  "variants": {
+    "pytorch": {
+      "label": "PyTorch",
+      "available": true
+    },
+    "triton": {
+      "label": "Triton",
+      "available": false
+    },
+    "cuda": {
+      "label": "CUDA",
+      "available": false
+    }
+  }
+}

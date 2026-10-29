@@ -1,0 +1,24 @@
+{
+  "title": "DAPO：clip-higher、token 级聚合与组过滤",
+  "title_en": "DAPO: Clip-Higher, Token-Level Aggregation and Group Filtering",
+  "difficulty": "Hard",
+  "tags": [
+    "operator",
+    "alignment"
+  ],
+  "order": 427,
+  "variants": {
+    "pytorch": {
+      "label": "PyTorch",
+      "available": true
+    },
+    "triton": {
+      "label": "Triton",
+      "available": false
+    },
+    "cuda": {
+      "label": "CUDA",
+      "available": false
+    }
+  }
+}

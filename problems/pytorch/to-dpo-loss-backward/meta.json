@@ -1,0 +1,24 @@
+{
+  "title": "DPO 损失的解析反向",
+  "title_en": "DPO Loss: Analytic Backward",
+  "difficulty": "Medium",
+  "tags": [
+    "operator",
+    "alignment"
+  ],
+  "order": 430,
+  "variants": {
+    "pytorch": {
+      "label": "PyTorch",
+      "available": true
+    },
+    "triton": {
+      "label": "Triton",
+      "available": false
+    },
+    "cuda": {
+      "label": "CUDA",
+      "available": false
+    }
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "title": "分布式：TP 切分归约与词表并行交叉熵",
+  "title_en": "Distributed: TP Split/Reduce and Vocab-Parallel Cross Entropy",
+  "difficulty": "Medium",
+  "tags": ["operator", "distributed"],
+  "order": 433,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

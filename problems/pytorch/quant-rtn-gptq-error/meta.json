@@ -1,0 +1,12 @@
+{
+  "title": "量化：RTN 与 GPTQ 输出 MSE 及逐组误差分位数对比",
+  "title_en": "Quantization: RTN vs GPTQ Output MSE and Per-Group Error Quantiles",
+  "difficulty": "Hard",
+  "tags": ["operator", "quantization"],
+  "order": 361,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

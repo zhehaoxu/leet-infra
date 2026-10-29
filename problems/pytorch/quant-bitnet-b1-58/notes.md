@@ -1,0 +1,2 @@
+- 本题是 BitNet b1.58 论文中 ternary weight 与 absmean scaling 的最小可复现切片。
+- 不考察训练时的 STE 或 1.58-bit 位打包，只考察三值化公式与 GEMM 的加减计数实现。

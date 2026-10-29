@@ -1,0 +1,12 @@
+{
+  "title": "量化：4-bit 权重的 tile 交织布局解码",
+  "title_en": "Quantization: Decoding a 4-bit Tile-Interleaved Weight Layout",
+  "difficulty": "Medium",
+  "tags": ["operator", "quantization"],
+  "order": 490,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "title": "扩散训练：Min-SNR 损失加权",
+  "title_en": "Diffusion Training: Min-SNR Loss Weighting",
+  "difficulty": "Medium",
+  "tags": ["operator", "diffusion"],
+  "order": 495,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

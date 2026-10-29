@@ -1,0 +1,24 @@
+{
+  "title": "检索：late chunking 与父子块扩展",
+  "title_en": "Retrieval: Late Chunking and Parent-Child Expansion",
+  "difficulty": "Hard",
+  "tags": [
+    "operator",
+    "retrieval"
+  ],
+  "order": 372,
+  "variants": {
+    "pytorch": {
+      "label": "PyTorch",
+      "available": true
+    },
+    "triton": {
+      "label": "Triton",
+      "available": false
+    },
+    "cuda": {
+      "label": "CUDA",
+      "available": false
+    }
+  }
+}

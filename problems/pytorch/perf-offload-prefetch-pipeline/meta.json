@@ -1,0 +1,12 @@
+{
+  "title": "Offload 预取流水线：单引擎多缓冲下的计算-传输重叠时间线",
+  "title_en": "Offload Prefetch Pipeline: Compute-Transfer Overlap Timeline under a Single Engine and Multiple Buffers",
+  "difficulty": "Medium",
+  "tags": ["operator", "systems"],
+  "order": 483,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

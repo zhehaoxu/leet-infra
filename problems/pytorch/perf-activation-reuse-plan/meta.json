@@ -1,0 +1,12 @@
+{
+  "title": "激活显存复用：生命周期区间上的偏移规划与峰值下界",
+  "title_en": "Activation Memory Reuse: Offset Planning over Lifetime Intervals with a Peak Lower Bound",
+  "difficulty": "Hard",
+  "tags": ["operator", "systems"],
+  "order": 482,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

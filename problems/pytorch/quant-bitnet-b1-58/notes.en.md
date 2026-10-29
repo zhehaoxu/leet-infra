@@ -1,0 +1,2 @@
+- This problem is the smallest reproducible slice of the ternary weight and absmean scaling from the BitNet b1.58 paper.
+- It does not cover training-time STE or 1.58-bit bit-packing, only the ternarization formula and the add/subtract-count GEMM.

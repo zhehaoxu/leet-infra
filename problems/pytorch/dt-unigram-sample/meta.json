@@ -1,0 +1,12 @@
+{
+  "title": "分词：Unigram 后验路径采样",
+  "title_en": "Unigram Posterior Path Sampling",
+  "difficulty": "Hard",
+  "tags": ["operator", "tokenization"],
+  "order": 462,
+  "variants": {
+    "pytorch": {"label": "PyTorch", "available": true},
+    "triton": {"label": "Triton", "available": false},
+    "cuda": {"label": "CUDA", "available": false}
+  }
+}

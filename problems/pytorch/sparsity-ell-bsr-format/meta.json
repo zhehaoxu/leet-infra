@@ -1,0 +1,24 @@
+{
+  "title": "稀疏化：ELL / BSR 格式转换与存储账",
+  "title_en": "Sparsification: ELL and BSR Conversion with Storage Accounting",
+  "difficulty": "Hard",
+  "tags": [
+    "operator",
+    "sparsity"
+  ],
+  "order": 476,
+  "variants": {
+    "pytorch": {
+      "label": "PyTorch",
+      "available": true
+    },
+    "triton": {
+      "label": "Triton",
+      "available": false
+    },
+    "cuda": {
+      "label": "CUDA",
+      "available": false
+    }
+  }
+}

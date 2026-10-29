@@ -1,0 +1,12 @@
+{
+  "title": "分词：UTF-8 字节与字符偏移对齐",
+  "title_en": "UTF-8 Byte and Character Offset Alignment",
+  "difficulty": "Medium",
+  "tags": ["operator", "tokenization"],
+  "order": 460,
+  "variants": {
+    "pytorch": {"label": "PyTorch", "available": true},
+    "triton": {"label": "Triton", "available": false},
+    "cuda": {"label": "CUDA", "available": false}
+  }
+}

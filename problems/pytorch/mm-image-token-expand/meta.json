@@ -1,0 +1,12 @@
+{
+  "title": "多模态：图像占位展开与混合 Batch 整理",
+  "title_en": "Multimodal: Image Placeholder Expansion and Batch Assembly",
+  "difficulty": "Medium",
+  "tags": ["operator", "multimodal"],
+  "order": 454,
+  "variants": {
+    "pytorch": {"label": "PyTorch", "available": true},
+    "triton": {"label": "Triton", "available": false},
+    "cuda": {"label": "CUDA", "available": false}
+  }
+}

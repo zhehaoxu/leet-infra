@@ -1,0 +1,24 @@
+{
+  "title": "ORPO：无参考模型的赔率偏好损失",
+  "title_en": "ORPO: Reference-Free Odds-Ratio Preference Loss",
+  "difficulty": "Medium",
+  "tags": [
+    "operator",
+    "alignment"
+  ],
+  "order": 420,
+  "variants": {
+    "pytorch": {
+      "label": "PyTorch",
+      "available": true
+    },
+    "triton": {
+      "label": "Triton",
+      "available": false
+    },
+    "cuda": {
+      "label": "CUDA",
+      "available": false
+    }
+  }
+}

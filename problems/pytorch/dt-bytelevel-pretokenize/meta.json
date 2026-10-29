@@ -1,0 +1,12 @@
+{
+  "title": "分词：GPT-2 字节级预分词",
+  "title_en": "GPT-2 Byte-Level Pretokenization",
+  "difficulty": "Hard",
+  "tags": ["operator", "tokenization"],
+  "order": 457,
+  "variants": {
+    "pytorch": {"label": "PyTorch", "available": true},
+    "triton": {"label": "Triton", "available": false},
+    "cuda": {"label": "CUDA", "available": false}
+  }
+}

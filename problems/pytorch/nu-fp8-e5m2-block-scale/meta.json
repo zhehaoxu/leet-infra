@@ -1,0 +1,12 @@
+{
+  "title": "FP8 E5M2 分块缩放：2 的幂共享尺度与网格量化",
+  "title_en": "FP8 E5M2 Block Scaling: Power-of-Two Shared Scale and Grid Quantization",
+  "difficulty": "Hard",
+  "tags": ["operator", "numerics"],
+  "order": 445,
+  "variants": {
+    "pytorch": {"label": "PyTorch", "available": true},
+    "triton": {"label": "Triton", "available": false},
+    "cuda": {"label": "CUDA", "available": false}
+  }
+}

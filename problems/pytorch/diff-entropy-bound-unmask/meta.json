@@ -1,0 +1,12 @@
+{
+  "title": "熵界解掩码：按温度退火的低熵优先提交",
+  "title_en": "Entropy-Bounded Unmasking: Low-Entropy Positions Commit First",
+  "difficulty": "Hard",
+  "tags": ["operator", "diffusion"],
+  "order": 500,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

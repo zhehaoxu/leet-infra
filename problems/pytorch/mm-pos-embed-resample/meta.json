@@ -1,0 +1,12 @@
+{
+  "title": "多模态：二维位置嵌入的双三次重采样",
+  "title_en": "Multimodal: Bicubic Resampling of 2D Position Embeddings",
+  "difficulty": "Medium",
+  "tags": ["operator", "multimodal"],
+  "order": 452,
+  "variants": {
+    "pytorch": {"label": "PyTorch", "available": true},
+    "triton": {"label": "Triton", "available": false},
+    "cuda": {"label": "CUDA", "available": false}
+  }
+}

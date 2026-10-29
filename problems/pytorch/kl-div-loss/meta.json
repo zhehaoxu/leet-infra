@@ -1,0 +1,24 @@
+{
+  "title": "kl_div 损失（log-prob 输入与 batchmean 口径）",
+  "title_en": "kl_div Loss: Log-Prob Input and the batchmean Convention",
+  "difficulty": "Medium",
+  "tags": [
+    "operator",
+    "loss"
+  ],
+  "order": 362,
+  "variants": {
+    "pytorch": {
+      "label": "PyTorch",
+      "available": true
+    },
+    "triton": {
+      "label": "Triton",
+      "available": false
+    },
+    "cuda": {
+      "label": "CUDA",
+      "available": false
+    }
+  }
+}

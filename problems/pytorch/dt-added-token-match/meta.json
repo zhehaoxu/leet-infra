@@ -1,0 +1,12 @@
+{
+  "title": "分词：Added Token 隔离与最长匹配",
+  "title_en": "Added-Token Isolation and Longest Matching",
+  "difficulty": "Hard",
+  "tags": ["operator", "tokenization"],
+  "order": 459,
+  "variants": {
+    "pytorch": {"label": "PyTorch", "available": true},
+    "triton": {"label": "Triton", "available": false},
+    "cuda": {"label": "CUDA", "available": false}
+  }
+}

@@ -1,0 +1,88 @@
+# Solution Notes and Source Boundaries
+
+## 1. Validate registrations, then build a trie
+
+Validate that every content is nonempty and unique, even for empty source text or special entries that will be removed. Register patterns while retaining their original list indices at terminal nodes. With `split_special_tokens` enabled, do not insert special patterns into the trie. Never delete input entries in place or renumber them.
+
+This is the problem's filtering policy; it does not grant special tokens any higher matching priority.
+
+## 2. Longest selection precedes single_word checks
+
+At the current source position, walk the trie as far as possible and remember the last terminal node:
+
+- With no match, advance the source cursor by one character.
+- Otherwise, fix the longest raw candidate at that start.
+- Only afterward check whether its immediate neighbors belong to ASCII letters, digits, or `_` when `single_word` is enabled.
+- Resume scanning at the candidate's end regardless of boundary success or failure.
+
+Consequently, for `zabc!` with ordinary `ab`, single-word `abc`, and ordinary `b`, actual output is:
+
+```python
+[('zabc!', 0, 5, -1)]
+```
+
+Do not fall back to `ab` after rejection or search for `b` inside `abc`. Even an occurrence starting inside and ending beyond the candidate was already excluded by raw nonoverlapping selection.
+
+## 3. Defer ordinary-text emission
+
+Maintain a separate `ordinary_start`. Only on an accepted match, emit the ordinary slice up to its start, emit that token, and update `ordinary_start`. Rejected candidates do not update this marker, so they merge naturally with surrounding unmatched text. Emit remaining ordinary text at the end.
+
+Never merge adjacent accepted tokens, even with equal IDs. Added tokens do not absorb whitespace, and every piece remains an original-text slice.
+
+For source length $n$, maximum pattern length $L$, and total registered content length $S$, this simple trie costs $O(S+nL)$ time and $O(S+n)$ space including output. Since $L\leq30$, an Aho–Corasick automaton is unnecessary.
+
+## 4. Source checks actually executed
+
+The [tokenizers 0.23.3 PyPI source archive](https://files.pythonhosted.org/packages/e0/7c/2cabb2174e772636683008f2c5621949b645da7d303c596589e84516a184/tokenizers-0.23.3.tar.gz) was inspected in memory using `urllib.request`, `io.BytesIO`, and `tarfile`, without saving or extracting it to disk. Relevant locations in `tokenizers/src/tokenizer/added_vocabulary.rs`:
+
+- `99–102`: word-boundary and whitespace regexes. Restricted to this problem's ASCII domain, word characters are letters, digits, and underscore.
+- `379–423`: separate normalized and non-normalized matching sets with `LeftmostLongest`.
+- `444–462`: iterate raw nonoverlapping candidates before skipping special matches or checking word boundaries; rejection does not fall back to shorter matches.
+- `464–480`: whitespace absorption in the full implementation, disabled here.
+- `530–552`: pre- and post-normalization stages in the full implementation; this problem fixes one stage.
+
+Executed probes used local `.venv-eval`, Python **3.12.12**, and `tokenizers` **0.23.3**:
+
+- Create a `Tokenizer` with `WordLevel({'<unk>': 0}, unk_token='<unk>')`.
+- Set no normalizer or pre-tokenizer.
+- Explicitly set every `AddedToken` to `normalized=False`, `lstrip=False`, and `rstrip=False`, with the corresponding `single_word` and `special` flags.
+- Set `encode_special_tokens` and execute `encode(text, add_special_tokens=False)`.
+- Recover source slices from encoding offsets, map library IDs back to registration indices, and merge ordinary intervals.
+
+The tests freeze **10 native results**, covering earliest start, longest at equal start, rejection blocking fallback, overlaps extending beyond rejected intervals, underscore/digit boundaries, punctuation content, lack of special priority, skipping isolated special tokens, and empty text.
+
+## 5. Explicit deviation: when special patterns are filtered
+
+**This problem is not fully equivalent to tokenizers 0.23.3.** Source lines `444–453` show that native code first generates candidates from a trie containing special patterns, then skips special matches inside the iteration body. The problem explicitly removes them before selection, producing observable differences.
+
+An actually executed distinguishing input:
+
+```python
+text = 'abc!'
+added_tokens = [
+    {'content': 'ab', 'single_word': False, 'special': False},
+    {'content': 'abc', 'single_word': True, 'special': True},
+]
+split_special_tokens = True
+```
+
+- Native library with full registration and `encode_special_tokens` enabled: `[('abc!', 0, 4, -1)]`.
+- Problem contract and reference solution: `[('ab', 0, 2, 0), ('c!', 2, 4, -1)]`.
+
+A second probe uses `abcd!`, special `abc`, ordinary `bcd`, and the flag enabled. Native code leaves one ordinary piece; this problem returns:
+
+```python
+[('a', 0, 1, -1), ('bcd', 1, 4, 1), ('!', 4, 5, -1)]
+```
+
+These **2 prefiltered fixtures** were generated by removing special patterns before constructing an actual tokenizer, while retaining original registration IDs. They are labeled separately from the 10 native fixtures and do not claim native-flag equivalence.
+
+Other boundaries are explicit: ASCII only, identity normalization, `lstrip=rstrip=False`, one stage, unique nonempty contents, and no BPE. Returned IDs are registration indices, not full-model vocabulary IDs. Do not infer inherent special-token priority or claim full AddedVocabulary support.
+
+## 6. Independent oracle and self-test
+
+The test oracle does not use a trie. It brute-force enumerates all occurrences, sorts by ascending start and descending length, fixes raw nonoverlapping intervals, independently filters boundaries, then assembles output from accepted intervals. It never removes boundary-invalid matches before longest selection.
+
+The **16 checks** include 12 library-probe fixtures, case sensitivity, original IDs, adjacent matches, no whitespace stripping, full offset coverage, invalid registrations, input immutability, and the limits of 300 source characters, 30 patterns, and 30 characters per pattern. Seed `4592026` generates 180 general random datasets and 60 highly overlapping prefix datasets, each checked with both flags: **480 randomized oracle comparisons**. Delivered implementation and tests require only the Python standard library.
+
+First, `.venv-backend/bin/python scripts/add_problem.py --selftest dt-added-token-match --mode submit` returned **16/16, ACCEPTED**. All documentation examples were then executed with `.venv-eval/bin/python`, followed by writing both language versions.

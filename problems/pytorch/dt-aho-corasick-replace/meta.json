@@ -1,0 +1,12 @@
+{
+  "title": "分词：Aho–Corasick 多模式替换",
+  "title_en": "Aho–Corasick Multi-Pattern Replacement",
+  "difficulty": "Hard",
+  "tags": ["operator", "tokenization"],
+  "order": 463,
+  "variants": {
+    "pytorch": {"label": "PyTorch", "available": true},
+    "triton": {"label": "Triton", "available": false},
+    "cuda": {"label": "CUDA", "available": false}
+  }
+}

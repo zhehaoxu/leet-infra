@@ -1,0 +1,12 @@
+{
+  "title": "多模态：Smart Resize 对齐与视觉 Token 预算",
+  "title_en": "Multimodal: Smart Resize Alignment and Visual Token Budget",
+  "difficulty": "Medium",
+  "tags": ["operator", "multimodal"],
+  "order": 450,
+  "variants": {
+    "pytorch": {"label": "PyTorch", "available": true},
+    "triton": {"label": "Triton", "available": false},
+    "cuda": {"label": "CUDA", "available": false}
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "title": "Radix-tree 前缀缓存：最长前缀命中与 LRU 驱逐",
+  "title_en": "Radix-Tree Prefix Cache: Longest-Prefix Hits and LRU Eviction",
+  "difficulty": "Hard",
+  "tags": ["operator", "inference"],
+  "order": 487,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

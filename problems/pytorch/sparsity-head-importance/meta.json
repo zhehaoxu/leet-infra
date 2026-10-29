@@ -1,0 +1,24 @@
+{
+  "title": "稀疏化：注意力头重要性打分与结构化剪枝",
+  "title_en": "Sparsification: Attention Head Importance Scoring and Structured Pruning",
+  "difficulty": "Medium",
+  "tags": [
+    "operator",
+    "sparsity"
+  ],
+  "order": 470,
+  "variants": {
+    "pytorch": {
+      "label": "PyTorch",
+      "available": true
+    },
+    "triton": {
+      "label": "Triton",
+      "available": false
+    },
+    "cuda": {
+      "label": "CUDA",
+      "available": false
+    }
+  }
+}

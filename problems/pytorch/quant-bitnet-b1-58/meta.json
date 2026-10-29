@@ -1,0 +1,12 @@
+{
+  "title": "量化：BitNet b1.58 三值量化与加减计数 GEMM",
+  "title_en": "Quantization: BitNet b1.58 Ternary Quantization and Add-Subtract Count GEMM",
+  "difficulty": "Easy",
+  "tags": ["operator", "quantization"],
+  "order": 357,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

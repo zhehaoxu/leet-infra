@@ -1,0 +1,12 @@
+{
+  "title": "BatchNorm 训练态反向：三段式与双重计入",
+  "title_en": "BatchNorm Training Backward: the Three Terms and the Double Counting",
+  "difficulty": "Hard",
+  "tags": ["operator", "autograd"],
+  "order": 386,
+  "variants": {
+    "pytorch": {"label": "PyTorch", "available": true},
+    "triton": {"label": "Triton", "available": false},
+    "cuda": {"label": "CUDA", "available": false}
+  }
+}

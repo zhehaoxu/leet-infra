@@ -1,0 +1,24 @@
+{
+  "title": "logsumexp（减最大值稳定式与 ±inf 退化段）",
+  "title_en": "logsumexp: Max-Subtraction and Degenerate ±inf Segments",
+  "difficulty": "Medium",
+  "tags": [
+    "operator",
+    "tensor"
+  ],
+  "order": 360,
+  "variants": {
+    "pytorch": {
+      "label": "PyTorch",
+      "available": true
+    },
+    "triton": {
+      "label": "Triton",
+      "available": false
+    },
+    "cuda": {
+      "label": "CUDA",
+      "available": false
+    }
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "title": "PD 分离的放置账：KV 跨节点搬运、TP 环形复制与显存准入",
+  "title_en": "Placement Accounting for Disaggregated Prefill/Decode: KV Handoff, TP Ring Replication, and Memory Admission",
+  "difficulty": "Hard",
+  "tags": ["operator", "inference"],
+  "order": 493,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

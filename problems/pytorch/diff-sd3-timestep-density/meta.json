@@ -1,0 +1,12 @@
+{
+  "title": "扩散训练：SD3 的时间步采样密度（logit-normal / mode）",
+  "title_en": "Diffusion Training: SD3 Timestep-Sampling Density (Logit-Normal / Mode)",
+  "difficulty": "Medium",
+  "tags": ["operator", "diffusion"],
+  "order": 494,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

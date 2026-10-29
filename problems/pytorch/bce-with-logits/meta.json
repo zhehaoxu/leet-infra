@@ -1,0 +1,24 @@
+{
+  "title": "binary_cross_entropy_with_logits（含 pos_weight 与 reduction）",
+  "title_en": "BCE with Logits: pos_weight and Reduction Modes",
+  "difficulty": "Medium",
+  "tags": [
+    "operator",
+    "loss"
+  ],
+  "order": 361,
+  "variants": {
+    "pytorch": {
+      "label": "PyTorch",
+      "available": true
+    },
+    "triton": {
+      "label": "Triton",
+      "available": false
+    },
+    "cuda": {
+      "label": "CUDA",
+      "available": false
+    }
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "title": "分布式：3D/4D 并行网格 rank 映射与通信组",
+  "title_en": "Distributed: 3D/4D Parallel Mesh Rank Mapping and Communication Groups",
+  "difficulty": "Medium",
+  "tags": ["operator", "distributed"],
+  "order": 432,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

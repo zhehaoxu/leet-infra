@@ -1,0 +1,12 @@
+{
+  "title": "注意力对 Q/K/V 的反向：掩码位零梯度与 GQA 折头求和",
+  "title_en": "Attention Backward w.r.t. Q/K/V: Masked Zeros and GQA Head Folding",
+  "difficulty": "Hard",
+  "tags": ["operator", "autograd"],
+  "order": 387,
+  "variants": {
+    "pytorch": {"label": "PyTorch", "available": true},
+    "triton": {"label": "Triton", "available": false},
+    "cuda": {"label": "CUDA", "available": false}
+  }
+}

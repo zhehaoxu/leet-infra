@@ -1,0 +1,24 @@
+{
+  "title": "MiniLM：注意力分布与 CLS 对蒸馏",
+  "title_en": "MiniLM: Attention-Score and CLS-Pair Distillation",
+  "difficulty": "Hard",
+  "tags": [
+    "operator",
+    "alignment"
+  ],
+  "order": 424,
+  "variants": {
+    "pytorch": {
+      "label": "PyTorch",
+      "available": true
+    },
+    "triton": {
+      "label": "Triton",
+      "available": false
+    },
+    "cuda": {
+      "label": "CUDA",
+      "available": false
+    }
+  }
+}

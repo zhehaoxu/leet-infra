@@ -1,0 +1,24 @@
+{
+  "title": "向量范数 vector_norm（ord 全族与多轴归约）",
+  "title_en": "Vector Norm: the Full ord Family with Multi-Axis Reduction",
+  "difficulty": "Medium",
+  "tags": [
+    "operator",
+    "tensor"
+  ],
+  "order": 358,
+  "variants": {
+    "pytorch": {
+      "label": "PyTorch",
+      "available": true
+    },
+    "triton": {
+      "label": "Triton",
+      "available": false
+    },
+    "cuda": {
+      "label": "CUDA",
+      "available": false
+    }
+  }
+}

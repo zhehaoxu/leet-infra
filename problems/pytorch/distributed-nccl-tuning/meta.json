@@ -1,0 +1,12 @@
+{
+  "title": "NCCL 算法与协议：代价表选择及交叉阈值",
+  "title_en": "NCCL Algorithms and Protocols: Cost Selection and Crossover Thresholds",
+  "difficulty": "Medium",
+  "tags": ["operator", "distributed"],
+  "order": 439,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

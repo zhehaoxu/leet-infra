@@ -1,0 +1,12 @@
+{
+  "title": "随机舍入：无偏 SR 与 fwd/bwd 偏置的格点选择",
+  "title_en": "Stochastic Rounding: Unbiased SR and the fwd/bwd Biased Grid Choice",
+  "difficulty": "Medium",
+  "tags": ["operator", "numerics"],
+  "order": 446,
+  "variants": {
+    "pytorch": {"label": "PyTorch", "available": true},
+    "triton": {"label": "Triton", "available": false},
+    "cuda": {"label": "CUDA", "available": false}
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "title": "量化：Hadamard 变换的快速递归构造",
+  "title_en": "Quantization: Fast Recursive Hadamard Transform Construction",
+  "difficulty": "Medium",
+  "tags": ["operator", "quantization"],
+  "order": 362,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

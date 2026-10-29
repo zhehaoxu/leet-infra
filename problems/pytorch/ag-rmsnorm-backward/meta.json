@@ -1,0 +1,12 @@
+{
+  "title": "RMSNorm 反向：没有减均值的那一项",
+  "title_en": "RMSNorm Backward: the Missing Mean-Subtraction Term",
+  "difficulty": "Medium",
+  "tags": ["operator", "autograd"],
+  "order": 385,
+  "variants": {
+    "pytorch": {"label": "PyTorch", "available": true},
+    "triton": {"label": "Triton", "available": false},
+    "cuda": {"label": "CUDA", "available": false}
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "title": "einsum 表达式求值器（标注串 → 乘加归约）",
+  "title_en": "Einsum Spec Evaluator: Label String to Multiply-Reduce",
+  "difficulty": "Medium",
+  "tags": [
+    "operator",
+    "tensor"
+  ],
+  "order": 357,
+  "variants": {
+    "pytorch": {
+      "label": "PyTorch",
+      "available": true
+    },
+    "triton": {
+      "label": "Triton",
+      "available": false
+    },
+    "cuda": {
+      "label": "CUDA",
+      "available": false
+    }
+  }
+}

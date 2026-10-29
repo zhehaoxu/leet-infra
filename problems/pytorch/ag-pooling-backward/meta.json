@@ -1,0 +1,12 @@
+{
+  "title": "池化反向：max 的 argmax 路由与 adaptive 的窗口分摊",
+  "title_en": "Pooling Backward: argmax Routing for Max and Window Sharing for Adaptive",
+  "difficulty": "Medium",
+  "tags": ["operator", "autograd"],
+  "order": 391,
+  "variants": {
+    "pytorch": {"label": "PyTorch", "available": true},
+    "triton": {"label": "Triton", "available": false},
+    "cuda": {"label": "CUDA", "available": false}
+  }
+}

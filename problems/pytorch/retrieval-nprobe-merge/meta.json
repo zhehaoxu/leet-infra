@@ -1,0 +1,24 @@
+{
+  "title": "检索：nprobe 多探测与跨 cell 归并",
+  "title_en": "Retrieval: nprobe Multi-Probe and Cross-Cell Merge",
+  "difficulty": "Medium",
+  "tags": [
+    "operator",
+    "retrieval"
+  ],
+  "order": 366,
+  "variants": {
+    "pytorch": {
+      "label": "PyTorch",
+      "available": true
+    },
+    "triton": {
+      "label": "Triton",
+      "available": false
+    },
+    "cuda": {
+      "label": "CUDA",
+      "available": false
+    }
+  }
+}

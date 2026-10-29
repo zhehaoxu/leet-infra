@@ -1,0 +1,12 @@
+{
+  "title": "NaN 归约：忽略、计数与全 NaN 段的语义",
+  "title_en": "NaN Reduction: Skipping, Counting and All-NaN Segments",
+  "difficulty": "Medium",
+  "tags": ["operator", "numerics"],
+  "order": 443,
+  "variants": {
+    "pytorch": {"label": "PyTorch", "available": true},
+    "triton": {"label": "Triton", "available": false},
+    "cuda": {"label": "CUDA", "available": false}
+  }
+}

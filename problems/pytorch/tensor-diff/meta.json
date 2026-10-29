@@ -1,0 +1,24 @@
+{
+  "title": "diff（n 阶差分与 prepend/append）",
+  "title_en": "diff: n-th Order Difference with prepend/append",
+  "difficulty": "Easy",
+  "tags": [
+    "operator",
+    "tensor"
+  ],
+  "order": 363,
+  "variants": {
+    "pytorch": {
+      "label": "PyTorch",
+      "available": true
+    },
+    "triton": {
+      "label": "Triton",
+      "available": false
+    },
+    "cuda": {
+      "label": "CUDA",
+      "available": false
+    }
+  }
+}

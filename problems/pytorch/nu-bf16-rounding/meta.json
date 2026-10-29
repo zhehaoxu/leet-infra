@@ -1,0 +1,12 @@
+{
+  "title": "bfloat16 舍入：位级 RNE、截断与 ties-to-even",
+  "title_en": "bfloat16 Rounding: Bitwise RNE, Truncation and Ties-to-Even",
+  "difficulty": "Medium",
+  "tags": ["operator", "numerics"],
+  "order": 444,
+  "variants": {
+    "pytorch": {"label": "PyTorch", "available": true},
+    "triton": {"label": "Triton", "available": false},
+    "cuda": {"label": "CUDA", "available": false}
+  }
+}

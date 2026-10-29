@@ -1,0 +1,12 @@
+{
+  "title": "分块 softmax 的重标定合并：只交换 (max, sum) 也能算对",
+  "title_en": "Blocked Softmax Merging: Exact Results by Exchanging Only (max, sum)",
+  "difficulty": "Medium",
+  "tags": ["operator", "numerics"],
+  "order": 447,
+  "variants": {
+    "pytorch": {"label": "PyTorch", "available": true},
+    "triton": {"label": "Triton", "available": false},
+    "cuda": {"label": "CUDA", "available": false}
+  }
+}

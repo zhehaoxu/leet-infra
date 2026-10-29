@@ -1,0 +1,24 @@
+{
+  "title": "激活函数反向合集：逐元素导数与零点次梯度约定",
+  "title_en": "Activation Backward Suite: Elementwise Derivatives and Subgradient at Zero",
+  "difficulty": "Medium",
+  "tags": [
+    "operator",
+    "autograd"
+  ],
+  "order": 401,
+  "variants": {
+    "pytorch": {
+      "label": "PyTorch",
+      "available": true
+    },
+    "triton": {
+      "label": "Triton",
+      "available": false
+    },
+    "cuda": {
+      "label": "CUDA",
+      "available": false
+    }
+  }
+}

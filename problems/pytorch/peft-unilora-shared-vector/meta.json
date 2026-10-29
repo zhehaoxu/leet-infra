@@ -1,0 +1,12 @@
+{
+  "title": "PEFT：UniLoRA 共享参数向量的索引分配",
+  "title_en": "PEFT: UniLoRA Shared-Parameter Vector Index Assignment",
+  "difficulty": "Easy",
+  "tags": ["operator", "peft"],
+  "order": 392,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

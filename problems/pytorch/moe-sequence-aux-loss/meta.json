@@ -1,0 +1,12 @@
+{
+  "title": "MoE：序列级负载均衡损失",
+  "title_en": "MoE: Sequence-Level Load-Balancing Loss",
+  "difficulty": "Medium",
+  "tags": ["operator", "moe"],
+  "order": 479,
+  "variants": {
+    "pytorch": {"label": "PyTorch", "available": true},
+    "triton": {"label": "Triton", "available": false},
+    "cuda": {"label": "CUDA", "available": false}
+  }
+}

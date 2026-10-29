@@ -1,0 +1,24 @@
+{
+  "title": "检测：旋转框 NMS 与交叠面积",
+  "title_en": "Detection: Rotated NMS and Overlap Area",
+  "difficulty": "Hard",
+  "tags": [
+    "operator",
+    "detection"
+  ],
+  "order": 379,
+  "variants": {
+    "pytorch": {
+      "label": "PyTorch",
+      "available": true
+    },
+    "triton": {
+      "label": "Triton",
+      "available": false
+    },
+    "cuda": {
+      "label": "CUDA",
+      "available": false
+    }
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "title": "Embedding 反向：重复 id 累加、padding 行与稀疏梯度",
+  "title_en": "Embedding Backward: Duplicate id Accumulation, padding_idx Rows and Sparse Grad",
+  "difficulty": "Medium",
+  "tags": ["operator", "autograd"],
+  "order": 389,
+  "variants": {
+    "pytorch": {"label": "PyTorch", "available": true},
+    "triton": {"label": "Triton", "available": false},
+    "cuda": {"label": "CUDA", "available": false}
+  }
+}

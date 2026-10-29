@@ -1,0 +1,2 @@
+- This problem tests the Sylvester recursion for Hadamard matrices, block-diagonal extension, and reproducible random-sign diagonal generation.
+- Division of labor with `quarot-hadamard-quant`: that problem tests the full QuaRot quantization pipeline; this one tests only the transform construction.

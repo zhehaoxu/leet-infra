@@ -1,0 +1,12 @@
+{
+  "title": "抢占决策：换出还是重算",
+  "title_en": "Preemption Decision: Swap-Out vs Recompute",
+  "difficulty": "Medium",
+  "tags": ["operator", "inference"],
+  "order": 488,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

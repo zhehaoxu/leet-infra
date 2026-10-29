@@ -1,0 +1,24 @@
+{
+  "title": "检测：RLE 编解码与 mask IoU",
+  "title_en": "Detection: RLE Codec and Mask IoU",
+  "difficulty": "Medium",
+  "tags": [
+    "operator",
+    "detection"
+  ],
+  "order": 377,
+  "variants": {
+    "pytorch": {
+      "label": "PyTorch",
+      "available": true
+    },
+    "triton": {
+      "label": "Triton",
+      "available": false
+    },
+    "cuda": {
+      "label": "CUDA",
+      "available": false
+    }
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "title": "量化：AWQ 的缩放-裁剪联合网格搜索",
+  "title_en": "Quantization: AWQ's Joint Scale-and-Clip Grid Search",
+  "difficulty": "Hard",
+  "tags": ["operator", "quantization"],
+  "order": 492,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

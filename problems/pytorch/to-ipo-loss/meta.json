@@ -1,0 +1,24 @@
+{
+  "title": "IPO：恒等偏好优化的平方目标",
+  "title_en": "IPO: Identity Preference Optimization Squared Target",
+  "difficulty": "Easy",
+  "tags": [
+    "operator",
+    "alignment"
+  ],
+  "order": 421,
+  "variants": {
+    "pytorch": {
+      "label": "PyTorch",
+      "available": true
+    },
+    "triton": {
+      "label": "Triton",
+      "available": false
+    },
+    "cuda": {
+      "label": "CUDA",
+      "available": false
+    }
+  }
+}

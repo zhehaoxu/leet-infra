@@ -1,0 +1,12 @@
+{
+  "title": "conv2d 反向：dx 的翻转核与 dw 的相关",
+  "title_en": "conv2d Backward: dx with the Flipped Kernel and dw as a Cross-Correlation",
+  "difficulty": "Hard",
+  "tags": ["operator", "autograd"],
+  "order": 390,
+  "variants": {
+    "pytorch": {"label": "PyTorch", "available": true},
+    "triton": {"label": "Triton", "available": false},
+    "cuda": {"label": "CUDA", "available": false}
+  }
+}

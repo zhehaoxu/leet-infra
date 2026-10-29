@@ -1,0 +1,24 @@
+{
+  "title": "Dropout 反向：掩码散射与训练/推理的不对称",
+  "title_en": "Dropout Backward: Mask Gating and the Train/Eval Asymmetry",
+  "difficulty": "Medium",
+  "tags": [
+    "operator",
+    "autograd"
+  ],
+  "order": 402,
+  "variants": {
+    "pytorch": {
+      "label": "PyTorch",
+      "available": true
+    },
+    "triton": {
+      "label": "Triton",
+      "available": false
+    },
+    "cuda": {
+      "label": "CUDA",
+      "available": false
+    }
+  }
+}

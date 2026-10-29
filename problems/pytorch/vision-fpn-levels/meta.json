@@ -1,0 +1,24 @@
+{
+  "title": "检测：FPN 自顶向下融合与层尺寸账",
+  "title_en": "Detection: FPN Top-Down Fusion and Level Accounting",
+  "difficulty": "Medium",
+  "tags": [
+    "operator",
+    "detection"
+  ],
+  "order": 378,
+  "variants": {
+    "pytorch": {
+      "label": "PyTorch",
+      "available": true
+    },
+    "triton": {
+      "label": "Triton",
+      "available": false
+    },
+    "cuda": {
+      "label": "CUDA",
+      "available": false
+    }
+  }
+}

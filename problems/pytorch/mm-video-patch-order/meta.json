@@ -1,0 +1,12 @@
+{
+  "title": "多模态：视频时空 Patch 与合并友好顺序",
+  "title_en": "Multimodal: Video Patches in Merge-Friendly Order",
+  "difficulty": "Medium",
+  "tags": ["operator", "multimodal"],
+  "order": 453,
+  "variants": {
+    "pytorch": {"label": "PyTorch", "available": true},
+    "triton": {"label": "Triton", "available": false},
+    "cuda": {"label": "CUDA", "available": false}
+  }
+}

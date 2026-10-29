@@ -1,0 +1,12 @@
+{
+  "title": "FlashAttention 反向：用 O、LSE、dO 逐块重算梯度",
+  "title_en": "FlashAttention Backward: Recomputing Gradients from O, LSE and dO",
+  "difficulty": "Hard",
+  "tags": ["operator", "autograd"],
+  "order": 388,
+  "variants": {
+    "pytorch": {"label": "PyTorch", "available": true},
+    "triton": {"label": "Triton", "available": false},
+    "cuda": {"label": "CUDA", "available": false}
+  }
+}

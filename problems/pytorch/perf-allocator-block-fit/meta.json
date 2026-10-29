@@ -1,0 +1,12 @@
+{
+  "title": "缓存分配器：best-fit 块分配、扩段与相邻空闲合并",
+  "title_en": "Caching Allocator: Best-Fit Block Allocation, Segment Growth, and Free-Block Coalescing",
+  "difficulty": "Medium",
+  "tags": ["operator", "systems"],
+  "order": 481,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

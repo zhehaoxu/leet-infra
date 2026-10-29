@@ -1,0 +1,2 @@
+- This problem reproduces the per-group asymmetric uint4 packing layout and dequantization formula from AutoGPTQ `qlinear`.
+- Unlike the symmetric power-of-two scaling in `quant-mx-microscaling`/`quant-blockfp-tile`, this problem uses the affine `x=s(q-z)` mapping.

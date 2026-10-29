@@ -1,0 +1,24 @@
+{
+  "title": "GKD：在线蒸馏的广义 JSD 与 CE 混合",
+  "title_en": "GKD: On-Policy Distillation with Generalized JSD and CE",
+  "difficulty": "Hard",
+  "tags": [
+    "operator",
+    "alignment"
+  ],
+  "order": 423,
+  "variants": {
+    "pytorch": {
+      "label": "PyTorch",
+      "available": true
+    },
+    "triton": {
+      "label": "Triton",
+      "available": false
+    },
+    "cuda": {
+      "label": "CUDA",
+      "available": false
+    }
+  }
+}

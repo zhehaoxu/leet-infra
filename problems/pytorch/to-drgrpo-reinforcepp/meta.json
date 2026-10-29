@@ -1,0 +1,24 @@
+{
+  "title": "Dr. GRPO 与 REINFORCE++：归一化次序与损失缩放",
+  "title_en": "Dr. GRPO vs REINFORCE++: Normalization Order and Loss Scaling",
+  "difficulty": "Hard",
+  "tags": [
+    "operator",
+    "alignment"
+  ],
+  "order": 426,
+  "variants": {
+    "pytorch": {
+      "label": "PyTorch",
+      "available": true
+    },
+    "triton": {
+      "label": "Triton",
+      "available": false
+    },
+    "cuda": {
+      "label": "CUDA",
+      "available": false
+    }
+  }
+}

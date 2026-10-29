@@ -1,0 +1,24 @@
+{
+  "title": "稀疏化：SparseGPT 逐列剪枝与 Hessian 误差补偿",
+  "title_en": "Sparsification: SparseGPT Column-Wise Pruning with Hessian Error Compensation",
+  "difficulty": "Hard",
+  "tags": [
+    "operator",
+    "sparsity"
+  ],
+  "order": 474,
+  "variants": {
+    "pytorch": {
+      "label": "PyTorch",
+      "available": true
+    },
+    "triton": {
+      "label": "Triton",
+      "available": false
+    },
+    "cuda": {
+      "label": "CUDA",
+      "available": false
+    }
+  }
+}

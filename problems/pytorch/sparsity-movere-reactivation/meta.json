@@ -1,0 +1,24 @@
+{
+  "title": "稀疏化：动态稀疏训练的 drop–grow 重激活",
+  "title_en": "Sparsification: Dynamic Sparse Training Drop-Grow Reactivation",
+  "difficulty": "Medium",
+  "tags": [
+    "operator",
+    "sparsity"
+  ],
+  "order": 473,
+  "variants": {
+    "pytorch": {
+      "label": "PyTorch",
+      "available": true
+    },
+    "triton": {
+      "label": "Triton",
+      "available": false
+    },
+    "cuda": {
+      "label": "CUDA",
+      "available": false
+    }
+  }
+}

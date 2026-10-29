@@ -1,0 +1,2 @@
+- 本题覆盖 DeepSeek-V3 技术报告 §3.1 中 BlockFP 的 1×128 tile 与 UE8M0 共享指数。
+- 与 `quant-mx-microscaling` 的区别在于 tile 大小与来源格式，编码口径相同。

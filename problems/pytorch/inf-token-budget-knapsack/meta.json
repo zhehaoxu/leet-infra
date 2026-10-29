@@ -1,0 +1,12 @@
+{
+  "title": "每步 token 预算：prefill 准入的 0/1 背包与余量分块",
+  "title_en": "Per-Step Token Budget: 0/1 Knapsack for Prefill Admission and Chunked Leftover",
+  "difficulty": "Medium",
+  "tags": ["operator", "inference"],
+  "order": 486,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "title": "量化：按 W8A8 输出误差搜索 SmoothQuant 的 α",
+  "title_en": "Quantization: Searching SmoothQuant's α by W8A8 Output Error",
+  "difficulty": "Hard",
+  "tags": ["operator", "quantization"],
+  "order": 491,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

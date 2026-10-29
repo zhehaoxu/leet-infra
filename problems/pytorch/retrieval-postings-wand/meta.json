@@ -1,0 +1,24 @@
+{
+  "title": "检索：倒排 postings 与 Block-Max WAND",
+  "title_en": "Retrieval: Postings Lists and Block-Max WAND",
+  "difficulty": "Hard",
+  "tags": [
+    "operator",
+    "retrieval"
+  ],
+  "order": 370,
+  "variants": {
+    "pytorch": {
+      "label": "PyTorch",
+      "available": true
+    },
+    "triton": {
+      "label": "Triton",
+      "available": false
+    },
+    "cuda": {
+      "label": "CUDA",
+      "available": false
+    }
+  }
+}

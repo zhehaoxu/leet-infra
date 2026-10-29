@@ -1,0 +1,2 @@
+- 本题考察 Hadamard 矩阵 Sylvester 递归与 block-diagonal 扩展，以及随机符号对角阵的可复现生成。
+- 与 `quarot-hadamard-quant` 的分工：那题考 QuaRot 完整量化流程，本题只考变换构造本身。

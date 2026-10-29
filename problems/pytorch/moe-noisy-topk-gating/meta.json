@@ -1,0 +1,12 @@
+{
+  "title": "MoE：显式噪声 Top-k 门控",
+  "title_en": "MoE: Top-k Gating with Explicit Noise",
+  "difficulty": "Medium",
+  "tags": ["operator", "moe"],
+  "order": 480,
+  "variants": {
+    "pytorch": {"label": "PyTorch", "available": true},
+    "triton": {"label": "Triton", "available": false},
+    "cuda": {"label": "CUDA", "available": false}
+  }
+}

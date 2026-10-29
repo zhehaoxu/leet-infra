@@ -1,0 +1,12 @@
+{
+  "title": "V 形放置：流水线任务时间线与激活显存",
+  "title_en": "V-Shaped Placement: Pipeline Task Timeline and Activation Memory",
+  "difficulty": "Medium",
+  "tags": ["operator", "distributed"],
+  "order": 438,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "title": "softmax 反向：给定输出与上游梯度求 logits 梯度",
+  "title_en": "softmax Backward: Gradient w.r.t. logits from Output and Grad-Output",
+  "difficulty": "Medium",
+  "tags": [
+    "operator",
+    "autograd"
+  ],
+  "order": 381,
+  "variants": {
+    "pytorch": {
+      "label": "PyTorch",
+      "available": true
+    },
+    "triton": {
+      "label": "Triton",
+      "available": false
+    },
+    "cuda": {
+      "label": "CUDA",
+      "available": false
+    }
+  }
+}

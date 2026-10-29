@@ -1,0 +1,24 @@
+{
+  "title": "repeat_interleave（逐元素重复与 index_select 等价）",
+  "title_en": "repeat_interleave: Element-wise Repetition via index_select",
+  "difficulty": "Easy",
+  "tags": [
+    "operator",
+    "tensor"
+  ],
+  "order": 364,
+  "variants": {
+    "pytorch": {
+      "label": "PyTorch",
+      "available": true
+    },
+    "triton": {
+      "label": "Triton",
+      "available": false
+    },
+    "cuda": {
+      "label": "CUDA",
+      "available": false
+    }
+  }
+}

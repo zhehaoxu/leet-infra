@@ -1,0 +1,24 @@
+{
+  "title": "weight_norm 重参数化反向：dg 与 dv 的投影消歧",
+  "title_en": "weight_norm Reparameterization Backward: Disambiguating dg and dv by Projection",
+  "difficulty": "Hard",
+  "tags": [
+    "operator",
+    "autograd"
+  ],
+  "order": 403,
+  "variants": {
+    "pytorch": {
+      "label": "PyTorch",
+      "available": true
+    },
+    "triton": {
+      "label": "Triton",
+      "available": false
+    },
+    "cuda": {
+      "label": "CUDA",
+      "available": false
+    }
+  }
+}

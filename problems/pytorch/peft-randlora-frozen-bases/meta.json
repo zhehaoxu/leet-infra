@@ -1,0 +1,12 @@
+{
+  "title": "PEFT：RandLora 冻结随机低秩基与可训系数",
+  "title_en": "PEFT: RandLora Frozen Random Low-Rank Bases with Trainable Coefficients",
+  "difficulty": "Easy",
+  "tags": ["operator", "peft"],
+  "order": 394,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

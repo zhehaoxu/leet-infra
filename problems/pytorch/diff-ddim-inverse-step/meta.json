@@ -1,0 +1,12 @@
+{
+  "title": "DDIM 逆向一步：把样本推回更噪的一级",
+  "title_en": "DDIM Inversion Step: Pushing a Sample Back to a Noisier Level",
+  "difficulty": "Medium",
+  "tags": ["operator", "diffusion"],
+  "order": 498,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

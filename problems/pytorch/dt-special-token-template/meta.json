@@ -1,0 +1,12 @@
+{
+  "title": "分词：单句与句对特殊 Token 模板",
+  "title_en": "Special-Token Templates for Single and Paired Sequences",
+  "difficulty": "Medium",
+  "tags": ["operator", "tokenization"],
+  "order": 458,
+  "variants": {
+    "pytorch": {"label": "PyTorch", "available": true},
+    "triton": {"label": "Triton", "available": false},
+    "cuda": {"label": "CUDA", "available": false}
+  }
+}

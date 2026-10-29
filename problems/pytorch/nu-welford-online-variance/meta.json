@@ -1,0 +1,12 @@
+{
+  "title": "Welford 在线方差：单遍流式算出均值与方差",
+  "title_en": "Welford Online Variance: One-Pass Streaming Mean and Variance",
+  "difficulty": "Medium",
+  "tags": ["operator", "numerics"],
+  "order": 442,
+  "variants": {
+    "pytorch": {"label": "PyTorch", "available": true},
+    "triton": {"label": "Triton", "available": false},
+    "cuda": {"label": "CUDA", "available": false}
+  }
+}

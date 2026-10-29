@@ -1,0 +1,12 @@
+{
+  "title": "带老化的优先级准入调度",
+  "title_en": "Priority Admission Scheduling with Aging",
+  "difficulty": "Medium",
+  "tags": ["operator", "inference"],
+  "order": 489,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

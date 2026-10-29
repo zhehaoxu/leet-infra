@@ -1,0 +1,24 @@
+{
+  "title": "RLOO：留一基线优势",
+  "title_en": "RLOO: Leave-One-Out Baseline Advantages",
+  "difficulty": "Easy",
+  "tags": [
+    "operator",
+    "alignment"
+  ],
+  "order": 425,
+  "variants": {
+    "pytorch": {
+      "label": "PyTorch",
+      "available": true
+    },
+    "triton": {
+      "label": "Triton",
+      "available": false
+    },
+    "cuda": {
+      "label": "CUDA",
+      "available": false
+    }
+  }
+}

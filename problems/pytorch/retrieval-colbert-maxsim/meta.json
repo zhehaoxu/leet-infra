@@ -1,0 +1,24 @@
+{
+  "title": "检索：ColBERT MaxSim 与 MaxPooled 聚合",
+  "title_en": "Retrieval: ColBERT MaxSim and MaxPooled Aggregation",
+  "difficulty": "Medium",
+  "tags": [
+    "operator",
+    "retrieval"
+  ],
+  "order": 371,
+  "variants": {
+    "pytorch": {
+      "label": "PyTorch",
+      "available": true
+    },
+    "triton": {
+      "label": "Triton",
+      "available": false
+    },
+    "cuda": {
+      "label": "CUDA",
+      "available": false
+    }
+  }
+}

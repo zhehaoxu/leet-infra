@@ -1,0 +1,12 @@
+{
+  "title": "分布式：FSDP wrap policy 与块级显存-通信账",
+  "title_en": "Distributed: FSDP Wrap Policy and Per-Block Memory-Communication Accounting",
+  "difficulty": "Medium",
+  "tags": ["operator", "distributed"],
+  "order": 434,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

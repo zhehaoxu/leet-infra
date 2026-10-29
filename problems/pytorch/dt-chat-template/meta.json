@@ -1,0 +1,12 @@
+{
+  "title": "分词：ChatML 模板与角色字节边界",
+  "title_en": "ChatML Rendering and Role Byte Boundaries",
+  "difficulty": "Medium",
+  "tags": ["operator", "tokenization"],
+  "order": 461,
+  "variants": {
+    "pytorch": {"label": "PyTorch", "available": true},
+    "triton": {"label": "Triton", "available": false},
+    "cuda": {"label": "CUDA", "available": false}
+  }
+}

@@ -29,10 +29,13 @@ export type FamilyKey =
   | 'normalization'
   | 'conv'
   | 'vision'
+  | 'detection'
   | 'gemm'
   | 'attention'
   | 'tensor'
   | 'loss'
+  | 'autograd'
+  | 'numerics'
   | 'optimizer'
   | 'quantization'
   | 'sampling'
@@ -65,10 +68,13 @@ export const TAG_FAMILY: Record<string, FamilyKey> = {
   cnn: 'conv',
   vision: 'vision',
   pooling: 'vision',
+  detection: 'detection',
   gemm: 'gemm',
   attention: 'attention',
   tensor: 'tensor',
   loss: 'loss',
+  autograd: 'autograd',
+  numerics: 'numerics',
   optimizer: 'optimizer',
   quantization: 'quantization',
   sampling: 'sampling',
@@ -95,8 +101,8 @@ export const TAG_FAMILY: Record<string, FamilyKey> = {
 }
 
 export const GROUP_ORDER: FamilyKey[] = [
-  'activation', 'normalization', 'conv', 'vision', 'gemm', 'attention',
-  'tensor', 'loss', 'optimizer', 'quantization', 'sampling', 'rnn', 'metric', 'systems',
+  'activation', 'normalization', 'conv', 'vision', 'detection', 'gemm', 'attention',
+  'tensor', 'loss', 'autograd', 'numerics', 'optimizer', 'quantization', 'sampling', 'rnn', 'metric', 'systems',
   'tokenization', 'distributed', 'llm', 'moe', 'inference', 'alignment', 'kvcache', 'speculative', 'peft', 'diffusion', 'sparsity', 'multimodal', 'audio', 'retrieval', 'evaluation', 'rl', 'agentic',
   'other',
 ]

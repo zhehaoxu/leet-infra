@@ -1,0 +1,12 @@
+{
+  "title": "分布式：弹性容错 rank 重映射与分片迁移",
+  "title_en": "Distributed: Elastic Fault-Tolerance Rank Remapping and Shard Migration",
+  "difficulty": "Medium",
+  "tags": ["operator", "distributed"],
+  "order": 437,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

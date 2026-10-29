@@ -1,0 +1,12 @@
+{
+  "title": "连续批处理的 TTFT / TPOT 时间线：prefill 与 decode 共享同一步",
+  "title_en": "TTFT / TPOT Timeline for Continuous Batching: Prefill and Decode Share One Step",
+  "difficulty": "Medium",
+  "tags": ["operator", "inference"],
+  "order": 485,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

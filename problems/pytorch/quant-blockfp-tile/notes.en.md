@@ -1,0 +1,2 @@
+- This problem covers the 1×128 tile and UE8M0 shared exponent of BlockFP from the DeepSeek-V3 technical report §3.1.
+- The difference from `quant-mx-microscaling` is tile size and format origin; the encoding rule is identical.

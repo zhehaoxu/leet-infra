@@ -1,0 +1,12 @@
+{
+  "title": "量化：per-group 非对称 uint4 打包与解包",
+  "title_en": "Quantization: Per-Group Asymmetric uint4 Pack and Unpack",
+  "difficulty": "Medium",
+  "tags": ["operator", "quantization"],
+  "order": 360,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

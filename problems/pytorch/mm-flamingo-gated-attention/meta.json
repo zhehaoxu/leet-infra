@@ -1,0 +1,12 @@
+{
+  "title": "多模态：Flamingo 媒体掩码与门控融合",
+  "title_en": "Multimodal: Flamingo Media Masks and Gated Fusion",
+  "difficulty": "Hard",
+  "tags": ["operator", "multimodal"],
+  "order": 456,
+  "variants": {
+    "pytorch": {"label": "PyTorch", "available": true},
+    "triton": {"label": "Triton", "available": false},
+    "cuda": {"label": "CUDA", "available": false}
+  }
+}

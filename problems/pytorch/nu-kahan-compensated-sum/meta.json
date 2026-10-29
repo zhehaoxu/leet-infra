@@ -1,0 +1,12 @@
+{
+  "title": "补偿求和与成对求和：把累加误差压回去",
+  "title_en": "Compensated and Pairwise Summation: Pushing the Accumulation Error Back",
+  "difficulty": "Medium",
+  "tags": ["operator", "numerics"],
+  "order": 441,
+  "variants": {
+    "pytorch": {"label": "PyTorch", "available": true},
+    "triton": {"label": "Triton", "available": false},
+    "cuda": {"label": "CUDA", "available": false}
+  }
+}

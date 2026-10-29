@@ -1,0 +1,24 @@
+{
+  "title": "cDPO：噪声偏好标签的平滑去偏损失",
+  "title_en": "cDPO: Label-Smoothing Loss for Noisy Preferences",
+  "difficulty": "Medium",
+  "tags": [
+    "operator",
+    "alignment"
+  ],
+  "order": 422,
+  "variants": {
+    "pytorch": {
+      "label": "PyTorch",
+      "available": true
+    },
+    "triton": {
+      "label": "Triton",
+      "available": false
+    },
+    "cuda": {
+      "label": "CUDA",
+      "available": false
+    }
+  }
+}
