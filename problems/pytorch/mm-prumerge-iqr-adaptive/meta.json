@@ -1,0 +1,12 @@
+{
+  "title": "多模态：LLaVA-PruMerge 的 IQR 自适应 token 数",
+  "title_en": "Multimodal: LLaVA-PruMerge IQR-Adaptive Token Count",
+  "difficulty": "Medium",
+  "tags": ["operator", "multimodal"],
+  "order": 644,
+  "variants": {
+    "pytorch": {"label": "PyTorch", "available": true},
+    "triton": {"label": "Triton", "available": false},
+    "cuda": {"label": "CUDA", "available": false}
+  }
+}

@@ -686,8 +686,8 @@
     "slug": "multimodal",
     "name": "多模态合集",
     "name_en": "Multimodal Collection",
-    "description": "视觉-语言模型的几何重排与对齐训练：ViT patchify 与 Swin 窗口划分，Qwen2-VL 的 smart resize、2×2 patch merge 与 M-RoPE 位置编号，CLIP InfoNCE 与 SigLIP 对比损失，位置嵌入重采样、视频时空 patch 顺序、图像占位展开与混合 batch 整理、Perceiver latent 压缩、Flamingo 门控融合、SAM 提示嵌入与掩码选择、FastV / LLaVA-PruMerge 视觉 token 剪枝与合并，以及 FLUX 二维 RoPE。",
-    "description_en": "Geometric rearrangement and contrastive training in vision-language models: ViT patchify and Swin window partition, Qwen2-VL smart resize / 2x2 patch merge / M-RoPE position ids, CLIP InfoNCE and SigLIP losses, positional-embedding resampling, video spatio-temporal patch order, image placeholder expansion and mixed batch collation, Perceiver latent compression, Flamingo gated fusion, SAM prompt embeddings and mask selection, FastV / LLaVA-PruMerge visual-token pruning and merging, and FLUX 2D RoPE.",
+    "description": "视觉-语言模型的几何重排与对齐训练：ViT patchify 与 Swin 窗口划分，Qwen2-VL 的 smart resize、2×2 patch merge 与 M-RoPE 位置编号，CLIP InfoNCE 与 SigLIP 对比损失，位置嵌入重采样、视频时空 patch 顺序、图像占位展开与混合 batch 整理、Perceiver latent 压缩、Flamingo 门控融合、SAM 提示嵌入与掩码选择、FastV / LLaVA-PruMerge 视觉 token 剪枝与合并（含 IQR 自适应保留数）、Qwen2.5-VL 窗口注意力的重排索引与 cu 窗口边界账，以及 FLUX 二维 RoPE。",
+    "description_en": "Geometric rearrangement and contrastive training in vision-language models: ViT patchify and Swin window partition, Qwen2-VL smart resize / 2x2 patch merge / M-RoPE position ids, CLIP InfoNCE and SigLIP losses, positional-embedding resampling, video spatio-temporal patch order, image placeholder expansion and mixed batch collation, Perceiver latent compression, Flamingo gated fusion, SAM prompt embeddings and mask selection, FastV / LLaVA-PruMerge visual-token pruning and merging (including the IQR-adaptive kept count), Qwen2.5-VL windowed-attention reorder index and cu-window boundary ledger, and FLUX 2D RoPE.",
     "problems": [
       "mm-patchify",
       "mm-window-partition",
@@ -706,7 +706,9 @@
       "mm-sam-mask-stability-select",
       "mm-fastv-visual-token-prune",
       "mm-prumerge-cls-select-merge",
-      "mm-flux-2d-rope"
+      "mm-flux-2d-rope",
+      "mm-prumerge-iqr-adaptive",
+      "mm-qwen25vl-window-index"
     ]
   },
   {
