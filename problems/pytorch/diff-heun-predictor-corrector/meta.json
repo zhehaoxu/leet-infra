@@ -1,0 +1,18 @@
+{
+  "order": 643,
+  "slug": "diff-heun-predictor-corrector",
+  "title": "扩散：Heun 预测-校正两阶段状态机",
+  "title_en": "Diffusion: Heun Predictor-Corrector State Machine",
+  "family": "diffusion",
+  "tags": [
+    "operator",
+    "diffusion"
+  ],
+  "difficulty": "Medium",
+  "status": "published",
+  "created_at": "2026-10-31",
+  "time_limit_ms": 10000,
+  "memory_limit_mb": 512,
+  "description": "HeunDiscreteScheduler 把每个逻辑噪声级拆成两次模型调用：首半步存下导数、步长与样本（欧拉预测），次半步在新点上重估导数、与暂存导数取平均后从**暂存样本**（不是当前样本）出发走完整个步长。timesteps/sigmas 成对 repeat 的索引结构决定每半步读哪个 σ——把「从当前样本出发」或「导数忘了除以 σ」写错，轨迹立刻分叉。",
+  "description_en": "HeunDiscreteScheduler splits each logical noise level into two model calls: the first half-step stores the derivative, step size and sample (Euler prediction); the second half-step re-evaluates the derivative at the new point, averages it with the stored one, and advances from the **stored sample** (not the current one). The repeated timesteps/sigmas index layout decides which sigma each half-step reads — advancing from the current sample or forgetting to divide by sigma forks the trajectory immediately."
+}

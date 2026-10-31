@@ -1,0 +1,18 @@
+{
+  "order": 642,
+  "slug": "diff-deis-multistep-coef",
+  "title": "扩散：DEIS 多步求解器的对数积分系数",
+  "title_en": "Diffusion: DEIS Multistep Log-Integral Coefficients",
+  "family": "diffusion",
+  "tags": [
+    "operator",
+    "diffusion"
+  ],
+  "difficulty": "Hard",
+  "status": "published",
+  "created_at": "2026-10-31",
+  "time_limit_ms": 10000,
+  "memory_limit_mb": 512,
+  "description": "DEIS 把 ODE 数值积分做在 log-σ/ρ 空间：模型输出先转成 d=(x−α·x0)/σ，一阶步等价 DDIM，二阶/三阶步的系数是 log-ρ 多项式在区间上的精确积分 ind_fn。历史窗口的降阶账（lower_order_nums 预热与 <15 步的末两步降阶）决定用哪套系数——任何一处把系数换成 DPMSolver 的 β 系数或把积分下限写错，结果都不同。",
+  "description_en": "DEIS integrates the ODE in log-sigma/rho space: the model output is converted to d=(x−α·x0)/σ, the first-order step equals DDIM, and the second/third-order coefficients are exact integrals ind_fn of log-rho polynomials over the step interval. The order ramp (lower_order_nums warmup and the <15-step final-order drop) picks which coefficient set applies — swapping in DPMSolver's β coefficients or botching the integral's lower limit gives a different answer."
+}

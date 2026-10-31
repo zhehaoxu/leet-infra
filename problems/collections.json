@@ -650,7 +650,9 @@
       "diff-unipc-pc-step",
       "diff-repaint-blend-step",
       "diff-vq-diffusion-posterior",
-      "diff-block-refinement-commit-step"
+      "diff-block-refinement-commit-step",
+      "diff-deis-multistep-coef",
+      "diff-heun-predictor-corrector"
     ]
   },
   {
