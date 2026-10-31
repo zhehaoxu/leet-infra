@@ -1,0 +1,10 @@
+{
+  "order": 682,
+  "collection": "inference",
+  "difficulty": "Hard",
+  "tags": ["constrained-decoding", "fsm", "tokenization"],
+  "source": "dottxt-ai/outlines-core src/index.rs (Index::new)",
+  "title": "正则编译产物：token 级 Index 构建账",
+  "title_en": "Regex compilation artifact: token-level Index construction ledger",
+  "reference": "https://github.com/dottxt-ai/outlines-core/blob/main/src/index.rs"
+}
