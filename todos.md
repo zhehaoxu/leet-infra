@@ -26,11 +26,11 @@
 
 - [x] 104. 新合集 **`reasoning-systems`** 已收口（2026-10-31，合集 **4 题**，order 654–655 与 662–663：① `rs-self-consistency-vote`（2203.11171 归一化投票）、② `rs-prm-best-of-n`（2305.20050 四种归并）、③ `rs-budget-forcing`（s1 budget forcing 三段状态机：步级截断 / Wait 续跑扣预算 / 回答按剩余截断；oracle 用 while 循环独立重写 + 200 组随机对拍）、④ `rs-overthinking-metrics`（答对/答错均值与效率比、准确率-长度分箱、best_bin；K=len(edges)−1 的口径坑已记 notes）。**红线遵守**：模型生成未出，候选/打分表/预算全显式入参。
 
-- [ ] 105. **大模型向现有合集空隙批**（2026-10-31 盘点，逐条 grep 已确认无覆盖；本批落地 2 题：① 转 `dt-gopher-rules`（order 656，datatrove GopherQualityFilter 九条规则顺序账，分词钉死 `text.split()`）、④ 转 `ret-matryoshka-truncation`（order 657，截断 + 重归一化 + 余弦的排名保持账；⑤ ColBERT 已被 `retrieval-colbert-maxsim`（order 371）占用勿再立项）。**剩余候选（order 从 658 起）**：
-  `data-tokenization`：② **C4 过滤**（`allenai/c4` 的 badwords + 行去重阈值账）；③ **精确 n-gram 去重**（与 `dt-minhash-lsh-dedup` 近似去重划界：本题 hash 切片精确账）。
+- [ ] 105. **大模型向现有合集空隙批**（2026-10-31 盘点，逐条 grep 已确认无覆盖；累计落地 4 题：① 转 `dt-gopher-rules`（order 656，datatrove GopherQualityFilter 九条规则顺序账）、④ 转 `ret-matryoshka-truncation`（order 657，截断 + 重归一化 + 余弦的排名保持账；⑤ ColBERT 已被 `retrieval-colbert-maxsim`（order 371）占用勿再立项）、② 转 `dt-c4-filter`（order 664，HF legacy c4_utils clean_page 行级过滤顺序账 + md5 行去重显式跨页状态；badwords 锚点正则 quirk 与 NLTK 句数代理已记 notes）、⑨ 转 `eval-ifeval-rules`（order 665，IF-Eval 6 类判别器 strict 口径；其余类别留作候选）。**剩余候选（order 从 680 起）**：
+  `data-tokenization`：③ **精确 n-gram 去重**（与 `dt-minhash-lsh-dedup` 近似去重划界：本题 hash 切片精确账）。
   `inference`：⑥ **trie 前缀 mask 增量缓存**（official `mlc-ai/xgrammar`；与 `inf-grammar-mask-dfa` 划界：增量复用 vs 单步 DFA）；⑦ **正则 → token 级 FSM 编译**（official `dottxt-ai/outlines`）。
   attention 侧：⑧ **NSA 三支混合注意力**（2502.11089，official `deepseek-ai/NSA`）——压缩/选择/滑动三分支的块账；归属先与 kvcache/llm-models 查重再定。
-  `evaluation`：⑨ **IF-Eval 可验证指令**（official `google-research/instruction-following-eval`）——逐条规则判别器；⑩ **LLM-as-judge swap 一致性**（lmsys 官方仓）——位置偏差 swap 账。
+  `evaluation`：**LLM-as-judge swap 一致性**（lmsys 官方仓）——位置偏差 swap 账；IF-Eval 余下类别（json_format/postscript/capital_word_frequency/two_responses/sentences）可作次批。
   **已被占勿再立项（本批盘点 grep 确认）**：MLA（`llm-deepseek-mla`×2）、模型合并 TIES/DARE（`peft-ties-dare-merge`）、DPO/IPO/KTO/ORPO/SimPO（to-* 5 题）、ALiBi、sliding-window、HNSW/IVF-PQ/RRF、unigram/wordpiece 分词、beam search、pass@k、minhash 去重、MoE aux/capacity、调度器系（continuous batching/EDF/priority/chunked prefill）、fp16 loss scaling、采样变体（adaptive-p/epsilon/llama-sampling-pipeline）。
 
 - [ ] 106. `agentic-systems` 续批（2026-10-31 盘点新增；合集现 **4 题** order 345–348：ReAct 状态机 / 工具 Schema 校验 / 任务 DAG 拓扑执行 / 上下文预算压缩，本批全部避开）。**候选（先逐条回源 + 查重，order 从 648 起）**：

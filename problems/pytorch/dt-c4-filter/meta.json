@@ -1,0 +1,12 @@
+{
+  "title": "C4 行级清洗与去重：clean_page 过滤顺序账",
+  "title_en": "C4 Line-Level Cleaning and Dedup: clean_page Filter-Order Ledger",
+  "difficulty": "Medium",
+  "tags": ["operator", "data"],
+  "order": 664,
+  "variants": {
+    "pytorch": {"label": "PyTorch", "available": true},
+    "triton": {"label": "Triton", "available": false},
+    "cuda": {"label": "CUDA", "available": false}
+  }
+}

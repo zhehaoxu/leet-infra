@@ -303,7 +303,8 @@
       "dt-minhash-lsh-dedup",
       "dt-blend-epoch-schedule",
       "dt-zip2zip-lzw-codebook",
-      "dt-gopher-rules"
+      "dt-gopher-rules",
+      "dt-c4-filter"
     ]
   },
   {
@@ -768,7 +769,8 @@
       "eval-pass-at-k",
       "eval-fewshot-truncation",
       "eval-ndcg-at-k",
-      "eval-shingle-contamination"
+      "eval-shingle-contamination",
+      "eval-ifeval-rules"
     ]
   },
   {
