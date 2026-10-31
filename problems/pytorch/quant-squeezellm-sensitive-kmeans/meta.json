@@ -3,7 +3,7 @@
   "title_en": "Quantization: SqueezeLLM Sensitivity-Weighted Non-Uniform Codebook",
   "difficulty": "Hard",
   "tags": ["operator", "quantization"],
-  "order": 265,
+  "order": 609,
   "variants": {
     "pytorch": { "label": "PyTorch", "available": true },
     "triton": { "label": "Triton", "available": false },

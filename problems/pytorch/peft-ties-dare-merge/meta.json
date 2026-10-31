@@ -3,7 +3,7 @@
   "title_en": "PEFT: DARE Drop-and-Rescale with TIES Merging",
   "difficulty": "Hard",
   "tags": ["operator", "peft"],
-  "order": 253,
+  "order": 597,
   "variants": {
     "pytorch": { "label": "PyTorch", "available": true },
     "triton": { "label": "Triton", "available": false },

@@ -3,7 +3,7 @@
   "title_en": "Quantization: HQQ Half-Quadratic Closed-Form Scale Solver",
   "difficulty": "Hard",
   "tags": ["operator", "quantization"],
-  "order": 264,
+  "order": 608,
   "variants": {
     "pytorch": { "label": "PyTorch", "available": true },
     "triton": { "label": "Triton", "available": false },

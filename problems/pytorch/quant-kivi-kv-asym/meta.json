@@ -3,7 +3,7 @@
   "title_en": "Quantization: KIVI Asymmetric KV Cache Quantization (Per-Channel Keys, Per-Token Values)",
   "difficulty": "Medium",
   "tags": ["operator", "quantization"],
-  "order": 263,
+  "order": 607,
   "variants": {
     "pytorch": { "label": "PyTorch", "available": true },
     "triton": { "label": "Triton", "available": false },

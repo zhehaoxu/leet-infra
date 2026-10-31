@@ -3,7 +3,7 @@
   "title_en": "Quantization: BlockFP 1×128 Tile and UE8M0 Shared Exponent",
   "difficulty": "Medium",
   "tags": ["operator", "quantization"],
-  "order": 359,
+  "order": 613,
   "variants": {
     "pytorch": { "label": "PyTorch", "available": true },
     "triton": { "label": "Triton", "available": false },

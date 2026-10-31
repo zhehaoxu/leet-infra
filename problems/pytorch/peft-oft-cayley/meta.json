@@ -3,7 +3,7 @@
   "title_en": "PEFT: OFT Orthogonal Finetuning via Cayley Transform",
   "difficulty": "Hard",
   "tags": ["operator", "peft"],
-  "order": 252,
+  "order": 596,
   "variants": {
     "pytorch": { "label": "PyTorch", "available": true },
     "triton": { "label": "Triton", "available": false },

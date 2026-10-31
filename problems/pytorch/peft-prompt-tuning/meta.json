@@ -3,7 +3,7 @@
   "title_en": "PEFT: Prompt-Tuning Soft-Prompt Embedding Prepend",
   "difficulty": "Easy",
   "tags": ["operator", "peft"],
-  "order": 258,
+  "order": 602,
   "variants": {
     "pytorch": { "label": "PyTorch", "available": true },
     "triton": { "label": "Triton", "available": false },

@@ -3,7 +3,7 @@
   "title_en": "Softmax (Numerically Stable)",
   "difficulty": "Medium",
   "tags": ["operator", "numerical-stability", "attention"],
-  "order": 4,
+  "order": 591,
   "variants": {
     "pytorch": { "label": "PyTorch", "available": true },
     "triton": { "label": "Triton", "available": false },

@@ -3,7 +3,7 @@
   "title_en": "PEFT: LoKr Kronecker Factorization",
   "difficulty": "Easy",
   "tags": ["operator", "peft"],
-  "order": 250,
+  "order": 594,
   "variants": {
     "pytorch": { "label": "PyTorch", "available": true },
     "triton": { "label": "Triton", "available": false },

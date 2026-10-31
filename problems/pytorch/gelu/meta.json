@@ -3,7 +3,7 @@
   "title_en": "GELU (Exact and tanh Approximation)",
   "difficulty": "Medium",
   "tags": ["operator", "activation", "transformer"],
-  "order": 5,
+  "order": 592,
   "variants": {
     "pytorch": { "label": "PyTorch", "available": true },
     "triton": { "label": "Triton", "available": false },

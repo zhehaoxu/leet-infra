@@ -3,7 +3,7 @@
   "title_en": "Quantization: Fast Recursive Hadamard Transform Construction",
   "difficulty": "Medium",
   "tags": ["operator", "quantization"],
-  "order": 362,
+  "order": 616,
   "variants": {
     "pytorch": { "label": "PyTorch", "available": true },
     "triton": { "label": "Triton", "available": false },

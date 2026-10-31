@@ -3,7 +3,7 @@
   "title_en": "Quantization: MX Microscaling Block Scaling and E8M0 Shared-Exponent Encoding",
   "difficulty": "Medium",
   "tags": ["operator", "quantization"],
-  "order": 358,
+  "order": 612,
   "variants": {
     "pytorch": { "label": "PyTorch", "available": true },
     "triton": { "label": "Triton", "available": false },

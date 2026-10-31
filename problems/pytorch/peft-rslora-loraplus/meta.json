@@ -3,7 +3,7 @@
   "title_en": "PEFT: rsLoRA Scaling and LoRA+ Divergent Learning Rates",
   "difficulty": "Easy",
   "tags": ["operator", "peft"],
-  "order": 255,
+  "order": 599,
   "variants": {
     "pytorch": { "label": "PyTorch", "available": true },
     "triton": { "label": "Triton", "available": false },

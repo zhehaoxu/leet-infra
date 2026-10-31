@@ -3,7 +3,7 @@
   "title_en": "Quantization: BitNet b1.58 Ternary Quantization and Add-Subtract Count GEMM",
   "difficulty": "Easy",
   "tags": ["operator", "quantization"],
-  "order": 357,
+  "order": 611,
   "variants": {
     "pytorch": { "label": "PyTorch", "available": true },
     "triton": { "label": "Triton", "available": false },

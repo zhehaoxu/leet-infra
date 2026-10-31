@@ -3,7 +3,7 @@
   "title_en": "Quantization: NF4 Quantile Codebook Construction and Block Encoding",
   "difficulty": "Hard",
   "tags": ["operator", "quantization"],
-  "order": 262,
+  "order": 606,
   "variants": {
     "pytorch": { "label": "PyTorch", "available": true },
     "triton": { "label": "Triton", "available": false },

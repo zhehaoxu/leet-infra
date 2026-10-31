@@ -3,7 +3,7 @@
   "title_en": "Diffusion: AutoGuidance Flips Its Anchor and Its Identity Threshold Together",
   "difficulty": "Medium",
   "tags": ["operator", "diffusion"],
-  "order": 547,
+  "order": 617,
   "variants": {
     "pytorch": { "label": "PyTorch", "available": true },
     "triton": { "label": "Triton", "available": false },

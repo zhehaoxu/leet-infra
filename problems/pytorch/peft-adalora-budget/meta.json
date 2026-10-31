@@ -3,7 +3,7 @@
   "title_en": "PEFT: AdaLoRA Budgeted Rank Reallocation",
   "difficulty": "Hard",
   "tags": ["operator", "peft"],
-  "order": 254,
+  "order": 598,
   "variants": {
     "pytorch": { "label": "PyTorch", "available": true },
     "triton": { "label": "Triton", "available": false },

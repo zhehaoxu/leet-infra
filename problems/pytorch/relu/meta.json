@@ -3,7 +3,7 @@
   "title_en": "ReLU",
   "difficulty": "Easy",
   "tags": ["operator", "activation"],
-  "order": 1,
+  "order": 588,
   "variants": {
     "pytorch": { "label": "PyTorch", "available": true },
     "triton": { "label": "Triton", "available": false },
