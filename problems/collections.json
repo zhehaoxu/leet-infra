@@ -279,8 +279,8 @@
     "slug": "data-tokenization",
     "name": "分词与数据整理合集",
     "name_en": "Tokenization & Data Collation Collection",
-    "description": "分词与训练数据整理：BPE 合并规则的训练与编码、Unigram Viterbi 切分与路径采样、GPT-2 字节级预分词、WordPiece、特殊/Added token 模板与 ChatML 角色边界、UTF-8 偏移对齐与预算截断，以及批 Padding 与 attention_mask、序列打包、SFT 标签移位与逐轮损失权重、数据分片、近重复去重和多数据集混采配额。",
-    "description_en": "Tokenization and training-data preparation: training and applying BPE merges, Unigram Viterbi segmentation and path sampling, GPT-2 byte-level pre-tokenization, WordPiece, special/added-token templates and ChatML role boundaries, UTF-8 offset alignment and budgeted truncation, plus batch padding with attention_mask, sequence packing, SFT label shifting and per-turn loss weights, data sharding, near-duplicate dedup and multi-dataset blending quotas.",
+    "description": "分词与训练数据整理：BPE 合并规则的训练与编码、Unigram Viterbi 切分与路径采样、GPT-2 字节级预分词、WordPiece、特殊/Added token 模板与 ChatML 角色边界、UTF-8 偏移对齐与预算截断，以及批 Padding 与 attention_mask、序列打包、SFT 标签移位与逐轮损失权重、数据分片、近重复去重与文档内重复过滤和多数据集混采配额。",
+    "description_en": "Tokenization and training-data preparation: training and applying BPE merges, Unigram Viterbi segmentation and path sampling, GPT-2 byte-level pre-tokenization, WordPiece, special/added-token templates and ChatML role boundaries, UTF-8 offset alignment and budgeted truncation, plus batch padding with attention_mask, sequence packing, SFT label shifting and per-turn loss weights, data sharding, near-duplicate dedup, intra-document repetition filtering and multi-dataset blending quotas.",
     "problems": [
       "bpe-training",
       "bpe-encoding",
@@ -305,7 +305,8 @@
       "dt-blend-epoch-schedule",
       "dt-zip2zip-lzw-codebook",
       "dt-gopher-rules",
-      "dt-c4-filter"
+      "dt-c4-filter",
+      "dt-gopher-repetition-filters"
     ]
   },
   {

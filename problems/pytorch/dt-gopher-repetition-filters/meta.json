@@ -1,0 +1,24 @@
+{
+  "title": "Gopher 重复文本过滤：行/段/n-gram 十三条阈值账",
+  "title_en": "Gopher Repetition Filtering: Line/Para/n-gram Thirteen-Threshold Ledger",
+  "difficulty": "Hard",
+  "tags": [
+    "operator",
+    "tokenization"
+  ],
+  "order": 680,
+  "variants": {
+    "pytorch": {
+      "label": "PyTorch",
+      "available": true
+    },
+    "triton": {
+      "label": "Triton",
+      "available": false
+    },
+    "cuda": {
+      "label": "CUDA",
+      "available": false
+    }
+  }
+}
