@@ -913,5 +913,16 @@
       "rs-budget-forcing",
       "rs-overthinking-metrics"
     ]
+  },
+  {
+    "slug": "ocr",
+    "name": "OCR 与文档解析合集",
+    "name_en": "OCR & Document Parsing Collection",
+    "description": "OCR 与文档解析的可转写机制：识别头 CTC greedy 解码与 blank 分隔 collapse、文档 bbox 归一化与 2D 位置索引等纯账本（真图/编码器不出，坐标与矩阵全入参）。",
+    "description_en": "Transcribable mechanisms from OCR and document parsing: the recognition head's CTC greedy decoding with blank-separator collapse, document bbox normalization and 2D position indexing, and other pure ledgers (no real images or encoders; coordinates and matrices are explicit inputs).",
+    "problems": [
+      "ocr-ctc-greedy-decode",
+      "ocr-layoutlm-bbox-index"
+    ]
   }
 ]

@@ -1,0 +1,12 @@
+{
+  "title": "CTC Greedy 解码与 collapse 账",
+  "title_en": "CTC Greedy Decoding and Collapse Ledger",
+  "difficulty": "Medium",
+  "tags": ["operator", "ocr"],
+  "order": 668,
+  "variants": {
+    "pytorch": {"label": "PyTorch", "available": true},
+    "triton": {"label": "Triton", "available": false},
+    "cuda": {"label": "CUDA", "available": false}
+  }
+}

@@ -172,6 +172,7 @@ const zh = {
   'family.linear-attention': '线性注意力 · SSM',
   'family.interpretability': '可解释性',
   'family.reasoning': '推理系统',
+  'family.ocr': 'OCR · 文档解析',
   'family.other': '框架 / 其他',
 } as const
 
@@ -355,6 +356,7 @@ const en: Record<MessageKey, string> = {
   'family.linear-attention': 'Linear Attention · SSM',
   'family.interpretability': 'Interpretability',
   'family.reasoning': 'Reasoning Systems',
+  'family.ocr': 'OCR · Document Parsing',
   'family.other': 'Framework / Other',
 }
 

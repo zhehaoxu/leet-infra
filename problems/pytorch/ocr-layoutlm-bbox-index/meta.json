@@ -1,0 +1,12 @@
+{
+  "title": "LayoutLM 家族 bbox 归一化与 2D 位置索引账",
+  "title_en": "LayoutLM-Family BBox Normalization and 2D Position Index Ledger",
+  "difficulty": "Medium",
+  "tags": ["operator", "ocr"],
+  "order": 669,
+  "variants": {
+    "pytorch": {"label": "PyTorch", "available": true},
+    "triton": {"label": "Triton", "available": false},
+    "cuda": {"label": "CUDA", "available": false}
+  }
+}
