@@ -1,0 +1,12 @@
+{
+  "title": "上下文压缩：LongLLMLingua 文档预算、动态压缩率与窗口阈值计划",
+  "title_en": "Context Compression: LongLLMLingua Document Budget, Dynamic Ratios and Window Threshold Plan",
+  "difficulty": "Hard",
+  "tags": ["operator", "context"],
+  "order": 634,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": {"label": "Triton", "available": false},
+    "cuda": {"label": "CUDA", "available": false}
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "title": "上下文压缩：LLMLingua-2 词级保留概率合并与阈值",
+  "title_en": "Context Compression: LLMLingua-2 Word-Level Keep-Probability Merge and Threshold",
+  "difficulty": "Medium",
+  "tags": ["operator", "context"],
+  "order": 630,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

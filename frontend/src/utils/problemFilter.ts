@@ -43,6 +43,7 @@ export type FamilyKey =
   | 'metric'
   | 'systems'
   | 'tokenization'
+  | 'context'
   | 'distributed'
   | 'llm'
   | 'moe'
@@ -82,6 +83,7 @@ export const TAG_FAMILY: Record<string, FamilyKey> = {
   metric: 'metric',
   systems: 'systems',
   tokenization: 'tokenization',
+  context: 'context',
   distributed: 'distributed',
   llm: 'llm',
   moe: 'moe',
@@ -103,7 +105,7 @@ export const TAG_FAMILY: Record<string, FamilyKey> = {
 export const GROUP_ORDER: FamilyKey[] = [
   'activation', 'normalization', 'conv', 'vision', 'detection', 'gemm', 'attention',
   'tensor', 'loss', 'autograd', 'numerics', 'optimizer', 'quantization', 'sampling', 'rnn', 'metric', 'systems',
-  'tokenization', 'distributed', 'llm', 'moe', 'inference', 'alignment', 'kvcache', 'speculative', 'peft', 'diffusion', 'sparsity', 'multimodal', 'audio', 'retrieval', 'evaluation', 'rl', 'agentic',
+  'tokenization', 'context', 'distributed', 'llm', 'moe', 'inference', 'alignment', 'kvcache', 'speculative', 'peft', 'diffusion', 'sparsity', 'multimodal', 'audio', 'retrieval', 'evaluation', 'rl', 'agentic',
   'other',
 ]
 

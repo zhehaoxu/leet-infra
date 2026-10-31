@@ -299,7 +299,8 @@
       "dt-rank-shard-indices",
       "dt-wordpiece-greedy-split",
       "dt-minhash-lsh-dedup",
-      "dt-blend-epoch-schedule"
+      "dt-blend-epoch-schedule",
+      "dt-zip2zip-lzw-codebook"
     ]
   },
   {
@@ -591,7 +592,10 @@
       "peft-waveft-spectrum",
       "peft-c3a-block-circulant",
       "peft-vblora-bank",
-      "peft-boft-butterfly"
+      "peft-boft-butterfly",
+      "peft-hira-multiplicative-delta",
+      "peft-shira-sparse-delta",
+      "peft-trainable-tokens-replace"
     ]
   },
   {
@@ -840,6 +844,18 @@
       "nu-stochastic-rounding",
       "nu-online-softmax-rescale",
       "nu-safe-l2-norm"
+    ]
+  },
+  {
+    "slug": "context-compression",
+    "name": "上下文压缩合集",
+    "name_en": "Context Compression Collection",
+    "description": "推理前把 prompt 压短的三个路数：按词级重要性剪词（LLMLingua-2 用小型分类器判「该删哪个词」）、按文档预算分配（LongLLMLingua 按困惑度给每篇文档算 token 预算、两阶段窗口细裁）、以及预填期一次性裁输入（GemFilter 用早层注意力给输入 token 打分取 top-k）。三题都复现上游的精确打分与选择规则，任何一步换一种「想当然」的实现都会得到另一份结果。",
+    "description_en": "Three routes to shortening a prompt before inference: word-level importance pruning (LLMLingua-2 uses a small classifier to decide which words to drop), per-document budget allocation (LongLLMLingua assigns token budgets by perplexity and refines with two-stage windows), and one-shot input pruning at prefill (GemFilter scores input tokens with early-layer attention and takes the top-k). All three reproduce the upstream scoring and selection rules exactly; any \"obvious\" shortcut yields a different answer.",
+    "problems": [
+      "ctx-llmlingua2-word-compress",
+      "ctx-longllmlingua-doc-budget",
+      "ctx-gemfilter-early-select"
     ]
   }
 ]

@@ -1,0 +1,12 @@
+{
+  "title": "zip2zip LZW 动态码本编码",
+  "title_en": "zip2zip LZW Dynamic Codebook Encoding",
+  "difficulty": "Hard",
+  "tags": ["operator", "tokenization"],
+  "order": 636,
+  "variants": {
+    "pytorch": {"label": "PyTorch", "available": true},
+    "triton": {"label": "Triton", "available": false},
+    "cuda": {"label": "CUDA", "available": false}
+  }
+}
