@@ -874,11 +874,13 @@
     "slug": "linear-attention",
     "name": "线性注意力与状态空间合集",
     "name_en": "Linear Attention & SSM Collection",
-    "description": "次二次复杂度序列建模的核心递推账：Mamba 的 selective scan 参考实现（deltaA 指数衰减、deltaB_u 输入注入、D 跳连与 z 门、变体 einsum 与数值精度口径），以及 Gated DeltaNet 的门控线性递推（状态指数遗忘、误差校正写入 (v−h·k)β、按头 scale 与输出读出）。",
-    "description_en": "Core recurrence ledgers of sub-quadratic sequence modeling: Mamba's selective-scan reference implementation (deltaA exponential decay, deltaB_u input injection, the D skip connection and z gate, variant einsums and numerical-precision conventions), and the gated linear recurrence of Gated DeltaNet (exponential state forgetting, the error-correcting write (v−h·k)β, per-head scale and the output read).",
+    "description": "次二次复杂度序列建模的核心递推账：Mamba 的 selective scan 参考实现（deltaA 指数衰减、deltaB_u 输入注入、D 跳连与 z 门、变体 einsum 与数值精度口径）、Gated DeltaNet 的门控线性递推（状态指数遗忘、误差校正写入 (v−h·k)β、按头 scale 与输出读出）、RWKV v6 的 per-token 逐通道衰减 WKV 递推（(a,b,p) log-space 三元组、bonus 只进输出分支、w 加在旧指数上），以及 Gated Linear Attention 的 chunk 并行恒等式（段内含入 cumsum、段间/段内两支拆分、段末衰减按 key 通道逐行）。",
+    "description_en": "Core recurrence ledgers of sub-quadratic sequence modeling: Mamba's selective-scan reference implementation (deltaA exponential decay, deltaB_u input injection, the D skip connection and z gate, variant einsums and numerical-precision conventions), the gated linear recurrence of Gated DeltaNet (exponential state forgetting, the error-correcting write (v−h·k)β, per-head scale and the output read), RWKV v6's per-token per-channel-decay WKV recurrence ((a,b,p) log-space triplet, bonus only in the output branch, w applied to the old exponent), and Gated Linear Attention's chunked-parallel identity (inclusive in-chunk cumsum, inter/intra split, end-of-chunk decay applied row-wise per key channel).",
     "problems": [
       "la-mamba-selective-scan",
-      "la-gated-deltanet-recurrent"
+      "la-gated-deltanet-recurrent",
+      "la-rwkv-channel-decay",
+      "la-gla-chunked"
     ]
   },
   {

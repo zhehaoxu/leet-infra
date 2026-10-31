@@ -1,0 +1,12 @@
+{
+  "title": "RWKV v6 通道衰减：per-token w/u 的 WKV 递推账",
+  "title_en": "RWKV v6 Channel-wise Decay: WKV Recurrence with Per-token w/u Ledger",
+  "difficulty": "Hard",
+  "tags": ["operator", "linear-attention"],
+  "order": 658,
+  "variants": {
+    "pytorch": {"label": "PyTorch", "available": true},
+    "triton": {"label": "Triton", "available": false},
+    "cuda": {"label": "CUDA", "available": false}
+  }
+}

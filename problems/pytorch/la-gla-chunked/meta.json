@@ -1,0 +1,12 @@
+{
+  "title": "Gated Linear Attention：chunk 并行形式与朴素递推的恒等账",
+  "title_en": "Gated Linear Attention: Chunked-Parallel Form vs Naive Recurrence Identity",
+  "difficulty": "Hard",
+  "tags": ["operator", "linear-attention"],
+  "order": 659,
+  "variants": {
+    "pytorch": {"label": "PyTorch", "available": true},
+    "triton": {"label": "Triton", "available": false},
+    "cuda": {"label": "CUDA", "available": false}
+  }
+}
