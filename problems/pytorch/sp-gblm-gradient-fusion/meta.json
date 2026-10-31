@@ -1,0 +1,18 @@
+{
+  "order": 640,
+  "slug": "sp-gblm-gradient-fusion",
+  "title": "稀疏化：GBLM 梯度融合显著性逐行剪枝",
+  "title_en": "Sparsity: GBLM Gradient-Fused Saliency Rowwise Pruning",
+  "family": "sparsity",
+  "tags": [
+    "operator",
+    "sparsity"
+  ],
+  "difficulty": "Hard",
+  "status": "published",
+  "created_at": "2026-10-31",
+  "time_limit_ms": 10000,
+  "memory_limit_mb": 512,
+  "description": "GBLM-Pruner 在 Wanda 的 |W|·RMS(激活) 显著性上再融合一项梯度证据：|W|·√(Σ_s (g_s·scale)²)，两项相加（或取梯度倒数）后逐行选最小的 int(in·sparsity) 个置零。任何一处聚合方式、缩放因子或排序稳定性想当然，得到的掩码都不同。",
+  "description_en": "GBLM-Pruner fuses a gradient term on top of Wanda's |W|·RMS(activation) saliency: |W|·√(Σ_s (g_s·scale)²). The two terms are added (or the gradient is inverted) before picking the int(in·sparsity) smallest entries per row. Any shortcut in aggregation, scaling, or sort stability yields a different mask."
+}

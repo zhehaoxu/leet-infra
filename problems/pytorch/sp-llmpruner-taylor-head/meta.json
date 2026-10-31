@@ -1,0 +1,18 @@
+{
+  "order": 641,
+  "slug": "sp-llmpruner-taylor-head",
+  "title": "稀疏化：LLM-Pruner 泰勒组粒度头重要性",
+  "title_en": "Sparsity: LLM-Pruner Taylor Group-Granularity Head Importance",
+  "family": "sparsity",
+  "tags": [
+    "operator",
+    "sparsity"
+  ],
+  "difficulty": "Medium",
+  "status": "published",
+  "created_at": "2026-10-31",
+  "time_limit_ms": 10000,
+  "memory_limit_mb": 512,
+  "description": "LLM-Pruner 用一阶泰勒显著性 w·g 在依赖组粒度上打分：多头注意力里 o_proj 贡献行块、q/k/v 贡献列块，param_first 先取绝对值再求和，vectorize 先求和再取绝对值（符号抵消）。本题复现每头标量重要性与移除头的选择，任何一处求和次序或绝对值时机想当然都会剪错头。",
+  "description_en": "LLM-Pruner scores with first-order Taylor saliency w·g at dependency-group granularity: in multi-head attention, o_proj contributes row blocks and q/k/v contribute column blocks; param_first takes absolute values then sums, vectorize sums then takes absolute values (sign cancellation). Reproduce the per-head scalar importance and head-removal selection — any shortcut in summation order or abs timing prunes the wrong heads."
+}

@@ -675,7 +675,9 @@
       "sparsity-ell-bsr-format",
       "sparsity-wanda-activation-metric",
       "sparsity-owl-outlier-layerwise",
-      "sparsity-trim-rowwise-iterative"
+      "sparsity-trim-rowwise-iterative",
+      "sp-gblm-gradient-fusion",
+      "sp-llmpruner-taylor-head"
     ]
   },
   {
