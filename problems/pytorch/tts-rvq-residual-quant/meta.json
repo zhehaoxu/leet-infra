@@ -1,0 +1,12 @@
+{
+  "title": "RVQ 残差向量量化账",
+  "title_en": "RVQ Residual Vector Quantization Ledger",
+  "difficulty": "Medium",
+  "tags": ["operator", "tts"],
+  "order": 673,
+  "variants": {
+    "pytorch": {"label": "PyTorch", "available": true},
+    "triton": {"label": "Triton", "available": false},
+    "cuda": {"label": "CUDA", "available": false}
+  }
+}

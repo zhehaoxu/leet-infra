@@ -65,6 +65,7 @@ export type FamilyKey =
   | 'reasoning'
   | 'ocr'
   | 'asr'
+  | 'tts'
   | 'other'
 
 export const TAG_FAMILY: Record<string, FamilyKey> = {
@@ -110,13 +111,14 @@ export const TAG_FAMILY: Record<string, FamilyKey> = {
   reasoning: 'reasoning',
   ocr: 'ocr',
   asr: 'asr',
+  tts: 'tts',
 }
 
 export const GROUP_ORDER: FamilyKey[] = [
   'activation', 'normalization', 'conv', 'vision', 'detection', 'gemm', 'attention',
   'tensor', 'loss', 'autograd', 'numerics', 'optimizer', 'quantization', 'sampling', 'rnn', 'metric', 'systems',
   'tokenization', 'context', 'distributed', 'llm', 'moe', 'inference', 'alignment', 'kvcache', 'speculative', 'peft', 'diffusion', 'sparsity', 'multimodal', 'audio', 'retrieval', 'evaluation', 'rl', 'agentic',
-  'linear-attention', 'interpretability', 'reasoning', 'ocr', 'asr',
+  'linear-attention', 'interpretability', 'reasoning', 'ocr', 'asr', 'tts',
   'other',
 ]
 

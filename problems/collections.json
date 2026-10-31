@@ -935,5 +935,16 @@
       "asr-ctc-prefix-beam",
       "asr-whisper-quality-gate"
     ]
+  },
+  {
+    "slug": "tts",
+    "name": "语音合成合集",
+    "name_en": "TTS Collection",
+    "description": "语音合成的可转写机制：Glow-TTS/FastSpeech2 的单调对齐搜索 duration 提取、RVQ 残差级联量化等纯账本（真模型/音频 IO 不出，似然矩阵与码本全入参；与 audio 前端、asr 识别侧三分工）。",
+    "description_en": "Transcribable mechanisms from speech synthesis: duration extraction via Glow-TTS/FastSpeech2 monotonic alignment search, RVQ residual-cascade quantization, and other pure ledgers (no real models or audio IO; likelihood matrices and codebooks are explicit inputs; complements the audio front-end and the asr recognition side).",
+    "problems": [
+      "tts-mas-monotonic-alignment",
+      "tts-rvq-residual-quant"
+    ]
   }
 ]

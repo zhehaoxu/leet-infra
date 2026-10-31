@@ -1,0 +1,12 @@
+{
+  "title": "Monotonic Alignment Search 单调对齐账",
+  "title_en": "Monotonic Alignment Search Ledger",
+  "difficulty": "Hard",
+  "tags": ["operator", "tts"],
+  "order": 672,
+  "variants": {
+    "pytorch": {"label": "PyTorch", "available": true},
+    "triton": {"label": "Triton", "available": false},
+    "cuda": {"label": "CUDA", "available": false}
+  }
+}

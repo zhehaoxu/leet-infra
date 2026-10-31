@@ -174,6 +174,7 @@ const zh = {
   'family.reasoning': '推理系统',
   'family.ocr': 'OCR · 文档解析',
   'family.asr': '语音识别',
+  'family.tts': '语音合成',
   'family.other': '框架 / 其他',
 } as const
 
@@ -359,6 +360,7 @@ const en: Record<MessageKey, string> = {
   'family.reasoning': 'Reasoning Systems',
   'family.ocr': 'OCR · Document Parsing',
   'family.asr': 'Speech Recognition',
+  'family.tts': 'Speech Synthesis',
   'family.other': 'Framework / Other',
 }
 
