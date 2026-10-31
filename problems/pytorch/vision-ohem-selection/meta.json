@@ -1,0 +1,14 @@
+{
+  "slug": "vision-ohem-selection",
+  "order": 676,
+  "title": "OHEM 难例选择掩码账",
+  "title_en": "OHEM Hard-Example Selection Mask Ledger",
+  "difficulty": "Medium",
+  "tags": ["detection", "ohem", "hard-mining", "bookkeeping"],
+  "family": "vision",
+  "source": "https://github.com/open-mmlab/mmsegmentation/blob/main/mmseg/structures/sampler/ohem_pixel_sampler.py",
+  "description": "转写 OHEM（1604.03540）难例选择的现代主流口径（mmseg OHEMPixelSampler 双分支）：threshold 分支——正确类概率升序排，取第 min(batch_kept, n−1) 位的概率与给定阈值 t 取 max 作为最终阈值，mask = prob < threshold（保留难例）；loss 分支——loss 降序排，前 batch_kept 位置 1。batch_kept = min_kept × batch。RoI 级配额语义（mmdet OHEMSampler 候选≤配额全保留）入 notes。",
+  "description_en": "Transcribe the modern mainstream OHEM (1604.03540) selection ledger (mmseg OHEMPixelSampler, two branches): threshold branch — sort correct-class probabilities ascending, take prob at rank min(batch_kept, n-1), final threshold = max(that, t), mask = prob < threshold (keep hard examples); loss branch — sort losses descending, mark top batch_kept. batch_kept = min_kept × batch. RoI-level quota semantics (mmdet OHEMSampler: keep all when candidates <= quota) go to notes.",
+  "hints": ["threshold 是 max 不是 min：保证至少 batch_kept 个（rank 兜底）且不放过低于 t 的", "升序第 k 位是「第 k+1 难」的概率上界——prob 严格小于阈值才保留", "loss 分支并列时 sort 稳定，取靠前下标"],
+  "oracle": "独立实现对照"
+}

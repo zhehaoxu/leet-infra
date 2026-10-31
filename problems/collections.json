@@ -818,7 +818,9 @@
       "vision-rle-mask-iou",
       "vision-fpn-levels",
       "vision-rotated-nms",
-      "vision-deformable-sample"
+      "vision-deformable-sample",
+      "vision-ohem-selection",
+      "vision-cornernet-pooling"
     ]
   },
   {

@@ -1,0 +1,14 @@
+{
+  "slug": "vision-cornernet-pooling",
+  "order": 677,
+  "title": "CornerNet corner pooling 前向账",
+  "title_en": "CornerNet Corner Pooling Forward Ledger",
+  "difficulty": "Medium",
+  "tags": ["detection", "cornernet", "pooling", "bookkeeping"],
+  "family": "vision",
+  "source": "https://github.com/princeton-vl/CornerNet/blob/master/models/py_utils/_cpools/src/right_pool.cpp",
+  "description": "转写 CornerNet（1808.01244）corner pooling 的官方 _cpools 前向账：四方向 running max（RightPool=向右累积取左侧含自身 max、LeftPool=向左累积取右侧 max、TopPool=向下累积取下方 max、BottomPool=取上方 max；注意官方文件名与累积方向的反直觉对应），再按 tl=Top+Left、br=Bottom+Right（官方 CornerNet.py 组合）及 tr/bl 对称组合逐元素相加。",
+  "description_en": "Transcribe the official _cpools forward ledger of CornerNet (1808.01244) corner pooling: four-direction running max (RightPool accumulates rightward taking the left max including self, LeftPool takes the right max, TopPool the bottom max, BottomPool the top max; the official filename-to-direction mapping is counter-intuitive), then combine elementwise as tl=Top+Left, br=Bottom+Right (official CornerNet.py) and tr/bl by symmetry.",
+  "hints": ["官方文件名指扫描方向：right_pool.cpp 是 out[i+1]=max(in[i+1], out[i]) 从左往右累积——取的是左侧 max", "running max 是后缀/前缀 max，含自身：out 与 x 等形且 out >= x 逐元素成立", "corner pool 是两条支路各自 pool 后逐元素相加，不是先加再 pool"],
+  "oracle": "O(n²·方向) 暴力逐点重算对照"
+}

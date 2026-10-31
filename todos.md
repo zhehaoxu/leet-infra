@@ -77,15 +77,12 @@
 
 ### `vision-detection` 续批线索（2026-10-31 新增，源单：hoya012/deep_learning_object_detection）
 
-- [ ] 100. `vision-detection` 续批（合集现 **8 题** order 373–380）。按「README 里**带源代码链接**的论文」出题（repo 中 FCOS/DETR/EfficientDet/SNIPER 等无码论文不作唯一出处；已有题的出处口径不动）。**次批候选（先逐条回源 + 查重，order 从 648 起，动笔前重扫全库避让并行会话）**：
-  ① **OHEM**（1604.03540，official `abhi2610/Ohem-caffe`）——给定 per-sample loss 与阈值 t、keep 配额，输出难例选择 mask（先按 t 过滤再取 top-N，caffe 系按 batch 配额、论文另有 per-class 口径，立项前回源钉死一处）。与 `focal-loss` 划界：OHEM 是**选择**不是重加权，无调制因子。
-  ② **CornerNet corner pooling**（1808.01244，official `princeton-vl/CornerNet`）——top-left / top-right pooling 的 running-max 前向账（右侧/下侧逆序 `cummax` 再相加），可附 heatmap 3×3 max-pool 峰值筛选 + top-k 账；纯前向、无随机数。
+- [x] 100. `vision-detection` 续批首批已落地（2026-11-01，合集 8→**10 题**，order 676–677：① `vision-ohem-selection`（OHEM 1604.03540 难例选择双分支账，按 mmseg OHEMPixelSampler 口径：threshold 分支 max(rank 兜底, t)+严格小于、loss 分支降序稳定 topk；原始 caffe 仓 404 已记 notes；RoI 级 mmdet 语义记 notes 不入题）、② `vision-cornernet-pooling`（CornerNet 1808.01244 官方 _cpools 四方向 running max 转写：文件名指扫描方向反直觉、tl=Top+Left/br=Bottom+Right 官方组合、pool 后相加≠相加后 pool；暴力 oracle 对拍）。**红线遵守**：真实特征图/网络权重未出，loss/prob/特征矩阵全入参。**剩余候选（order 从 680 起）**：
   ③ **SPP-Net 金字塔池化**（1406.4729，official caffe）——多级 bin（4×4/2×2/1×1）在任意 H×W 特征图上的 bin 边界整数除法 + 窗口 max + flatten 拼接的尺寸账。与 `roi_pool`（单级固定 bin）划界：增量在「多级金字塔 + 任意输入尺寸的划分账」。
   ④ **R-FCN position-sensitive RoI pooling**（1605.06409，official + unofficial）——k² 通道位置敏感得分图按 (i,j) bin 取对应通道 + bin 内平均投票；纯索引账。
   ⑤ **KL-Loss variance voting**（1809.08545，official caffe2）——NMS 后保留框坐标按邻居 σ² 倒数加权精修。与 `soft-nms`（压分数）划界：本题**改坐标不改分**；损失端与既有 `kl-divergence` 系列查重后只考 voting 侧。
   ⑥ **YOLO v1 网格责任编码**（1506.02640，official darknet）——GT 中心落格的责任分配、xy 网格偏移 + sqrt(w)/sqrt(h) 编码与 decode 互逆账。与 `vision-anchor-match`（anchor 系）划界：无 anchor 网格系。
   **跳过/不立项**：Cascade R-CNN（机制=换 IoU 阈值重训，无确定性判定点）、Relation-Network（relation attention 与 attention 系查重 + 需真实特征）、RefineDet/MS-CNN（尺度分配与 374 FCOS 层分配重复）、Mask R-CNN mask head（RLE/mask IoU 已有 377）、Gaussian YOLOv3（与⑤同类 uncertainty，二选一即可）、DeNet（角点系与②重复）。**红线**：真模型前向/训练收敛不出；判题环境只有 torch+numpy，先回源再立项、实现前逐条复查与 operators 合集 `nms`/`roi_pool`/`soft-nms`/`iou-compute`/`focal-loss` 的边界。
-
 - [ ] 101. `vision-detection` **YOLO 全系列续批**（2026-10-31 新增，与 #100 同池同纪律：order 从 648 起统一取号、动笔前重扫全库避让并行会话、先逐条回源再立项）。v1 编码已由 #100⑥ 占，本条从 v2 起收；YOLOv4 及以后在 hoya012 repo 无码条目，出处一律引官方仓（`AlexeyAB/darknet`、`ultralytics/yolov3|yolov5|ultralytics`、`Megvii-BaseDetection/YOLOX`、`THU-MIG/yolov10`）。**候选（每条须独立回源钉口径 + 查重）**：
   ① **YOLOv2 anchor k-means 聚类**（1612.08242，official darknet）——GT 宽高集上以 `1−IoU` 为距离的 Lloyd 聚类出 anchor 尺寸（含 centroid 初始化与并列打破规则）；判题环境无 scipy，oracle 自实现 k-means、迭代轮次与初值作显式入参保证确定性。与 quant 合集各 k-means 题（码本/权重分配）划界：距离核与对象不同。
   ② **YOLOv2/v3 anchor 系 box 编解码互逆**（1612.08242 / 1704.04896，official darknet + ultralytics yolov3）——`bx=σ(tx)+cx`、`by=σ(ty)+cy`、`bw=pw·e^tw`、`bh=ph·e^th` 的编码/解码双向往返账（ultralytics 侧 `xywh2xyxy` 的 1−exp 防溢出 clamp 口径回源后二选一）。与 #100⑥ 划界：v1 是 sqrt(wh) 无 anchor，v2/v3 是 exp + anchor 先验。
