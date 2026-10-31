@@ -24,7 +24,8 @@
       "fw-distributed-sampler",
       "fw-param-freeze",
       "fw-state-dict-remap",
-      "fw-resume-checkpoint"
+      "fw-resume-checkpoint",
+      "fw-autograd-lineage-ledger"
     ]
   },
   {
