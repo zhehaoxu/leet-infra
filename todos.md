@@ -24,10 +24,7 @@
 
 - [x] 103. 新合集 **`interpretability`** 已收口（2026-10-31，合集 **4 题**，order 652–653 与 660–661：① `int-sae-topk-reconstruct`（SAELens TopK SAE）、③ `int-tuned-lens-affine`（tuned lens 仿射探针）、② `int-activation-steering`（nrimsky/steering-vectors 注入账：同层累加 / normalize / cos_before-after / proj_coef 正交化；「不得修改入参」契约靠 float64 用例钉住）、④ `int-logit-lens-unembed`（nostalgebraist logit lens 免训练读出：final LN + unembed、argmax 并列取小、agree/rank_of_final；no-layernorm 经典错误已变异化）。**红线遵守**：隐态/权重全显式入参，真实模型 forward 未出。
 
-- [ ] 104. 新合集 **`reasoning-systems`**（推理模型语义侧，2026-10-31 盘点新增；rl-systems 只管 infra，本合集管语义与账本；已落地合集 2 题：① 转 `rs-self-consistency-vote`（order 654）、② 转 `rs-prm-best-of-n`（order 655，2305.20050 四种归并口径）。**剩余候选**：
-  ③ **budget forcing**（s1，official `simplescaling/s1`）——thinking token 预算的截断 / 「Final Answer:」强制续写账。
-  ④ **overthinking 指标**——token 效率、正确率-长度曲线的确定性账。
-  **红线**：模型生成本身不出，候选/打分表/预算全显式入参；与 `to-gae`/`to-grpo-advantage`（训练侧 advantage）划界。
+- [x] 104. 新合集 **`reasoning-systems`** 已收口（2026-10-31，合集 **4 题**，order 654–655 与 662–663：① `rs-self-consistency-vote`（2203.11171 归一化投票）、② `rs-prm-best-of-n`（2305.20050 四种归并）、③ `rs-budget-forcing`（s1 budget forcing 三段状态机：步级截断 / Wait 续跑扣预算 / 回答按剩余截断；oracle 用 while 循环独立重写 + 200 组随机对拍）、④ `rs-overthinking-metrics`（答对/答错均值与效率比、准确率-长度分箱、best_bin；K=len(edges)−1 的口径坑已记 notes）。**红线遵守**：模型生成未出，候选/打分表/预算全显式入参。
 
 - [ ] 105. **大模型向现有合集空隙批**（2026-10-31 盘点，逐条 grep 已确认无覆盖；本批落地 2 题：① 转 `dt-gopher-rules`（order 656，datatrove GopherQualityFilter 九条规则顺序账，分词钉死 `text.split()`）、④ 转 `ret-matryoshka-truncation`（order 657，截断 + 重归一化 + 余弦的排名保持账；⑤ ColBERT 已被 `retrieval-colbert-maxsim`（order 371）占用勿再立项）。**剩余候选（order 从 658 起）**：
   `data-tokenization`：② **C4 过滤**（`allenai/c4` 的 badwords + 行去重阈值账）；③ **精确 n-gram 去重**（与 `dt-minhash-lsh-dedup` 近似去重划界：本题 hash 切片精确账）。

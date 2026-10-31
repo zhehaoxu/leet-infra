@@ -1,0 +1,12 @@
+{
+  "title": "Overthinking 指标：token 效率与准确率-长度分箱账",
+  "title_en": "Overthinking Metrics: Token Efficiency and Accuracy-Length Binning Ledger",
+  "difficulty": "Medium",
+  "tags": ["operator", "reasoning"],
+  "order": 663,
+  "variants": {
+    "pytorch": {"label": "PyTorch", "available": true},
+    "triton": {"label": "Triton", "available": false},
+    "cuda": {"label": "CUDA", "available": false}
+  }
+}

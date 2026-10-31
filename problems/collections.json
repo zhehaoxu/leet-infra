@@ -900,11 +900,13 @@
     "slug": "reasoning-systems",
     "name": "推理系统合集",
     "name_en": "Reasoning Systems Collection",
-    "description": "推理期把 N 份候选折成一个答案的确定性账本：self-consistency 的答案归一化与加权计票（8 条钉死的归一化规则、首次出现序票仓、并列取先者），以及 PRM best-of-N 的步级聚合（last / max / min / product 四种口径、answer_scores 乘项、并列取小 index 的 top-m 排序）。",
-    "description_en": "Deterministic ledgers that fold N candidates into one answer at inference time: self-consistency answer normalization and weighted voting (8 pinned normalization rules, first-occurrence-order tallies, ties to the earliest), and PRM best-of-N step aggregation (the last / max / min / product rules, the answer_scores multiplier, top-m ranking with ties to the smaller index).",
+    "description": "推理期把 N 份候选折成一个答案、再把预算折成行为的确定性账本：self-consistency 的答案归一化与加权计票（8 条钉死的归一化规则、首次出现序票仓、并列取先者）、PRM best-of-N 的步级聚合（last / max / min / product 四种口径、answer_scores 乘项、并列取小 index 的 top-m 排序）、s1 budget forcing 的三段状态机（步级截断触发 length forcing、Wait 续跑扣预算、回答按剩余截断），以及 overthinking 指标账（答对/答错平均 token 数与效率比、准确率-长度分箱、best_bin 并列取小）。",
+    "description_en": "Deterministic ledgers that fold N candidates into one answer and a budget into behavior at inference time: self-consistency answer normalization and weighted voting (8 pinned normalization rules, first-occurrence-order tallies, ties to the earliest), PRM best-of-N step aggregation (the last / max / min / product rules, the answer_scores multiplier, top-m ranking with ties to the smaller index), the s1 budget-forcing three-phase state machine (step truncation triggering length forcing, Wait extensions consuming budget, the answer truncated by the remainder), and the overthinking metric ledger (mean tokens of correct vs wrong answers with the efficiency ratio, accuracy-length binning, best_bin with ties to the smallest).",
     "problems": [
       "rs-self-consistency-vote",
-      "rs-prm-best-of-n"
+      "rs-prm-best-of-n",
+      "rs-budget-forcing",
+      "rs-overthinking-metrics"
     ]
   }
 ]

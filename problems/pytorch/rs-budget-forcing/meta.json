@@ -1,0 +1,12 @@
+{
+  "title": "Budget forcing：思考预算截断与 Wait 续跑账",
+  "title_en": "Budget Forcing: Thinking-Budget Truncation and Wait-Extension Ledger",
+  "difficulty": "Medium",
+  "tags": ["operator", "reasoning"],
+  "order": 662,
+  "variants": {
+    "pytorch": {"label": "PyTorch", "available": true},
+    "triton": {"label": "Triton", "available": false},
+    "cuda": {"label": "CUDA", "available": false}
+  }
+}
