@@ -1,0 +1,24 @@
+{
+  "title": "KV Cache：ReST-KV 的赔率分与输出重建乘子",
+  "title_en": "KV Cache: ReST-KV Odds Score and Output-Reconstruction Multiplier",
+  "difficulty": "Medium",
+  "tags": [
+    "operator",
+    "kvcache"
+  ],
+  "order": 583,
+  "variants": {
+    "pytorch": {
+      "label": "PyTorch",
+      "available": true
+    },
+    "triton": {
+      "label": "Triton",
+      "available": false
+    },
+    "cuda": {
+      "label": "CUDA",
+      "available": false
+    }
+  }
+}

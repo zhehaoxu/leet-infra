@@ -38,11 +38,11 @@ Return `(pruned_weight, importance)`: the first has the shape of `weight`, the s
 weight[0,0] = [[1,2],[2,1]]   calib[0,0] = [[3,4],[0,0]]
 weight[0,1] = [[0,1],[0,0]]   calib[0,1] = [[1,0],[0,0]]
 
-||W[0,0]||_F = sqrt(1+4+4+1) = sqrt(10) ~ 3.162278
-||X[0,0]||_F = sqrt(9+16) = 5
-importance[0,0] = sqrt(10)*5 ~ 15.811388
+‖W[0,0]‖_F = sqrt(1+4+4+1) = sqrt(10) ≈ 3.162278
+‖X[0,0]‖_F = sqrt(9+16) = 5
+importance[0,0] = sqrt(10)*5 ≈ 15.811388
 
-||W[0,1]||_F = 1,  ||X[0,1]||_F = 1
+‖W[0,1]‖_F = 1,  ‖X[0,1]‖_F = 1
 importance[0,1] = 1.0
 
 k = round(0.5*1*2) = 1  -> drop the lower-scoring head 1

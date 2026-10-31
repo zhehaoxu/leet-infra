@@ -23,8 +23,7 @@ Input: logits = [1.0, 0.5, 0.0, -0.5, -1.0]
        banned: index [4]
        u = 0.6
 
-① bias: index 1 appears twice → 0.5 + 0.5 + 1.5 = 2.5; index 3 → -0.5 - 2.0 = -2.5; indices 0 and 2 are not
-   in the map → unchanged
+① bias: index 1 appears twice → 0.5 + 0.5 + 1.5 = 2.5; index 3 → -0.5 - 2.0 = -2.5; indices 0 and 2 are not in the map → unchanged
 ② mask: index 4 → -inf
    biased_logits = [1.0, 2.5, 0.0, -2.5, -inf]
 ③ softmax (normalized over the surviving set; the banned entry is exactly 0)

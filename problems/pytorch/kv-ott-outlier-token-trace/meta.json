@@ -1,0 +1,24 @@
+{
+  "title": "KV Cache：OTT 低幅值 token 的追踪与回填",
+  "title_en": "KV Cache: OTT Tracing of Low-Magnitude Tokens and the Mean Backfill",
+  "difficulty": "Medium",
+  "tags": [
+    "operator",
+    "kvcache"
+  ],
+  "order": 580,
+  "variants": {
+    "pytorch": {
+      "label": "PyTorch",
+      "available": true
+    },
+    "triton": {
+      "label": "Triton",
+      "available": false
+    },
+    "cuda": {
+      "label": "CUDA",
+      "available": false
+    }
+  }
+}

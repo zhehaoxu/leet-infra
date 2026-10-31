@@ -48,7 +48,7 @@ text = '你好  café\n'
 output = [('ä½łå¥½', 0, 2), ('Ġ', 2, 3), ('ĠcafÃ©', 3, 8), ('Ċ', 8, 9)]
 ```
 
-`你好` occupies 2 source code points even though its encoded piece has 6 characters. Of the two middle spaces, one forms a separate whitespace piece and the other prefixes the letter run.
+The two ideographs on the previous line (`U+4F60 U+597D`) occupy 2 source code points even though their encoded piece has 6 characters. Of the two middle spaces, one forms a separate whitespace piece and the other prefixes the letter run.
 
 ## Example 2: case-sensitive contractions
 

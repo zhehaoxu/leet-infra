@@ -1,0 +1,12 @@
+{
+  "title": "多模态：LLaVA-PruMerge 的 CLS 注意力选 token 与余弦残差合并",
+  "title_en": "Multimodal: LLaVA-PruMerge CLS-Attention Selection and Cosine Residual Merge",
+  "difficulty": "Hard",
+  "tags": ["operator", "multimodal"],
+  "order": 536,
+  "variants": {
+    "pytorch": {"label": "PyTorch", "available": true},
+    "triton": {"label": "Triton", "available": false},
+    "cuda": {"label": "CUDA", "available": false}
+  }
+}

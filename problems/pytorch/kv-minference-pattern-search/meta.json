@@ -1,0 +1,24 @@
+{
+  "title": "KV Cache：MInference 稀疏 attention pattern 搜索",
+  "title_en": "KV Cache: MInference Sparse Attention Pattern Search",
+  "difficulty": "Hard",
+  "tags": [
+    "operator",
+    "kvcache"
+  ],
+  "order": 557,
+  "variants": {
+    "pytorch": {
+      "label": "PyTorch",
+      "available": true
+    },
+    "triton": {
+      "label": "Triton",
+      "available": false
+    },
+    "cuda": {
+      "label": "CUDA",
+      "available": false
+    }
+  }
+}

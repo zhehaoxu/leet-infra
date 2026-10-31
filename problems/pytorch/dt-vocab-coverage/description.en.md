@@ -67,7 +67,7 @@ After ignoring `b`, four occurrences remain, two of which are the known token `a
 
 ## Example 2: exact Unicode matching and different denominators
 
-Escapes have their Python string-literal meanings: `\xe9` is `é`, `\xc9` is `É`, and `\u732b` is `猫`. The string `e\u0301` is not normalized to `é`.
+Escapes have their Python string-literal meanings: `\xe9` is `é`, `\xc9` is `É`, and `\u732b` is the ideograph `U+732B` ("cat"). The string `e\u0301` is not normalized to `é`.
 
 Input:
 

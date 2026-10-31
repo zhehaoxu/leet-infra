@@ -1,0 +1,12 @@
+{
+  "title": "多模态：FastV 第 K 层视觉 token 剪枝",
+  "title_en": "Multimodal: FastV Visual Token Pruning at Layer K",
+  "difficulty": "Medium",
+  "tags": ["operator", "multimodal"],
+  "order": 535,
+  "variants": {
+    "pytorch": {"label": "PyTorch", "available": true},
+    "triton": {"label": "Triton", "available": false},
+    "cuda": {"label": "CUDA", "available": false}
+  }
+}

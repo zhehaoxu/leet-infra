@@ -1,0 +1,12 @@
+{
+  "title": "量化：BC 输出偏置补偿的逐通道流式更新",
+  "title_en": "Quantization: Bias Compensation via Streaming Per-Channel Output Correction",
+  "difficulty": "Medium",
+  "tags": ["operator", "quantization"],
+  "order": 540,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "title": "KV Cache：MorphKV 常数缓存的岛屿融合",
+  "title_en": "KV Cache: MorphKV Constant-Cache Island Fusion",
+  "difficulty": "Hard",
+  "tags": [
+    "operator",
+    "kvcache"
+  ],
+  "order": 565,
+  "variants": {
+    "pytorch": {
+      "label": "PyTorch",
+      "available": true
+    },
+    "triton": {
+      "label": "Triton",
+      "available": false
+    },
+    "cuda": {
+      "label": "CUDA",
+      "available": false
+    }
+  }
+}

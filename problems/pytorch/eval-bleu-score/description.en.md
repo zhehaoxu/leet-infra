@@ -38,8 +38,7 @@ n = 3:  C = 4 + 2 = 6,   M = 4 + 1 = 5    -> p3 = 0.8333333
 n = 4:  C = 3 + 1 = 4,   M = 3 + 0 = 3    -> p4 = 0.75     (4-gram (2,3,4,8) misses)
 
 c = 6 + 4 = 10
-r = 6 + 5 = 11    (hypothesis 0 has length 6 and both references have length 6;
-                   hypothesis 1 has length 4, its closest reference has length 5)
+r = 6 + 5 = 11    (hypothesis 0 has length 6 and both references have length 6; hypothesis 1 has length 4, its closest reference has length 5)
 c < r -> BP = exp(1 - 11/10) = 0.9048374
 
 bleu = 0.9048374 * (0.9 * 0.875 * 0.8333333 * 0.75)^(1/4) = 0.7578848

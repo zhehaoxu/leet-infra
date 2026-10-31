@@ -1,0 +1,24 @@
+{
+  "title": "量化：vqllm 多步残差向量量化",
+  "title_en": "Quantization: vqllm Multi-Step Residual Vector Quantization",
+  "difficulty": "Hard",
+  "tags": [
+    "operator",
+    "quantization"
+  ],
+  "order": 573,
+  "variants": {
+    "pytorch": {
+      "label": "PyTorch",
+      "available": true
+    },
+    "triton": {
+      "label": "Triton",
+      "available": false
+    },
+    "cuda": {
+      "label": "CUDA",
+      "available": false
+    }
+  }
+}

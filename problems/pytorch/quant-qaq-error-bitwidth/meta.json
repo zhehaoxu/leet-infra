@@ -1,0 +1,24 @@
+{
+  "title": "量化：QAQ 误差感知的 KV 位宽反解",
+  "title_en": "Quantization: QAQ Error-Aware KV Bit-Width Solving",
+  "difficulty": "Hard",
+  "tags": [
+    "operator",
+    "quantization"
+  ],
+  "order": 570,
+  "variants": {
+    "pytorch": {
+      "label": "PyTorch",
+      "available": true
+    },
+    "triton": {
+      "label": "Triton",
+      "available": false
+    },
+    "cuda": {
+      "label": "CUDA",
+      "available": false
+    }
+  }
+}

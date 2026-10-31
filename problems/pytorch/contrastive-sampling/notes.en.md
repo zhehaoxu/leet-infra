@@ -28,7 +28,7 @@
      convention. The clamp to \([0,1]\) also preserves the order. The paper never writes \((1+s)/2\); this
      normalization is a **convention of this problem** (it keeps the penalty in \([0,1]\) and matches the
      intuition "similarity 1 = worst"). Verifying the normalization used by a specific upstream implementation
-     is **待回源 (to be traced back)**.
+     is **pending source verification (to be traced back)**.
   2. The paper obtains each candidate's hidden state by running one more forward pass on "prefix + candidate";
      the grading environment has no language model, so this problem passes \(sim\in\mathbb{R}^{K\times T}\) in
      explicitly and stipulates that **the row order equals the descending-probability candidate order**.
@@ -37,7 +37,7 @@
   arXiv:2202.10479 is *A flavor-inspired radiative neutrino mass model* (neutrino physics, unrelated to text
   generation), and both the arXiv title search `ti:"Language Models with Contrastive Search"` and
   `au:"Chan" AND ti:"contrastive search"` return 0 hits. So **that identifier is not cited here**, and that
-  sentence of the entry is marked **待回源**. Separately, the `Wu et al. 2022` note inside `solution.py` does not
+  sentence of the entry is marked **pending source verification**. Separately, the `Wu et al. 2022` note inside `solution.py` does not
   match the real authors of arXiv:2202.06417 (Su et al.) — a slip in the comment; the identifier itself is fine.
 - **There is no off-the-shelf implementation to borrow in the grading environment**: `.venv-eval` ships
   `transformers` 5.20.2, where only the `GenerationMode.CONTRASTIVE_SEARCH` enum and one community-model URL
@@ -171,7 +171,8 @@ true bottleneck; this problem folds that part into \(sim\), leaving only cheap t
 \(\lambda\) is tied to the scale of \(sim\): this problem puts \(\deg\) in \([0,1]\) while the paper keeps
 \([-1,1]\), so the same numeric \(\lambda\) is 2× stronger under one convention than the other (the common shift
 of \((1+s)/2\) does not affect the choice). The paper suggests \(k\) around \(3\sim10\) and devotes Appendix B to
-ablating \(k\) and \(\lambda\) — **the recommended numeric ranges are 待回源**, this batch only verified the
+ablating \(k\) and \(\lambda\) — **the recommended numeric ranges are pending source
+verification**, this batch only verified the
 main-text statement "top-\(k\), \(k\) typically \(3\sim10\)" and the existence of that appendix. An overly large
 \(\lambda\) pushes generation towards candidates that are "unrelated but very dissimilar", which shows up as a
 worse gen-ppl and artificially inflated diversity. A further engineering caveat: \(sim\) must use the hidden

@@ -1,0 +1,12 @@
+{
+  "title": "MoE：路由 logits 的 tanh 软限幅与饱和并列",
+  "title_en": "MoE: Tanh Soft-Clamping of Router Logits and Saturation Ties",
+  "difficulty": "Medium",
+  "tags": ["operator", "moe"],
+  "order": 541,
+  "variants": {
+    "pytorch": {"label": "PyTorch", "available": true},
+    "triton": {"label": "Triton", "available": false},
+    "cuda": {"label": "CUDA", "available": false}
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "title": "WordPiece 贪心最长匹配与词级 UNK",
+  "title_en": "WordPiece Greedy Longest Match with Word-Level UNK",
+  "difficulty": "Medium",
+  "tags": ["operator", "tokenization"],
+  "order": 550,
+  "variants": {
+    "pytorch": {"label": "PyTorch", "available": true},
+    "triton": {"label": "Triton", "available": false},
+    "cuda": {"label": "CUDA", "available": false}
+  }
+}

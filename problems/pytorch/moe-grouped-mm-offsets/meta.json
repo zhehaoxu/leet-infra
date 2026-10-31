@@ -1,0 +1,12 @@
+{
+  "title": "MoE：分组矩阵乘的 offsets 切分与前反向",
+  "title_en": "MoE: Ragged Grouped Matrix Multiply with Offsets, Forward and Backward",
+  "difficulty": "Medium",
+  "tags": ["operator", "moe"],
+  "order": 547,
+  "variants": {
+    "pytorch": {"label": "PyTorch", "available": true},
+    "triton": {"label": "Triton", "available": false},
+    "cuda": {"label": "CUDA", "available": false}
+  }
+}

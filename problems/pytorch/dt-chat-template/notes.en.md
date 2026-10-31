@@ -21,7 +21,7 @@ The oracle first labels individual Unicode characters and records character boun
 
 There are 15 `check_*` functions: basic example, empty conversations and generation, continuation for all three roles, empty content, repeated content, literal markers, Unicode scalars and combining characters, trailing whitespace, syntax masks, invalid roles, invalid records, invalid flag combinations, input invariance, locally seeded randomized character comparisons, and the maximum 20 records with 1000 code points each. Exact keys and Python element types are checked, so integer 0/1 masks cannot substitute for booleans.
 
-Both submit selftest and direct `.venv-eval` execution passed 15/15 before the example dump used in the descriptions was executed. The basic example has spans `[(17, 19), (52, 55)]` and 66 bytes; an empty-conversation generation header has 22 bytes; continuation of `答 \n` has span `(22, 27)`.
+Both submit selftest and direct `.venv-eval` execution passed 15/15 before the example dump used in the descriptions was executed. The basic example has spans `[(17, 19), (52, 55)]` and 66 bytes; an empty-conversation generation header has 22 bytes; continuation of the single ideograph `U+7B54` followed by a space and a newline has span `(22, 27)`.
 
 ## Upstream boundaries and evidence status
 

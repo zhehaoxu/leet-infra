@@ -31,8 +31,7 @@ weights  = [0.7, 0.3], temps = [1.0, 0.8], top_ps = [0.9, 0.9]
 u_experts = [[0.1, 0.6], [0.3, 0.95]], u = 0.5
 
 ① Route 0: softmax(logits_0 / 1.0) = [0.636409, 0.234122, 0.086129, 0.031685, 0.011656]
-   descending cumulative sum = [0.636409, 0.870530, 0.956659, 0.988344, 1.0], first ≥ 0.9 stops at the 3rd
-   → nucleus = {0,1,2}
+   descending cumulative sum = [0.636409, 0.870530, 0.956659, 0.988344, 1.0], first ≥ 0.9 stops at the 3rd → nucleus = {0,1,2}
    q_0 = [0.665241, 0.244728, 0.090031, 0.0, 0.0]
    Route 1: softmax(logits_1 / 0.8) = [0.047252, 0.164925, 0.575646, 0.164925, 0.047252]
    descending = [0.575646(idx 2), 0.164925(idx 1), 0.164925(idx 3), 0.047252(idx 0), 0.047252(idx 4)]
@@ -58,14 +57,13 @@ Output: filtered = [0.616558, 0.0, 0.316632, 0.066810, 0.0], chosen = 0, in_unio
 Two degenerate cases:
 
 ```
-Greedy route (temperature = 0): logits = [[-1.0, 5.0, 0.0, 2.0]], weights = [1.0], temps = [0.0],
-top_ps = [1.0], m = 3, u_experts = [[0.2, 0.6, 0.99]], u = 0.5
+Greedy route (temperature = 0): logits = [[-1.0, 5.0, 0.0, 2.0]], weights = [1.0], temps = [0.0], top_ps = [1.0],
+m = 3, u_experts = [[0.2, 0.6, 0.99]], u = 0.5
   q_0 = one-hot(index 1) → all three shots land on index 1 → U = {1} → the blend is exactly that one-hot
   Output: filtered = [0.0, 1.0, 0.0, 0.0], chosen = 1, in_union = [0, 1, 0, 0]
 
-A route with weight 0 still enters U: logits = [[4.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 4.0]],
-weights = [0.0, 1.0], temps = [1.0, 1.0], top_ps = [1.0, 1.0], m = 1,
-u_experts = [[0.1], [0.1]], u = 0.5
+A route with weight 0 still enters U: logits = [[4.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 4.0]], weights = [0.0, 1.0],
+temps = [1.0, 1.0], top_ps = [1.0, 1.0], m = 1, u_experts = [[0.1], [0.1]], u = 0.5
   route 0 draws index 0, route 1 draws index 3 → U = {0, 3}
   route 1 softmax = [0.017362, 0.017362, 0.017362, 0.947915], its mass on U = 0.965277
   → r_1 = [0.017986, 0.982014] (in the order of U); after weight normalization only route 1 carries mass

@@ -32,7 +32,7 @@ That is the outer product of the 1-D Gaussian, applied as a per-channel (depthwi
 
 ```
 sigma=1.0, thr=9999 (mean branch)
-  tokens 0..8 = [ 4.000000, 14.000000]
+  token 0..8 = [ 4.000000, 14.000000]
   token 9     = [ 9.000000, 19.000000]     <- tail kept verbatim
 
 sigma=50000, thr=9999 (conv branch, k clamped to 3)

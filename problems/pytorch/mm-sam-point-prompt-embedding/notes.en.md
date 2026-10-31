@@ -1,0 +1,40 @@
+# Notes: SAM Sparse Prompt Embedding and Dense Positional Grid
+
+## Approach
+
+Compute the geometry in plain Python first, then move to tensors: `scale = image_size / max(H, W)`, `new_h = int(H * scale + 0.5)` and `new_w = int(W * scale + 0.5)` are Python floats, independent of the tensor dtype, and must never become `round` or `//`. Pack the two per-axis factors as one `(2,)` tensor `(new_w / W, new_h / H)` and multiply once; for boxes, `repeat(2)` reuses the same factor pair across the four `xyxy` columns, then `reshape(-1, 2, 2)` splits them into corners. Append the padding row only after scaling and the `+0.5`, so it is exactly `(0, 0)` and receives no offset at all.
+
+One function holds the positional encoding: its input is already in `[0, 1]`, so compute `2 * c - 1`, multiply by the `(2, P)` matrix, multiply by `2 * pi`, and finish with `cat([sin, cos], dim=-1)`. The sine block must precede the cosine block for the width to be `2P`. Sparse prompts enter through "divide by `image_size`, then call"; the dense grid enters through "already in `[0, 1]`, call directly". Both paths share the same function so the normalisation cannot drift apart.
+
+For label write-back, do not reason from "the padding row has a special coordinate"; copy the three upstream steps: compute the encoding for every row, wipe the `labels == -1` rows to zero, then add `not_a_point_embed` to all point rows. A `torch.where` that keeps only the addend for padding rows and "encoding + addend" for the rest reproduces exactly that order. Generate the corner indices as `arange(2B) % 2 + 2` so `point_embeddings[2]` and `[3]` alternate automatically. The dense grid's `cumsum` axes are easy to invert: `y_embed` accumulates along `dim=0`, `x_embed` along `dim=1`, each divided by its own axis length, then `stack(dim=-1)` and `permute(2, 0, 1)` give `(2P, h, w)`; when the grid is not requested, return an empty tensor of shape `(0,)` in the input dtype.
+
+The whole computation is elementwise multiply-add, one small matrix product and `sin`/`cos`. No input is modified and no input is required to be contiguous.
+
+## Pitfalls and boundaries
+
+- Rounding: `int(x + 0.5)` means "add, then truncate". With `(1, 2048)` and `image_size = 1024`, `new_h = 1`; `round` or floor produce different answers, and any short axis below 0.5 exposes the difference.
+- The per-axis factors are not interchangeable and cannot both be `scale`: the short axis uses `new_h / H` or `new_w / W`, which differs from `scale` by the rounding error above. Swapping the x and y multipliers is the most common mistake.
+- The padding row depends only on "are there boxes", never on the point count: `N = 0, B = 0` still yields one row, and `B >= 1` must not add any. Input labels are only 0 and 1; `-1` exists solely as the internal padding label.
+- The padding coordinate is exactly `(0, 0)`: adding `0.5` after the padding row is created, or padding before scaling, silently turns it into `(0.5, 0.5)`.
+- A `-1` row's encoding must be computed and only then wiped. Without the wipe the row becomes "raw encoding + not_a_point_embed", which still moves with the coordinate instead of staying equal to `not_a_point_embed`. Returning `positional_raw` exists precisely to make this difference observable.
+- Reversing the sine and cosine blocks, or interleaving them with `stack`, breaks the agreement with the dense grid; do not forget `dim=-1` in the `cat`.
+- Normalisation divides by the square `image_size`, not by `new_h`/`new_w` and not by the original size. Box corners and points must share the same function.
+- Inverted `cumsum` axes in the dense grid are invisible for square grids, so probe with rectangles such as `(1, 4)` and `(4, 1)`.
+- All-background points, a single box, `P = 1`, `H = W = 1` and an `image_size` far smaller than the original image are all valid inputs and need no special cases.
+- The float tensors must share dtype and device, float32 must not be silently promoted to float64, and noncontiguous inputs must work unchanged.
+
+## Independent validation
+
+The oracle runs entirely over Python lists and `math`: the per-axis factors, the `int(x + 0.5)` truncation, per-point scaling, `2 * c - 1`, a hand-written 2-by-P matrix product and elementwise `math.sin`/`math.cos` concatenation, none of which touch torch broadcasting or `cat`. The padding row is rebuilt in the upstream order - "compute the encoding, then zero the whole row, then add `not_a_point_embed`" - and the dense grid is generated cell by cell from `(i + 0.5) / h` and `(j + 0.5) / w`, then transposed by hand into `(2P, h, w)`. Besides comparing all five returned tensors, `_verify` independently recomputes shapes and dtypes, and for every row recovers the addend as `point_embeddings[0..3]` or `not_a_point_embed` and checks it again, while asserting that the padding row's raw encoding is nonzero so that the wipe demonstrably happened.
+
+The 16 `check_*` functions - `check_example_point_padding` and `check_example_box_corners` are the public examples - cover the examples, padding only when no box is present, the wiped `-1` encoding, all-background labels, prompts without points, dense-grid axis order and sine-before-cosine, the empty tensor when no grid is requested, the preprocess-size rounding rule, unswapped per-axis factors, row order and corner indices, non-default `image_size`, both dtypes, noncontiguous inputs with no mutation, a seeded sweep of 20 shape and `image_size` combinations, and every `ValueError` documented in the contract. `_example` and `_box_example` build the two public examples, and the documented numbers come from an actual dump of the reference implementation.
+
+## Complexity
+
+Write `M = N + [no boxes] + 2B` and `C = 2P`. The sparse part costs `O(M * P)` (one `(2, P)` product per row) and the dense grid costs `O(h * w * P)`, for a total of `O((M + h * w) * P)`. Peak extra space is the returned data itself: `O(M * (C + 2) + h * w * C)`, since `positional_raw` and `sparse_embeddings` each occupy `M * C`. As upstream, no attention or convolution is involved, so the cost is linear in the prompt rows and the grid size and independent of the image pixel count.
+
+## Source and intentional simplifications
+
+Based on [facebookresearch/segment-anything](https://github.com/facebookresearch/segment-anything) (Kirillov et al., arXiv:2304.02643): `segment_anything/prompt_encoder.py` (`PositionEmbeddingRandom.forward` / `_pe_encoding` / `forward_with_coords`, `PromptEmbedding._embed_points`, `_embed_boxes`, `PromptEncoder.forward`) and `segment_anything/utils/transforms.py` (`ResizeLongestSide.get_preprocess_shape`, `apply_coords`). The retained facts are the pixel-centre `+0.5`, the `int(size * scale + 0.5)` rounding, the per-axis `new_w / old_w` and `new_h / old_h` factors, the padding point `(0, 0)` with label `-1`, the "`-1` rows are computed and then wiped to zero" ordering, the box corner embeddings `point_embeddings[2]`/`[3]` in top-left-then-bottom-right order, the sine-before-cosine `2P` concatenation, and the `cumsum - 0.5` axes of the dense grid.
+
+Deliberately out of scope: the image resizing itself (PIL/torchvision resampling), `mask_postprocessing` bilinear interpolation and cropping, the `mask_downscaling` Conv2d mask-input path, and every ViT/transformer/MLP weight, as well as the mask-side stability score and single-mask selection. The two mask-side conventions - the `int16` overflow quirk of the intermediate sums in `utils/amg.py::calculate_stability_score`, and upstream's `0/0` returning `nan` when the union count is zero - belong to the companion problem `mm-sam-mask-stability-select` and are not touched here; that problem records as deliberate deviations that it uses exact integer sums and defines a zero-union stability as `0.0`. In addition, upstream initialises the gaussian matrix and the four embeddings with an unseeded `torch.randn`, so this exercise takes them as inputs to stay reproducible, fixes `input_image_size` to the square `image_size`, and implements only the pure-geometry `_embed_points` / `_embed_boxes` plus random-position-embedding path rather than a complete `PromptEncoder`.

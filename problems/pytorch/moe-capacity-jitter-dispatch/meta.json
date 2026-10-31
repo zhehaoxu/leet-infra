@@ -1,0 +1,12 @@
+{
+  "title": "MoE：抖动优先级的容量分派与溢出转投",
+  "title_en": "MoE: Jitter-Priority Capacity Dispatch with Spill-Over",
+  "difficulty": "Medium",
+  "tags": ["operator", "moe"],
+  "order": 544,
+  "variants": {
+    "pytorch": {"label": "PyTorch", "available": true},
+    "triton": {"label": "Triton", "available": false},
+    "cuda": {"label": "CUDA", "available": false}
+  }
+}

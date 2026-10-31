@@ -1,0 +1,12 @@
+{
+  "title": "块扩散采样：一次定稿步里的两种配额口径",
+  "title_en": "Block Diffusion Sampling: One Commit Step With Two Quota Regimes",
+  "difficulty": "Hard",
+  "tags": ["operator", "diffusion"],
+  "order": 586,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

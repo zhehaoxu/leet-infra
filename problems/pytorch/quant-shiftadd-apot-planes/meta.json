@@ -1,0 +1,12 @@
+{
+  "title": "量化：ShiftAddLLM 位平面标度的 ApOT 移位分解",
+  "title_en": "Quantization: ShiftAddLLM Bit-Plane Scales as Additive Powers of Two",
+  "difficulty": "Hard",
+  "tags": ["operator", "quantization"],
+  "order": 552,
+  "variants": {
+    "pytorch": {"label": "PyTorch", "available": true},
+    "triton": {"label": "Triton", "available": false},
+    "cuda": {"label": "CUDA", "available": false}
+  }
+}

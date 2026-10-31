@@ -1,0 +1,24 @@
+{
+  "title": "KV Cache：TriAttention 相位式重要性打分",
+  "title_en": "KV Cache: TriAttention Phase-Based Importance Scoring",
+  "difficulty": "Hard",
+  "tags": [
+    "operator",
+    "kvcache"
+  ],
+  "order": 559,
+  "variants": {
+    "pytorch": {
+      "label": "PyTorch",
+      "available": true
+    },
+    "triton": {
+      "label": "Triton",
+      "available": false
+    },
+    "cuda": {
+      "label": "CUDA",
+      "available": false
+    }
+  }
+}

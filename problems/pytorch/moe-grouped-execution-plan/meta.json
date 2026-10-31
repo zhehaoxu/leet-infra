@@ -1,0 +1,12 @@
+{
+  "title": "MoE：分组执行的排序计划与还原合并",
+  "title_en": "MoE: Grouped-Execution Sort Plan and Unsort-Merge",
+  "difficulty": "Medium",
+  "tags": ["operator", "moe"],
+  "order": 543,
+  "variants": {
+    "pytorch": {"label": "PyTorch", "available": true},
+    "triton": {"label": "Triton", "available": false},
+    "cuda": {"label": "CUDA", "available": false}
+  }
+}

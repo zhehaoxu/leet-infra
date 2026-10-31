@@ -1,0 +1,12 @@
+{
+  "title": "数据分片：rank 切分、补齐与覆盖账本",
+  "title_en": "Distributed Data Sharding: Rank Slices, Padding and a Coverage Ledger",
+  "difficulty": "Medium",
+  "tags": ["operator", "tokenization"],
+  "order": 549,
+  "variants": {
+    "pytorch": {"label": "PyTorch", "available": true},
+    "triton": {"label": "Triton", "available": false},
+    "cuda": {"label": "CUDA", "available": false}
+  }
+}

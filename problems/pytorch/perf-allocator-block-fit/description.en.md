@@ -49,8 +49,7 @@ free  c      : left [3072,1024) and right [5120,3072) -> two coalesces
                                      free=[[3072,5120]]
 alloc e 5000 : need=5120, exact fit    e=[3072,5120)   free=[]
 alloc f 512  : grow to 12288           f=[8192,512)    free=[[8704,3584]]
-free  a      : not adjacent to [8704,3584)
-                                     free=[[0,1024],[8704,3584]]
+free  a      : not adjacent to [8704,3584)  free=[[0,1024],[8704,3584]]
 ```
 
 ```

@@ -17,13 +17,14 @@
 - The other frequently cited implementation is **oobabooga/text-generation-webui**'s logit filter (`xtc_filter`,
   also with `xtc_threshold` / `xtc_min_tokens`). **Its current file path and its exact predicates could not be
   fetched from this machine in this batch — the `raw.githubusercontent.com` requests to that repository timed out
-  repeatedly — so it is marked 待回源 (to be traced back)**; this problem cites none of its details.
+  repeatedly — so it is marked **pending source verification (to be traced back)**; this problem cites none of its details.
 - **Scope difference versus the title and versus the collection entry (must be stated plainly).** The collection
   entry describes XTC as "compute \(\mu,\sigma\) only over tokens with \(p>10^{-35}\), then eliminate the tokens
   whose probability falls inside the **closed band** built from those \(\mu/\sigma\) statistics". The llama.cpp
   implementation verified above **uses no \(\mu/\sigma\) statistic anywhere** and has no \(10^{-35}\) probability
   floor (it compares against one fixed absolute probability threshold \(t\)). That "remove the middle μ/σ band"
-  formulation has no source in arXiv nor in the upstream code we could reach, so it is **待回源** and unrelated to
+  formulation has no source in arXiv nor in the upstream code we could reach, so it is **pending source
+  verification** and unrelated to
   this implementation — it is closer to the **inverse** use of the statistical truncation family that
   `top-n-sigma-sampling` covers. "Mid-probability elimination" in the title should therefore be read as: after the
   over-threshold **head prefix** is eliminated (keeping the last member of that prefix), the probability mass is

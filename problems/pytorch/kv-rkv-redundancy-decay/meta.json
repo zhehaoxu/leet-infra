@@ -1,0 +1,24 @@
+{
+  "title": "KV Cache：R-KV 冗余感知的注意力打分驱逐",
+  "title_en": "KV Cache: R-KV Redundancy-Aware Attention Scoring for Eviction",
+  "difficulty": "Hard",
+  "tags": [
+    "operator",
+    "kvcache"
+  ],
+  "order": 558,
+  "variants": {
+    "pytorch": {
+      "label": "PyTorch",
+      "available": true
+    },
+    "triton": {
+      "label": "Triton",
+      "available": false
+    },
+    "cuda": {
+      "label": "CUDA",
+      "available": false
+    }
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "title": "Ring Attention：KV 环转、在线 softmax 与因果整块跳过",
+  "title_en": "Ring Attention: KV Rotation, Online Softmax and Whole-Block Causal Skipping",
+  "difficulty": "Hard",
+  "tags": ["operator", "distributed"],
+  "order": 554,
+  "variants": {
+    "pytorch": {"label": "PyTorch", "available": true},
+    "triton": {"label": "Triton", "available": false},
+    "cuda": {"label": "CUDA", "available": false}
+  }
+}

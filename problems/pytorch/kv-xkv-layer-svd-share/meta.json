@@ -1,0 +1,24 @@
+{
+  "title": "KV Cache：xKV 跨层共享奇异向量",
+  "title_en": "KV Cache: xKV Cross-Layer Shared Singular Vectors",
+  "difficulty": "Hard",
+  "tags": [
+    "operator",
+    "kvcache"
+  ],
+  "order": 568,
+  "variants": {
+    "pytorch": {
+      "label": "PyTorch",
+      "available": true
+    },
+    "triton": {
+      "label": "Triton",
+      "available": false
+    },
+    "cuda": {
+      "label": "CUDA",
+      "available": false
+    }
+  }
+}

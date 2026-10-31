@@ -1,0 +1,12 @@
+{
+  "title": "量化：OmniQuant 的等价变换与权重裁剪联合搜索",
+  "title_en": "Quantization: OmniQuant's Equivalent Transform and Weight Clipping Joint Search",
+  "difficulty": "Hard",
+  "tags": ["operator", "quantization"],
+  "order": 538,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

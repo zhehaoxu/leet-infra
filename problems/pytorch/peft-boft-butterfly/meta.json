@@ -1,0 +1,12 @@
+{
+  "title": "PEFT：BOFT 蝴蝶分解正交适配器",
+  "title_en": "PEFT: BOFT Butterfly-Factorized Orthogonal Adapter",
+  "difficulty": "Hard",
+  "tags": ["operator", "peft"],
+  "order": 532,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

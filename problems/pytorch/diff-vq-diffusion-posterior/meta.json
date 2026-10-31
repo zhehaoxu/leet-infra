@@ -1,0 +1,12 @@
+{
+  "title": "离散扩散采样：VQ-Diffusion 的反扩散单步在 log 空间拼转移矩阵",
+  "title_en": "Discrete Diffusion Sampling: the VQ-Diffusion Reverse Step Assembles Transition Matrices in Log Space",
+  "difficulty": "Hard",
+  "tags": ["operator", "diffusion"],
+  "order": 578,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

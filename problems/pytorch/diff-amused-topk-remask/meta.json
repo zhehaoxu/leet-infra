@@ -1,0 +1,12 @@
+{
+  "title": "AMUS 重掩码：把最不确定的 top-k 个位置再埋回去",
+  "title_en": "AMUS Remasking: Push the Top-k Least Confident Positions Back Under the Mask",
+  "difficulty": "Hard",
+  "tags": ["operator", "diffusion"],
+  "order": 546,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "title": "PEFT：VB-LoRA 向量库选择适配器",
+  "title_en": "PEFT: VB-LoRA Vector-Bank Selection Adapter",
+  "difficulty": "Hard",
+  "tags": ["operator", "peft"],
+  "order": 531,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

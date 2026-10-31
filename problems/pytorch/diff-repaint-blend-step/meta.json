@@ -1,0 +1,12 @@
+{
+  "title": "扩散采样：RePaint 的掩码拼接步与前向回跳",
+  "title_en": "Diffusion Sampling: RePaint's Masked Blend Step Reads the Previous Alpha, Not the Current One",
+  "difficulty": "Hard",
+  "tags": ["operator", "diffusion"],
+  "order": 577,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

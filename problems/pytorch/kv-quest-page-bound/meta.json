@@ -1,0 +1,24 @@
+{
+  "title": "KV Cache：Quest 页级 query-aware 上界打分与预算选页",
+  "title_en": "KV Cache: Quest Page-Level Query-Aware Bounds and Budgeted Page Selection",
+  "difficulty": "Hard",
+  "tags": [
+    "operator",
+    "kvcache"
+  ],
+  "order": 555,
+  "variants": {
+    "pytorch": {
+      "label": "PyTorch",
+      "available": true
+    },
+    "triton": {
+      "label": "Triton",
+      "available": false
+    },
+    "cuda": {
+      "label": "CUDA",
+      "available": false
+    }
+  }
+}

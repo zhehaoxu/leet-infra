@@ -1,0 +1,12 @@
+{
+  "title": "MoE：负载 EMA 与死专家账本（双阈值滞回）",
+  "title_en": "MoE: Load EMA and the Dead-Expert Ledger with Hysteresis",
+  "difficulty": "Medium",
+  "tags": ["operator", "moe"],
+  "order": 545,
+  "variants": {
+    "pytorch": {"label": "PyTorch", "available": true},
+    "triton": {"label": "Triton", "available": false},
+    "cuda": {"label": "CUDA", "available": false}
+  }
+}

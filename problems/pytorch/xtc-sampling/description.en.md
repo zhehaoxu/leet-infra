@@ -72,8 +72,7 @@ Input: z = [3.0, 2.5, 2.0, 0.0, -1.0, -2.0] (V=6), π = 1.0, t = 0.05, min_keep 
   p = softmax(z) = [0.487983, 0.295977, 0.179519, 0.024295, 0.008938, 0.003288] (already descending)
   contiguous prefix with p ≥ 0.05 = ranks 0,1,2 → cnt = 3 → pos_last = 2
   gate: 0.5 ≤ 1.0 ✓    pos_last > 0 ✓    survivors V − pos_last = 4 ≥ min_keep 0 ✓  → fires
-  remove ranks [0, 2) = rank 0 and rank 1 (token 0, token 1); keep rank 2 (token 2, "the last one that passed")
-  + the tail 3,4,5
+  remove ranks [0, 2) = rank 0 and rank 1 (token 0, token 1); keep rank 2 (token 2, "the last one that passed") + the tail 3,4,5
   kept mass = 0.179519 + 0.024295 + 0.008938 + 0.003288 = 0.216040
   filtered = [0.000000, 0.000000, 0.830953, 0.112457, 0.041371, 0.015219]
   CDF      = [0.000000, 0.000000, 0.830953, 0.943410, 0.984781, 1.000000]
@@ -91,12 +90,10 @@ Same z, only min_keep changes: the survivor count 4 is a hard constraint
 
 ```
 Two boundaries: "at least two head candidates" and the fully-degenerate case
-  Only one head candidate passes: z = [9.0, -1.0, -2.0, -3.0], π = 1.0, t = 0.5, min_keep = 0,
-                                 u_gate = 0.1, u = 0.1
+  Only one head candidate passes: z = [9.0, -1.0, -2.0, -3.0], π = 1.0, t = 0.5, min_keep = 0, u_gate = 0.1, u = 0.1
     p = [0.999932, 0.000045, 0.000017, 0.000006] → cnt = 1 → pos_last = 0 → no cut
     applied = False, filtered = p (XTC never leaves the argmax standing entirely alone)
-  Every candidate passes: z = [0.0, 0.0] (p = [0.5, 0.5]), t = 0.5, π = 1.0, min_keep = 0,
-                         u_gate = 0.0, u = 0.5
+  Every candidate passes: z = [0.0, 0.0] (p = [0.5, 0.5]), t = 0.5, π = 1.0, min_keep = 0, u_gate = 0.0, u = 0.5
     cnt = 2 → pos_last = 1 → remove rank 0, survivors 2 − 1 = 1 ≥ 0 → applied = True
     filtered = [0.000000, 1.000000], CDF = [0.000000, 1.000000], chosen = 1
     (the argmax is cut away, and this step becomes a deterministic pick: every u in [0,1) yields 1)
@@ -109,8 +106,8 @@ Batched: the gate opens or closes per row
   u_gate = [0.2, 0.9], u = [0.3, 0.7]
   row 0: 0.2 ≤ 0.5 ✓ → same removal as above → filtered[0] = [0.000000, 0.000000, 0.830953, 0.112457,
          0.041371, 0.015219], first CDF entry ≥ 0.3 is at position 2
-  row 1: 0.9 > 0.5 ✗ → gate closed, identity transform → filtered[1] = [0.134654, 0.099754, 0.447067,
-         0.014920, 0.181764, 0.121840], CDF = [0.134654, 0.234408, 0.681476, 0.696396, 0.878160, 1.000000],
+  row 1: 0.9 > 0.5 ✗ → gate closed, identity transform → filtered[1] = [0.134654, 0.099754, 0.447067, 0.014920,
+         0.181764, 0.121840], CDF = [0.134654, 0.234408, 0.681476, 0.696396, 0.878160, 1.000000],
          first entry ≥ 0.7 is at position 4
 Output: applied = [True, False], chosen = [2, 4]
 ```

@@ -1,0 +1,12 @@
+{
+  "title": "扩散采样：Consistency Decoder 的调度表与两步去噪",
+  "title_en": "Diffusion Sampling: the Consistency Decoder Schedule and Its Two-Step Denoise",
+  "difficulty": "Hard",
+  "tags": ["operator", "diffusion"],
+  "order": 548,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

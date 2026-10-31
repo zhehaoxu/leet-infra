@@ -1,0 +1,12 @@
+{
+  "title": "MinHash 签名与 LSH 分带近重复去重",
+  "title_en": "MinHash Signatures and LSH Banding for Near-Duplicate Dedup",
+  "difficulty": "Hard",
+  "tags": ["operator", "tokenization"],
+  "order": 551,
+  "variants": {
+    "pytorch": {"label": "PyTorch", "available": true},
+    "triton": {"label": "Triton", "available": false},
+    "cuda": {"label": "CUDA", "available": false}
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "title": "扩散采样：UniPC 的预测-校正单步，两侧历史不同源",
+  "title_en": "Diffusion Sampling: the UniPC Predictor-Corrector Step Reads Two Different Histories",
+  "difficulty": "Hard",
+  "tags": ["operator", "diffusion"],
+  "order": 576,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

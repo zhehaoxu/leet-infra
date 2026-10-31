@@ -1,0 +1,24 @@
+{
+  "title": "KV Cache：CapKV 的 leverage score token 选择",
+  "title_en": "KV Cache: CapKV Leverage-Score Token Selection",
+  "difficulty": "Hard",
+  "tags": [
+    "operator",
+    "kvcache"
+  ],
+  "order": 560,
+  "variants": {
+    "pytorch": {
+      "label": "PyTorch",
+      "available": true
+    },
+    "triton": {
+      "label": "Triton",
+      "available": false
+    },
+    "cuda": {
+      "label": "CUDA",
+      "available": false
+    }
+  }
+}

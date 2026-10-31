@@ -48,13 +48,13 @@ Input: hbm=80e9, reserve=2e9, cuda_overhead=1.5e9, param=2.6e9, grad=2.6e9, opti
   headroom = 41,264,516,352   feasible = True
   max_micro_batch = floor(55.7e9 / (2048*1.5e6+2048^2*128)) = floor(55.7e9/3,608,870,912) = 15
   max_seq: floor of the positive root of 512 s^2 + 6e6 s <= 55.7e9 = 6103
-  world = ceil(512/(8*4)) = 16, and 16*8*4 = 512 -> global_batch_fits = True
+  world = ceil(512/(8*4)) = 16, 16*8*4 = 512 -> global_batch_fits = True
 Output: (20800000000, 36735483648, 41264516352, True, 15, 6103, 16, True)
 
 Input: same but micro_batch=8, seq=8192
   peak(8,8192) = 1.5e9+20.8e9+8*8192*1.5e6+8*8192^2*128 = 189,323,476,736 > 78e9 -> OOM
   headroom = -111,323,476,736   feasible = False
-  max_micro_batch = floor(55.7e9/20,877,934,592) = 2   max_seq (at m=8) = 3560
+  max_micro_batch = floor(55.7e9/20,877,934,592) = 2   max_seq (m=8) = 3560
   world = ceil(512/(8*8)) = 8 and 8*8*8 = 512 divides, but the memory does not fit -> False
 Output: (20800000000, 189323476736, -111323476736, False, 2, 3560, 8, False)
 
@@ -62,7 +62,7 @@ Input: hbm=20000, reserve=cuda_overhead=param=grad=optim=0, act_per_token=1000,
        act_per_token_sq=0, micro_batch=2, seq=10, global_batch=40, accum=4
   peak = 2*10*1000 = 20000 == usable -> inclusive test passes, headroom = 0
   max_micro_batch = 20000//(10*1000) = 2   max_seq = 20000//(2*1000) = 10
-  world = ceil(40/(4*2)) = 5, and 5*4*2 = 40 -> True
+  world = ceil(40/(4*2)) = 5, 5*4*2 = 40 -> True
 Output: (0, 20000, 0, True, 2, 10, 5, True)
 (Change hbm to 19999: feasible=False, headroom=-1, and both boundaries drop one step to 1 and 9)
 ```

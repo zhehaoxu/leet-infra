@@ -35,7 +35,7 @@ Implement `solve(scores, tau, patience)`:
 scores = [[0.9, 0.1, 0.6, 0.2],
           [0.8, 0.2, 0.4, 0.3],
           [0.7, 0.3, 0.6, 0.9],
-          [0.6, 0.4, 0.5, 0.8]]      tau = 0.5, m = 2
+          [0.6, 0.4, 0.5, 0.8]]      τ = 0.5, m = 2
 
 token0: 0.9,0.8,0.7,0.6  -> never low                 -> evict_step = -1
 token1: 0.1,0.2,...      -> low on steps 0 and 1      -> evict_step = 1

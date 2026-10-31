@@ -1,0 +1,24 @@
+{
+  "title": "稀疏化：TRIM 逐行稀疏率余弦反馈迭代",
+  "title_en": "Sparsification: TRIM Row-Wise Sparsity via Output-Cosine Feedback",
+  "difficulty": "Hard",
+  "tags": [
+    "operator",
+    "sparsity"
+  ],
+  "order": 584,
+  "variants": {
+    "pytorch": {
+      "label": "PyTorch",
+      "available": true
+    },
+    "triton": {
+      "label": "Triton",
+      "available": false
+    },
+    "cuda": {
+      "label": "CUDA",
+      "available": false
+    }
+  }
+}

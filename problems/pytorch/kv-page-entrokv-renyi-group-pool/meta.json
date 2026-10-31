@@ -1,0 +1,24 @@
+{
+  "title": "KV Cache：Page-EntroKV 的分组 Rényi 熵与页级保留",
+  "title_en": "KV Cache: Page-EntroKV's Group Rényi Entropy and Page-Level Retention",
+  "difficulty": "Medium",
+  "tags": [
+    "operator",
+    "kvcache"
+  ],
+  "order": 587,
+  "variants": {
+    "pytorch": {
+      "label": "PyTorch",
+      "available": true
+    },
+    "triton": {
+      "label": "Triton",
+      "available": false
+    },
+    "cuda": {
+      "label": "CUDA",
+      "available": false
+    }
+  }
+}

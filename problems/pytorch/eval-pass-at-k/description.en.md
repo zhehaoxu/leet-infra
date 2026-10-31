@@ -24,8 +24,7 @@ C(n-c, k) = C(8, 3) = 56
 C(n, k)   = C(10, 3) = 120
 pass@3 = 1 - 56/120 = 0.5333333333
 
-for contrast: the common wrong formula 1 - (1 - 2/10)^3 = 0.488, biased and systematically
-low whenever k > 1
+for contrast: the common wrong formula 1 - (1 - 2/10)^3 = 0.488, biased and systematically low whenever k > 1
 ```
 
 ## Constraints

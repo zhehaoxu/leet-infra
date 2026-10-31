@@ -1,0 +1,24 @@
+{
+  "title": "KV Cache：Palu 分组秩预算分配",
+  "title_en": "KV Cache: Palu Grouped Rank-Budget Allocation",
+  "difficulty": "Hard",
+  "tags": [
+    "operator",
+    "kvcache"
+  ],
+  "order": 567,
+  "variants": {
+    "pytorch": {
+      "label": "PyTorch",
+      "available": true
+    },
+    "triton": {
+      "label": "Triton",
+      "available": false
+    },
+    "cuda": {
+      "label": "CUDA",
+      "available": false
+    }
+  }
+}

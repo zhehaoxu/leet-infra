@@ -1,0 +1,12 @@
+{
+  "title": "数据集混采：温度权重、最大余额配额与平滑排布",
+  "title_en": "Dataset Blending: Temperature Weights, Largest-Remainder Quota and Smooth Scheduling",
+  "difficulty": "Hard",
+  "tags": ["operator", "tokenization"],
+  "order": 553,
+  "variants": {
+    "pytorch": {"label": "PyTorch", "available": true},
+    "triton": {"label": "Triton", "available": false},
+    "cuda": {"label": "CUDA", "available": false}
+  }
+}

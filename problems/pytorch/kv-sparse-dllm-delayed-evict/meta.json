@@ -1,0 +1,24 @@
+{
+  "title": "KV Cache：Sparse-dLLM 延迟一步的块内驱逐",
+  "title_en": "KV Cache: Sparse-dLLM Delayed One-Step Block Eviction",
+  "difficulty": "Hard",
+  "tags": [
+    "operator",
+    "kvcache"
+  ],
+  "order": 569,
+  "variants": {
+    "pytorch": {
+      "label": "PyTorch",
+      "available": true
+    },
+    "triton": {
+      "label": "Triton",
+      "available": false
+    },
+    "cuda": {
+      "label": "CUDA",
+      "available": false
+    }
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "title": "KV Cache：SCOPE 解码期的窗口预算与不连续驱逐",
+  "title_en": "KV Cache: SCOPE's Decoding-Window Budget and Discontinuous Eviction",
+  "difficulty": "Medium",
+  "tags": [
+    "operator",
+    "kvcache"
+  ],
+  "order": 585,
+  "variants": {
+    "pytorch": {
+      "label": "PyTorch",
+      "available": true
+    },
+    "triton": {
+      "label": "Triton",
+      "available": false
+    },
+    "cuda": {
+      "label": "CUDA",
+      "available": false
+    }
+  }
+}

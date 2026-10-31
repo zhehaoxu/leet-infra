@@ -70,7 +70,7 @@ Output follows. For readability, Python list repetition and concatenation expres
 }
 ```
 
-There are 66 UTF-8 bytes. `好` occupies 3 bytes, giving exactly 3 `True` entries.
+There are 66 UTF-8 bytes. The ideograph `U+597D` in the assistant content occupies 3 bytes, giving exactly 3 `True` entries.
 
 ## Example 2: Generation from an empty conversation
 

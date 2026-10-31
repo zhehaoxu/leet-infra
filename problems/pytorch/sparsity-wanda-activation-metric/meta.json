@@ -1,0 +1,24 @@
+{
+  "title": "稀疏化：Wanda 激活加权幅值剪枝",
+  "title_en": "Sparsification: Wanda Activation-Weighted Magnitude Pruning",
+  "difficulty": "Medium",
+  "tags": [
+    "operator",
+    "sparsity"
+  ],
+  "order": 581,
+  "variants": {
+    "pytorch": {
+      "label": "PyTorch",
+      "available": true
+    },
+    "triton": {
+      "label": "Triton",
+      "available": false
+    },
+    "cuda": {
+      "label": "CUDA",
+      "available": false
+    }
+  }
+}

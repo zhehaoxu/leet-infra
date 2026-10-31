@@ -1,0 +1,24 @@
+{
+  "title": "KV Cache：FastKV 跨层 token 选择性传播",
+  "title_en": "KV Cache: FastKV Token-Selective Propagation Across Layers",
+  "difficulty": "Hard",
+  "tags": [
+    "operator",
+    "kvcache"
+  ],
+  "order": 561,
+  "variants": {
+    "pytorch": {
+      "label": "PyTorch",
+      "available": true
+    },
+    "triton": {
+      "label": "Triton",
+      "available": false
+    },
+    "cuda": {
+      "label": "CUDA",
+      "available": false
+    }
+  }
+}

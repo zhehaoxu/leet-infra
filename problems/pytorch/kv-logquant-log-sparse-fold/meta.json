@@ -1,0 +1,24 @@
+{
+  "title": "KV Cache：LogQuant 全精度索引的分层折叠",
+  "title_en": "KV Cache: LogQuant Log-Sparse Full-Precision Index Folding",
+  "difficulty": "Medium",
+  "tags": [
+    "operator",
+    "kvcache"
+  ],
+  "order": 579,
+  "variants": {
+    "pytorch": {
+      "label": "PyTorch",
+      "available": true
+    },
+    "triton": {
+      "label": "Triton",
+      "available": false
+    },
+    "cuda": {
+      "label": "CUDA",
+      "available": false
+    }
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "title": "稀疏化：OWL 离群比驱动的逐层稀疏率分配",
+  "title_en": "Sparsification: OWL Outlier-Ratio Layer-Wise Sparsity Allocation",
+  "difficulty": "Hard",
+  "tags": [
+    "operator",
+    "sparsity"
+  ],
+  "order": 582,
+  "variants": {
+    "pytorch": {
+      "label": "PyTorch",
+      "available": true
+    },
+    "triton": {
+      "label": "Triton",
+      "available": false
+    },
+    "cuda": {
+      "label": "CUDA",
+      "available": false
+    }
+  }
+}

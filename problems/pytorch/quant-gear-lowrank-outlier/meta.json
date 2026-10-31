@@ -1,0 +1,24 @@
+{
+  "title": "量化：GEAR 量化误差的低秩幂迭代补偿",
+  "title_en": "Quantization: GEAR Low-Rank Power-Iteration Error Compensation",
+  "difficulty": "Hard",
+  "tags": [
+    "operator",
+    "quantization"
+  ],
+  "order": 571,
+  "variants": {
+    "pytorch": {
+      "label": "PyTorch",
+      "available": true
+    },
+    "triton": {
+      "label": "Triton",
+      "available": false
+    },
+    "cuda": {
+      "label": "CUDA",
+      "available": false
+    }
+  }
+}

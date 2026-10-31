@@ -1,0 +1,12 @@
+{
+  "title": "多模态：SAM 稳定性分数与单掩码选择",
+  "title_en": "Multimodal: SAM Stability Scores and Single-Mask Selection",
+  "difficulty": "Medium",
+  "tags": ["operator", "multimodal"],
+  "order": 534,
+  "variants": {
+    "pytorch": {"label": "PyTorch", "available": true},
+    "triton": {"label": "Triton", "available": false},
+    "cuda": {"label": "CUDA", "available": false}
+  }
+}

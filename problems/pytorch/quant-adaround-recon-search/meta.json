@@ -1,0 +1,12 @@
+{
+  "title": "量化：AdaRound 的重构误差候选搜索",
+  "title_en": "Quantization: AdaRound's Reconstruction-Error Candidate Search",
+  "difficulty": "Hard",
+  "tags": ["operator", "quantization"],
+  "order": 539,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

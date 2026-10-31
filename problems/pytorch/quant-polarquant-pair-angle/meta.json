@@ -1,0 +1,24 @@
+{
+  "title": "量化：PolarQuant 极坐标成对量化",
+  "title_en": "Quantization: PolarQuant Polar Pair Quantization",
+  "difficulty": "Hard",
+  "tags": [
+    "operator",
+    "quantization"
+  ],
+  "order": 572,
+  "variants": {
+    "pytorch": {
+      "label": "PyTorch",
+      "available": true
+    },
+    "triton": {
+      "label": "Triton",
+      "available": false
+    },
+    "cuda": {
+      "label": "CUDA",
+      "available": false
+    }
+  }
+}

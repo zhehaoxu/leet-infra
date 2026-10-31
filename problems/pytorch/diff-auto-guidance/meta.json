@@ -1,0 +1,12 @@
+{
+  "title": "扩散采样：AutoGuidance 的锚点与恒等阈值一起翻转",
+  "title_en": "Diffusion: AutoGuidance Flips Its Anchor and Its Identity Threshold Together",
+  "difficulty": "Medium",
+  "tags": ["operator", "diffusion"],
+  "order": 547,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

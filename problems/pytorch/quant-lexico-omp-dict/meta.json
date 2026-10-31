@@ -1,0 +1,24 @@
+{
+  "title": "量化：Lexico OMP 稀疏字典编码",
+  "title_en": "Quantization: Lexico OMP Sparse Dictionary Coding",
+  "difficulty": "Hard",
+  "tags": [
+    "operator",
+    "quantization"
+  ],
+  "order": 574,
+  "variants": {
+    "pytorch": {
+      "label": "PyTorch",
+      "available": true
+    },
+    "triton": {
+      "label": "Triton",
+      "available": false
+    },
+    "cuda": {
+      "label": "CUDA",
+      "available": false
+    }
+  }
+}

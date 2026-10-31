@@ -1,0 +1,12 @@
+{
+  "title": "多模态：FLUX.1 二维 RoPE 频率表与相邻对旋转",
+  "title_en": "Multimodal: FLUX.1 2-D RoPE Frequency Tables and Adjacent-Pair Rotation",
+  "difficulty": "Hard",
+  "tags": ["operator", "multimodal"],
+  "order": 537,
+  "variants": {
+    "pytorch": {"label": "PyTorch", "available": true},
+    "triton": {"label": "Triton", "available": false},
+    "cuda": {"label": "CUDA", "available": false}
+  }
+}
