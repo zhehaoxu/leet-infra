@@ -1,0 +1,12 @@
+{
+  "title": "nn.Module 注册账：参数去重、buffer 持久性与注册盲区",
+  "title_en": "nn.Module Registration Ledger: Parameter Dedup, Buffer Persistence and Registration Blind Spots",
+  "difficulty": "Medium",
+  "tags": ["framework", "nn-module"],
+  "order": 647,
+  "variants": {
+    "pytorch": {"label": "PyTorch", "available": true},
+    "triton": {"label": "Triton", "available": false},
+    "cuda": {"label": "CUDA", "available": false}
+  }
+}

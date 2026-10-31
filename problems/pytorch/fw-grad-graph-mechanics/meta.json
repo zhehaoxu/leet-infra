@@ -1,0 +1,12 @@
+{
+  "title": "autograd 图机制账：叶子、detach、禁用模式与梯度累加",
+  "title_en": "Autograd Graph Mechanics Ledger: Leaves, detach, Disable Modes and Grad Accumulation",
+  "difficulty": "Hard",
+  "tags": ["framework", "autograd"],
+  "order": 646,
+  "variants": {
+    "pytorch": {"label": "PyTorch", "available": true},
+    "triton": {"label": "Triton", "available": false},
+    "cuda": {"label": "CUDA", "available": false}
+  }
+}
