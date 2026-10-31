@@ -1,0 +1,12 @@
+{
+  "title": "PRM best-of-N 聚合账：步级打分的四种归并口径",
+  "title_en": "PRM Best-of-N Aggregation Ledger: Four Step-Score Reduction Rules",
+  "difficulty": "Medium",
+  "tags": ["operator", "reasoning"],
+  "order": 655,
+  "variants": {
+    "pytorch": {"label": "PyTorch", "available": true},
+    "triton": {"label": "Triton", "available": false},
+    "cuda": {"label": "CUDA", "available": false}
+  }
+}

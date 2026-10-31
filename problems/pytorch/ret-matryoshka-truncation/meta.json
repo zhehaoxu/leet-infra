@@ -1,0 +1,12 @@
+{
+  "title": "Matryoshka 嵌入截断：低维排名保持账",
+  "title_en": "Matryoshka Embedding Truncation: Low-Dimension Rank-Preservation Ledger",
+  "difficulty": "Medium",
+  "tags": ["operator", "retrieval"],
+  "order": 657,
+  "variants": {
+    "pytorch": {"label": "PyTorch", "available": true},
+    "triton": {"label": "Triton", "available": false},
+    "cuda": {"available": false, "label": "CUDA"}
+  }
+}

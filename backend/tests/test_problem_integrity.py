@@ -38,7 +38,10 @@ def _tag_family_keys() -> set[str]:
     text = FILTER_TS.read_text(encoding="utf-8")
     block = re.search(r"TAG_FAMILY[^{]*\{(.*?)\}", text, re.S)
     assert block, "problemFilter.ts 中未找到 TAG_FAMILY 定义，护栏无法校验领域标签"
-    return set(re.findall(r"([A-Za-z_][A-Za-z0-9_]*)\s*:", block.group(1)))
+    keys = set()
+    for m in re.finditer(r"(?:'([^']+)'|\"([^\"]+)\"|([A-Za-z_][A-Za-z0-9_]*))\s*:", block.group(1)):
+        keys.add(m.group(1) or m.group(2) or m.group(3))
+    return keys
 
 
 TAG_FAMILY_KEYS = _tag_family_keys()

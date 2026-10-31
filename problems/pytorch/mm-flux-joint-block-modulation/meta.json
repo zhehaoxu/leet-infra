@@ -1,0 +1,12 @@
+{
+  "title": "FLUX double block 调制账：AdaLN-Zero 六参数与门控残差",
+  "title_en": "FLUX Double-Block Modulation Ledger: AdaLN-Zero Six-Parameter and Gated Residual Accounting",
+  "difficulty": "Hard",
+  "tags": ["operator", "multimodal"],
+  "order": 649,
+  "variants": {
+    "pytorch": {"label": "PyTorch", "available": true},
+    "triton": {"label": "Triton", "available": false},
+    "cuda": {"label": "CUDA", "available": false}
+  }
+}

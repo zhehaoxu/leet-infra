@@ -1,0 +1,12 @@
+{
+  "title": "Mamba selective scan：ZOH 离散递推与门控跳连账",
+  "title_en": "Mamba Selective Scan: ZOH Discrete Recurrence and Gated-Skip Ledger",
+  "difficulty": "Hard",
+  "tags": ["operator", "linear-attention"],
+  "order": 650,
+  "variants": {
+    "pytorch": {"label": "PyTorch", "available": true},
+    "triton": {"label": "Triton", "available": false},
+    "cuda": {"label": "CUDA", "available": false}
+  }
+}

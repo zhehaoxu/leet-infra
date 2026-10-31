@@ -2,7 +2,7 @@
 
 > 按建议实施顺序编号；⭐ = 收益/成本比最高，优先做。
 > **本清单只保留待办**：已完成项做完即分批提交，由 `git log` 追溯，不再在此归档；各题的机制细节与剥除口径以该题 `notes.md` 为准，本清单不复述。
-> 当前题库（**27 合集 / 624 登记题**；磁盘 625 个题目录，除并行会话在飞的 `fw-autograd-lineage-ledger`（order 631）外全部登记且一一对齐；`collections.json` 的登记项之间无重复、无悬空；参考解 self-AC / integrity / bilingual 复跑结论不再留档，`git log` 可查）**：pytorch 入门 19 + operators 108 + perf-systems 19 + distributed 32 + llm-models 15 + optimization 28 + data-tokenization 22 + quantization 43 + sampling 19 + moe 18 + inference 21 + kvcache 49 + training-objectives 21 + speculative-decoding 16 + peft 36 + diffusion 48 + sparsity 18 + multimodal 20 + audio 5 + retrieval 14 + evaluation 8 + rl-systems 6 + agentic-systems 4 + vision-detection 8 + autograd 16 + numerics 8 + **context-compression 3（2026-10-31 新开，`context` 标签已在 problemFilter.ts / i18n.ts 登记）**。旧空号 405–419 / 431 / 440 / 449 / 466–469 **不回收**，以免与已删题的历史编号混淆；全库 order 唯一有 `test_problem_integrity` 护栏。order 编号池已占用至 **645**，**下一批新题从 648 起**（动笔前重新扫描全库避让并行会话）。
+> 当前题库（**30 合集 / 634 登记题**；磁盘 635 个题目录，除并行会话在飞的 `fw-autograd-lineage-ledger`（order 631）外全部登记且一一对齐；`collections.json` 的登记项之间无重复、无悬空；参考解 self-AC / integrity / bilingual 复跑结论不再留档，`git log` 可查）**：pytorch 入门 19 + operators 108 + perf-systems 19 + distributed 32 + llm-models 15 + optimization 28 + data-tokenization 23 + quantization 43 + sampling 19 + moe 18 + inference 21 + kvcache 49 + training-objectives 21 + speculative-decoding 16 + peft 36 + diffusion 48 + sparsity 18 + multimodal 22 + audio 5 + retrieval 15 + evaluation 8 + rl-systems 6 + agentic-systems 4 + vision-detection 8 + autograd 16 + numerics 8 + context-compression 3 + **linear-attention 2 + interpretability 2 + reasoning-systems 2（2026-10-31 新开三合集，`linear-attention` / `interpretability` / `reasoning` 标签已在 problemFilter.ts / i18n.ts 登记，护栏 TAG_FAMILY 键抽取已支持带连字符的键）**。旧空号 405–419 / 431 / 440 / 449 / 466–469 **不回收**，以免与已删题的历史编号混淆；全库 order 唯一有 `test_problem_integrity` 护栏。order 编号池已占用至 **657**，**下一批新题从 658 起**（动笔前重新扫描全库避让并行会话）。
 > 判题环境：torch + numpy（llm-models 合集 oracle 用离线 `transformers==5.20.2`），强制 CPU，无 GPU / torchvision；`.venv-eval` 无 diffusers、无 pytest（测试只能用裸 assert，oracle 用纯 torch/numpy 重写）。自测入口：`scripts/add_problem.py --selftest <slug> --mode submit|run`、`backend/tests/test_self_ac.py`。
 > **出题通用纪律**（全库口径，下面各条不再重复）：上游依赖 scipy 的分位/聚类/边际码表（`norm.ppf`、`kmeans2`、TurboQuant 的 Beta 码表、字典训练）一律**离线算好作显式入参**，`.venv-eval` 不装 scipy；随机性来源（Bernoulli / Gumbel / 加权 `choice` / `svd_lowrank` / EMA）要么改成确定性 top 预算，要么直接剔除；涉 RoPE / attention 的题把 q、K、cos/sin、注意力矩阵全部作入参，不现跑模型。
 
@@ -16,37 +16,85 @@
 
 ### AI-infra 待选新方向（2026-10 题库盘点，按需择做）
 
-> 现状：训练算子/分布式(含 ZeRO·重算·序列并行)/推理 Serving/KV 压缩/量化/采样/推测解码/对齐(PPO·DPO·RM·GAE·GRPO)/PEFT/扩散/稀疏/多模态/检索/优化器 已密集。**缺口盘点见 #86 与 #102–105（#92/#93/#95/#97/#98 均已于 2026-10-31 收口）**。均满足「CPU 可对拍 + 确定性 + 不与现有重复」，oracle 走原生 torch 对拍 / 独立纯 Python 重算 /（涉模型时）HF transformers。新题共用 order 编号池：实施前须扫描当前全库取未占用号段（**当前从 648 起**），并在验收时复查并行出题冲突；**每开一个新合集需同步** problemFilter.ts 新 domain tag→TAG_FAMILY→GROUP_ORDER + collections.json 条目 + 护栏测试。
+> 现状：训练算子/分布式(含 ZeRO·重算·序列并行)/推理 Serving/KV 压缩/量化/采样/推测解码/对齐(PPO·DPO·RM·GAE·GRPO)/PEFT/扩散/稀疏/多模态/检索/优化器 已密集。**缺口盘点见 #86 与 #102–110（#92/#93/#95/#97/#98/#99/#86/#102/#103/#104/#105 均已于 2026-10-31 收口或按批落地）**。均满足「CPU 可对拍 + 确定性 + 不与现有重复」，oracle 走原生 torch 对拍 / 独立纯 Python 重算 /（涉模型时）HF transformers。新题共用 order 编号池：实施前须扫描当前全库取未占用号段（**当前从 648 起**），并在验收时复查并行出题冲突；**每开一个新合集需同步** problemFilter.ts 新 domain tag→TAG_FAMILY→GROUP_ORDER + collections.json 条目 + 护栏测试。
 
-- [ ] 86. `multimodal` 合集续批（合集现 **20 题**；次批 5 题 order 533–537 与本批 644–645 均已落地，机制出处 Kirillov(2304.02643)/Yang(2403.06764)/Lin(2403.15388)/HF `FluxPosEmbed`，细节 `git log`）。**原清单三处口径经复核不成立、已按真实源码出题，后续引用勿再照抄旧说法**：SAM 没有 `Conv1d(1, embedding_dim)` 标签嵌入也不存在 `get_predefined_embeddings`（标签走 `nn.Embedding` 的 `point_embeddings`，`-1` 只出现在 `not_a_point_embed` 写回路径）；`utils/evaluation.py::mask_iou` 在上游不存在（掩码质量实际走 `amg.calculate_stability_score` 的 `thr±offset` 计数比与 `select_masks` 的 `iou_preds+(num_points-2.5)*[1000,0,0,0]`）；PruMerge 的出处是 2403.15388 而非 2406.17521；FLUX 侧没有 `FluxParamsRotaryEmbedding`/`_get_q_and_k_rope_freqs` 这对名字。**剩余候选仍需先回源再立项**：① FastV 的**逐层自适应压缩率**（需真实层间重构误差，慎防退化成系数表）；② SAM 的 light-HQP mask decoder 与 hypernet 权重生成（需真实权重，剔除）；③ Qwen2.5-VL / InternVL 的 visual token 打包与 M-RoPE 交错（与 `mm-mrope-position-ids`、`mm-image-token-expand` 查重后再定）；④ FLUX double/single stream 的 `vec` 拼接口径（纯接线，先与 `llm-*` block 题查重）。通道/空间 shuffle 及逆变换已有 `pixel-shuffle-space-depth`，不得再以「PatchMerger 互逆」重复立项；带权重的真实 PatchMerger 不保证可逆。**音频侧**（mel→两次 stride 卷积→audio token 数账）归 `audio` 合集，本合集只收非 DSP 结构题。
+- [ ] 86. `multimodal` 合集续批（合集现 **22 题**；次批 5 题 order 533–537、批 644–645 与批 648–649（InternVL dynamic_preprocess 转 `mm-internvl-dynamic-tiling`、diffusers FluxTransformerBlock 调制账转 `mm-flux-joint-block-modulation`）均已落地，机制出处 Kirillov(2304.02643)/Yang(2403.06764)/Lin(2403.15388)/HF `FluxPosEmbed`，细节 `git log`）。**原清单三处口径经复核不成立、已按真实源码出题，后续引用勿再照抄旧说法**：SAM 没有 `Conv1d(1, embedding_dim)` 标签嵌入也不存在 `get_predefined_embeddings`（标签走 `nn.Embedding` 的 `point_embeddings`，`-1` 只出现在 `not_a_point_embed` 写回路径）；`utils/evaluation.py::mask_iou` 在上游不存在（掩码质量实际走 `amg.calculate_stability_score` 的 `thr±offset` 计数比与 `select_masks` 的 `iou_preds+(num_points-2.5)*[1000,0,0,0]`）；PruMerge 的出处是 2403.15388 而非 2406.17521；FLUX 侧没有 `FluxParamsRotaryEmbedding`/`_get_q_and_k_rope_freqs` 这对名字。**剩余候选仍需先回源再立项**：① FastV 的**逐层自适应压缩率**（需真实层间重构误差，慎防退化成系数表）；② SAM 的 light-HQP mask decoder 与 hypernet 权重生成（需真实权重，剔除）；③ Qwen2.5-VL / InternVL 的 visual token 打包与 M-RoPE 交错（与 `mm-mrope-position-ids`、`mm-image-token-expand` 查重后再定）；④ FLUX double/single stream 的 `vec` 拼接口径（纯接线，先与 `llm-*` block 题查重）。通道/空间 shuffle 及逆变换已有 `pixel-shuffle-space-depth`，不得再以「PatchMerger 互逆」重复立项；带权重的真实 PatchMerger 不保证可逆。**音频侧**（mel→两次 stride 卷积→audio token 数账）归 `audio` 合集，本合集只收非 DSP 结构题。
 
-- [ ] 102. 新合集 **`linear-attention`**（线性注意力 / SSM 系，2026-10-31 大模型向盘点新增，全库零覆盖；落地按「题库收尾」三件套登记）。**候选（先逐条回源 + 查重，order 从 648 起）**：
-  ① **Mamba selective scan**（2312.00752，official `state-spaces/mamba`）——S6 逐元素 Δ/B/C 状态递推账（ZOH 离散化后 Δ·B·C 全显式入参）+ 分块扫描的边界 carry 传递；oracle 纯 Python 逐步递推对拍 torch 复算。
-  ② **DeltaNet / Gated DeltaNet**（2406.06484 / 2412.06464，official `fla-org/flash-linear-attention`）——delta rule 逐 token 状态更新 `S += β(k vᵀ − S k kᵀ)`（门控衰减系数显式入参）；WY/UT 分解不出。
+- [ ] 102. 新合集 **`linear-attention`**（线性注意力 / SSM 系，2026-10-31 大模型向盘点新增；已落地合集 2 题：① 转 `la-mamba-selective-scan`（order 650，state-spaces/mamba `selective_scan_ref` 逐行转写）、② 转 `la-gated-deltanet-recurrent`（order 651，fla-org naive_recurrent_gated_delta_rule）。**剩余候选（先逐条回源 + 查重，order 从 658 起）**：
   ③ **RWKV v6 channel-wise decay**（official `BlinkDL/RWKV-LM`）——data-dependent 衰减的逐通道状态递推账。
   ④ **Gated Linear Attention**（2312.06635，`fla-org`）——chunk 内并行 + chunk 间状态传递的尺寸/边界账。
   **红线**：真模型权重前向、CUDA kernel 分块细节不出（只考算术账）；与 `cumsum-scan`（前缀和）与 attention 系查重；只考 recurrence 与并行恒等式，不考训练收敛。
 
-- [ ] 103. 新合集 **`interpretability`**（可解释性，2026-10-31 盘点新增，全库零覆盖；落地三件套同上）。**候选**：
-  ① **SAE top-k encode/decode**（回源 `EleutherAI/sae` 或 `jbloomAus/SAELens` 二选一）——W_enc/b_enc/W_dec 显式入参，top-k 激活 + 重构误差 + 稀疏度账（JumpReLU 门槛确定性变体可附）。
+- [ ] 103. 新合集 **`interpretability`**（可解释性，2026-10-31 盘点新增；已落地合集 2 题：① 转 `int-sae-topk-reconstruct`（order 652，SAELens TopK SAE）、③ 转 `int-tuned-lens-affine`（order 653，tuned lens 仿射探针）。**剩余候选**：
   ② **activation steering**（steering vector，official `nrimsky/steering-vectors`）——注入后的投影/范数/方向余弦账，隐态全显式入参。
-  ③ **tuned lens**（official `AlignmentResearch/tuned-lens`）——affine probe 显式入参的层间 logits 映射 + 交叉熵/KL 账。
   **红线**：需真实大模型激活的题不出，隐态/权重一律显式入参；logit lens 须简化为「最终 norm + unembed 矩阵入参」才可判。
 
-- [ ] 104. 新合集 **`reasoning-systems`**（推理模型语义侧，2026-10-31 盘点新增；rl-systems 只管 infra（async rollout/replay/时间线），本合集管语义与账本；落地三件套同上）。**候选**：
-  ① **self-consistency 多数投票聚合**（2203.11171，官方实现并入 lm-eval-harness 待核，先回源）——答案归一化 + 投票记账。
-  ② **best-of-N + PRM 步级聚合**（official `openai/PRM800K`）——step 打分表的 last / max / min / product 四种聚合口径账。
+- [ ] 104. 新合集 **`reasoning-systems`**（推理模型语义侧，2026-10-31 盘点新增；rl-systems 只管 infra，本合集管语义与账本；已落地合集 2 题：① 转 `rs-self-consistency-vote`（order 654）、② 转 `rs-prm-best-of-n`（order 655，2305.20050 四种归并口径）。**剩余候选**：
   ③ **budget forcing**（s1，official `simplescaling/s1`）——thinking token 预算的截断 / 「Final Answer:」强制续写账。
   ④ **overthinking 指标**——token 效率、正确率-长度曲线的确定性账。
   **红线**：模型生成本身不出，候选/打分表/预算全显式入参；与 `to-gae`/`to-grpo-advantage`（训练侧 advantage）划界。
 
-- [ ] 105. **大模型向现有合集空隙批**（2026-10-31 盘点，逐条 grep 已确认无覆盖；order 从 648 起）：
-  `data-tokenization`：① **Gopher rules** 规则过滤（文档长度/符号比例/重复行/省略号比例；无官方码，回源 `huggingface/datatrove` 口径）；② **C4 过滤**（`allenai/c4` 的 badwords + 行去重阈值账）；③ **精确 n-gram 去重**（与 `dt-minhash-lsh-dedup` 近似去重划界：本题 hash 切片精确账）。
-  `retrieval`：④ **Matryoshka embedding 截断**（2205.13147，官方仓待核）——不同维度截断的排名保持账；⑤ **ColBERT late interaction**（official `stanford-futuredata/ColBERT`）——MaxSim 逐 token 打分账。
+- [ ] 105. **大模型向现有合集空隙批**（2026-10-31 盘点，逐条 grep 已确认无覆盖；本批落地 2 题：① 转 `dt-gopher-rules`（order 656，datatrove GopherQualityFilter 九条规则顺序账，分词钉死 `text.split()`）、④ 转 `ret-matryoshka-truncation`（order 657，截断 + 重归一化 + 余弦的排名保持账；⑤ ColBERT 已被 `retrieval-colbert-maxsim`（order 371）占用勿再立项）。**剩余候选（order 从 658 起）**：
+  `data-tokenization`：② **C4 过滤**（`allenai/c4` 的 badwords + 行去重阈值账）；③ **精确 n-gram 去重**（与 `dt-minhash-lsh-dedup` 近似去重划界：本题 hash 切片精确账）。
   `inference`：⑥ **trie 前缀 mask 增量缓存**（official `mlc-ai/xgrammar`；与 `inf-grammar-mask-dfa` 划界：增量复用 vs 单步 DFA）；⑦ **正则 → token 级 FSM 编译**（official `dottxt-ai/outlines`）。
   attention 侧：⑧ **NSA 三支混合注意力**（2502.11089，official `deepseek-ai/NSA`）——压缩/选择/滑动三分支的块账；归属先与 kvcache/llm-models 查重再定。
   `evaluation`：⑨ **IF-Eval 可验证指令**（official `google-research/instruction-following-eval`）——逐条规则判别器；⑩ **LLM-as-judge swap 一致性**（lmsys 官方仓）——位置偏差 swap 账。
   **已被占勿再立项（本批盘点 grep 确认）**：MLA（`llm-deepseek-mla`×2）、模型合并 TIES/DARE（`peft-ties-dare-merge`）、DPO/IPO/KTO/ORPO/SimPO（to-* 5 题）、ALiBi、sliding-window、HNSW/IVF-PQ/RRF、unigram/wordpiece 分词、beam search、pass@k、minhash 去重、MoE aux/capacity、调度器系（continuous batching/EDF/priority/chunked prefill）、fp16 loss scaling、采样变体（adaptive-p/epsilon/llama-sampling-pipeline）。
+
+- [ ] 106. `agentic-systems` 续批（2026-10-31 盘点新增；合集现 **4 题** order 345–348：ReAct 状态机 / 工具 Schema 校验 / 任务 DAG 拓扑执行 / 上下文预算压缩，本批全部避开）。**候选（先逐条回源 + 查重，order 从 648 起）**：
+  ① **生成式智能体记忆评分检索**（2304.03442，official `joonspk-research/generative_agents`）——importance×recency×relevance 三因子加权 top-k 检索账，三因子分数全显式入参；纯排序账。
+  ② **并行工具调用运行时仲裁**——模型一次吐 N 个 tool call：写-写冲突检测 + 依赖拓扑定序 + 无关调用并行的执行计划账。与 347 划界：347 是**计划期** DAG 执行，本题是**执行期**运行时仲裁（无 DAG 输入，靠资源指纹判冲突）。
+  ③ **工具重试 / 指数退避账**——backoff 基数×2^n + 抖动（种子显式入参）+ 重试预算上限 + 幂等键决定「可重试 vs 必须中止」；全库无同类。
+  ④ **工具循环熔断**——tool call 指纹（归一化参数哈希）重复计数、达阈值熔断的循环检测账；随机性零。
+  ⑤ **单轮工具结果注入预算**——多工具结果按优先级裁剪打包进一轮上下文的账。与 348 划界：348 是**跨轮历史压缩**，本题是**单轮注入**（工具结果只过一遍）。
+  ⑥ **prompt cache 前缀命中账**——消息序列的 system prompt / 工具表前缀稳定性排序决定缓存命中段的账。与 `inf-radix-prefix-cache`/`inf-prefix-cache-block-hit` 划界：本题在**对话消息层**（哪条消息放前面更省），不在 KV block 层。
+  ⑦ **handoff 路由状态机**（Swarm 口径，official `openai/swarm`）——agent 间移交的条件路由 + 循环移交保护账。
+  ⑧ **prompt injection 规则判别**——工具返回文本的注入特征规则引擎（指令伪装 / 越权指令 / 隐匿编码的确定性规则账）；也可归 `evaluation`，立项前定归属。
+  **红线**：模型生成本身不出（全显式入参）；涉工具执行的题只考**账本与状态机**、不真跑工具；与 88-89 行「撞车勿再立项」清单里 HyDE/graphRAG/LLM reranker（触 agentic 红线）互查；先回源再立项。
+
+- [ ] 107. 新合集 **`ocr`**（OCR 与文档解析，2026-10-31 盘点新增，全库零覆盖；落地按「题库收尾」三件套登记）。**生态盘点（2026-10-31 查证）**：transformers 有 modeling 文件的 OCR/文档模型——TrOCR、Donut、Pix2Struct、Nougat、LayoutLM/LLMv2/LLMv3、Kosmos-2.5、GOT-OCR2、PaddleOCR-VL、DotsOCR、DeepSeek-OCR、Nanonets-OCR2、OlmOCR-2、Granite-Docling、Qwen2.5-VL/3-VL；llama.cpp mtmd（libmtmd）支持的 OCR——PaddleOCR-VL（PR 18825）、GLM-OCR（19677）、DeepSeek-OCR（17400）、Dots.OCR（17575）、HunyuanOCR（21395）、MinerU2.5、Granite-Docling，OCR 模型需特定 prompt/输入结构；GitHub 知名仓——`PaddlePaddle/PaddleOCR`（90k+ star）、`JaidedAI/EasyOCR`、`Ucas-HaoranWei/GOT-OCR2.0`、`allenai/olmocr`、`VikParuchuri/surya`、`opendatalab/MinerU`、`rednote-hilab/dots.ocr`、`Tencent/llm.hunyuan.ocr`、`microsoft/unilm`（LayoutLM 系）、`datalab-to/marker`。**候选（先逐条回源 + 查重，order 从 648 起）**：
+  ① **CTC greedy 解码与 collapse**（PP-OCR rec 头，official PaddleOCR）——logits→argmax→相邻去重→去 blank 的解码账（**loss 侧已被 `ctc-loss` 占，勿重做**，本题只考解码/后处理路径）。
+  ② **DBNet 自适应阈值二值化 + unclip 外扩**（official PaddleOCR det）——prob map 与 threshold map 逐点二值化的分段账 + 连通域外接框的 `distance = area/perimeter × unclip_ratio` 矩形外扩账（完整 polygon offset 用 shapely，判题环境无——只考距离公式与外扩方向，坐标全入参不读图）。
+  ③ **LayoutLM 家族 bbox 归一化与 2D 位置索引**（official `microsoft/unilm`）——坐标 clamp 到 [0,1000] 的归一化账 + 2D position id = y×max_w+x 的网格索引 + v2/v3 的 1D position type 偏移账；纯索引。
+  ④ **Pix2Struct 可变长宽比 patch 划分**（official transformers `pix2struct`）——给定原尺寸与 max_patches 的最大比例缩放 + 行高取偶 + patch 网格与序列长度账；与 `mm-qwen25vl-window-index` 划界：不同算法（pix2struct 是单图变网格，非窗口索引）。
+  ⑤ **DeepSeek-OCR 五档动态分辨率与 tile 账**（official `deepseek-ai/DeepSeek-OCR`，transformers/llama.cpp 均支持）——Tiny/Small/Base/Large/Gundam 五档 `base_size/image_size/crop_mode` 的缩放比、tile 网格与视觉 token 数账（Gundam：全局视图 + 局部 tiles + view separator）；与 `mm-qwen25vl-window-index` 划界：模型不同、算法不同。
+  ⑥ **版面阅读顺序拓扑排序**（Surya 系，official `VikParuchuri/surya`；XY-cut 递归分割可作另一出处 PP-Structure）——layout box 空间关系导出 DAG 后的阅读顺序排序账；与 347 task DAG 划界：347 输入即 DAG，本题**边由几何规则构造**。
+  ⑦ **olmOCR 文档锚定**（official `allenai/olmocr`，2502.18443）——跨页 bbox 归一化（0–1000）+ 页→文本锚点 token 的定位账；与 ③ 划界：③ 是模型内位置索引，这是**跨页文档级**归一化。
+  ⑧ **表格结构 token → grid 布局账**（Nougat markup / PP-Structure SLANet 回源二选一）——rowspan/colspan 结构 token 序列展开成 cell grid 的下标分配账（占用检查与空格语义）。
+  ⑨ **OCR 评估：normalized edit distance**——逐行对齐的 Levenshtein DP + 长度归一口径；立项前与 `eval-*`（bleu/rouge/shingle）查重确认未覆盖。
+  ⑩ **llama.cpp mtmd 图像 token 分批账**（PR 17400 系，`mtmd-batch-max-tokens` 默认 1024）——图像 token 占位展开与按上限切批的边界账（C++ 逻辑回源后转纯账本）。
+  **待回源/慎做**：GOT-OCR2 多页动态拼接（2504.09525，官方仓组织散，先确认可裁出的确定性账）；MinerU2.5/HPD-Parsing 流水线编排（成分杂，只挑单段机制如段落合并规则）；Nanonets-OCR2/OlmOCR-2/Chandra（多为微调 VLM，无独立机制，暂不立）。**红线**：真图/PIL/torchvision 不出（与 #99 红线同），图像一律坐标/矩阵入参；`mm-qwen25vl-window-index`、`mm-image-token-expand` 已占 Qwen VL 分辨率账勿重做；`upsample-bilinear`/`grid-sample` 已有，编码器内插值不重出；判题环境无 shapely/clipper，多边形偏移只考距离公式。
+
+- [ ] 108. 新合集 **`asr`**（语音识别，2026-10-31 盘点新增；与 `audio` 语音前端合集分工：audio 只管信号处理（预加重/STFT/Mel/MFCC/重采样 5 题），本合集管**模型机制、解码与账本**；落地三件套同上）。**生态盘点（2026-10-31 查证）**：transformers ASR 目录——whisper、wav2vec2 全家（bert/conformer/phoneme/with_lm）、hubert/unispeech/wavlm/data2vec、**parakeet**、**voxtral/voxtral_realtime**、**moonshine/moonshine_streaming**、**granite_speech**、**kyutai_speech_to_text**、**cohere_asr**、**glmasr**、**lasr**、**vibevoice_asr**、seamless_m4t/v2；ASR pipeline 的 `chunk_length_s`/`stride` 长音频路径。llama.cpp mtmd audio——Qwen3-ASR（专用 chat handler）、Ultravox、Voxtral、Granite-Speech、LFM2-Audio、Whisper encoder、Conformer、Gemma4A。GitHub 知名仓——`openai/whisper`、`SYSTRAN/faster-whisper`（CTranslate2）、`NVIDIA/NeMo`（Parakeet/FastConformer/Canary/TDT）、`modelscope/FunASR`（Paraformer/SenseVoice）、`k2-fsa/icefall`（Zipformer）、`m-bain/whisperX`（VAD+DTW 对齐）、`UsefulSensors/moonshine`、`wenet-e2e/wenet`、`alphacep/vosk-api`。Qwen3-ASR-0.6B/1.7B + Qwen3-ForcedAligner（NAR 时间戳，官方开源）。**候选（先逐条回源 + 查重，order 从 648 起）**：
+  ① **CTC prefix beam search**（Graves 1504.08129 口径，wav2vec2 系通用）——pb/pnb 双表前缀 beam DP（blank 合并、前缀去重、LM 分数入参可选）。与 `ctc-loss`（loss 侧已占）、#107①（greedy 解码已归 OCR）划界：本题只考 **beam 侧**。Hard。
+  ② **Whisper 质量门控与温度回退账**（official `openai/whisper` `transcribe` 口径）——`no_speech_prob < 0.6` 且 `avg_logprob > -1.0` 且 `compression_ratio < 2.4` 的分段门控 + gzip 压缩比计算 + 失败段按 temperature 序列回退重解码的账。
+  ③ **Whisper 30s 窗口长音频分块账**（transformers ASR pipeline `chunk_length_s`/`stride`，或 whisperX VAD 分段）——stride 重叠帧的丢弃与首尾对齐账；与 `audio-stft-frame`（帧级）划界：本题在**窗口级调度**。
+  ④ **RNN-T 前向 DP 与 greedy 解码**（Graves 2012，torchaudio `rnnt_loss` 口径）——α 递推（blank 纵步 / token 横步）的前向账 + greedy 解码循环（blank 步进、token 发射不进时间）账。Hard。
+  ⑤ **Paraformer CIF 预测器**（official `modelscope/FunASR`）——integrate-and-fire：隐态加权累积、fire 阈值 1.0 触发发射、尾部余量按比例分配的 token 数账；全新机制，无撞车。
+  ⑥ **WhisperX DTW 强制对齐**（official `m-bain/whisperX`）——cross-attention 矩阵入参下的 DTW 路径 DP + 字级时间戳分摊账（Qwen3-ForcedAligner 同赛道，回源后二选一或并列）。
+  ⑦ **Whisper 逐窗语言 ID 账**——语言 token 集合上平均 logprob argmax 的 LID 账（分布全显式入参）；轻量。
+  ⑧ **SpecAugment mask 账**（1904.08779，torchaudio/transformers 口径）——mT/mF/T/F 参数的 mask 段生成（起点采样显式入参）与相邻段合并规则账；全库无音频增强（已核对）。
+  ⑨ **VAD 端点检测账**——能量阈值 + hangover/pre-roll 窗口的状态机账（transformers `audio_utils` 有 VAD helper 可回源）；与 ② 的 no_speech 门控划界：⑨ 是**前段切分**，② 是**解码后质量门控**。
+  ⑩ **Canary/Parakeet TDT token-and-duration 解码**（NVIDIA `NeMo`，TDT 2308.?? 先回源）——token 与 duration 双头联合的跳帧解码账；若回源困难退为 FastConformer 下采样账（与 ③ 划界：模型内 subsampling）。
+  **待回源/慎做**：Moonshine 流式 chunk 边界（官方仓待核）；Zipformer 流式 attention cache（与 kvcache 合集查重）；SenseVoice 多任务头（emotion/event token 口径待回源）；Qwen3-ASR 的 AuT 编码器细节（仓新，先等稳定实现）。**红线**：`audio` 前端合集已占信号处理五题勿重出；`ctc-loss` 占 loss 侧；真音频 IO/重采样不出，波形与 mel 矩阵全显式入参；判题环境无 librosa/torchaudio/silero，全部纯 torch/numpy 自实现；涉 attention/解码的题把概率与打分矩阵全部作入参，不现跑模型。
+
+- [ ] 109. 新合集 **`tts`**（语音合成，2026-10-31 盘点新增，全库零覆盖；与 `audio` 前端（信号处理）、`asr`（#108 识别侧）三分工；落地三件套同上）。**生态盘点（2026-10-31 查证）**：transformers TTS/音频生成目录——bark、speecht5、vits、fastspeech2_conformer、univnet、musicgen 系、csm、dia、mimi/xcodec/dac/encodec（编解码器）、vibevoice_acoustic_tokenizer、higgs_audio_v2_tokenizer；llama.cpp audio 生成——Qwen3-TTS、Pocket-TTS（kyutai，RVQ code-to-wave）；GitHub 知名仓——`RVC-Boss/GPT-SoVITS`（~48k）、`suno-ai/bark`（~39k）、`myshell-ai/OpenVoice`（~38k）、`2noise/ChatTTS`（~40k）、`fishaudio/fish-speech`（~33k，Dual-AR + 情感标签）、`resemble-ai/chatterbox`（~27k）、`index-tts/index-tts`（~25k，毫秒级时长/情感控制）、`QwenAudio/CosyVoice`（~24k，150ms 流式）、`SWivid/F5-TTS`（DiT + Flow Matching 免对齐）、`microsoft/VibeVoice`、`hexgrad/kokoro`、`bytedance/MegaTTS3`、`nari-labs/dia`、`OpenMOSS/MOSS-TTSD`、`FireRedTeam/FireRedTTS2`、`OpenBMB/VoxCPM`。**候选（先逐条回源 + 查重，order 从 648 起）**：
+  ① **Monotonic Alignment Search**（Glow-TTS/FastSpeech 口径，official `ming024/FastSpeech2` / `jaywalnut310/glow-tts`）——文本-隐态单调对齐的 DP 提取 duration 账（max 路径 + 累计归一）。Hard；与 `ctc-loss`（随机对齐边缘化）划界：MAS 是**确定性单调** max 对齐。
+  ② **FastSpeech2 length regulator 与 pitch/energy 条件账**——duration 整数扩张（余量按序分配）+ Variance Adaptor 的加性调制账；与 ① 划界：① 是**提** duration，② 是**用** duration。
+  ③ **RVQ 残差向量量化账**（EnCodec/SoundStream/Mimi/DAC 系，official `facebookresearch/encodec`；llama.cpp Qwen3-TTS/Pocket-TTS 的 code-to-wave 同核）——给定逐级码本，残差最近邻索引 + 量化误差逐级下降账。与 quant 合集划界：quant 考权重/激活标量与码本学习，本题考**残差级联编码结构**。
+  ④ **文本前端 TN/G2P 规则账**——中文数字读法（万/亿分节、小数、号码逐位）与英文 TN 展开的规则引擎账（回源 `paddlespeech`/NeMo TN；G2P 词典 + 规则 fallback 账）；与 106⑧ injection 判别器、IF-Eval 同为规则引擎范式，先互查。
+  ⑤ **语音控制标签解析**（fish-speech `[laugh]`/`[whisper]`、ChatTTS 口语标记口径）——文本中控制标签的扫描、归一与流分段账；与 `agent-tool-call-schema` 划界：这是**行内标注语言**不是 JSON Schema。
+  ⑥ **F5-TTS Flow Matching 步进**（official `SWivid/F5-TTS`）——rectified flow 的 ODE Euler 步 + sway sampling 曲线账；**立项前必须与 diff 合集 flow match 系查重**（diff 已密集，若只差语音语境则不立）。
+  **待回源/慎做**：CosyVoice 流式首包延迟/分块调度（与 perf-systems 查重）；IndexTTS-2 毫秒级时长控制（细节待回源）；GPT-SoVITS 微调链路（训练式不出）；VITS 仿射 STN（`grid-sample` 已有算子，增量薄）。**红线**：真音频 IO 不出，mel/波形/码本全入参；`audio` 前端与 #108 划界同上；判题环境无 librosa/soundfile；TTS 生成质量类指标（MOS 等）不出，只考确定性账。
+
+- [ ] 110. 新合集 **`omni`**（全模态 any-to-any 模型，2026-10-31 盘点新增，全库零覆盖；落地三件套同上）。**生态盘点（2026-10-31 查证）**：transformers——qwen2_audio、qwen2_5_omni、qwen3_omni_moe、moshi、csm、dia、higgs_audio_v2、phi4_multimodal、audioflamingo3、vibevoice 系；llama.cpp mixed（vision+audio）——Qwen2.5-Omni、Qwen3-Omni、Gemma 4、MiniCPM-o；GitHub——`QwenLM/Qwen2.5-Omni`（Thinker-Talker + TMRoPE）、`kyutai-labs/moshi`（全双工流式）、`OpenBMB/MiniCPM-o`、`zai-org/GLM-4-Voice`、`stepfun-ai/Step-Audio2`、`boson-ai/higgs-audio`、`OpenMOSS/SpeechGPT-2.0`。**候选（先逐条回源 + 查重，order 从 648 起）**：
+  ① **TMRoPE 时间对齐位置编码**（official `QwenLM/Qwen2.5-Omni`）——视频帧与音频 token 共享统一时间轴的 position id 构造账（绝对时间→分段内偏移的换算）。与 `mm-mrope-position-ids` 划界：M-RoPE 是图像 2D 空间分解，TMRoPE 是**跨模态时间轴对齐**。
+  ② **Qwen2-Audio 音频 token 展开数账**（official `QwenLM/Qwen2-Audio` / transformers `qwen2_audio`）——mel 帧数→编码器下采样→音频 token 数 + padding 展开的账；与 `mm-image-token-expand` 划界：图像侧 vs 音频侧聚合比。
+  ③ **Moshi 全双工多流账**（official `kyutai-labs/moshi`）——semantic/acoustic token 多流 + 用户/模型说话状态的流式调度（pad/dup 填充语义、打断时流切换）账；机制全库唯一，回源后裁确定性部分。
+  ④ **Thinker-Talker 流式节流账**（Qwen2.5-Omni/Qwen3-Omni）——Talker 每 N 个 codec token 消费 Thinker 若干隐态的流式配比与缓冲账；待回源钉常量。
+  ⑤ **语音-文本交错 chat template 账**（GLM-4-Voice/Step-Audio2 口径）——语音 token 段与文本段在模板中的展开/还原账；与 `dt-chat-template` 划界：含**语音段占位**的模板。
+  ⑥ **语音对话循环延迟账**——ASR→LLM→TTS 三段流水线首响应延迟 + barge-in 打断时已合成 token 丢弃的状态机账；归 omni/tts/perf 立项前定，先与 `inf-*` 调度系查重。
+  **待回源/慎做**：Higgs Audio v2 dual-ffn、MiniCPM-o 流式全双工细节、SpeechGPT-2.0（实现分散）；Janus/Emu/show-o 统一理解+生成系（归 diffusion/multimodal 查重后另议）。**红线**：`audio` 前端、#108 asr、#109 tts 三方划界同前；真模型前向不出；音频/视频 token 计数的换算常量一律回源钉死后作显式入参；判题环境无 librosa/av/soundfile。
 
 ### 各合集续批线索（已收口批次只留未立项候选、红线与待回源清单；落地细节 `git log` 可查）
 

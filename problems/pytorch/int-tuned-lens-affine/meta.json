@@ -1,0 +1,12 @@
+{
+  "title": "Tuned Lens 仿射探针账：层间 logits 映射与 KL 收敛账",
+  "title_en": "Tuned Lens Affine-Probe Ledger: Layer-wise Logit Mapping and KL Convergence",
+  "difficulty": "Medium",
+  "tags": ["operator", "interpretability"],
+  "order": 653,
+  "variants": {
+    "pytorch": {"label": "PyTorch", "available": true},
+    "triton": {"label": "Triton", "available": false},
+    "cuda": {"label": "CUDA", "available": false}
+  }
+}

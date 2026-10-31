@@ -1,0 +1,12 @@
+{
+  "title": "Self-Consistency 多数投票账：答案归一化与票仓聚合",
+  "title_en": "Self-Consistency Majority-Vote Ledger: Answer Normalization and Vote Aggregation",
+  "difficulty": "Medium",
+  "tags": ["operator", "reasoning"],
+  "order": 654,
+  "variants": {
+    "pytorch": {"label": "PyTorch", "available": true},
+    "triton": {"label": "Triton", "available": false},
+    "cuda": {"label": "CUDA", "available": false}
+  }
+}

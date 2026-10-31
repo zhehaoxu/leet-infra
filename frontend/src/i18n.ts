@@ -169,6 +169,9 @@ const zh = {
   'family.evaluation': '评测指标',
   'family.rl': 'RL 基建',
   'family.agentic': '智能体系统',
+  'family.linear-attention': '线性注意力 · SSM',
+  'family.interpretability': '可解释性',
+  'family.reasoning': '推理系统',
   'family.other': '框架 / 其他',
 } as const
 
@@ -349,6 +352,9 @@ const en: Record<MessageKey, string> = {
   'family.evaluation': 'Evaluation Metrics',
   'family.rl': 'RL Systems',
   'family.agentic': 'Agentic Systems',
+  'family.linear-attention': 'Linear Attention · SSM',
+  'family.interpretability': 'Interpretability',
+  'family.reasoning': 'Reasoning Systems',
   'family.other': 'Framework / Other',
 }
 

@@ -1,0 +1,12 @@
+{
+  "title": "Gopher 规则质量过滤：九条启发式的顺序账",
+  "title_en": "Gopher Rule-Based Quality Filter: Ordered Ledger of Nine Heuristics",
+  "difficulty": "Medium",
+  "tags": ["operator", "tokenization"],
+  "order": 656,
+  "variants": {
+    "pytorch": {"label": "PyTorch", "available": true},
+    "triton": {"label": "Triton", "available": false},
+    "cuda": {"available": false, "label": "CUDA"}
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "title": "InternVL 动态分块账：宽高比匹配、tile 网格与 token 计数",
+  "title_en": "InternVL Dynamic Tiling Ledger: Aspect-Ratio Matching, Tile Grid and Token Counting",
+  "difficulty": "Medium",
+  "tags": ["operator", "multimodal"],
+  "order": 648,
+  "variants": {
+    "pytorch": {"label": "PyTorch", "available": true},
+    "triton": {"label": "Triton", "available": false},
+    "cuda": {"label": "CUDA", "available": false}
+  }
+}

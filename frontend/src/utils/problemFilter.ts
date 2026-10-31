@@ -60,6 +60,9 @@ export type FamilyKey =
   | 'evaluation'
   | 'rl'
   | 'agentic'
+  | 'linear-attention'
+  | 'interpretability'
+  | 'reasoning'
   | 'other'
 
 export const TAG_FAMILY: Record<string, FamilyKey> = {
@@ -100,12 +103,16 @@ export const TAG_FAMILY: Record<string, FamilyKey> = {
   evaluation: 'evaluation',
   rl: 'rl',
   agentic: 'agentic',
+  'linear-attention': 'linear-attention',
+  interpretability: 'interpretability',
+  reasoning: 'reasoning',
 }
 
 export const GROUP_ORDER: FamilyKey[] = [
   'activation', 'normalization', 'conv', 'vision', 'detection', 'gemm', 'attention',
   'tensor', 'loss', 'autograd', 'numerics', 'optimizer', 'quantization', 'sampling', 'rnn', 'metric', 'systems',
   'tokenization', 'context', 'distributed', 'llm', 'moe', 'inference', 'alignment', 'kvcache', 'speculative', 'peft', 'diffusion', 'sparsity', 'multimodal', 'audio', 'retrieval', 'evaluation', 'rl', 'agentic',
+  'linear-attention', 'interpretability', 'reasoning',
   'other',
 ]
 

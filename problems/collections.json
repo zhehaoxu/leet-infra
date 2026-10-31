@@ -302,7 +302,8 @@
       "dt-wordpiece-greedy-split",
       "dt-minhash-lsh-dedup",
       "dt-blend-epoch-schedule",
-      "dt-zip2zip-lzw-codebook"
+      "dt-zip2zip-lzw-codebook",
+      "dt-gopher-rules"
     ]
   },
   {
@@ -710,7 +711,9 @@
       "mm-prumerge-cls-select-merge",
       "mm-flux-2d-rope",
       "mm-prumerge-iqr-adaptive",
-      "mm-qwen25vl-window-index"
+      "mm-qwen25vl-window-index",
+      "mm-internvl-dynamic-tiling",
+      "mm-flux-joint-block-modulation"
     ]
   },
   {
@@ -747,7 +750,8 @@
       "retrieval-bm25-score",
       "retrieval-postings-wand",
       "retrieval-colbert-maxsim",
-      "retrieval-late-chunking"
+      "retrieval-late-chunking",
+      "ret-matryoshka-truncation"
     ]
   },
   {
@@ -864,6 +868,39 @@
       "ctx-llmlingua2-word-compress",
       "ctx-longllmlingua-doc-budget",
       "ctx-gemfilter-early-select"
+    ]
+  },
+  {
+    "slug": "linear-attention",
+    "name": "线性注意力与状态空间合集",
+    "name_en": "Linear Attention & SSM Collection",
+    "description": "次二次复杂度序列建模的核心递推账：Mamba 的 selective scan 参考实现（deltaA 指数衰减、deltaB_u 输入注入、D 跳连与 z 门、变体 einsum 与数值精度口径），以及 Gated DeltaNet 的门控线性递推（状态指数遗忘、误差校正写入 (v−h·k)β、按头 scale 与输出读出）。",
+    "description_en": "Core recurrence ledgers of sub-quadratic sequence modeling: Mamba's selective-scan reference implementation (deltaA exponential decay, deltaB_u input injection, the D skip connection and z gate, variant einsums and numerical-precision conventions), and the gated linear recurrence of Gated DeltaNet (exponential state forgetting, the error-correcting write (v−h·k)β, per-head scale and the output read).",
+    "problems": [
+      "la-mamba-selective-scan",
+      "la-gated-deltanet-recurrent"
+    ]
+  },
+  {
+    "slug": "interpretability",
+    "name": "可解释性合集",
+    "name_en": "Interpretability Collection",
+    "description": "打开模型内部的两把扳手：稀疏自编码器的 TopK 重构账（减 b_dec 后编码、top-k 不做 ReLU、解码重构与 l0 / mse / max_feat 三项指标），以及 tuned lens 的逐层仿射探针（W_l h_l + b_l 直读 final logits、按层 CE 与 KL(p_final‖p_layer)、float64 稳定计算）。",
+    "description_en": "Two wrenches for opening up a model: the TopK sparse-autoencoder reconstruction ledger (encode after subtracting b_dec, top-k without ReLU, decoded reconstruction with l0 / mse / max_feat metrics), and tuned-lens per-layer affine probes (W_l h_l + b_l reading straight into final logits, per-layer CE and KL(p_final‖p_layer), float64-stable computation).",
+    "problems": [
+      "int-sae-topk-reconstruct",
+      "int-tuned-lens-affine"
+    ]
+  },
+  {
+    "slug": "reasoning-systems",
+    "name": "推理系统合集",
+    "name_en": "Reasoning Systems Collection",
+    "description": "推理期把 N 份候选折成一个答案的确定性账本：self-consistency 的答案归一化与加权计票（8 条钉死的归一化规则、首次出现序票仓、并列取先者），以及 PRM best-of-N 的步级聚合（last / max / min / product 四种口径、answer_scores 乘项、并列取小 index 的 top-m 排序）。",
+    "description_en": "Deterministic ledgers that fold N candidates into one answer at inference time: self-consistency answer normalization and weighted voting (8 pinned normalization rules, first-occurrence-order tallies, ties to the earliest), and PRM best-of-N step aggregation (the last / max / min / product rules, the answer_scores multiplier, top-m ranking with ties to the smaller index).",
+    "problems": [
+      "rs-self-consistency-vote",
+      "rs-prm-best-of-n"
     ]
   }
 ]
