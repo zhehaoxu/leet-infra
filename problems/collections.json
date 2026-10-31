@@ -1,26 +1,28 @@
 [
   {
     "slug": "pytorch",
-    "name": "PyTorch 合集",
-    "name_en": "PyTorch Collection",
-    "description": "PyTorch 框架使用：张量形状与索引、广播、autograd 与自定义 Function、Hook、模块组装、DataLoader、autocast/GradScaler、断点续训与 train/eval 模式等训练流程账目。",
-    "description_en": "Using the PyTorch framework: tensor shapes and indexing, broadcasting, autograd and custom Function classes, hooks, module assembly, DataLoader, autocast/GradScaler, resuming from checkpoints, and the train/eval behaviour of the training loop.",
+    "name": "PyTorch 入门",
+    "name_en": "Intro to PyTorch",
+    "description": "PyTorch 框架入门，题目按学习顺序排列，取材自官方教程（Get Started / Learn the Basics / Beginner 60 分钟速览）与高星社区教程（Dive into Deep Learning、learn-pytorch 等）：先张量的形状、索引、步幅与视图/复制判定、广播与类型提升（dtype）账，再 autograd 求导与自定义 autograd.Function、前向/反向 Hook，然后组装 nn.Module、准备 Dataset 与 DataLoader、跑通 SGD 训练循环，最后处理 train/eval 模式、LR 调度器在循环里的位置、autocast 与 GradScaler、DistributedSampler 的单机索引账、参数冻结与优化器分组、state_dict 键重映射与断点续训。",
+    "description_en": "Introductory PyTorch, ordered as a learning path and drawn from the official tutorials (Get Started / Learn the Basics / Beginner 60-minute blitz) and high-star community tutorials (Dive into Deep Learning, learn-pytorch and similar): tensor shapes, indexing, the stride and view-or-copy layout ledger, broadcasting and the dtype type-promotion ledger first, then autograd, custom autograd.Function classes and forward/backward hooks, then assembling an nn.Module, preparing a Dataset and DataLoader and running an SGD training loop, and finally train/eval mode, where the LR scheduler belongs in the loop, autocast with GradScaler, the single-process index arithmetic of DistributedSampler, freezing parameters and optimizer groups, state_dict key remapping and resuming from a checkpoint.",
     "problems": [
       "tensor-shape-indexing",
+      "fw-stride-layout-ledger",
       "broadcast-ops",
+      "fw-dtype-promotion-ledger",
       "autograd-basics",
       "nn-module-block",
-      "optimizer-training-loop",
       "dataset-dataloader",
-      "fw-state-dict-remap",
-      "fw-param-freeze",
+      "optimizer-training-loop",
+      "fw-train-eval-mode",
+      "fw-scheduler-position",
       "fw-autograd-function",
       "fw-hooks",
-      "fw-distributed-sampler",
       "fw-autocast-scaler",
-      "fw-scheduler-position",
-      "fw-resume-checkpoint",
-      "fw-train-eval-mode"
+      "fw-distributed-sampler",
+      "fw-param-freeze",
+      "fw-state-dict-remap",
+      "fw-resume-checkpoint"
     ]
   },
   {
@@ -204,7 +206,9 @@
       "distributed-elastic-remap",
       "distributed-pipeline-v-schedule",
       "distributed-nccl-tuning",
-      "distributed-ring-attention"
+      "distributed-ring-attention",
+      "distributed-cp-zigzag-partition",
+      "distributed-cp-varlen-zigzag-plan"
     ]
   },
   {
@@ -302,8 +306,8 @@
     "slug": "quantization",
     "name": "量化与低精度合集",
     "name_en": "Quantization & Low Precision Collection",
-    "description": "低精度量化与量化推理：对称/非对称、按通道/分组的 fake-quant 与 INT8 / FP8 / NF4 往返、Weight-Only GEMM，SmoothQuant、AWQ、LLM.int8()、QuaRot、GPTQ、SpQR、HQQ、BitNet、MX/BlockFP 等主流方案，以及离群值处理、误差补偿与缩放因子的搜索、位打包布局解包和 KV Cache 量化。",
-    "description_en": "Low-bit quantization and quantized inference: symmetric/asymmetric, per-channel and group-wise fake-quant with INT8 / FP8 / NF4 round-trips, weight-only GEMM, and mainstream schemes such as SmoothQuant, AWQ, LLM.int8(), QuaRot, GPTQ, SpQR, HQQ, BitNet and MX/BlockFP — plus outlier handling, error-compensation and scale searches, bit-packing layouts and unpacking, and KV-cache quantization.",
+    "description": "低精度量化与量化推理：对称/非对称、按通道/分组的 fake-quant 与 INT8 / FP8 / NF4 往返、Weight-Only GEMM，SmoothQuant、AWQ、LLM.int8()、QuaRot、GPTQ、SpQR、HQQ、BitNet、MX/BlockFP 等主流方案，以及离群值处理、误差补偿与缩放因子的搜索、位打包布局解包、KV Cache 量化，和部分二值化（PB-LLM）、格点量化（QuIP#）、按损失分配位宽（BAQ）、通道重排与分组（RPTQ / DuQuant）、双侧浮点 scale（AFPQ）与结构化残差二值（BiLLM）等低比特前沿方案。",
+    "description_en": "Low-bit quantization and quantized inference: symmetric/asymmetric, per-channel and group-wise fake-quant with INT8 / FP8 / NF4 round-trips, weight-only GEMM, and mainstream schemes such as SmoothQuant, AWQ, LLM.int8(), QuaRot, GPTQ, SpQR, HQQ, BitNet and MX/BlockFP — plus outlier handling, error-compensation and scale searches, bit-packing layouts and unpacking, KV-cache quantization, and low-bit frontier schemes such as partial binarization (PB-LLM), lattice quantization (QuIP#), loss-driven bit allocation (BAQ), channel reordering and grouping (RPTQ / DuQuant), two-sided floating-point scales (AFPQ), and structural residual binarization (BiLLM).",
     "problems": [
       "symmetric-quantize",
       "asymmetric-quantize",
@@ -340,7 +344,14 @@
       "quant-gear-lowrank-outlier",
       "quant-polarquant-pair-angle",
       "quant-vqllm-residual-vq",
-      "quant-lexico-omp-dict"
+      "quant-lexico-omp-dict",
+      "quant-rptq-channel-reorder-group",
+      "quant-afpq-dual-scale-fp4",
+      "quant-pbllm-partial-binarize",
+      "quant-e8-lattice-round",
+      "quant-baq-loss-power-bitalloc",
+      "quant-duquant-zigzag-permute",
+      "quant-billm-structural-split"
     ]
   },
   {
@@ -375,8 +386,8 @@
     "slug": "moe",
     "name": "MoE 路由与专家并行合集",
     "name_en": "MoE Routing & Expert Parallelism Collection",
-    "description": "混合专家的路由与执行：Top-k、Expert-Choice、Aux-free、Sinkhorn 等门控，Switch/CV/z-loss/序列级负载均衡损失，容量分派与 token dropping、共享专家与路由专家合成、负载 EMA 与死专家账，以及 all-to-all 分派合并、分组矩阵乘的排序计划与 offsets 切分。",
-    "description_en": "Routing and execution in mixture-of-experts: top-k, expert-choice, aux-free and Sinkhorn gating, Switch/CV/z-loss/sequence-level load-balancing losses, capacity dispatch with token dropping, shared versus routed expert mixing, load EMA and dead-expert accounting, plus all-to-all dispatch/combine and the sorted plan and offset slicing of grouped expert matmuls.",
+    "description": "混合专家的路由与执行：Top-k、Expert-Choice、Aux-free、Sinkhorn 等门控，Switch/CV/z-loss/序列级负载均衡损失，容量分派与 token dropping、共享专家与路由专家合成、负载 EMA 与死专家账，专家隐藏激活 dropout（激活后、第二投影前，inverted scaling、训练/推理不对称），以及 all-to-all 分派合并、分组矩阵乘的排序计划与 offsets 切分。",
+    "description_en": "Routing and execution in mixture-of-experts: top-k, expert-choice, aux-free and Sinkhorn gating, Switch/CV/z-loss/sequence-level load-balancing losses, capacity dispatch with token dropping, shared versus routed expert mixing, load EMA and dead-expert accounting, expert-hidden dropout (after the activation, before the second projection, inverted scaling with train/inference asymmetry), plus all-to-all dispatch/combine and the sorted plan and offset slicing of grouped expert matmuls.",
     "problems": [
       "moe-topk-gating",
       "moe-switch-aux-loss",
@@ -394,7 +405,8 @@
       "moe-grouped-execution-plan",
       "moe-capacity-jitter-dispatch",
       "moe-dead-expert-ledger",
-      "moe-grouped-mm-offsets"
+      "moe-grouped-mm-offsets",
+      "moe-expert-hidden-dropout"
     ]
   },
   {
@@ -431,8 +443,8 @@
     "slug": "kvcache",
     "name": "KV Cache 压缩合集",
     "name_en": "KV Cache Compression Collection",
-    "description": "推理 KV Cache 的压缩与驱逐：注意力打分（StreamingLLM sink、H2O、SnapKV、AdaKV、Observed/ExpectedAttention、FINCH、Q-Filter、R-KV、TriAttention、Q-Trust）、保留预算分配（PyramidKV、CAKE、层间背包、Palu 秩预算、Quest 页级选择、KVzip 全局阈值）、值合并与重旋转（WKVD、ZSMerge、HOMER、MorphKV、LoCoCo、KeyRerotation），以及稀疏模式搜索、低秩共享和通道/层维度的丢弃策略。",
-    "description_en": "Compression and eviction for the inference KV cache: attention-based scoring (StreamingLLM sinks, H2O, SnapKV, AdaKV, Observed/ExpectedAttention, FINCH, Q-Filter, R-KV, TriAttention, Q-Trust), retention-budget allocation (PyramidKV, CAKE, per-layer knapsacks, Palu rank budgets, Quest page selection, KVzip global thresholds), value merging and re-rotation (WKVD, ZSMerge, HOMER, MorphKV, LoCoCo, KeyRerotation), plus sparse-pattern search, low-rank sharing and channel/layer-wise drop policies.",
+    "description": "推理 KV Cache 的压缩与驱逐：注意力打分（StreamingLLM sink、H2O、SnapKV、AdaKV、Observed/ExpectedAttention、FINCH、Q-Filter、R-KV、TriAttention、Q-Trust）、保留预算分配（PyramidKV、CAKE、层间背包、Palu 秩预算、Quest 页级选择、KVzip 全局阈值）、值合并与重旋转（WKVD、ZSMerge、HOMER、MorphKV、LoCoCo、KeyRerotation），以及稀疏模式搜索、低秩共享、张量积分解（TPA）与文档分段复用（KVLink）等通道/层/序列维度的策略。",
+    "description_en": "Compression and eviction for the inference KV cache: attention-based scoring (StreamingLLM sinks, H2O, SnapKV, AdaKV, Observed/ExpectedAttention, FINCH, Q-Filter, R-KV, TriAttention, Q-Trust), retention-budget allocation (PyramidKV, CAKE, per-layer knapsacks, Palu rank budgets, Quest page selection, KVzip global thresholds), value merging and re-rotation (WKVD, ZSMerge, HOMER, MorphKV, LoCoCo, KeyRerotation), plus sparse-pattern search, low-rank sharing, tensor-product factorization (TPA), and document-segment reuse (KVLink) across channel/layer/sequence dimensions.",
     "problems": [
       "kv-streaming-llm-sink",
       "kv-knorm-importance",
@@ -480,7 +492,9 @@
       "kv-ott-outlier-token-trace",
       "kv-restkv-odds-reconstruct-score",
       "kv-scope-decoding-window-schedule",
-      "kv-page-entrokv-renyi-group-pool"
+      "kv-page-entrokv-renyi-group-pool",
+      "kv-tpa-tensor-product-attn",
+      "kv-kvlink-segment-bias"
     ]
   },
   {

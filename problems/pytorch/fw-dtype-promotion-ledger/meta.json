@@ -1,0 +1,12 @@
+{
+  "title": "类型提升账：算术结果 dtype 与写回门槛",
+  "title_en": "Type Promotion Ledger: Result dtype and the Write-back Gate",
+  "difficulty": "Medium",
+  "tags": ["framework", "dtype"],
+  "order": 623,
+  "variants": {
+    "pytorch": {"label": "PyTorch", "available": true},
+    "triton": {"label": "Triton", "available": false},
+    "cuda": {"label": "CUDA", "available": false}
+  }
+}

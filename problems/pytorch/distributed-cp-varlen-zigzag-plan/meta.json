@@ -1,0 +1,12 @@
+{
+  "title": "上下文并行：变长打包序列的 zigzag 切分计划",
+  "title_en": "Context Parallelism: Zigzag Layout Plan for Packed Variable-Length Sequences",
+  "difficulty": "Hard",
+  "tags": ["operator", "distributed"],
+  "order": 633,
+  "variants": {
+    "pytorch": {"label": "PyTorch", "available": true},
+    "triton": {"label": "Triton", "available": false},
+    "cuda": {"label": "CUDA", "available": false}
+  }
+}

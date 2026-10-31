@@ -1,0 +1,12 @@
+{
+  "title": "量化：AFPQ 双侧浮点 scale 量化",
+  "title_en": "Quantization: AFPQ Dual-Scale FP4 Quantization",
+  "difficulty": "Hard",
+  "tags": ["operator", "quantization"],
+  "order": 619,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

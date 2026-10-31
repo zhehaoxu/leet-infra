@@ -1,0 +1,12 @@
+{
+  "title": "量化：DuQuant ZigZag 通道重排",
+  "title_en": "Quantization: DuQuant ZigZag Channel Permutation",
+  "difficulty": "Medium",
+  "tags": ["operator", "quantization"],
+  "order": 624,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "title": "量化：RPTQ 通道重排与分组量化",
+  "title_en": "Quantization: RPTQ Channel Reorder and Group Quantization",
+  "difficulty": "Hard",
+  "tags": ["operator", "quantization"],
+  "order": 618,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

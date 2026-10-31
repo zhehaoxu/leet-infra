@@ -1,0 +1,12 @@
+{
+  "title": "KV Cache：KVLink 段落掩码与 link token 布局",
+  "title_en": "KV Cache: KVLink Segment Mask and Link-Token Layout",
+  "difficulty": "Medium",
+  "tags": ["operator", "kvcache"],
+  "order": 628,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

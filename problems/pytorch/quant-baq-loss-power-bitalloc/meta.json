@@ -1,0 +1,12 @@
+{
+  "title": "量化：BAQ 损失幂律位宽分配",
+  "title_en": "Quantization: BAQ Loss-Power Bit Allocation",
+  "difficulty": "Hard",
+  "tags": ["operator", "quantization"],
+  "order": 622,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

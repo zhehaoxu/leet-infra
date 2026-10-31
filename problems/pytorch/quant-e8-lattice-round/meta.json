@@ -1,0 +1,12 @@
+{
+  "title": "量化：E8 格点最近点取整",
+  "title_en": "Quantization: E8 Lattice Nearest-Point Rounding",
+  "difficulty": "Hard",
+  "tags": ["operator", "quantization"],
+  "order": 621,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

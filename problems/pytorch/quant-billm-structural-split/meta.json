@@ -1,0 +1,12 @@
+{
+  "title": "量化：BiLLM 结构拆分与残差二值",
+  "title_en": "Quantization: BiLLM Structural Split and Residual Binarization",
+  "difficulty": "Hard",
+  "tags": ["operator", "quantization"],
+  "order": 625,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}

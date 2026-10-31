@@ -1,0 +1,12 @@
+{
+  "title": "MoE：专家隐藏激活 dropout 与门控重归一化",
+  "title_en": "MoE: Expert-Hidden Dropout with Gate Renormalization",
+  "difficulty": "Medium",
+  "tags": ["operator", "moe"],
+  "order": 629,
+  "variants": {
+    "pytorch": {"label": "PyTorch", "available": true},
+    "triton": {"label": "Triton", "available": false},
+    "cuda": {"label": "CUDA", "available": false}
+  }
+}

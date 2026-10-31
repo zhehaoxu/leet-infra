@@ -1,0 +1,12 @@
+{
+  "title": "布局账：shape/stride/offset 与 view-or-copy 判定",
+  "title_en": "Layout Ledger: shape/stride/offset and the view-or-copy Decision",
+  "difficulty": "Hard",
+  "tags": ["framework", "stride"],
+  "order": 626,
+  "variants": {
+    "pytorch": {"label": "PyTorch", "available": true},
+    "triton": {"label": "Triton", "available": false},
+    "cuda": {"label": "CUDA", "available": false}
+  }
+}
