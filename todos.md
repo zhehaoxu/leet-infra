@@ -22,9 +22,7 @@
 
 - [x] 102. 新合集 **`linear-attention`** 已收口（2026-10-31，合集 **4 题**，order 650–651 与 658–659：① `la-mamba-selective-scan`（state-spaces/mamba `selective_scan_ref` 逐行转写）、② `la-gated-deltanet-recurrent`（fla-org naive_recurrent_gated_delta_rule）、③ `la-rwkv-channel-decay`（RWKV v6 x060 `WKV_6` 逐通道 log-space 递推，w 加旧指数 / bonus 只进输出分支；「max 平移比较对象行为自由」的等价变异已记 notes）、④ `la-gla-chunked`（fla naive_recurrent_gla 口径的 chunk 并行恒等式；torch 广播按尾维致逐行衰减变逐列的真 bug 已变异化）。机制出处 2312.00752 / 2406.06484+2412.06464 / 2312.06635，细节 `git log` 与各题 notes。**红线遵守**：真模型权重前向、CUDA kernel 分块、训练收敛均未出。
 
-- [ ] 103. 新合集 **`interpretability`**（可解释性，2026-10-31 盘点新增；已落地合集 2 题：① 转 `int-sae-topk-reconstruct`（order 652，SAELens TopK SAE）、③ 转 `int-tuned-lens-affine`（order 653，tuned lens 仿射探针）。**剩余候选**：
-  ② **activation steering**（steering vector，official `nrimsky/steering-vectors`）——注入后的投影/范数/方向余弦账，隐态全显式入参。
-  **红线**：需真实大模型激活的题不出，隐态/权重一律显式入参；logit lens 须简化为「最终 norm + unembed 矩阵入参」才可判。
+- [x] 103. 新合集 **`interpretability`** 已收口（2026-10-31，合集 **4 题**，order 652–653 与 660–661：① `int-sae-topk-reconstruct`（SAELens TopK SAE）、③ `int-tuned-lens-affine`（tuned lens 仿射探针）、② `int-activation-steering`（nrimsky/steering-vectors 注入账：同层累加 / normalize / cos_before-after / proj_coef 正交化；「不得修改入参」契约靠 float64 用例钉住）、④ `int-logit-lens-unembed`（nostalgebraist logit lens 免训练读出：final LN + unembed、argmax 并列取小、agree/rank_of_final；no-layernorm 经典错误已变异化）。**红线遵守**：隐态/权重全显式入参，真实模型 forward 未出。
 
 - [ ] 104. 新合集 **`reasoning-systems`**（推理模型语义侧，2026-10-31 盘点新增；rl-systems 只管 infra，本合集管语义与账本；已落地合集 2 题：① 转 `rs-self-consistency-vote`（order 654）、② 转 `rs-prm-best-of-n`（order 655，2305.20050 四种归并口径）。**剩余候选**：
   ③ **budget forcing**（s1，official `simplescaling/s1`）——thinking token 预算的截断 / 「Final Answer:」强制续写账。

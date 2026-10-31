@@ -887,11 +887,13 @@
     "slug": "interpretability",
     "name": "可解释性合集",
     "name_en": "Interpretability Collection",
-    "description": "打开模型内部的两把扳手：稀疏自编码器的 TopK 重构账（减 b_dec 后编码、top-k 不做 ReLU、解码重构与 l0 / mse / max_feat 三项指标），以及 tuned lens 的逐层仿射探针（W_l h_l + b_l 直读 final logits、按层 CE 与 KL(p_final‖p_layer)、float64 稳定计算）。",
-    "description_en": "Two wrenches for opening up a model: the TopK sparse-autoencoder reconstruction ledger (encode after subtracting b_dec, top-k without ReLU, decoded reconstruction with l0 / mse / max_feat metrics), and tuned-lens per-layer affine probes (W_l h_l + b_l reading straight into final logits, per-layer CE and KL(p_final‖p_layer), float64-stable computation).",
+    "description": "打开模型内部的两把扳手加一读一写：稀疏自编码器的 TopK 重构账（减 b_dec 后编码、top-k 不做 ReLU、解码重构与 l0 / mse / max_feat 三项指标）、tuned lens 的逐层仿射探针（W_l h_l + b_l 直读 final logits、按层 CE 与 KL(p_final‖p_layer)、float64 稳定计算）、logit lens 的免训练读出账（中间隐态过 final LayerNorm + unembed、argmax 并列取小、agree 与 rank_of_final 排名账），以及 activation steering 的注入账（同层累加、normalize 语义、cos_before/after 与 proj_coef 正交化账）。",
+    "description_en": "Two wrenches plus a read and a write for opening up a model: the TopK sparse-autoencoder reconstruction ledger (encode after subtracting b_dec, top-k without ReLU, decoded reconstruction with l0 / mse / max_feat metrics), tuned-lens per-layer affine probes (W_l h_l + b_l reading straight into final logits, per-layer CE and KL(p_final‖p_layer), float64-stable computation), the training-free logit-lens readout ledger (intermediate states through the final LayerNorm + unembed, argmax ties to smallest index, agree and rank_of_final accounting), and the activation-steering injection ledger (same-layer accumulation, normalize semantics, cos_before/after and the proj_coef orthogonalization account).",
     "problems": [
       "int-sae-topk-reconstruct",
-      "int-tuned-lens-affine"
+      "int-tuned-lens-affine",
+      "int-logit-lens-unembed",
+      "int-activation-steering"
     ]
   },
   {

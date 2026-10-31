@@ -1,0 +1,12 @@
+{
+  "title": "Logit lens：final LayerNorm + unembed 的层间读出账",
+  "title_en": "Logit Lens: Final-LayerNorm + Unembed Layerwise Readout Ledger",
+  "difficulty": "Medium",
+  "tags": ["operator", "interpretability"],
+  "order": 661,
+  "variants": {
+    "pytorch": {"label": "PyTorch", "available": true},
+    "triton": {"label": "Triton", "available": false},
+    "cuda": {"label": "CUDA", "available": false}
+  }
+}

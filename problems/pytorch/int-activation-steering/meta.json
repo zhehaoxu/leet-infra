@@ -1,0 +1,12 @@
+{
+  "title": "Activation steering：向量注入与方向账",
+  "title_en": "Activation Steering: Vector Injection and Direction Ledger",
+  "difficulty": "Medium",
+  "tags": ["operator", "interpretability"],
+  "order": 660,
+  "variants": {
+    "pytorch": {"label": "PyTorch", "available": true},
+    "triton": {"label": "Triton", "available": false},
+    "cuda": {"label": "CUDA", "available": false}
+  }
+}
