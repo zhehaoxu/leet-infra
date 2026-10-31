@@ -1,0 +1,24 @@
+{
+  "title": "受限解码 token 前缀 trie 与增量 mask 复用账",
+  "title_en": "Constrained Decoding: Token Prefix Trie and Incremental Mask-Reuse Ledger",
+  "difficulty": "Hard",
+  "tags": [
+    "operator",
+    "inference"
+  ],
+  "order": 681,
+  "variants": {
+    "pytorch": {
+      "label": "PyTorch",
+      "available": true
+    },
+    "triton": {
+      "label": "Triton",
+      "available": false
+    },
+    "cuda": {
+      "label": "CUDA",
+      "available": false
+    }
+  }
+}
