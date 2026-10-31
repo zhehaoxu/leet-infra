@@ -8,6 +8,8 @@
       （框架题本身不带 operator，合法落入「框架 / 其他」，故不参与 (c) 断言。）
   (d) 每题英文三件套齐全：title_en + description.en.md + notes.en.md，合集也有 name_en
       —— 前端切到 EN 时后端会回落中文，漏译只能靠这条护栏发现。
+  (e) 每题 meta.json 的 order 是正整数且**全库唯一**（order 是全局编号池，脚手架按 max+1 分配；
+      并行出题或手工补挂最易重复占号，重复不会报错、只会让题号显示歧义）。
 
 命名以 test_ 前缀被后端 pytest 采集；因不依赖评测环境，`--smoke` 与 `-n auto` 均可叠加、秒级完成。
 """
@@ -111,3 +113,27 @@ def test_collections_have_english_names():
     collections = json.loads(COLLECTIONS_FILE.read_text(encoding="utf-8"))
     missing = [c["slug"] for c in collections if not c.get("name_en", "").strip()]
     assert not missing, f"合集缺少 name_en，EN 语言下合集名会回落中文: {missing}"
+
+
+# ---- (e) order 全库唯一 -------------------------------------------------------------
+def test_problem_order_is_globally_unique():
+    """order 是跨合集的全局编号池（add_problem.py 取 max+1），重复占号必须显式失败。
+
+    后端 problems.all_problems() 以 (framework, order, slug) 排序，重复号不会报错、
+    只会静默退化成按 slug 排，所以题号歧义只能靠这条护栏拦住。
+    """
+    seen: dict[int, list[str]] = {}
+    bad_type = []
+    for slug in PROBLEM_DIRS:
+        meta = json.loads((PYTORCH_DIR / slug / "meta.json").read_text(encoding="utf-8"))
+        order = meta.get("order")
+        if not isinstance(order, int) or isinstance(order, bool) or order <= 0:
+            bad_type.append(f"{slug}: order={order!r}")
+            continue
+        seen.setdefault(order, []).append(slug)
+    dups = {o: sorted(s) for o, s in seen.items() if len(s) > 1}
+    assert not bad_type, f"order 必须为正整数（未填/非整数会落到排序首位）: {sorted(bad_type)}"
+    assert not dups, (
+        "以下 order 被多题重复占用，新题请扫描全库取未占用号段："
+        + "; ".join(f"{o} -> {', '.join(v)}" for o, v in sorted(dups.items()))
+    )
