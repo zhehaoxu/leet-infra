@@ -792,13 +792,15 @@
     "slug": "agentic-systems",
     "name": "智能体系统合集",
     "name_en": "Agentic Systems Collection",
-    "description": "LLM agent 运行时的编排逻辑：ReAct 循环状态机与终止/死循环护栏、工具调用参数的 JSON Schema 校验与归一、任务 DAG 的拓扑执行与加权关键路径，以及上下文窗口的优先级压缩与预算装填。",
-    "description_en": "Runtime orchestration for LLM agents: the ReAct loop state machine with termination and loop-guard conditions, JSON Schema validation and normalization of tool-call arguments, topological execution of task DAGs with weighted critical paths, and priority-based context-window compaction under a token budget.",
+    "description": "LLM agent 运行时的编排逻辑：ReAct 循环状态机与终止/死循环护栏、工具调用参数的 JSON Schema 校验与归一、任务 DAG 的拓扑执行与加权关键路径，以及上下文窗口的优先级压缩与预算装填，以及生成式智能体的三因子记忆检索与工具调用循环熔断护栏。",
+    "description_en": "Runtime orchestration for LLM agents: the ReAct loop state machine with termination and loop-guard conditions, JSON Schema validation and normalization of tool-call arguments, topological execution of task DAGs with weighted critical paths, and priority-based context-window compaction under a token budget, plus the generative-agent three-factor memory retrieval and the tool-call loop-breaker guard.",
     "problems": [
       "agent-react-loop",
       "agent-tool-call-schema",
       "agent-task-dag-schedule",
-      "agent-context-compaction"
+      "agent-context-compaction",
+      "ag-generative-memory-retrieval",
+      "ag-tool-loop-breaker"
     ]
   },
   {

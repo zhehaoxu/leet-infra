@@ -36,3 +36,8 @@ Key structural points:
 3. **Initial state**: by default `aa = bb = 0`, `pp = -1e38` (the official kernel's -inf proxy). With a zero state, `wkv = v` at t=0 always holds; `pp + w` is numerically absorbed into `-1e38`, so `p_trace[0] = k0`.
 4. **Channel independence**: the C channels never interact; `p_trace` records the exponent bound per token so the decay arithmetic is observable.
 5. Feeding a sequence in two chunks equals feeding it whole (causality of the recurrence), and the final state supports resumption.
+
+## Constraints
+
+- 1 ≤ T ≤ 32, 1 ≤ C ≤ 16; all tensors are float32.
+- Shape mismatches, an empty sequence, or an incomplete state dict → `ValueError`.

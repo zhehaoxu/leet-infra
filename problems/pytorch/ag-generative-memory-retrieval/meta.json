@@ -1,0 +1,12 @@
+{
+  "title": "生成式智能体记忆检索：三因子加权排序账",
+  "title_en": "Generative-Agent Memory Retrieval: Three-Factor Weighted Ranking Ledger",
+  "difficulty": "Medium",
+  "tags": ["operator", "agentic"],
+  "order": 666,
+  "variants": {
+    "pytorch": {"label": "PyTorch", "available": true},
+    "triton": {"label": "Triton", "available": false},
+    "cuda": {"label": "CUDA", "available": false}
+  }
+}

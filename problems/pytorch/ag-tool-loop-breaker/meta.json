@@ -1,0 +1,12 @@
+{
+  "title": "工具循环熔断器：指纹去重账",
+  "title_en": "Tool-Loop Breaker: Fingerprint Dedup Ledger",
+  "difficulty": "Medium",
+  "tags": ["operator", "agentic"],
+  "order": 667,
+  "variants": {
+    "pytorch": {"label": "PyTorch", "available": true},
+    "triton": {"label": "Triton", "available": false},
+    "cuda": {"label": "CUDA", "available": false}
+  }
+}

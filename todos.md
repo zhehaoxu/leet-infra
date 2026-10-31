@@ -33,17 +33,7 @@
   `evaluation`：**LLM-as-judge swap 一致性**（lmsys 官方仓）——位置偏差 swap 账；IF-Eval 余下类别（json_format/postscript/capital_word_frequency/two_responses/sentences）可作次批。
   **已被占勿再立项（本批盘点 grep 确认）**：MLA（`llm-deepseek-mla`×2）、模型合并 TIES/DARE（`peft-ties-dare-merge`）、DPO/IPO/KTO/ORPO/SimPO（to-* 5 题）、ALiBi、sliding-window、HNSW/IVF-PQ/RRF、unigram/wordpiece 分词、beam search、pass@k、minhash 去重、MoE aux/capacity、调度器系（continuous batching/EDF/priority/chunked prefill）、fp16 loss scaling、采样变体（adaptive-p/epsilon/llama-sampling-pipeline）。
 
-- [ ] 106. `agentic-systems` 续批（2026-10-31 盘点新增；合集现 **4 题** order 345–348：ReAct 状态机 / 工具 Schema 校验 / 任务 DAG 拓扑执行 / 上下文预算压缩，本批全部避开）。**候选（先逐条回源 + 查重，order 从 648 起）**：
-  ① **生成式智能体记忆评分检索**（2304.03442，official `joonspk-research/generative_agents`）——importance×recency×relevance 三因子加权 top-k 检索账，三因子分数全显式入参；纯排序账。
-  ② **并行工具调用运行时仲裁**——模型一次吐 N 个 tool call：写-写冲突检测 + 依赖拓扑定序 + 无关调用并行的执行计划账。与 347 划界：347 是**计划期** DAG 执行，本题是**执行期**运行时仲裁（无 DAG 输入，靠资源指纹判冲突）。
-  ③ **工具重试 / 指数退避账**——backoff 基数×2^n + 抖动（种子显式入参）+ 重试预算上限 + 幂等键决定「可重试 vs 必须中止」；全库无同类。
-  ④ **工具循环熔断**——tool call 指纹（归一化参数哈希）重复计数、达阈值熔断的循环检测账；随机性零。
-  ⑤ **单轮工具结果注入预算**——多工具结果按优先级裁剪打包进一轮上下文的账。与 348 划界：348 是**跨轮历史压缩**，本题是**单轮注入**（工具结果只过一遍）。
-  ⑥ **prompt cache 前缀命中账**——消息序列的 system prompt / 工具表前缀稳定性排序决定缓存命中段的账。与 `inf-radix-prefix-cache`/`inf-prefix-cache-block-hit` 划界：本题在**对话消息层**（哪条消息放前面更省），不在 KV block 层。
-  ⑦ **handoff 路由状态机**（Swarm 口径，official `openai/swarm`）——agent 间移交的条件路由 + 循环移交保护账。
-  ⑧ **prompt injection 规则判别**——工具返回文本的注入特征规则引擎（指令伪装 / 越权指令 / 隐匿编码的确定性规则账）；也可归 `evaluation`，立项前定归属。
-  **红线**：模型生成本身不出（全显式入参）；涉工具执行的题只考**账本与状态机**、不真跑工具；与 88-89 行「撞车勿再立项」清单里 HyDE/graphRAG/LLM reranker（触 agentic 红线）互查；先回源再立项。
-
+- [x] 106. `agentic-systems` 续批已收口（2026-11-01，合集 4→**6 题**，新增 order 666–667：① `ag-generative-memory-retrieval`（2304.03442 generative_agents `new_retrieve` 三因子加权检索账：recency=decay^(i+1) 官方 quirk「最旧最大」钉死、min-max 归一化 range=0 全置 0.5、gw=[0.5,3,2] 稳定降序 top-k；「decay^(i+1)→decay^i」被 min-max 归一化约掉的等价变异已记 notes）、② `ag-tool-loop-breaker`（工具循环熔断：`tool|sha256(canonical args)` 指纹——sort_keys 键序无关 + float round 6 位容忍 1e-7 抖动、调用前计数 `< threshold` 放行、threshold=0 一步即熔断、first_block_index 取首个）。**红线遵守**：embedding/LLM 调用、真实工具执行均未出，全显式入参。
 - [ ] 107. 新合集 **`ocr`**（OCR 与文档解析，2026-10-31 盘点新增，全库零覆盖；落地按「题库收尾」三件套登记）。**生态盘点（2026-10-31 查证）**：transformers 有 modeling 文件的 OCR/文档模型——TrOCR、Donut、Pix2Struct、Nougat、LayoutLM/LLMv2/LLMv3、Kosmos-2.5、GOT-OCR2、PaddleOCR-VL、DotsOCR、DeepSeek-OCR、Nanonets-OCR2、OlmOCR-2、Granite-Docling、Qwen2.5-VL/3-VL；llama.cpp mtmd（libmtmd）支持的 OCR——PaddleOCR-VL（PR 18825）、GLM-OCR（19677）、DeepSeek-OCR（17400）、Dots.OCR（17575）、HunyuanOCR（21395）、MinerU2.5、Granite-Docling，OCR 模型需特定 prompt/输入结构；GitHub 知名仓——`PaddlePaddle/PaddleOCR`（90k+ star）、`JaidedAI/EasyOCR`、`Ucas-HaoranWei/GOT-OCR2.0`、`allenai/olmocr`、`VikParuchuri/surya`、`opendatalab/MinerU`、`rednote-hilab/dots.ocr`、`Tencent/llm.hunyuan.ocr`、`microsoft/unilm`（LayoutLM 系）、`datalab-to/marker`。**候选（先逐条回源 + 查重，order 从 648 起）**：
   ① **CTC greedy 解码与 collapse**（PP-OCR rec 头，official PaddleOCR）——logits→argmax→相邻去重→去 blank 的解码账（**loss 侧已被 `ctc-loss` 占，勿重做**，本题只考解码/后处理路径）。
   ② **DBNet 自适应阈值二值化 + unclip 外扩**（official PaddleOCR det）——prob map 与 threshold map 逐点二值化的分段账 + 连通域外接框的 `distance = area/perimeter × unclip_ratio` 矩形外扩账（完整 polygon offset 用 shapely，判题环境无——只考距离公式与外扩方向，坐标全入参不读图）。
