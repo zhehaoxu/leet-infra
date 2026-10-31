@@ -1,0 +1,14 @@
+{
+  "slug": "omni-tmrope-position",
+  "order": 674,
+  "title": "TMRoPE：文本+音频段的 3D 位置 id 账",
+  "title_en": "TMRoPE: 3D Position IDs for Text + Audio Segments",
+  "difficulty": "Hard",
+  "tags": ["omni", "position-embedding", "qwen-omni", "bookkeeping"],
+  "family": "omni",
+  "source": "https://github.com/huggingface/transformers/blob/main/src/transformers/models/qwen2_5_omni/modeling_qwen2_5_omni.py",
+  "description": "转写 Qwen2.5-Omni thinker `get_rope_index` 的文本+独立音频段（use_audio_in_video=False、无图像/视频）路径：三行同值的文本 run 账、音频段 bos(1)+audio_len+eos(1) 的段式展开、st_idx=前段 max+1、mrope delta=max+1−len。video chunked 路径不在本题范围（见 notes）。",
+  "description_en": "Transcribe the text + standalone-audio path (use_audio_in_video=False, no image/video) of Qwen2.5-Omni thinker get_rope_index: the three-row identical text-run ledger, the per-audio bos(1)+audio_len+eos(1) expansion, st_idx = previous max + 1, and mrope delta = max+1-len. The video chunked path is out of scope (see notes).",
+  "hints": ["音频段占 1 个 audio_start + 1 个 pad + 1 个 audio_end 共 3 个输入 token，但展开成 1+audio_len+1 个位置", "audio_len = ((L-1)//2+1-2)//2+1，来自 audio encoder 两层 conv 的输出长度公式", "三行 position id 对文本与音频完全相同——omni 的 3D 轴只在视频 t/h/w 上分离"],
+  "oracle": "穷举/独立重放对照"
+}

@@ -60,15 +60,12 @@
   ⑤ **语音控制标签解析**（fish-speech `[laugh]`/`[whisper]`、ChatTTS 口语标记口径）——文本中控制标签的扫描、归一与流分段账；与 `agent-tool-call-schema` 划界：这是**行内标注语言**不是 JSON Schema。
   ⑥ **F5-TTS Flow Matching 步进**（official `SWivid/F5-TTS`）——rectified flow 的 ODE Euler 步 + sway sampling 曲线账；**立项前必须与 diff 合集 flow match 系查重**（diff 已密集，若只差语音语境则不立）。
   **待回源/慎做**：CosyVoice 流式首包延迟/分块调度（与 perf-systems 查重）；IndexTTS-2 毫秒级时长控制（细节待回源）；GPT-SoVITS 微调链路（训练式不出）；VITS 仿射 STN（`grid-sample` 已有算子，增量薄）。**红线**：真音频 IO 不出，mel/波形/码本全入参；`audio` 前端与 #108 划界同上；判题环境无 librosa/soundfile；TTS 生成质量类指标（MOS 等）不出，只考确定性账。
-- [ ] 110. 新合集 **`omni`**（全模态 any-to-any 模型，2026-10-31 盘点新增，全库零覆盖；落地三件套同上）。**生态盘点（2026-10-31 查证）**：transformers——qwen2_audio、qwen2_5_omni、qwen3_omni_moe、moshi、csm、dia、higgs_audio_v2、phi4_multimodal、audioflamingo3、vibevoice 系；llama.cpp mixed（vision+audio）——Qwen2.5-Omni、Qwen3-Omni、Gemma 4、MiniCPM-o；GitHub——`QwenLM/Qwen2.5-Omni`（Thinker-Talker + TMRoPE）、`kyutai-labs/moshi`（全双工流式）、`OpenBMB/MiniCPM-o`、`zai-org/GLM-4-Voice`、`stepfun-ai/Step-Audio2`、`boson-ai/higgs-audio`、`OpenMOSS/SpeechGPT-2.0`。**候选（先逐条回源 + 查重，order 从 648 起）**：
-  ① **TMRoPE 时间对齐位置编码**（official `QwenLM/Qwen2.5-Omni`）——视频帧与音频 token 共享统一时间轴的 position id 构造账（绝对时间→分段内偏移的换算）。与 `mm-mrope-position-ids` 划界：M-RoPE 是图像 2D 空间分解，TMRoPE 是**跨模态时间轴对齐**。
-  ② **Qwen2-Audio 音频 token 展开数账**（official `QwenLM/Qwen2-Audio` / transformers `qwen2_audio`）——mel 帧数→编码器下采样→音频 token 数 + padding 展开的账；与 `mm-image-token-expand` 划界：图像侧 vs 音频侧聚合比。
+- [x] 110. 新合集 **`omni`** 已落地首批（2026-11-01，合集 **2 题**，order 674–675：① `omni-tmrope-position`（Qwen2.5-Omni thinker `get_rope_index` 文本+独立音频段账：音频块 bos(1)+audio_len+eos(1) 段式展开、audio_len=((L−1)//2+1−2)//2+1、st_idx=前段 max+1、**delta 按展开后长度计故恒 0**——非零 delta 只来自视频 t/h/w 共享位置，为钉住的反直觉锚点；video chunked 交错路径留候选）、② `omni-qwen2audio-token-count`（Qwen2-Audio 占位展开数账：sum(feature_attention_mask) 池化消 padding、两层 conv 公式、占位数守恒、audio_len=0 净删语义、按音频条目序对应）。**红线遵守**：真模型/音频 IO/视觉网格均未出，帧数与 token id 全入参。**剩余候选（order 从 680 起）**：
   ③ **Moshi 全双工多流账**（official `kyutai-labs/moshi`）——semantic/acoustic token 多流 + 用户/模型说话状态的流式调度（pad/dup 填充语义、打断时流切换）账；机制全库唯一，回源后裁确定性部分。
   ④ **Thinker-Talker 流式节流账**（Qwen2.5-Omni/Qwen3-Omni）——Talker 每 N 个 codec token 消费 Thinker 若干隐态的流式配比与缓冲账；待回源钉常量。
   ⑤ **语音-文本交错 chat template 账**（GLM-4-Voice/Step-Audio2 口径）——语音 token 段与文本段在模板中的展开/还原账；与 `dt-chat-template` 划界：含**语音段占位**的模板。
   ⑥ **语音对话循环延迟账**——ASR→LLM→TTS 三段流水线首响应延迟 + barge-in 打断时已合成 token 丢弃的状态机账；归 omni/tts/perf 立项前定，先与 `inf-*` 调度系查重。
   **待回源/慎做**：Higgs Audio v2 dual-ffn、MiniCPM-o 流式全双工细节、SpeechGPT-2.0（实现分散）；Janus/Emu/show-o 统一理解+生成系（归 diffusion/multimodal 查重后另议）。**红线**：`audio` 前端、#108 asr、#109 tts 三方划界同前；真模型前向不出；音频/视频 token 计数的换算常量一律回源钉死后作显式入参；判题环境无 librosa/av/soundfile。
-
 ### 各合集续批线索（已收口批次只留未立项候选、红线与待回源清单；落地细节 `git log` 可查）
 
 - `peft` 已收口（2026-10-31 收口 637–639，系列累计 17 题，合集 36 题）。**余族候选（续作先回源 + 查重）**：① PSOFT/OSF（OSF 依赖精确 top-k SVD，oracle 独立性存疑，立项前先解决判题口径；HRA、BOFT、HiRA、SHiRA 已落地）；② WaveFT IDWT 路径（判题环境无 PyWavelets）/DeFT；③ MiSS/Lily/TinyLoRA/AdaMSS/GraLoRA/BeFT（RoAD、DeLoRA 已做）；④ FRoD/PVeRA/xLoRA/Cartridge/PEANUT/ShadowPEFT/Monteclora（VB-LoRA 已落地 531）；⑤ EVA/CoRDa/Astra/LoRA-GA/VeLoRA/BD-LoRA/Arrow/GenKnowSub（KaSA 在 peft 仓无 tuner 目录，已核实）；⑥ P-Tuning/AdaptionPrompt/CPT/LN-Tuning/POLY（TrainableTokens 已落地 639）；⑦ safe_merge/category 叠加/DLN 组合。新题沿用 `['operator', 'peft']`，纯函数/纯张量重建 ΔW 范式。

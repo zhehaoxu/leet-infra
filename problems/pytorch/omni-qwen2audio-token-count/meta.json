@@ -1,0 +1,14 @@
+{
+  "slug": "omni-qwen2audio-token-count",
+  "order": 675,
+  "title": "Qwen2-Audio：音频占位 token 展开数账",
+  "title_en": "Qwen2-Audio: Audio Placeholder Token Expansion Ledger",
+  "difficulty": "Medium",
+  "tags": ["omni", "qwen-audio", "tokenization", "bookkeeping"],
+  "family": "omni",
+  "source": "https://github.com/huggingface/transformers/blob/main/src/transformers/models/qwen2_audio/processing_qwen2_audio.py",
+  "description": "转写 Qwen2-Audio 的音频占位展开账：feature_attention_mask 按行求和得到未池化 mel 长度（padding 被消去）、两层 conv 输出长度公式 audio_len=((l-1)//2+1-2)//2+1、input_ids 中音频占位 token 数必须与音频数一致、展开后序列长度守恒。纯账本，无真实音频/模型。",
+  "description_en": "Transcribe Qwen2-Audio's audio placeholder expansion ledger: per-row sum of feature_attention_mask gives unpadded mel lengths (padding is eliminated), the two-conv output length formula audio_len=((l-1)//2+1-2)//2+1, the placeholder-count-must-match-audio-count check in input_ids, and expanded length conservation. Pure ledger, no real audio or models.",
+  "hints": ["池化在前：先 sum(mask) 再进 conv 公式——padding 长度不影响结果", "audio_len 可为 0（mel ≤ 2 帧被两层 stride-2 conv 压没），但占位仍要被替换成空", "展开后长度 = len(input_ids) - 占位数 + Σaudio_len"],
+  "oracle": "独立实现对照"
+}

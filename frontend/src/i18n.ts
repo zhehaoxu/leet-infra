@@ -175,6 +175,7 @@ const zh = {
   'family.ocr': 'OCR · 文档解析',
   'family.asr': '语音识别',
   'family.tts': '语音合成',
+  'family.omni': '全模态',
   'family.other': '框架 / 其他',
 } as const
 
@@ -361,6 +362,7 @@ const en: Record<MessageKey, string> = {
   'family.ocr': 'OCR · Document Parsing',
   'family.asr': 'Speech Recognition',
   'family.tts': 'Speech Synthesis',
+  'family.omni': 'Omni-Modal',
   'family.other': 'Framework / Other',
 }
 
