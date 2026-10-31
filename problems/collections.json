@@ -420,8 +420,8 @@
     "slug": "inference",
     "name": "LLM 推理 Serving 合集",
     "name_en": "LLM Inference Serving Collection",
-    "description": "LLM 服务侧的调度与显存账：Continuous Batching 与 chunked prefill、PagedAttention 块分配与页表写时复制、前缀/KV Cache 命中与 LRU 驱逐、请求准入与抢占、SLO/EDF 与每步 token 预算、推测解码的名额分配、beam search 与受限解码（DFA 掩码、前缀 trie 增量复用与 token 级索引编译）、multi-LoRA 热切换、cache-aware 粘性路由、TTFT/TPOT 时间线与 PD 分离的搬运账。",
-    "description_en": "Scheduling and memory accounting on the LLM serving side: continuous batching and chunked prefill, PagedAttention block allocation with page-table copy-on-write, prefix/KV-cache hits and LRU eviction, request admission and preemption, SLO/EDF and per-step token budgets, speculative-decoding token quotas, beam search and constrained decoding (DFA masks, prefix-trie incremental reuse and token-level index compilation), multi-LoRA hot-swapping, cache-aware sticky routing, TTFT/TPOT timelines and the transfer ledger of prefill/decode disaggregation.",
+    "description": "LLM 服务侧的调度与显存账：Continuous Batching 与 chunked prefill、PagedAttention 块分配与页表写时复制、前缀/KV Cache 命中与 LRU 驱逐、请求准入与抢占、SLO/EDF 与每步 token 预算、推测解码的名额分配、beam search 与受限解码（DFA 掩码、前缀 trie 增量复用、token 级索引编译与 NSA 分支调度）、multi-LoRA 热切换、cache-aware 粘性路由、TTFT/TPOT 时间线与 PD 分离的搬运账。",
+    "description_en": "Scheduling and memory accounting on the LLM serving side: continuous batching and chunked prefill, PagedAttention block allocation with page-table copy-on-write, prefix/KV-cache hits and LRU eviction, request admission and preemption, SLO/EDF and per-step token budgets, speculative-decoding token quotas, beam search and constrained decoding (DFA masks, prefix-trie incremental reuse, token-level index compilation and NSA branch dispatch), multi-LoRA hot-swapping, cache-aware sticky routing, TTFT/TPOT timelines and the transfer ledger of prefill/decode disaggregation.",
     "problems": [
       "inf-continuous-batching-scheduler",
       "inf-spec-decoding-rejection",
@@ -445,7 +445,8 @@
       "inf-priority-aging-scheduler",
       "inf-pd-placement-accounting",
       "inf-grammar-trie-mask-resume",
-      "inf-outlines-token-index"
+      "inf-outlines-token-index",
+      "inf-nsa-block-dispatch"
     ]
   },
   {

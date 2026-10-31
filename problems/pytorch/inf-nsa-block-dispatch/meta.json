@@ -1,0 +1,10 @@
+{
+  "order": 683,
+  "collection": "inference",
+  "difficulty": "Medium",
+  "tags": ["attention", "sparse-attention", "long-context"],
+  "source": "DeepSeek NSA, arXiv 2502.11089",
+  "title": "NSA 三分支调度账：GQA 共享分数、top-n 块选择与门控聚合",
+  "title_en": "NSA branch dispatch ledger: GQA shared scores, top-n block selection and gated aggregation",
+  "reference": "https://arxiv.org/abs/2502.11089"
+}
