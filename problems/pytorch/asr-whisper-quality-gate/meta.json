@@ -1,0 +1,12 @@
+{
+  "title": "Whisper 质量门控与温度回退账",
+  "title_en": "Whisper Quality Gate and Temperature Fallback Ledger",
+  "difficulty": "Medium",
+  "tags": ["operator", "asr"],
+  "order": 671,
+  "variants": {
+    "pytorch": {"label": "PyTorch", "available": true},
+    "triton": {"label": "Triton", "available": false},
+    "cuda": {"label": "CUDA", "available": false}
+  }
+}

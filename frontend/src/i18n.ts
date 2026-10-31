@@ -173,6 +173,7 @@ const zh = {
   'family.interpretability': '可解释性',
   'family.reasoning': '推理系统',
   'family.ocr': 'OCR · 文档解析',
+  'family.asr': '语音识别',
   'family.other': '框架 / 其他',
 } as const
 
@@ -357,6 +358,7 @@ const en: Record<MessageKey, string> = {
   'family.interpretability': 'Interpretability',
   'family.reasoning': 'Reasoning Systems',
   'family.ocr': 'OCR · Document Parsing',
+  'family.asr': 'Speech Recognition',
   'family.other': 'Framework / Other',
 }
 

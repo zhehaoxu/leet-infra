@@ -924,5 +924,16 @@
       "ocr-ctc-greedy-decode",
       "ocr-layoutlm-bbox-index"
     ]
+  },
+  {
+    "slug": "asr",
+    "name": "语音识别合集",
+    "name_en": "ASR Collection",
+    "description": "语音识别的模型机制与解码账本：CTC prefix beam search 的前缀级 DP、Whisper 窗口级质量门控与温度回退等纯账本（真模型/音频 IO 不出，概率与指标全显式入参；与 audio 前端合集分工：那边管信号处理，这边管解码与账目）。",
+    "description_en": "Model mechanisms and decoding ledgers for ASR: the prefix-level DP of CTC prefix beam search, Whisper's window-level quality gate with temperature fallback, and other pure ledgers (no real models or audio IO; probabilities and metrics are explicit inputs; complements the audio front-end collection, which covers signal processing).",
+    "problems": [
+      "asr-ctc-prefix-beam",
+      "asr-whisper-quality-gate"
+    ]
   }
 ]
