@@ -820,7 +820,9 @@
       "vision-rotated-nms",
       "vision-deformable-sample",
       "vision-ohem-selection",
-      "vision-cornernet-pooling"
+      "vision-cornernet-pooling",
+      "vision-yolo-anchor-kmeans",
+      "vision-diou-nms"
     ]
   },
   {

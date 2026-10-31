@@ -1,0 +1,14 @@
+{
+  "slug": "vision-yolo-anchor-kmeans",
+  "order": 678,
+  "title": "YOLOv2 anchor k-means（1−IoU 距离）账",
+  "title_en": "YOLOv2 Anchor k-means (1-IoU Distance) Ledger",
+  "difficulty": "Medium",
+  "tags": ["detection", "yolo", "kmeans", "bookkeeping"],
+  "family": "vision",
+  "source": "https://github.com/AlexeyAB/darknet/blob/master/scripts/kmeansiou.c",
+  "description": "转写 darknet `kmeansiou.c` 的 anchor k-means 账：距离 d=1−IoU（仅宽高、中心对齐：inter=min(w1,w2)·min(h1,h2)）、closest_center 并列严格小于取小下标、Lloyd 循环 expectation→maximization、**空簇官方 quirk：maximization 清零后 counts=0 的质心保持 (0,0)**、k=1 先跑一次 maximization 的特判、WCSS=mean(1−dist)=mean IoU。初始化下标显式入参（smart_centers 的 D² 随机采样不入题，见 notes）。",
+  "description_en": "Transcribe the anchor k-means ledger of darknet kmeansiou.c: distance d=1-IoU (wh-only, center-aligned: inter=min(w1,w2)*min(h1,h2)), closest_center strict-<-ties-to-lower-index, Lloyd loop expectation->maximization, the official empty-cluster quirk (maximization zeroes centers so a count-0 centroid stays (0,0)), the k=1 maximization-first special case, and WCSS=mean(1-dist)=mean IoU. Init indices are explicit inputs (smart_centers D2 random sampling out of scope, see notes).",
+  "hints": ["IoU 只看 w,h：中心对齐，inter=min(w1,w2)*min(h1,h2)", "assignments 从全 0 起，expectation 与全 0 比较可能首轮即收敛（k=1 特判的由来）", "空簇不是重采样：官方 zero_matrix 后 counts=0 的质心就是 (0,0)，下一轮它与任何 box 的 IoU=0"],
+  "oracle": "独立 Lloyd 重放对照"
+}

@@ -1,0 +1,14 @@
+{
+  "slug": "vision-diou-nms",
+  "order": 679,
+  "title": "DIoU-NMS 抑制判据账",
+  "title_en": "DIoU-NMS Suppression Criterion Ledger",
+  "difficulty": "Medium",
+  "tags": ["detection", "nms", "diou", "bookkeeping"],
+  "family": "vision",
+  "source": "https://arxiv.org/abs/1911.08287",
+  "description": "转写 DIoU-NMS（1911.08287, AAAI 2021）的抑制判据账：NMS 流程不变（分数降序稳定、并列取小下标、贪心保留），抑制判据由 IoU 换为 DIoU = IoU − ρ²/c²——ρ² 为两框中心点欧氏距离平方，c² 为最小外接框对角线平方。IoU 仅在重叠时非零，DIoU 对远离但中心接近的框给出额外惩罚项（可正可负）。与 nms(66)/soft-nms(308)/rotated-nms(379) 划界：本题换判据公式本身。",
+  "description_en": "Transcribe the DIoU-NMS (1911.08287, AAAI 2021) suppression criterion ledger: the NMS flow is unchanged (stable descending scores, ties to lower index, greedy keep), but the suppression criterion switches from IoU to DIoU = IoU - rho^2/c^2 — rho^2 is the squared Euclidean distance between box centers, c^2 the squared diagonal of the enclosing box. Bounded against nms(66)/soft-nms(308)/rotated-nms(379): this problem replaces the criterion formula itself.",
+  "hints": ["c² 是最小外接框的 w²+h²（对角线平方），不是两框对角线", "两框完全分离时 IoU=0，DIoU = −ρ²/c² ≤ 0，不可能超过正阈值", "中心重合的重复检测 ρ=0 → DIoU=IoU，惩罚项消失"],
+  "oracle": "暴力 O(n²) 独立重放对照"
+}
