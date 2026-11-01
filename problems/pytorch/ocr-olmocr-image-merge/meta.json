@@ -1,0 +1,12 @@
+{
+  "title": "olmOCR 图片元素 union-find 容差合并账",
+  "title_en": "olmOCR Image-Element Union-Find Merge Ledger",
+  "difficulty": "Medium",
+  "tags": ["operator", "ocr"],
+  "order": 692,
+  "variants": {
+    "pytorch": {"label": "PyTorch", "available": true},
+    "triton": {"label": "Triton", "available": false},
+    "cuda": {"label": "CUDA", "available": false}
+  }
+}

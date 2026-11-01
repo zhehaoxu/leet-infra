@@ -929,15 +929,17 @@
     "slug": "ocr",
     "name": "OCR 与文档解析合集",
     "name_en": "OCR & Document Parsing Collection",
-    "description": "OCR 与文档解析的可转写机制：识别头 CTC greedy 解码与 blank 分隔 collapse、文档 bbox 归一化与 2D 位置索引、评测侧逐行归一化编辑距离账、整页截图的可变宽高比 patch 网格预算、表格结构 token 的 cell 网格展开、llama.cpp mtmd 的多模态批调度等纯账本（真图/编码器不出，坐标、矩阵与字符串全入参）。",
-    "description_en": "Transcribable mechanisms from OCR and document parsing: the recognition head's CTC greedy decoding with blank-separator collapse, document bbox normalization and 2D position indexing, per-line normalized edit distance metrics, the variable aspect-ratio patch grid budget for full-page screenshots, table structure token cell-grid expansion, and llama.cpp mtmd multimodal batch scheduling, as pure ledgers (no real images or encoders; coordinates, matrices and strings are explicit inputs).",
+    "description": "OCR 与文档解析的可转写机制：识别头 CTC greedy 解码与 blank 分隔 collapse、文档 bbox 归一化与 2D 位置索引、评测侧逐行归一化编辑距离账、整页截图的可变宽高比 patch 网格预算、表格结构 token 的 cell 网格展开、llama.cpp mtmd 的多模态批调度、PP-Structure 双栏阅读顺序状态机、olmOCR 图片元素 union-find 容差合并等纯账本（真图/编码器不出，坐标、矩阵与字符串全入参）。",
+    "description_en": "Transcribable mechanisms from OCR and document parsing: the recognition head's CTC greedy decoding with blank-separator collapse, document bbox normalization and 2D position indexing, per-line normalized edit distance metrics, the variable aspect-ratio patch grid budget for full-page screenshots, table structure token cell-grid expansion, llama.cpp mtmd multimodal batch scheduling, the PP-Structure two-column reading-order state machine, and olmOCR's union-find image-element tolerance merging, as pure ledgers (no real images or encoders; coordinates, matrices and strings are explicit inputs).",
     "problems": [
       "ocr-ctc-greedy-decode",
       "ocr-layoutlm-bbox-index",
       "ocr-rec-norm-edit-dis",
       "ocr-pix2struct-patch-grid",
       "ocr-table-token-grid",
-      "ocr-mtmd-image-batching"
+      "ocr-mtmd-image-batching",
+      "ocr-layout-column-sort",
+      "ocr-olmocr-image-merge"
     ]
   },
   {

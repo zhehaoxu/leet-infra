@@ -1,0 +1,12 @@
+{
+  "title": "PP-Structure recovery 双栏版面阅读顺序账",
+  "title_en": "PP-Structure Recovery Two-Column Reading-Order Ledger",
+  "difficulty": "Medium",
+  "tags": ["operator", "ocr"],
+  "order": 691,
+  "variants": {
+    "pytorch": {"label": "PyTorch", "available": true},
+    "triton": {"label": "Triton", "available": false},
+    "cuda": {"label": "CUDA", "available": false}
+  }
+}
