@@ -946,13 +946,14 @@
     "slug": "asr",
     "name": "语音识别合集",
     "name_en": "ASR Collection",
-    "description": "语音识别系统的可转写机制：CTC greedy 解码、声学谱增强段掩蔽、CIF integrate-and-fire 发射状态机等纯账本（真音频/编码器不出，谱、权重与坐标全入参）。",
-    "description_en": "Transcribable mechanisms from speech recognition: CTC greedy decoding, spectral augmentation band masking, and the CIF integrate-and-fire emission state machine, as pure ledgers (no real audio or encoders; spectrograms, weights and coordinates are explicit inputs).",
+    "description": "语音识别系统的可转写机制：CTC greedy 解码、声学谱增强段掩蔽、CIF integrate-and-fire 发射状态机、Whisper 30s 窗口 seek 推进等纯账本（真音频/编码器不出，谱、权重与 token 流全入参）。",
+    "description_en": "Transcribable mechanisms from speech recognition: CTC greedy decoding, spectral augmentation band masking, the CIF integrate-and-fire emission state machine, and Whisper's 30s window seek loop, as pure ledgers (no real audio or encoders; spectrograms, weights and token streams are explicit inputs).",
     "problems": [
       "asr-ctc-prefix-beam",
       "asr-whisper-quality-gate",
       "asr-specaugment-mask",
-      "asr-cif-fire-emit"
+      "asr-cif-fire-emit",
+      "asr-whisper-seek-loop"
     ]
   },
   {

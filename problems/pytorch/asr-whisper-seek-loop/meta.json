@@ -1,0 +1,10 @@
+{
+  "order": 700,
+  "slug": "asr-whisper-seek-loop",
+  "title": "Whisper 30s 窗口 seek 推进账",
+  "title_en": "Whisper 30s window seek loop ledger",
+  "difficulty": "Hard",
+  "tags": ["operator", "asr"],
+  "available": {"pytorch": true, "triton": false, "cuda": false},
+  "description": "复现 openai/whisper transcribe.py 主循环：连续双时间戳切分 segment（首尾 token-begin × 0.02s）、single_timestamp_ending 时 seek += segment_size 而否则 seek += last_timestamp_pos × input_stride（未完成段丢弃）、无时间戳整窗、no_speech_prob 与 avg_logprob 双阈值跳窗。"
+}
