@@ -1,0 +1,18 @@
+{
+  "slug": "vision-yolov1-grid-responsibility",
+  "order": 701,
+  "title": "YOLOv1 网格责任编码账",
+  "title_en": "YOLOv1 Grid Responsibility Encoding Ledger",
+  "difficulty": "Medium",
+  "tags": ["detection", "yolo", "encoding", "bookkeeping"],
+  "family": "vision",
+  "source": "https://github.com/pjreddie/darknet/blob/9db61832/src/data.c",
+  "description": "转写 pjreddie/darknet commit 9db61832（2015-07，YOLOv1 CVPR 期）的网格责任编码账：encode 侧 data.c fill_truth_detection——label 角展开 → jitter 变换 → flip → constrain(0,1) 截断后**重新计算**中心与宽高（w 是截断后两角之差，不是对原 w clamp）、中心半开门（恰在 0 或 1 直接丢）、int 截断落格（无 clamp）、格内偏移先乘后减、截断后宽高 <0.01 丢弃、sqrt 编码、同格**先到先得**仲裁（洗牌序显式入参）；decode 侧 detection.c convert_detections——行主序 (col+tx)/S 平移 + 宽高平方还原互逆。confidence 目标恒 1（truth 数组只存 one-hot+四坐标，background 标志槽不入题）。",
+  "description_en": "Transcribe the grid-responsibility encoding ledger of pjreddie/darknet commit 9db61832 (2015-07, YOLOv1 CVPR era): the encode side (data.c fill_truth_detection) — corner expansion, jitter transform, flip, constrain(0,1) then **recompute** center and size (w is the post-clamp corner difference, not a clamp of the original w), a half-open center gate (center exactly at 0 or 1 is dropped), int-truncation cell assignment without clamping, offset computed as x*S-col first-multiply-then-subtract, post-clamp size <0.01 drop, sqrt encoding, and first-come-first-served occupancy arbitration (shuffled order as explicit input); the decode side (detection.c convert_detections) — row-major (col+tx)/S translation with squared wh restoration, inverse of encode. Confidence target is always 1 (truth array stores one-hot+four coords only; the background flag slot is out of scope).",
+  "hints": [
+    "constrain 逐角截断后必须用两角之差重算 w,h——中心与宽高都变了",
+    "中心门是半开的：x<=0 or x>=1 都丢；因此 col=(int)(x·S) 无需 clamp",
+    "0.01 宽高门是严格 <：注意 0.505−0.495 浮点上 >0.01（见 notes 的精确边界构造）"
+  ],
+  "oracle": "独立直算式实现 + 300 组随机对拍（含 jitter/flip）"
+}
