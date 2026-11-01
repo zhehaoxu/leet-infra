@@ -1,0 +1,13 @@
+{
+  "title": "多模态：Qwen2.5-VL 完整 M-RoPE 索引（视频时间轴与交错账）",
+  "title_en": "Multimodal: Qwen2.5-VL Full M-RoPE Index (Video Temporal and Interleaving)",
+  "difficulty": "Hard",
+  "tags": ["operator", "multimodal"],
+  "order": 685,
+  "source": "HuggingFace transformers v4.51.3, src/transformers/models/qwen2_5_vl/modeling_qwen2_5_vl.py::Qwen2_5_VLForConditionalGeneration.get_rope_index",
+  "variants": {
+    "pytorch": {"label": "PyTorch", "available": true},
+    "triton": {"label": "Triton", "available": false},
+    "cuda": {"label": "CUDA", "available": false}
+  }
+}
