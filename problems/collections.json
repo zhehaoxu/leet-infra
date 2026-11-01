@@ -815,8 +815,8 @@
   "slug": "vision-detection",
   "name": "视觉检测合集",
   "name_en": "Vision Detection Collection",
-  "description": "检测与分割流水线的基础算子与账本：anchor 生成与 IoU 阈值匹配、FCOS center-ness 与多尺度层分配、WBF 加权框融合、mAP 的 11-point / all-point / COCO 三种口径、COCO RLE 编解码与 mask IoU、FPN 融合与层尺寸账，以及旋转框 NMS 与可变形采样偏移聚合、YOLOv1 无 anchor 网格责任编码（截断重算 + sqrt 编码 + 先到先得仲裁）与平移/平方互逆 decode、YOLOv3 anchor 系 best-anchor 匹配与 xy 线性偏移 / wh log-exp 互逆的编解码账、SPP-Net 金字塔池化的 caffe kernel/pad 划分账（重叠窗口与空 bin quirk）。",
-  "description_en": "Foundational operators and ledgers in detection and segmentation pipelines: anchor generation with IoU-threshold matching, FCOS center-ness and multi-scale level assignment, weighted box fusion, mAP under the 11-point, all-point and COCO conventions, COCO RLE encoding/decoding and mask IoU, FPN top-down fusion with layer size accounting, plus rotated-box NMS and deformable sampling-offset aggregation, YOLOv1 anchor-free grid-responsibility encoding (post-clamp recomputation, sqrt encoding, first-come-first-served arbitration) with its translate/square inverse decode, and YOLOv3 best-anchor matching with the linear-offset-xy / log-exp-wh encode-decode ledger, and the SPP-Net pyramid pooling caffe kernel/pad windowing ledger (overlapping windows and the empty-bin quirk).",
+  "description": "检测与分割流水线的基础算子与账本：anchor 生成与 IoU 阈值匹配、FCOS center-ness 与多尺度层分配、WBF 加权框融合、mAP 的 11-point / all-point / COCO 三种口径、COCO RLE 编解码与 mask IoU、FPN 融合与层尺寸账，以及旋转框 NMS 与可变形采样偏移聚合、YOLOv1 无 anchor 网格责任编码（截断重算 + sqrt 编码 + 先到先得仲裁）与平移/平方互逆 decode、YOLOv3 anchor 系 best-anchor 匹配与 xy 线性偏移 / wh log-exp 互逆的编解码账、SPP-Net 金字塔池化的 caffe kernel/pad 划分账（重叠窗口与空 bin quirk）、YOLOv4 Mosaic 四象限拼接的 truth 平移/收缩修正/终门与 copy_plan 账。",
+  "description_en": "Foundational operators and ledgers in detection and segmentation pipelines: anchor generation with IoU-threshold matching, FCOS center-ness and multi-scale level assignment, weighted box fusion, mAP under the 11-point, all-point and COCO conventions, COCO RLE encoding/decoding and mask IoU, FPN top-down fusion with layer size accounting, plus rotated-box NMS and deformable sampling-offset aggregation, YOLOv1 anchor-free grid-responsibility encoding (post-clamp recomputation, sqrt encoding, first-come-first-served arbitration) with its translate/square inverse decode, and YOLOv3 best-anchor matching with the linear-offset-xy / log-exp-wh encode-decode ledger, and the SPP-Net pyramid pooling caffe kernel/pad windowing ledger (overlapping windows and the empty-bin quirk), and the YOLOv4 Mosaic quadrant-blend truth ledger (quadrant shifts, shrink corrections, final gate, copy_plan).",
   "problems": [
    "vision-anchor-match",
    "vision-fcos-centerness",
@@ -832,7 +832,8 @@
    "vision-diou-nms",
    "vision-yolov1-grid-responsibility",
    "vision-yolov3-anchor-decode",
-   "vision-spp-pyramid-pool"
+   "vision-spp-pyramid-pool",
+   "vision-mosaic-quadrant-blend"
   ]
  },
  {

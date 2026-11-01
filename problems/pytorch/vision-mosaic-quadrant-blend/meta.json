@@ -1,0 +1,18 @@
+{
+  "slug": "vision-mosaic-quadrant-blend",
+  "order": 704,
+  "title": "YOLOv4 Mosaic 四象限拼接 truth 账",
+  "title_en": "YOLOv4 Mosaic Quadrant-Blend Truth Ledger",
+  "difficulty": "Hard",
+  "tags": ["detection", "yolo", "augmentation", "bookkeeping"],
+  "family": "vision",
+  "source": "https://github.com/AlexeyAB/darknet/blob/master/src/data.c",
+  "description": "转写 AlexeyAB/darknet `data.c` blend_truth_mosaic 与 mosaic 图像拷贝分支的 truth 侧账：四象限平移方向不对称（0/2 减 (w−cut_x−right_shift)/w、1/3 加 (cut_x−left_shift)/w；y 轴 0/1 减、2/3 加）、像素角 int 截断、mosaic_bound 分支按象限界 clamp 后由角重算中心/宽高、非 bound 分支四向**收缩修正先于终门执行可把越界框救回**（left<0 → xb−=diff/2, wb+=diff，diff<0 即收缩）、终门单 AND（像素界 + 归一化半开 0<v<1 + wb>1/w 的 lowest 门）、id 透传，以及 memcpy 四分支反推的 copy_plan（dst/src/size）。",
+  "description_en": "Transcribe the truth-side ledger of AlexeyAB/darknet data.c blend_truth_mosaic plus the mosaic image-copy branch: asymmetric four-quadrant shifts (0/2 subtract (w−cut_x−right_shift)/w, 1/3 add (cut_x−left_shift)/w; y-axis 0/1 subtract, 2/3 add), int-truncated pixel corners, the mosaic_bound branch clamping to quadrant bounds then recomputing center/size from corners, the non-bound branch's four-direction **shrink corrections that run BEFORE the final gate and can rescue out-of-bounds boxes** (left<0 → xb−=diff/2, wb+=diff with diff<0, i.e. shrink), the single-AND final gate (pixel bounds + normalized half-open 0<v<1 + the wb>1/w lowest gate), id pass-through, and the copy_plan (dst/src/size) derived from the memcpy branches.",
+  "hints": [
+    "非 bound 修正在终门之前：中心 (0,0)/(1,0) 的框会被修正救回而不是丢弃",
+    "left<0 的修正 diff=left/w<0，wb+=diff 是收缩——与 right>w 的 −diff 同向",
+    "终门是 14 个条件的大 AND：wb<1 与 xb>0 与 wb>1/w 并存"
+  ],
+  "oracle": "独立直算（dx/dy 先合并）+ 250 组随机对拍（含 mosaic_bound）"
+}
