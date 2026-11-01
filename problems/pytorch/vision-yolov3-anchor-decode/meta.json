@@ -1,0 +1,18 @@
+{
+  "slug": "vision-yolov3-anchor-decode",
+  "order": 702,
+  "title": "YOLOv3 anchor 系 box 编解码账",
+  "title_en": "YOLOv3 Anchor-Box Encode/Decode Ledger",
+  "difficulty": "Medium",
+  "tags": ["detection", "yolo", "anchor", "encoding"],
+  "family": "vision",
+  "source": "https://github.com/pjreddie/darknet/blob/f86901f6/src/yolo_layer.c",
+  "description": "转写 pjreddie/darknet f86901f6 `src/yolo_layer.c` 的 anchor 系编解码账：best-anchor 匹配（truth 中心移原点、wh-only 中心对齐 IoU、严格 > 并列取小下标）、int 截断落格、encode target——**xy 是线性偏移而非 logit 逆（xy 编解码不互逆）、wh 是 log 比与 decode 的 exp 互逆**——官方口径的核心不对称、decode `(i+σ(tx))/lw` 与 `e^tw·pw/img_w`（tx/ty 通道 LOGISTIC 激活、tw/th 线性 raw）、delta `scale·(target−output)` 且 `scale=2−truth.w·truth.h`。",
+  "description_en": "Transcribe the anchor-box encode/decode ledger of pjreddie/darknet f86901f6 src/yolo_layer.c: best-anchor matching (truth center shifted to origin, wh-only center-aligned IoU, strict > with ties to the lower index), int-truncation cell assignment, encode targets — **xy is a linear offset, not the logit inverse (xy encode/decode is not invertible), while wh is a log-ratio inversely paired with the exp decode** — the core asymmetry of the official convention, decode `(i+σ(tx))/lw` and `e^tw·pw/img_w` (tx/ty channels get LOGISTIC activation, tw/th stay linear raw), and delta `scale·(target−output)` with `scale=2−truth.w·truth.h`.",
+  "hints": [
+    "anchor 匹配只看 wh：truth 中心先移到原点，inter=min·min",
+    "encode 的 tx* = truth.x·lw − i 是线性差；decode 侧却是 σ(tx) —— xy 往返不闭合",
+    "scale = 2 − truth.w·truth.h 里的 w,h 是归一化 truth"
+  ],
+  "oracle": "独立函数式直算 + 250 组随机对拍"
+}
