@@ -1,0 +1,18 @@
+{
+  "slug": "vision-yolov5-build-targets",
+  "order": 707,
+  "title": "YOLOv5 build_targets 双扩展分配账",
+  "title_en": "YOLOv5 build_targets Double-Expansion Assignment Ledger",
+  "difficulty": "Hard",
+  "tags": ["detection", "yolov5", "label-assignment", "bookkeeping"],
+  "family": "vision",
+  "source": "https://github.com/ultralytics/yolov5/blob/v7.0/utils/loss.py",
+  "description": "转写 ultralytics/yolov5 v7.0 `utils/loss.py::build_targets`（单图账，省略 batch 列）：每 GT 复制 na 份带 anchor 索引、gain=[1,1,W,H,W,H,1] 乘入格空间、wh 匹配 max(r,1/r)<anchor_t（**r = 格空间宽 / 像素 anchor 的官方混搭**——同一 GT 跨层 r 逐层 ×1/4，只有比值落 (1/anchor_t, anchor_t) 的层保留）、五方向 0.5 偏移扩展（方向门 = 该侧坐标小数部分 <0.5 **且** 坐标>1 或逆坐标 W−x>1 双门——靠边不扩展）、格点还原 gij=(gxy−offsets).long()（**截断非 round**）、防御性 clamp（双门数学保证下永不触发）、tbox 残差 gxy−gij + gwh、anchor 索引透传。",
+  "description_en": "Transcribe ultralytics/yolov5 v7.0 utils/loss.py::build_targets (single-image ledger, batch column omitted): per-GT replication with anchor index, gain=[1,1,W,H,W,H,1] into grid space, wh match max(r,1/r)<anchor_t where **r = grid-space wh / pixel anchor (official mixup)** — the same GT's r shrinks 4x per layer, only ratios in (1/anchor_t, anchor_t) survive, five-direction 0.5-offset expansion gated by fraction<0.5 **AND** coordinate>1 (or inverse W−x>1) — no expansion near edges, grid cell gij=(gxy−offsets).long() (**truncation, not round**), defensive clamp (mathematically unreachable under the dual gate), tbox residual gxy−gij + gwh, anchor index pass-through.",
+  "hints": [
+    "wh 匹配是双向比：小 GT 配大 anchor 由 1/r 过滤、大 GT 配小 anchor 由 r 过滤；恰等于 anchor_t 也过滤",
+    "x 恰为整数格时 j/k/l/m 全真（%1=0<0.5 且坐标与 W−x 都 >1）→ 五方向副本，且 dir0 与 dir3 落同一格",
+    "官方 r = 格空间宽 / 像素 anchor：目标跨层匹配资格逐层 ×1/4 变化，与直觉的『每层独立归一化』不同"
+  ],
+  "oracle": "独立 (anchor, dir) 直接枚举（无先复制后过滤结构）+ 200 组随机对拍"
+}
