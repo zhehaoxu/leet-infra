@@ -1,0 +1,12 @@
+{
+  "title": "RNG 可复现账：seed 包装、显式 generator 与状态快照",
+  "title_en": "RNG Reproducibility Ledger: Seed Wrapping, Explicit Generators and State Snapshots",
+  "difficulty": "Medium",
+  "tags": ["framework", "rng", "reproducibility"],
+  "order": 713,
+  "variants": {
+    "pytorch": {"label": "PyTorch", "available": true},
+    "triton": {"label": "Triton", "available": false},
+    "cuda": {"label": "CUDA", "available": false}
+  }
+}
