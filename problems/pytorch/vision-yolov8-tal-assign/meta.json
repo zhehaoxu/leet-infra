@@ -1,0 +1,18 @@
+{
+  "slug": "vision-yolov8-tal-assign",
+  "order": 708,
+  "title": "YOLOv8 TAL 任务对齐分配账",
+  "title_en": "YOLOv8 TAL Task-Aligned Assignment Ledger",
+  "difficulty": "Hard",
+  "tags": ["detection", "yolov8", "tal", "label-assignment", "bookkeeping"],
+  "family": "vision",
+  "source": "https://github.com/ultralytics/ultralytics/blob/main/ultralytics/utils/tal.py",
+  "description": "转写 ultralytics/ultralytics `utils/tal.py::TaskAlignedAssigner`（单图、全 GT 有效、topk2==topk 关闭次级过滤）：中心在扩边后 GT 内（四向 delta **> eps 严格**，恰等不算；小于 stride_val 的边**按中心对称**扩到 stride_val）、bbox_scores 取 anchor 在 **GT 类位**的预测分（非最大类分）、overlap = CIoU(gt,pd) **clamp 0**（负 CIoU 归零，含 v=0 除零保护）、align = score^alpha·overlap^beta（默认 1.0/6.0——overlap 六次方衰减极快）、每 GT 取 align top-k、多 GT 仲裁按 **overlap 最大**（非 align！）平分取小 GT 下标、软标签归一链 align·pos_overlap/(pos_align+eps)（**eps 会淹没 align<1e-9 的行**）→ 逐 anchor 跨 GT 取 max → 写入 one_hot 的 GT 类位。",
+  "description_en": "Transcribe ultralytics/ultralytics utils/tal.py::TaskAlignedAssigner (single image, all GTs valid, topk2==topk): anchor center strictly inside the enlarged GT (four-direction deltas **> eps**, equality excluded; sides below stride_val enlarged **symmetrically about the center**), bbox_scores from the anchor's **gt-class slot** (not the max class), overlap = CIoU(gt,pd) **clamped to 0** (with the v=0 divide-by-zero guard), align = score^alpha * overlap^beta (defaults 1.0/6.0 — overlap^6 decays brutally), per-gt top-k by align, multi-gt arbitration by **highest overlap** (not align; ties to the smaller gt), and the soft-label normalization chain align*pos_overlap/(pos_align+eps) (**eps swallows rows with align<1e-9**) → per-anchor max over gts → written into the one-hot gt-class slot.",
+  "hints": [
+    "仲裁依据是 overlap 不是 align metric：align 大但 IoU 小的 GT 会输",
+    "软标签归一的分母是 pos_align+eps：当某 GT 的 pos_align<eps（beta=6 下 align 极小常态）整行 norm 被压半——eps 不是数值装饰",
+    "CIoU 完全重合框（iou=1、v=0）会出现 0/0，需 v=0 时 alpha=0 的保护，结果即 IoU=1"
+  ],
+  "oracle": "独立显式枚举（while 找分配 GT、无 next/max 抽象）+ 200 组随机对拍"
+}
