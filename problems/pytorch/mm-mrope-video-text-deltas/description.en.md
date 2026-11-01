@@ -32,6 +32,7 @@ Output: t = [0, 1, 2, 2, 2, 2, 4, 5]
         h = [0, 1, 2, 2, 3, 3, 4, 5]
         w = [0, 1, 2, 3, 2, 3, 4, 5]
         delta = 5 + 1 - 8 = -2
+(prefix text [0,1]; vision off=2; trailing text from global max(3)+1 = 4)
 
 Input:  tokens = [102, 200, 200, 200, 9], video_grid_thw = [[4,1,1]],
         second_per_grid_ts = [0.5], tokens_per_second = 25
