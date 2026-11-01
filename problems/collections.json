@@ -959,11 +959,13 @@
     "slug": "tts",
     "name": "语音合成合集",
     "name_en": "TTS Collection",
-    "description": "语音合成的可转写机制：Glow-TTS/FastSpeech2 的单调对齐搜索 duration 提取、RVQ 残差级联量化等纯账本（真模型/音频 IO 不出，似然矩阵与码本全入参；与 audio 前端、asr 识别侧三分工）。",
-    "description_en": "Transcribable mechanisms from speech synthesis: duration extraction via Glow-TTS/FastSpeech2 monotonic alignment search, RVQ residual-cascade quantization, and other pure ledgers (no real models or audio IO; likelihood matrices and codebooks are explicit inputs; complements the audio front-end and the asr recognition side).",
+    "description": "TTS 系统的可转写机制：FastSpeech2 方差适配器时长链与展开账、中文 TN 数字读法规引擎等纯账本（真音频/声学模型不出，predictor 输出与规则串全入参）。",
+    "description_en": "Transcribable mechanisms from TTS systems: the FastSpeech2 variance adaptor duration chain and expansion ledger, and the Chinese TN number verbalization rule engine, as pure ledgers (no real audio or acoustic models; predictor outputs and rule strings are explicit inputs).",
     "problems": [
       "tts-mas-monotonic-alignment",
-      "tts-rvq-residual-quant"
+      "tts-rvq-residual-quant",
+      "tts-fastspeech2-length-reg",
+      "tts-zh-tn-num-rules"
     ]
   },
   {

@@ -1,0 +1,10 @@
+{
+  "order": 696,
+  "slug": "tts-zh-tn-num-rules",
+  "title": "中文 TN 数字读法规引擎",
+  "title_en": "Chinese TN number verbalization rule engine",
+  "difficulty": "Medium",
+  "tags": ["operator", "tts"],
+  "available": {"pytorch": true, "triton": false, "cuda": false},
+  "description": "复现 PaddleSpeech zh_normalization 的数字读法规引擎：verbalize_cardinal 的万/亿幂递归分节、中间零补零与一十缩写、num2str 小数尾零剥离、verbalize_digit 的幺化、时刻的半/零五特判与号码分段逐位。"
+}

@@ -1,0 +1,10 @@
+{
+  "order": 695,
+  "slug": "tts-fastspeech2-length-reg",
+  "title": "FastSpeech2 时长链与方差适配器账",
+  "title_en": "FastSpeech2 duration chain and variance adaptor ledger",
+  "difficulty": "Medium",
+  "tags": ["operator", "tts"],
+  "available": {"pytorch": true, "triton": false, "cuda": false},
+  "description": "复现 FastSpeech2 VarianceAdaptor 的确定性核心：clamp(round(exp(logd)-1)·d_control) 时长链、LengthRegulator 逐 phoneme 重复展开（max(int(d),0) 截断、非整数 d_control 截断）、pitch/energy 的 bucketize 桶索引（bisect_left 边界、log linspace 浮点端点）与 phoneme 级加性调制顺序。"
+}
