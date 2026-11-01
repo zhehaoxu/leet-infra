@@ -1,0 +1,18 @@
+{
+  "slug": "vision-yolox-simota-assign",
+  "order": 706,
+  "title": "YOLOX SimOTA 动态标签分配账",
+  "title_en": "YOLOX SimOTA Dynamic Assignment Ledger",
+  "difficulty": "Hard",
+  "tags": ["detection", "yolox", "simota", "label-assignment", "bookkeeping"],
+  "family": "vision",
+  "source": "https://github.com/Megvii-BaseDetection/YOLOX/blob/main/yolox/models/yolo_head.py",
+  "description": "转写 Megvii-BaseDetection/YOLOX `yolo_head.py` get_assignments（get_geometry_constraint + cost + simota_matching）与 `utils/boxes.py::bboxes_iou`（xyxy=False，cxcywh）：anchor 中心 (shift+0.5)·stride 须落在 GT 中心 ±1.5·**该 anchor 自己 stride** 邻域内（严格 >，半径随 stride 缩放而非固定像素）、cxcywh IoU 相切边不算重叠（en 用严格 tl<br，无 +1 无 eps）、cost = 逐类 BCE(√(σ(cls)·σ(obj)), one_hot) 求和 + 3·(−log(iou+1e-8)) + 1e6·(~geometry)、dynamic_k = max(int(Σ top-10 IoU), 1)（int 截断非 round）、每 GT 取 cost 最小 k 个、一 anchor 多 GT 时只留 cost 最小的 GT（argmin 平分取小 GT 下标）、出列制——几何不命中的 anchor 根本不进候选（1e6 只是账面惩罚）。",
+  "description_en": "Transcribe Megvii-BaseDetection/YOLOX yolo_head.py get_assignments (get_geometry_constraint + cost + simota_matching) and utils/boxes.py::bboxes_iou (xyxy=False, cxcywh): the anchor center (shift+0.5)*stride must lie strictly inside the GT center ±1.5 * **that anchor's own stride** neighborhood (strict >, radius scales with stride, not fixed pixels), cxcywh IoU where touching edges do NOT count (en uses strict tl<br, no +1, no eps), cost = per-class BCE(sqrt(sigmoid(cls)*sigmoid(obj)), one_hot) summed + 3*(-log(iou+1e-8)) + 1e6*(~geometry), dynamic_k = max(int(sum of top-10 IoUs), 1) (int truncation, not round), per-gt lowest-cost picks, and multi-matched anchors keep only the cheapest gt (argmin ties go to the smaller gt index); retired anchors never enter the candidate set (the 1e6 is ledger-only).",
+  "hints": [
+    "邻域半径是 1.5·anchor 自己的 stride：stride 8 与 stride 32 的 anchor 对同一 GT 的候选窗口差 4 倍",
+    "IoU 相切（tl==br）时 en=0：area_i=0，与 max(0,·) 风格实现同值但除数不同——结果恒 0",
+    "dynamic_k 用 int 截断：top-10 IoU 和 4.585 → k=4（round 会给 5，随机对拍几乎不命中，需 4.5<x<5 边界锚点）"
+  ],
+  "oracle": "独立矩阵式直算（dict/列表向量化思路重写）+ 200 组随机对拍"
+}
