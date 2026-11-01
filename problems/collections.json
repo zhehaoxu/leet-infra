@@ -3,8 +3,8 @@
   "slug": "pytorch",
   "name": "PyTorch 入门",
   "name_en": "Intro to PyTorch",
-  "description": "PyTorch 框架入门，题目按学习顺序排列，取材自官方教程（Get Started / Learn the Basics / Beginner 60 分钟速览）与高星社区教程（Dive into Deep Learning、learn-pytorch 等）：先张量的形状、索引、步幅与视图/复制判定、广播与类型提升（dtype）账，再 autograd 求导与自定义 autograd.Function、前向/反向 Hook，然后组装 nn.Module、准备 Dataset 与 DataLoader、跑通 SGD 训练循环，最后处理 train/eval 模式、LR 调度器在循环里的位置、autocast 与 GradScaler、DistributedSampler 的单机索引账、参数冻结与优化器分组、state_dict 键重映射与断点续训。",
-  "description_en": "Introductory PyTorch, ordered as a learning path and drawn from the official tutorials (Get Started / Learn the Basics / Beginner 60-minute blitz) and high-star community tutorials (Dive into Deep Learning, learn-pytorch and similar): tensor shapes, indexing, the stride and view-or-copy layout ledger, broadcasting and the dtype type-promotion ledger first, then autograd, custom autograd.Function classes and forward/backward hooks, then assembling an nn.Module, preparing a Dataset and DataLoader and running an SGD training loop, and finally train/eval mode, where the LR scheduler belongs in the loop, autocast with GradScaler, the single-process index arithmetic of DistributedSampler, freezing parameters and optimizer groups, state_dict key remapping and resuming from a checkpoint.",
+  "description": "PyTorch 框架入门，题目按学习顺序排列，取材自官方教程（Get Started / Learn the Basics / Beginner 60 分钟速览）与高星社区教程（Dive into Deep Learning、learn-pytorch 等）：先张量的形状、索引、步幅与视图/复制判定、广播与类型提升（dtype）账，再 autograd 求导与自定义 autograd.Function、前向/反向 Hook，然后组装 nn.Module、准备 Dataset 与 DataLoader、跑通 SGD 训练循环，最后处理 train/eval 模式、LR 调度器在循环里的位置、autocast 与 GradScaler、DistributedSampler 的单机索引账、参数冻结与优化器分组、state_dict 键重映射与断点续训。 nn.init 的 fan/gain/std/bound 记账：fan 的 receptive field 连乘、gain 查表与 bool param 拒收、kaiming 负斜率缺省 0 与 gain 缺省 0.01 的分流、xavier 的 fi+fo 分母，噪声显式入参的线性缩放壳。",
+  "description_en": "Introductory PyTorch, ordered as a learning path and drawn from the official tutorials (Get Started / Learn the Basics / Beginner 60-minute blitz) and high-star community tutorials (Dive into Deep Learning, learn-pytorch and similar): tensor shapes, indexing, the stride and view-or-copy layout ledger, broadcasting and the dtype type-promotion ledger first, then autograd, custom autograd.Function classes and forward/backward hooks, then assembling an nn.Module, preparing a Dataset and DataLoader and running an SGD training loop, and finally train/eval mode, where the LR scheduler belongs in the loop, autocast with GradScaler, the single-process index arithmetic of DistributedSampler, freezing parameters and optimizer groups, state_dict key remapping and resuming from a checkpoint. The nn.init fan/gain/std/bound ledger: receptive-field product in fan computation, the gain table with bool-param rejection, kaiming's negative-slope default of 0 versus gain's own 0.01 default, xavier's fi+fo denominator, and the explicit-noise linear-scaling shell.",
   "problems": [
    "tensor-shape-indexing",
    "fw-stride-layout-ledger",
@@ -25,7 +25,8 @@
    "fw-param-freeze",
    "fw-state-dict-remap",
    "fw-resume-checkpoint",
-   "fw-autograd-lineage-ledger"
+   "fw-autograd-lineage-ledger",
+   "fw-nn-init-fan-gain"
   ]
  },
  {

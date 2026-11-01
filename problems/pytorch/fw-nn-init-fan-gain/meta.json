@@ -1,0 +1,12 @@
+{
+  "title": "nn.init 的 fan/gain/std/bound 记账",
+  "title_en": "nn.init fan/gain/std/bound Ledger",
+  "difficulty": "Medium",
+  "tags": ["framework", "init"],
+  "order": 710,
+  "variants": {
+    "pytorch": {"label": "PyTorch", "available": true},
+    "triton": {"label": "Triton", "available": false},
+    "cuda": {"label": "CUDA", "available": false}
+  }
+}
