@@ -1,0 +1,18 @@
+{
+  "slug": "vision-spp-pyramid-pool",
+  "order": 703,
+  "title": "SPP-Net 金字塔池化账",
+  "title_en": "SPP-Net Pyramid Pooling Ledger",
+  "difficulty": "Medium",
+  "tags": ["detection", "spp", "pooling", "bookkeeping"],
+  "family": "vision",
+  "source": "https://github.com/BVLC/caffe/blob/master/src/caffe/layers/spp_layer.cpp",
+  "description": "转写 BVLC/caffe `spp_layer.cpp` GetPoolingParam + `pooling_layer.cpp` MaxPoolForward 的 SPP 官方实现账：每级 kernel=ceil(H/k)（H、W 各自算可不同）、stride=kernel、pad=(kernel·k−H+1)//2 对称分摊；bin 窗口起点 max(0, p·kernel−pad) 与终点 min(hs+kernel, H) 的 clip 账——**pad>0 时相邻窗口重叠**，与论文 floor(i·H/k)/ceil((i+1)·H/k) 非重叠式不同；H=6,k=5 时官方式产生**空 bin 输出 −FLT_MAX**；窗口 max 按 bin_counts 顺序逐级 flatten 拼接。",
+  "description_en": "Transcribe the official SPP ledger of BVLC/caffe spp_layer.cpp GetPoolingParam plus pooling_layer.cpp MaxPoolForward: per level kernel=ceil(H/k) (H and W computed separately, may differ), stride=kernel, pad=(kernel·k−H+1)//2 split symmetrically; bin window start max(0, p·kernel−pad) and end min(hs+kernel, H) — **windows overlap when pad>0**, unlike the paper's non-overlapping floor(i·H/k)/ceil((i+1)·H/k) form; at H=6,k=5 the official formula produces an **empty bin outputting −FLT_MAX**; window max is flattened and concatenated level by level in bin_counts order.",
+  "hints": [
+    "kernel 每轴独立 ceil：矩形图上 k 级的 kh≠kw",
+    "窗口终点是 clip 前的 hs+kernel 再 min(H)——he 用未 clip 的 hs",
+    "pad 式与论文式窗口不同：caffe 式 bin(0,·) 与 bin(1,·) 可重叠"
+  ],
+  "oracle": "独立逐 bin 枚举（default=−inf 兜空窗）+ 200 组随机对拍 + 论文式对照"
+}
