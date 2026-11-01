@@ -1,0 +1,12 @@
+{
+  "title": "weights_only 白名单与 state_dict 键级账",
+  "title_en": "weights_only Allowlist & state_dict Key Ledger",
+  "difficulty": "Medium",
+  "tags": ["framework", "serialization"],
+  "order": 712,
+  "variants": {
+    "pytorch": {"label": "PyTorch", "available": true},
+    "triton": {"label": "Triton", "available": false},
+    "cuda": {"label": "CUDA", "available": false}
+  }
+}
