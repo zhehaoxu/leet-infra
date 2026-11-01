@@ -1,0 +1,12 @@
+{
+  "title": "识别指标：逐行归一化编辑距离账",
+  "title_en": "Recognition Metrics: Per-line Normalized Edit Distance Ledger",
+  "difficulty": "Medium",
+  "tags": ["operator", "ocr"],
+  "order": 687,
+  "variants": {
+    "pytorch": {"label": "PyTorch", "available": true},
+    "triton": {"label": "Triton", "available": false},
+    "cuda": {"label": "CUDA", "available": false}
+  }
+}

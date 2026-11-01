@@ -1,0 +1,12 @@
+{
+  "title": "Pix2Struct 可变宽高比 patch 网格账",
+  "title_en": "Pix2Struct Variable Aspect-Ratio Patch Grid Ledger",
+  "difficulty": "Medium",
+  "tags": ["operator", "ocr"],
+  "order": 688,
+  "variants": {
+    "pytorch": {"label": "PyTorch", "available": true},
+    "triton": {"label": "Triton", "available": false},
+    "cuda": {"label": "CUDA", "available": false}
+  }
+}
