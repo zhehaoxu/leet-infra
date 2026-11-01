@@ -1,0 +1,12 @@
+{
+  "title": "WhisperX 强制对齐账：trellis DP、回溯与两级合并",
+  "title_en": "WhisperX Forced-Alignment Ledger: Trellis DP, Backtracking and Two-Level Merging",
+  "difficulty": "Hard",
+  "tags": ["operator", "asr", "alignment"],
+  "order": 714,
+  "variants": {
+    "pytorch": {"label": "PyTorch", "available": true},
+    "triton": {"label": "Triton", "available": false},
+    "cuda": {"label": "CUDA", "available": false}
+  }
+}

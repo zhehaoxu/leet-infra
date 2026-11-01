@@ -959,14 +959,15 @@
   "slug": "asr",
   "name": "语音识别合集",
   "name_en": "ASR Collection",
-  "description": "语音识别系统的可转写机制：CTC greedy 解码、声学谱增强段掩蔽、CIF integrate-and-fire 发射状态机、Whisper 30s 窗口 seek 推进等纯账本（真音频/编码器不出，谱、权重与 token 流全入参）。",
-  "description_en": "Transcribable mechanisms from speech recognition: CTC greedy decoding, spectral augmentation band masking, the CIF integrate-and-fire emission state machine, and Whisper's 30s window seek loop, as pure ledgers (no real audio or encoders; spectrograms, weights and token streams are explicit inputs).",
+  "description": "语音识别系统的可转写机制：CTC greedy 解码、声学谱增强段掩蔽、CIF integrate-and-fire 发射状态机、Whisper 30s 窗口 seek 推进等纯账本（真音频/编码器不出，谱、权重与 token 流全入参）。 WhisperX 强制对齐账：trellis DP 的列 0 尾部 +inf 强制收尾填充、回溯严格大于的平分留 blank 与两域混用（log 域 DP + 概率域帧分）、merge_repeats 帧均与 merge_words 长度加权两套聚合、separator 三态不产空词、T<N 必返 None 的不变量。",
+  "description_en": "Transcribable mechanisms from speech recognition: CTC greedy decoding, spectral augmentation band masking, the CIF integrate-and-fire emission state machine, and Whisper's 30s window seek loop, as pure ledgers (no real audio or encoders; spectrograms, weights and token streams are explicit inputs). The WhisperX forced-alignment ledger: the column-0 tail +inf forced-completion fill, strict-greater backtracking ties that stay on blank with mixed log/probability domains, the frame-mean versus length-weighted two-aggregator split between merge_repeats and merge_words, separator three-state empty-word guards, and the ok-equals-(T>=N) invariant.",
   "problems": [
    "asr-ctc-prefix-beam",
    "asr-whisper-quality-gate",
    "asr-specaugment-mask",
    "asr-cif-fire-emit",
-   "asr-whisper-seek-loop"
+   "asr-whisper-seek-loop",
+   "asr-whisperx-dtw-align"
   ]
  },
  {
