@@ -1,0 +1,10 @@
+{
+  "order": 699,
+  "slug": "omni-moshi-multistream-delay",
+  "title": "Moshi 多流 acoustic delay 与覆盖链账",
+  "title_en": "Moshi multistream acoustic delay and overwrite chain ledger",
+  "difficulty": "Hard",
+  "tags": ["operator", "omni"],
+  "available": {"pytorch": true, "triton": false, "cuda": false},
+  "description": "复现 kyutai-labs/moshi lm_generate_multistream.rs 的双流音频账：生成半 cb0 零延迟写而 cb1-7 滞后 acoustic_delay=2（saturating_sub 覆盖链，前几帧同槽覆盖）、输入半 cb8-15 每帧直写、播放判定 last_audio_tokens 取 step-delay-1 帧且含 audio_pad 即整帧不播。"
+}

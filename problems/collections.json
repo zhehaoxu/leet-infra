@@ -972,13 +972,14 @@
     "slug": "omni",
     "name": "全模态合集",
     "name_en": "Omni-Modal Collection",
-    "description": "全栈语音-文本模型的可转写机制：Thinker-Talker 隐态逐帧回灌与 1:1 配比、语音-文本交错流的渐进分块解析等纯账本（真模型不出，隐态与 token 流全入参）。",
-    "description_en": "Transcribable mechanisms from full-duplex speech-text models: the thinker-talker frame-by-frame hidden-state replay at a 1:1 ratio, and the progressive chunking of interleaved speech-text streams, as pure ledgers (no real models; hidden states and token streams are explicit inputs).",
+    "description": "全栈语音-文本模型的可转写机制：Thinker-Talker 隐态逐帧回灌与 1:1 配比、语音-文本交错流的渐进分块解析、Moshi 双流 acoustic delay 与覆盖链等纯账本（真模型不出，隐态与 token 流全入参）。",
+    "description_en": "Transcribable mechanisms from full-duplex speech-text models: the thinker-talker frame-by-frame hidden-state replay at a 1:1 ratio, progressive chunking of interleaved speech-text streams, and Moshi's dual-stream acoustic delay with its overwrite chain, as pure ledgers (no real models; hidden states and token streams are explicit inputs).",
     "problems": [
       "omni-tmrope-position",
       "omni-qwen2audio-token-count",
       "omni-thinker-talker-replay",
-      "omni-glm4voice-interleaved-stream"
+      "omni-glm4voice-interleaved-stream",
+      "omni-moshi-multistream-delay"
     ]
   }
 ]
