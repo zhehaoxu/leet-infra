@@ -36,9 +36,7 @@ Output: t = [0, 1, 2, 2, 2, 2, 4, 5]
 Input:  tokens = [102, 200, 200, 200, 9], video_grid_thw = [[4,1,1]],
         second_per_grid_ts = [0.5], tokens_per_second = 25
 Output: t = [0, 1, 13, 26, 38]
-(prefix text [0,1]; vision off=2; trailing text from global max+1.
-Temporal steps floor(12.5)=12, floor(37.5)=37 — Python round's half-to-even
-would turn 37.5 into 38; this problem pins int truncation)
+(temporal steps floor(12.5)=12, floor(37.5)=37 — Python round's half-to-even would give 38; int truncation pinned)
 ```
 
 ## Constraints
