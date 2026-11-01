@@ -764,8 +764,8 @@
     "slug": "evaluation",
     "name": "LLM 评测指标合集",
     "name_en": "LLM Evaluation Metrics",
-    "description": "LLM 评测与数据卫生的确定性指标：困惑度与忽略位的 token 准确率、语料级 BLEU、ROUGE-1/2/L 与最长公共子序列、pass@k 无偏估计、nDCG@k 折损累积增益、few-shot 提示预算截断，以及 shingle 污染审计。",
-    "description_en": "Deterministic metrics for LLM evaluation and data hygiene: perplexity and token accuracy with ignored positions, corpus-level BLEU, ROUGE-1/2/L with LCS, the unbiased pass@k estimator, nDCG@k discounted cumulative gain, few-shot prompt budget truncation, and shingle-based contamination audits.",
+    "description": "LLM 评测与数据卫生的确定性指标：困惑度与忽略位的 token 准确率、语料级 BLEU、ROUGE-1/2/L 与最长公共子序列、pass@k 无偏估计、nDCG@k 折损累积增益、few-shot 提示预算截断，shingle 污染审计，以及 LLM-as-judge pairwise 的 swap 两局位置偏差账与半胜聚合。",
+    "description_en": "Deterministic metrics for LLM evaluation and data hygiene: perplexity and token accuracy with ignored positions, corpus-level BLEU, ROUGE-1/2/L with LCS, the unbiased pass@k estimator, nDCG@k discounted cumulative gain, few-shot prompt budget truncation, and shingle-based contamination audits. plus the LLM-as-judge pairwise swap-two-game position-bias ledger with half-win aggregation.",
     "problems": [
       "eval-perplexity-logits",
       "eval-token-accuracy",
@@ -775,7 +775,8 @@
       "eval-fewshot-truncation",
       "eval-ndcg-at-k",
       "eval-shingle-contamination",
-      "eval-ifeval-rules"
+      "eval-ifeval-rules",
+      "eval-judge-swap-consistency"
     ]
   },
   {

@@ -1,0 +1,10 @@
+{
+  "order": 684,
+  "collection": "evaluation",
+  "difficulty": "Medium",
+  "tags": ["llm-as-judge", "pairwise", "position-bias"],
+  "source": "lm-sys/FastChat fastchat/llm_judge (common.py + show_result.py)",
+  "title": "LLM-as-judge 位置偏差账：swap 两局、不一致即平局与胜率聚合",
+  "title_en": "LLM-as-judge position-bias ledger: swapped games, disagreement-as-tie and win-rate aggregation",
+  "reference": "https://github.com/lm-sys/FastChat/tree/main/fastchat/llm_judge"
+}
