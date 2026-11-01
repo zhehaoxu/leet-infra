@@ -1,0 +1,10 @@
+{
+  "order": 698,
+  "slug": "omni-glm4voice-interleaved-stream",
+  "title": "GLM-4-Voice 语音-文本交错流解析账",
+  "title_en": "GLM-4-Voice interleaved speech-text stream parsing ledger",
+  "difficulty": "Medium",
+  "tags": ["operator", "omni"],
+  "available": {"pytorch": true, "triton": false, "cuda": false},
+  "description": "复现 GLM-4-Voice web_demo 的交错输出流解析：audio_offset 阈值分类（id-offset 无上界检查）、<|user|> 触发 finalize 且此后所有 token 停止分类、flush 判定先于当前 token 分类、渐进 block_size [25,50,100,150,200] 升级、未满块尾部静默丢弃。"
+}

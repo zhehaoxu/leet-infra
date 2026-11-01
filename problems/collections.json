@@ -972,11 +972,13 @@
     "slug": "omni",
     "name": "全模态合集",
     "name_en": "Omni-Modal Collection",
-    "description": "全模态模型的桥接账本：Qwen2.5-Omni TMRoPE 文本+音频 3D 位置 id、Qwen2-Audio 音频占位 token 展开数等纯账本（真模型/音频 IO/视觉网格不出，帧数与 token id 全入参；与 asr/tts/vision 合集分工：那边各管一侧，这边管跨模态桥接的长度与位置账）。",
-    "description_en": "Bridge ledgers of omni-modal models: Qwen2.5-Omni TMRoPE text+audio 3D position ids, Qwen2-Audio audio placeholder token expansion counts, and other pure ledgers (no real models, audio IO, or vision grids; frame counts and token ids are explicit inputs; complements the asr/tts/vision collections, which each cover one side).",
+    "description": "全栈语音-文本模型的可转写机制：Thinker-Talker 隐态逐帧回灌与 1:1 配比、语音-文本交错流的渐进分块解析等纯账本（真模型不出，隐态与 token 流全入参）。",
+    "description_en": "Transcribable mechanisms from full-duplex speech-text models: the thinker-talker frame-by-frame hidden-state replay at a 1:1 ratio, and the progressive chunking of interleaved speech-text streams, as pure ledgers (no real models; hidden states and token streams are explicit inputs).",
     "problems": [
       "omni-tmrope-position",
-      "omni-qwen2audio-token-count"
+      "omni-qwen2audio-token-count",
+      "omni-thinker-talker-replay",
+      "omni-glm4voice-interleaved-stream"
     ]
   }
 ]

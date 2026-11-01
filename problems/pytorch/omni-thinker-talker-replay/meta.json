@@ -1,0 +1,10 @@
+{
+  "order": 697,
+  "slug": "omni-thinker-talker-replay",
+  "title": "Qwen2.5-Omni Thinker-Talker 隐态配比账",
+  "title_en": "Qwen2.5-Omni thinker-talker hidden-state replay ledger",
+  "difficulty": "Medium",
+  "tags": ["operator", "omni"],
+  "available": {"pytorch": true, "triton": false, "cuda": false},
+  "description": "复现 transformers Qwen2.5-Omni Talker 的确定性数据流：prefill 时 thinker 隐态与 embedding 逐元素相加（audio token embedding 先 scatter 置零）、末尾追加 text_bos 与 reply 首帧、reply 队列 = reply[1:]+[eos,pad] 兜底两帧、decode 每步 codec embedding 与队列头帧相加后砍头的 1:1 配比。"
+}
