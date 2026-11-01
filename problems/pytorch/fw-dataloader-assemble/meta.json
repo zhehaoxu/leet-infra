@@ -1,0 +1,12 @@
+{
+  "title": "DataLoader 单进程装配账",
+  "title_en": "DataLoader Single-Process Assembly Ledger",
+  "difficulty": "Medium",
+  "tags": ["framework", "dataloader"],
+  "order": 711,
+  "variants": {
+    "pytorch": {"label": "PyTorch", "available": true},
+    "triton": {"label": "Triton", "available": false},
+    "cuda": {"label": "CUDA", "available": false}
+  }
+}
