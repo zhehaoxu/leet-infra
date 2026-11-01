@@ -1,0 +1,12 @@
+{
+  "title": "SpecAugment mask_along_axis 段生成与合并账",
+  "title_en": "SpecAugment mask_along_axis Segment Generation and Merge Ledger",
+  "difficulty": "Medium",
+  "tags": ["operator", "asr"],
+  "order": 693,
+  "variants": {
+    "pytorch": {"label": "PyTorch", "available": true},
+    "triton": {"label": "Triton", "available": false},
+    "cuda": {"label": "CUDA", "available": false}
+  }
+}

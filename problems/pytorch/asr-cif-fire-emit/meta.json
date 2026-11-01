@@ -1,0 +1,12 @@
+{
+  "title": "Paraformer CIF 预测器 fire 发射账",
+  "title_en": "Paraformer CIF Predictor Fire-and-Emit Ledger",
+  "difficulty": "Hard",
+  "tags": ["operator", "asr"],
+  "order": 694,
+  "variants": {
+    "pytorch": {"label": "PyTorch", "available": true},
+    "triton": {"label": "Triton", "available": false},
+    "cuda": {"label": "CUDA", "available": false}
+  }
+}
