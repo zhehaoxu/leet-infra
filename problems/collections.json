@@ -766,8 +766,8 @@
   "slug": "evaluation",
   "name": "LLM 评测指标合集",
   "name_en": "LLM Evaluation Metrics",
-  "description": "LLM 评测与数据卫生的确定性指标：困惑度与忽略位的 token 准确率、语料级 BLEU、ROUGE-1/2/L 与最长公共子序列、pass@k 无偏估计、nDCG@k 折损累积增益、few-shot 提示预算截断，shingle 污染审计，以及 LLM-as-judge pairwise 的 swap 两局位置偏差账与半胜聚合。",
-  "description_en": "Deterministic metrics for LLM evaluation and data hygiene: perplexity and token accuracy with ignored positions, corpus-level BLEU, ROUGE-1/2/L with LCS, the unbiased pass@k estimator, nDCG@k discounted cumulative gain, few-shot prompt budget truncation, and shingle-based contamination audits. plus the LLM-as-judge pairwise swap-two-game position-bias ledger with half-win aggregation.",
+  "description": "LLM 评测与数据卫生的确定性指标：困惑度与忽略位的 token 准确率、语料级 BLEU、ROUGE-1/2/L 与最长公共子序列、pass@k 无偏估计、nDCG@k 折损累积增益、few-shot 提示预算截断，shingle 污染审计，以及 LLM-as-judge pairwise 的 swap 两局位置偏差账与半胜聚合。 IF-Eval 结构判别器三类账：JSON 整体包裹的多级反引号剥除与标量/扩展解析口径、postscript 落款的三分支正则与 marker 不转义通配 quirk、双答案 6 星分隔的空段位置账。",
+  "description_en": "Deterministic metrics for LLM evaluation and data hygiene: perplexity and token accuracy with ignored positions, corpus-level BLEU, ROUGE-1/2/L with LCS, the unbiased pass@k estimator, nDCG@k discounted cumulative gain, few-shot prompt budget truncation, and shingle-based contamination audits. plus the LLM-as-judge pairwise swap-two-game position-bias ledger with half-win aggregation. The IF-Eval structure-checker trio: whole-output JSON wrapping with multi-level backtick stripping and scalar/extension parsing rules, the postscript three-branch regex with the un-escaped-marker wildcard quirk, and the six-asterisk dual-response empty-segment position ledger.",
   "problems": [
    "eval-perplexity-logits",
    "eval-token-accuracy",
@@ -778,7 +778,8 @@
    "eval-ndcg-at-k",
    "eval-shingle-contamination",
    "eval-ifeval-rules",
-   "eval-judge-swap-consistency"
+   "eval-judge-swap-consistency",
+   "eval-ifeval-format"
   ]
  },
  {

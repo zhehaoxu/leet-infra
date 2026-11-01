@@ -1,0 +1,12 @@
+{
+  "title": "IF-Eval 可验证指令：结构判别器账",
+  "title_en": "IF-Eval Verifiable Instructions: Structure-Judge Ledger",
+  "difficulty": "Medium",
+  "tags": ["operator", "evaluation"],
+  "order": 709,
+  "variants": {
+    "pytorch": {"label": "PyTorch", "available": true},
+    "triton": {"label": "Triton", "available": false},
+    "cuda": {"label": "CUDA", "available": false}
+  }
+}
