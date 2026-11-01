@@ -1,0 +1,18 @@
+{
+  "slug": "vision-kl-var-voting",
+  "order": 705,
+  "title": "KL-Loss variance voting 融合账",
+  "title_en": "KL-Loss Variance Voting Fusion Ledger",
+  "difficulty": "Hard",
+  "tags": ["detection", "kl-loss", "nms", "bookkeeping"],
+  "family": "vision",
+  "source": "https://github.com/ethanhe42/KL-Loss/blob/master/detectron/utils/py_cpu_nms.py",
+  "description": "转写 ethanhe42/KL-Loss `detectron/utils/py_cpu_nms.py::soft`（cfg.STD.METHOD=='stdiou'，即 CVPR'19 variance voting 的官方推理路径）：legacy VOC +1 像素约定的成对 IoU、贪心 argmax 选框（**槽位序首个最大**——pick swap 与 tail-swap 移除都会改变槽位序，平分时 pick 依赖它）、stdiou 分支 thresh>0.1 钳到 0.01、邻居门 IoU 严格 `>`（含自身）、逐坐标方差加权融合 coord=Σ p·v/σ² / Σ p/σ²（p=exp(−(1−IoU)²/σ_IoU)，σ 是 KL-Loss 头预测的逐坐标定位方差）、融合坐标不 clip 也不重算 IoU、抑制门是**任何正重叠** IoU>0（与投票门 thresh 无关）score×=exp(−IoU²/0.5)、破 0.001 的 tail-swap 移除，以及 steps 记账（pick 原索引、voters、逐坐标权重）。",
+  "description_en": "Transcribe ethanhe42/KL-Loss detectron/utils/py_cpu_nms.py::soft (cfg.STD.METHOD=='stdiou', the official inference path of CVPR'19 variance voting): pairwise IoU under the legacy VOC +1 pixel convention, greedy argmax picking (**first max in SLOT order** — the pick swap and tail-swap removal both mutate slot order, on ties the pick depends on it), the stdiou clamp of thresh>0.1 down to 0.01, the strict-> voter gate (self included), per-coordinate variance-weighted fusion coord=sum p*v/sigma^2 / sum p/sigma^2 (p=exp(-(1-IoU)^2/sigma_IoU), sigma the per-coordinate localization variance predicted by the KL-Loss head), fused coords never clipped and IoU never recomputed, the suppression gate of **ANY positive overlap** IoU>0 (independent of the voting thresh) with score *= exp(-IoU^2/0.5), tail-swap removal below 0.001, and the steps ledger (picked original index, voters, per-coordinate weights).",
+  "hints": [
+    "融合公式里分母也带 p：coord = Σ p·v/σ² / Σ p/σ²，p 相同的一对框融合时 p 可消去但多框不行",
+    "抑制衰减的门是 IoU>0 而非 thresh：IoU∈(0,thresh) 的框不投票但照样衰减",
+    "平分时的 pick 取槽位序首个最大——pick swap 与 tail-swap 都会改写槽位序，按原索引序模拟会答错"
+  ],
+  "oracle": "独立槽位模拟（原矩阵直查、dict 存分）+ 200 组随机对拍"
+}
