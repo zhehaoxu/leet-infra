@@ -1,0 +1,12 @@
+{
+  "title": "llama.cpp mtmd 图像 token 分批调度账",
+  "title_en": "llama.cpp mtmd Image Token Batching Ledger",
+  "difficulty": "Hard",
+  "tags": ["operator", "ocr"],
+  "order": 690,
+  "variants": {
+    "pytorch": {"label": "PyTorch", "available": true},
+    "triton": {"label": "Triton", "available": false},
+    "cuda": {"label": "CUDA", "available": false}
+  }
+}

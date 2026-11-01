@@ -1,0 +1,12 @@
+{
+  "title": "表格结构 token → cell 网格分配账",
+  "title_en": "Table Structure Tokens → Cell Grid Allocation Ledger",
+  "difficulty": "Medium",
+  "tags": ["operator", "ocr"],
+  "order": 689,
+  "variants": {
+    "pytorch": {"label": "PyTorch", "available": true},
+    "triton": {"label": "Triton", "available": false},
+    "cuda": {"label": "CUDA", "available": false}
+  }
+}
