@@ -1,0 +1,13 @@
+{
+  "title": "多模态：FLUX single-stream 拼流与 vec 共享账",
+  "title_en": "Multimodal: FLUX Single-Stream Assembly and Shared vec Accounting",
+  "difficulty": "Medium",
+  "tags": ["operator", "multimodal"],
+  "order": 686,
+  "source": "HuggingFace diffusers v0.32.1, src/diffusers/models/transformers/transformer_flux.py (FluxTransformer2DModel.forward / FluxSingleTransformerBlock) + models/normalization.py (AdaLayerNormZeroSingle)",
+  "variants": {
+    "pytorch": {"label": "PyTorch", "available": true},
+    "triton": {"label": "Triton", "available": false},
+    "cuda": {"label": "CUDA", "available": false}
+  }
+}
