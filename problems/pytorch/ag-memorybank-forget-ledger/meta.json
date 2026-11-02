@@ -1,0 +1,12 @@
+{
+  "title": "MemoryBank 遗忘曲线账",
+  "title_en": "MemoryBank Forgetting-Curve Ledger",
+  "difficulty": "Medium",
+  "tags": ["operator", "agentic"],
+  "order": 722,
+  "variants": {
+    "pytorch": {"label": "PyTorch", "available": true},
+    "triton": {"label": "Triton", "available": false},
+    "cuda": {"label": "CUDA", "available": false}
+  }
+}
