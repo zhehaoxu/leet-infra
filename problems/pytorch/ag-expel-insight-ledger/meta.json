@@ -1,0 +1,19 @@
+{
+  "order": 752,
+  "slug": "ag-expel-insight-ledger",
+  "title": "ExpeL 洞见账：规则操作的解析、计数增减与满额淘汰",
+  "title_en": "ExpeL Insight Ledger: Rule Op Parsing, Counter Updates and Full-List Eviction",
+  "difficulty": "Medium",
+  "tags": [
+    "operator",
+    "agentic"
+  ],
+  "collection": "agentic-systems",
+  "source": "ExpeL（arXiv 2308.10144）官方实现 LeapLabTHU/ExpeL `agent/expel.py`：`parse_rules`(L665-681) 的两列正则与三道过滤门、`update_rules`(L696-743) 的修复一遍 + `REMOVE→AGREE→EDIT→ADD` 固定落账顺序、计数语义（ADD=2/AGREE=+1/REMOVE=-1 或满额 -3/EDIT=+1）、计数归零淘汰与降序稳定排序、`create_rules`(L399) 的编号渲染",
+  "variants": {
+    "pytorch": {
+      "label": "PyTorch",
+      "available": true
+    }
+  }
+}
