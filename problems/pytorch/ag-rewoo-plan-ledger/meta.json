@@ -1,0 +1,12 @@
+{
+  "title": "ReWOO 占位符计划账",
+  "title_en": "ReWOO Placeholder Plan Ledger",
+  "difficulty": "Hard",
+  "tags": ["operator", "agentic"],
+  "order": 721,
+  "variants": {
+    "pytorch": {"label": "PyTorch", "available": true},
+    "triton": {"label": "Triton", "available": false},
+    "cuda": {"label": "CUDA", "available": false}
+  }
+}

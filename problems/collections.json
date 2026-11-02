@@ -805,8 +805,8 @@
   "slug": "agentic-systems",
   "name": "智能体系统合集",
   "name_en": "Agentic Systems Collection",
-  "description": "LLM agent 运行时的编排逻辑：ReAct 循环状态机与终止/死循环护栏、工具调用参数的 JSON Schema 校验与归一、任务 DAG 的拓扑执行与加权关键路径，以及上下文窗口的优先级压缩与预算装填，以及生成式智能体的三因子记忆检索与工具调用循环熔断护栏。 Tree of Thoughts BFS 搜索过程账：propose 拼尾部换行与 sample 无分隔拼接、重复候选硬置 0（非缓存值）且评估文本被无视、game24 权重表 {impossible:0.001, likely:1, sure:20} 按评估文本末行精确匹配且不除以样本数、恰 4 行无 answer 惩罚（strip 后行数）、greedy 稳定降序平分保原下标序、本轮选择即下轮父节点。",
-  "description_en": "Runtime orchestration for LLM agents: the ReAct loop state machine with termination and loop-guard conditions, JSON Schema validation and normalization of tool-call arguments, topological execution of task DAGs with weighted critical paths, and priority-based context-window compaction under a token budget, plus the generative-agent three-factor memory retrieval and the tool-call loop-breaker guard. The Tree-of-Thoughts BFS search ledger: propose's trailing-newline concat versus sample's bare concat, repeated candidates hard-zeroed (not a cache hit) with eval texts ignored, the game24 weight table {impossible:0.001, likely:1, sure:20} matched on eval-text last lines without sample-count normalization, the exactly-4-lines-no-answer penalty on post-strip line counts, greedy stable descending ties keeping original index order, and each selection becoming the next step's parents.",
+  "description": "LLM agent 运行时的编排逻辑：ReAct 循环状态机与终止/死循环护栏、工具调用参数的 JSON Schema 校验与归一、任务 DAG 的拓扑执行与加权关键路径，以及上下文窗口的优先级压缩与预算装填，以及生成式智能体的三因子记忆检索与工具调用循环熔断护栏。 Tree of Thoughts BFS 搜索过程账：propose 拼尾部换行与 sample 无分隔拼接、重复候选硬置 0（非缓存值）且评估文本被无视、game24 权重表 {impossible:0.001, likely:1, sure:20} 按评估文本末行精确匹配且不除以样本数、恰 4 行无 answer 惩罚（strip 后行数）、greedy 稳定降序平分保原下标序、本轮选择即下轮父节点。 ReWOO 占位符计划账：#Ed 证据号 len==3 单数字下标才有效（多位下标调用被丢弃记 No evidence found 且其字符串作为 pass-through 证据参与后续替换）、split('[',1) 后盲删末字符、占位符 replace 全量替换会命中插入文本新出现的引用、前向引用原样保留、worker_log 按 #E{i+1} 下标配对、LLM token len(调用串+证据)//4 与固定 davinci-003 工具价、Google 计次成本与模型价格表未知名报错。",
+  "description_en": "Runtime orchestration for LLM agents: the ReAct loop state machine with termination and loop-guard conditions, JSON Schema validation and normalization of tool-call arguments, topological execution of task DAGs with weighted critical paths, and priority-based context-window compaction under a token budget, plus the generative-agent three-factor memory retrieval and the tool-call loop-breaker guard. The Tree-of-Thoughts BFS search ledger: propose's trailing-newline concat versus sample's bare concat, repeated candidates hard-zeroed (not a cache hit) with eval texts ignored, the game24 weight table {impossible:0.001, likely:1, sure:20} matched on eval-text last lines without sample-count normalization, the exactly-4-lines-no-answer penalty on post-strip line counts, greedy stable descending ties keeping original index order, and each selection becoming the next step's parents. The ReWOO placeholder plan ledger: evidence ids valid only at len==3 (multi-digit calls discarded as No evidence found, whose literal string then passes through into later substitutions), the blind last-character trim after split('[',1), replace-all semantics hitting placeholders inside inserted evidence, forward references kept literal, worker_log pairing by the #E{i+1} index, LLM tokens as len(call+evidence)//4 with a fixed davinci-003 tool price, Google per-call cost, and the model price table raising on unknown names.",
   "problems": [
    "agent-react-loop",
    "agent-tool-call-schema",
@@ -814,7 +814,8 @@
    "agent-context-compaction",
    "ag-generative-memory-retrieval",
    "ag-tool-loop-breaker",
-   "ag-tot-bfs-ledger"
+   "ag-tot-bfs-ledger",
+   "ag-rewoo-plan-ledger"
   ]
  },
  {
