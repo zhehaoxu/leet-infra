@@ -1,0 +1,19 @@
+{
+  "order": 751,
+  "slug": "ag-voyager-skill-lib",
+  "title": "Voyager 技能库：同名覆盖、版本化落盘与 top-k 检索账",
+  "title_en": "Voyager Skill Library: Name Overwrite, Versioned Dump and Top-k Retrieval",
+  "difficulty": "Medium",
+  "tags": [
+    "operator",
+    "agentic"
+  ],
+  "collection": "agentic-systems",
+  "source": "Voyager（arXiv 2305.16291）官方实现 MineDojo/Voyager `voyager/agents/skill.py`：同名技能覆盖而非新增、落盘文件名从 V2 起找空位、描述模板包装、`min(count, top_k)` 的相似度检索、programs 拼接顺序",
+  "variants": {
+    "pytorch": {
+      "label": "PyTorch",
+      "available": true
+    }
+  }
+}
