@@ -1,0 +1,21 @@
+{
+  "order": 737,
+  "slug": "rs-sos-trace-ledger",
+  "title": "Stream of Search 轨迹序列化账",
+  "title_en": "Stream of Search Trace Serialization Ledger",
+  "difficulty": "Hard",
+  "tags": [
+    "operator",
+    "reasoning",
+    "tree-search",
+    "bookkeeping"
+  ],
+  "collection": "reasoning-systems",
+  "source": "arXiv 2404.03683 + kanishkg/stream-of-search main src/countdown_dfs.py::dfs、src/countdown_utils.py::combine_nums / sum_heuristic / mult_heuristic / parse_trajectory / metric_fn",
+  "variants": {
+    "pytorch": {
+      "label": "PyTorch",
+      "available": true
+    }
+  }
+}
