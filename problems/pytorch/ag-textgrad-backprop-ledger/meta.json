@@ -1,0 +1,22 @@
+{
+  "order": 735,
+  "slug": "ag-textgrad-backprop-ledger",
+  "title": "TextGrad 文本反传图账",
+  "title_en": "TextGrad Textual Backprop Graph Ledger",
+  "difficulty": "Hard",
+  "tags": [
+    "agentic",
+    "autograd",
+    "graph",
+    "prompt-optimization",
+    "bookkeeping"
+  ],
+  "collection": "agentic-systems",
+  "source": "arXiv 2406.07496 §2 + zou-group/textgrad main textgrad/variable.py::Variable.backward（+ _check_and_reduce_gradients / _backward_idempotent）、autograd/algebra.py::Sum/Aggregate、autograd/llm_ops.py::LLMCall.backward、autograd/reduce_prompts.py",
+  "variants": {
+    "pytorch": {
+      "label": "PyTorch",
+      "available": true
+    }
+  }
+}
