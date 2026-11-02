@@ -1,0 +1,42 @@
+# notes (ag-metagpt-msgpool-ledger)
+
+## Sources
+
+- Repo: `FoundationAgents/MetaGPT` (formerly geekan/MetaGPT) main. Key files: `metagpt/environment/base_env.py` (248 lines, `Environment.publish_message` at 175-195), `metagpt/environment/mgx/mgx_env.py` (100 lines, MGX's three extra rules), `metagpt/roles/role.py` (593 lines, `_observe` at 399-428), `metagpt/memory/memory.py` (113 lines), `metagpt/utils/common.py::is_send_to`, `metagpt/schema.py` (`Message` field defaults and `MessageQueue.pop_all`).
+- Paper: MetaGPT (arXiv 2308.00352) §2.2 "Role Specialization / Publish-Subscribe" describes `_watch` + `_observe` as "subscribing to messages produced by the actions you care about", but **the code has two levels**: the environment does transport-level delivery by `addresses` (`is_send_to`), and the role then does interest-level filtering by `cause_by in watch` or "my name is among the recipients". That paper-vs-code gap is the first lesson of this task.
+- MGX is MetaGPT's branch inside the SaaS product (team-leader takeover, public/private chat, direct-chat bookkeeping in `mgx_env.py`); it exists only in the GitHub main repo, not in the paper.
+
+## Official quirks (verified one by one)
+
+1. **Two-level routing**: `Environment.publish_message` walks `member_addrs` (`role → addresses`) and calls `role.put_message(message)` (into the private buffer) whenever `is_send_to(message, addrs)` holds. `is_send_to` first checks `MESSAGE_ROUTE_TO_ALL`, then compares address by address. The default addresses are `{any_to_str(self), self.name}` (set in `check_addresses`), so both the class path and the name deliver.
+2. **`<all>` is added by the environment**: `MGXEnv._publish_message` does `send_to.add(MESSAGE_ROUTE_TO_ALL)` *before* conversion — so the "display as team leader" branch for `send_to == {<all>}` only fires when the recipient set was exactly `<all>` to begin with.
+3. **A regular message adds `tl.name`**: the else branch of `MGXEnv.publish_message` does `message.send_to.add(tl.name)`. It adds the name; in private mode, if the leader's addresses do not contain that name, the leader never receives the message it is supposed to relay.
+4. **The takeover predicate is the profile**: `elif publicer == tl.profile`. In the product `publicer` carries the leader's profile (not its name); they coincide by default, and changing the profile exposes the difference.
+5. **The dummy message is an exact set comparison**: `if message.send_to == {"no one"}: return True` — the early return happens before `history.add(message)`, so that message is **neither delivered nor recorded**. `{"no one", "X"}` does not trigger it.
+6. **The two halves of the direct-chat ledger**: entering it requires the recipient to be **currently idle** (`self.get_role(role_name).is_idle`); the reply must match `sent_from` and `remove` it (consume), and in private mode it is not published while `history.add` still runs.
+7. **Three details of `move_message_info_to_content`**: the role whitelist `["system","user","assistant"]`; `sent_from` prefers `metadata[AGENT]` (AGENT = `"agent"`); `send_to == {MESSAGE_ROUTE_TO_ALL}` displays `TEAMLEADER_NAME`, otherwise `", ".join({...})` — a **set** join whose order depends on hashing (this ledger sorts instead, see the fidelity conventions).
+8. **`Memory.add` dedups**: `if message in self.storage: return` (pydantic equality over all fields). `index[cause_by]` is only updated on a real append. `get(k=0)` is `storage[-0:]` = everything (`find_news` uses `k=10`, the last ten).
+9. **Three gates in `_observe`**: `(cause_by in watch or name in send_to)` and `n not in old_messages`, with `old_messages = [] if not enable_memory else memory.get()`. Duplicates inside one batch are not filtered (the gate compares against memory only).
+10. **`observe_all_msg_from_buffer`**: what enters memory is `news` (the **whole drained batch**), not `rc.news` (the filtered list); so messages nobody reacted to are still remembered, they just never appear in the `news` ledger.
+11. **Recovery semantics**: `if self.recovered and self.latest_observed_msg: news = memory.find_news(observed=[latest], k=10)`; `if not news: news = msg_buffer.pop_all()`. When it finds something the buffer is **not drained**, so the buffer sits untouched for that round and is read one round later. At the end, `latest_observed_msg = rc.news[-1] if rc.news else None` — an empty-handed round clears the anchor.
+12. **The three parts of `is_idle`**: `not rc.news and not rc.todo and msg_buffer.empty()`. `env.run` only `await role.run()` for non-idle roles, and `run` starts with an unconditional `_observe`, so the round that observes ends with a non-empty `rc.news` and another round is needed to return to idle. `rc.news` is recomputed wholesale every round (not appended to), which is where "two rounds to idle" comes from.
+
+## Fidelity conventions (where this task differs from the official code)
+
+- **Set-join order**: the official `", ".join({...})` follows set iteration order (which varies with `PYTHONHASHSEED` under CPython). This ledger fixes lexicographic order, otherwise the ledger is not reproducible; the `send_to` output is sorted as well.
+- **The pad/tensor layer is stripped**: officially, delivery pushes the same `Message` object into a buffer; this ledger stores deep copies (equal content), which is equivalent to the FIFO semantics of `MessageQueue`.
+- **Roles never run the LLM**: `_think`/`_act` are not turned into inputs, so this task stops at `_observe` and `is_idle`; `rc.todo` is therefore always empty and `is_idle` reduces to "no news and an empty buffer".
+
+## Engineering notes
+
+- The seven first-round SURVIVED mutants were handled as follows:
+  1. `m-addr-name-only` (dropping `cls` from the default addresses) — every existing case was "regular message addressing the class path", and the regular branch adds `tl.name` anyway, hiding the `cls` role; it only shows up with "takeover branch + class path only".
+  2. `m-regular-add-profile` and `m-tl-by-name` — both need a leader whose **profile differs from its name**, which the original fixtures did not have; a `profile="Mike-bot"` role was added.
+  3. `m-observe-no-memory-filter` and `m-enable-memory-ignored` — the memory gate is unreachable through a plain message stream (every observe drains the buffer, so an observed message never returns to it). The construction: give a `recovered` role an anchor that is **field-for-field equal to the delivered copy** (`_conv_anchor`, with content `[Message] from User to Alice, Mike: hi`), which makes "in memory and in the buffer" reachable for the first time.
+  4. `m-latest-keep` and `eq-direct-unsorted` — confirmed **equivalent**, with proofs below.
+- Equivalence proofs (2):
+  - `eq-direct-unsorted`: the direct-chat branch only does `is_idle`/`add` while iterating recipients, and both `direct_chat_added` and `direct_chat_roles` are sorted on output, so the iteration order is unobservable.
+  - `eq-latest-keep`: keeping the old `latest` when a round finds nothing changes no output. Reason: `latest` is only read when `recovered and latest is not None` and the role is non-idle; `picked == []` has exactly two paths — (a) the buffer was already drained (next round `is_idle` is true, the role is skipped, `latest` is never read); (b) the anchor was blocked by the memory gate (which requires the anchor to already be in memory, and the round that wrote it there had a non-empty `picked` and set `latest` to that very anchor; afterwards the anchor either stays within the last ten so `find_news` returns nothing and the buffer path runs, or it slides out of the window but `latest` has already been overwritten by a later round's `picked`). Neither path produces a new output.
+- Mutation statistics: **35 substantive mutants all CAUGHT + 2 equivalences (with proofs)**. Coverage: delivery (4), branches (4), text rewriting (6), direct chat (3), dedup (2), observe gates (6), memory switch / recovery (3), rounds and idleness (3), domain constraints (3), ledger fields (2).
+- 50 randomized comparisons: random role tables (random watch, custom addresses, `enable_memory=False`, `observe_all`, `recovered` anchors) with random message streams (random `publicer`, direct chat, `metadata["agent"]`), random `is_public_chat` and `rounds 0..3`.
+- The domain-constraint check calls `solve` **directly** (not through the oracle); otherwise the reference solution's own ValueError covers for an emptied bound check, as happened in order 730.

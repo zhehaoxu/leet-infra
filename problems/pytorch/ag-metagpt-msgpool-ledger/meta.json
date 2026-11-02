@@ -1,0 +1,11 @@
+{
+  "order": 731,
+  "slug": "ag-metagpt-msgpool-ledger",
+  "title": "MetaGPT 消息池路由账",
+  "title_en": "MetaGPT Message-Pool Routing Ledger",
+  "difficulty": "Hard",
+  "tags": ["agentic", "multi-agent", "publish-subscribe", "routing"],
+  "collection": "agentic-systems",
+  "source": "FoundationAgents/MetaGPT main metagpt/environment/base_env.py + metagpt/environment/mgx/mgx_env.py + metagpt/roles/role.py::_observe + metagpt/memory/memory.py + metagpt/utils/common.py::is_send_to",
+  "variants": ["pytorch"]
+}
