@@ -1,0 +1,19 @@
+{
+  "order": 743,
+  "slug": "vision-rfcn-psroi-pool",
+  "title": "R-FCN 位置敏感 RoI 池化账",
+  "title_en": "R-FCN Position-Sensitive RoI Pooling Ledger",
+  "difficulty": "Medium",
+  "tags": [
+    "operator",
+    "vision"
+  ],
+  "collection": "vision-detection",
+  "source": "R-FCN（arXiv 1605.06409）§2.3 position-sensitive score maps：k² 个位置敏感通道按 (i,j) bin 各取一路、bin 内平均池化、k² 个 bin 等权投票；本题把 bin 划分固定为整数整除并作显式入参",
+  "variants": {
+    "pytorch": {
+      "label": "PyTorch",
+      "available": true
+    }
+  }
+}
