@@ -1,0 +1,19 @@
+{
+  "order": 739,
+  "slug": "opt-adam-full-branch",
+  "title": "Adam 全分支更新账",
+  "title_en": "Adam Full-Branch Update Ledger",
+  "difficulty": "Medium",
+  "tags": [
+    "operator",
+    "optimizer"
+  ],
+  "collection": "optimization",
+  "source": "torch 2.14.1 torch/optim/adam.py::Adam.__init__（五道参数校验）+ _single_tensor_adam（maximize / L2 weight_decay / exp_avg / exp_avg_sq / amsgrad max / 偏差修正与 eps 位置）",
+  "variants": {
+    "pytorch": {
+      "label": "PyTorch",
+      "available": true
+    }
+  }
+}
