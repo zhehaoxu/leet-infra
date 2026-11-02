@@ -1,0 +1,12 @@
+{
+  "title": "LLM-as-judge：分数串解析与单点评分表",
+  "title_en": "LLM-as-a-Judge: Score-String Parsing and Single-Score Table",
+  "difficulty": "Medium",
+  "tags": ["operator", "evaluation"],
+  "order": 746,
+  "variants": {
+    "pytorch": {"label": "PyTorch", "available": true},
+    "triton": {"label": "Triton", "available": false},
+    "cuda": {"label": "CUDA", "available": false}
+  }
+}
