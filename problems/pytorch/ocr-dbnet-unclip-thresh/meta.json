@@ -1,0 +1,12 @@
+{
+  "title": "PaddleOCR DB 后处理单框账：box_score_fast 与 unclip",
+  "title_en": "PaddleOCR DB Postprocess Single-Box Ledger: box_score_fast and unclip",
+  "difficulty": "Hard",
+  "tags": ["operator", "ocr", "postprocess"],
+  "order": 718,
+  "variants": {
+    "pytorch": {"label": "PyTorch", "available": true},
+    "triton": {"label": "Triton", "available": false},
+    "cuda": {"label": "CUDA", "available": false}
+  }
+}
