@@ -105,7 +105,17 @@ class Problem:
 
 
 def _parse_variants(meta: dict) -> list[VariantInfo]:
+    """variants 可以是 {key: {label, available}} 字典，也容忍 ["pytorch"] 列表写法。
+
+    列表写法只在题库里偶发（早期手写 meta），但它会让整个题库加载抛异常、全站 500，
+    所以这里降级处理：能认就认，认不出就用默认变体。
+    """
     raw = meta.get("variants") or DEFAULT_VARIANTS
+    if isinstance(raw, list):
+        raw = {k: {} for k in raw if isinstance(k, str)}
+        raw = raw or DEFAULT_VARIANTS
+    if not isinstance(raw, dict):
+        raw = DEFAULT_VARIANTS
     return [
         VariantInfo(key=k, label=v.get("label", k), available=bool(v.get("available", True)))
         for k, v in raw.items()

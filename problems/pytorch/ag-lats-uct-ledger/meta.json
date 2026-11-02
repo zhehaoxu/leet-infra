@@ -4,8 +4,18 @@
   "title": "LATS MCTS 搜索账",
   "title_en": "LATS MCTS Search Ledger",
   "difficulty": "Hard",
-  "tags": ["agentic", "mcts", "uct", "tree-search"],
+  "tags": [
+    "agentic",
+    "mcts",
+    "uct",
+    "tree-search"
+  ],
   "collection": "agentic-systems",
   "source": "lapisrocks/LanguageAgentTreeSearch programming/mcts.py (arXiv 2310.04406)",
-  "variants": ["pytorch"]
+  "variants": {
+    "pytorch": {
+      "label": "PyTorch",
+      "available": true
+    }
+  }
 }

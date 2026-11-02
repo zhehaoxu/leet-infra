@@ -4,8 +4,17 @@
   "title": "Graph of Thoughts 操作账",
   "title_en": "Graph of Thoughts Operations Ledger",
   "difficulty": "Medium",
-  "tags": ["agentic", "got", "search-operations"],
+  "tags": [
+    "agentic",
+    "got",
+    "search-operations"
+  ],
   "collection": "agentic-systems",
   "source": "spcl/graph-of-thoughts operations.py/thought.py (arXiv 2308.09687)",
-  "variants": ["pytorch"]
+  "variants": {
+    "pytorch": {
+      "label": "PyTorch",
+      "available": true
+    }
+  }
 }

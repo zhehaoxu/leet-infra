@@ -140,3 +140,33 @@ def test_problem_order_is_globally_unique():
         "以下 order 被多题重复占用，新题请扫描全库取未占用号段："
         + "; ".join(f"{o} -> {', '.join(v)}" for o, v in sorted(dups.items()))
     )
+
+
+# ---- (f) variants 结构 -------------------------------------------------------------
+def test_problem_variants_shape():
+    """meta.json 的 variants 必须是 {key: {label, available}} 映射。
+
+    早期手写 meta 曾把 variants 写成 `["pytorch"]` 数组：load 时 `.items()` 直接抛
+    AttributeError，**整个题库加载失败、全站 /api 全 500**——单题格式错误不该有这种
+    爆炸半径，所以这里逐题钉住结构（后端另有一条容忍列表的降级分支）。
+    """
+    bad = []
+    for slug in PROBLEM_DIRS:
+        path = PYTORCH_DIR / slug / "meta.json"
+        variants = json.loads(path.read_text(encoding="utf-8")).get("variants")
+        if variants is None:
+            continue  # 省略即默认单 pytorch 变体，合法
+        if not isinstance(variants, dict) or not variants:
+            bad.append(f"{slug}: {type(variants).__name__}={variants!r}")
+            continue
+        for key, spec in variants.items():
+            if not isinstance(key, str) or not key:
+                bad.append(f"{slug}: 非法变体键 {key!r}")
+            elif not isinstance(spec, dict):
+                bad.append(f"{slug}/{key}: 变体配置必须是对象，实际 {spec!r}")
+            elif "available" in spec and not isinstance(spec["available"], bool):
+                bad.append(f"{slug}/{key}: available 必须是布尔，实际 {spec['available']!r}")
+    assert not bad, (
+        "variants 结构不合规（正确写法 {\"pytorch\": {\"label\": \"PyTorch\", "
+        "\"available\": true}}），列表写法会让全站 500：" + "; ".join(sorted(bad))
+    )

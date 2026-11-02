@@ -4,8 +4,18 @@
   "title": "Search-R1 检索掩码账",
   "title_en": "Search-R1 Retrieval Mask Ledger",
   "difficulty": "Hard",
-  "tags": ["agentic", "retrieval", "loss-mask", "multi-turn"],
+  "tags": [
+    "agentic",
+    "retrieval",
+    "loss-mask",
+    "multi-turn"
+  ],
   "collection": "agentic-systems",
   "source": "arXiv 2503.09516 + PeterGriffinJin/Search-R1 main search_r1/llm_agent/generation.py + search_r1/llm_agent/tensor_helper.py",
-  "variants": ["pytorch"]
+  "variants": {
+    "pytorch": {
+      "label": "PyTorch",
+      "available": true
+    }
+  }
 }

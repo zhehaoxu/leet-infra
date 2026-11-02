@@ -4,8 +4,18 @@
   "title": "Toolformer 调用过滤账",
   "title_en": "Toolformer Call Filtering Ledger",
   "difficulty": "Medium",
-  "tags": ["agentic", "tool-use", "filtering", "perplexity"],
+  "tags": [
+    "agentic",
+    "tool-use",
+    "filtering",
+    "perplexity"
+  ],
   "collection": "agentic-systems",
   "source": "arXiv 2302.04761 v5 Sec 2.2/4.1/App A + lucidrains/toolformer-pytorch filtering/dedup",
-  "variants": ["pytorch"]
+  "variants": {
+    "pytorch": {
+      "label": "PyTorch",
+      "available": true
+    }
+  }
 }
