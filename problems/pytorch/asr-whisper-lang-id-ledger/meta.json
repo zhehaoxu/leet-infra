@@ -1,0 +1,12 @@
+{
+  "title": "Whisper 逐窗语言 ID 账：抑制重归一化与首窗策略",
+  "title_en": "Whisper Per-Window Language-ID Ledger: Suppression Renormalization and First-Window Policy",
+  "difficulty": "Medium",
+  "tags": ["operator", "asr", "language-id"],
+  "order": 715,
+  "variants": {
+    "pytorch": {"label": "PyTorch", "available": true},
+    "triton": {"label": "Triton", "available": false},
+    "cuda": {"label": "CUDA", "available": false}
+  }
+}
