@@ -1,0 +1,12 @@
+{
+  "title": "FunASR FSMN-VAD 端点检测决策核账",
+  "title_en": "FunASR FSMN-VAD Endpoint Detection Decision-Core Ledger",
+  "difficulty": "Hard",
+  "tags": ["operator", "asr", "vad"],
+  "order": 716,
+  "variants": {
+    "pytorch": {"label": "PyTorch", "available": true},
+    "triton": {"label": "Triton", "available": false},
+    "cuda": {"label": "CUDA", "available": false}
+  }
+}
