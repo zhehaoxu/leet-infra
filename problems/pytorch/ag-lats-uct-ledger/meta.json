@@ -1,0 +1,11 @@
+{
+  "order": 724,
+  "slug": "ag-lats-uct-ledger",
+  "title": "LATS MCTS 搜索账",
+  "title_en": "LATS MCTS Search Ledger",
+  "difficulty": "Hard",
+  "tags": ["agentic", "mcts", "uct", "tree-search"],
+  "collection": "agentic-systems",
+  "source": "lapisrocks/LanguageAgentTreeSearch programming/mcts.py (arXiv 2310.04406)",
+  "variants": ["pytorch"]
+}
