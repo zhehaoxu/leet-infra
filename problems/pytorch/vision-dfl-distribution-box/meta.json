@@ -1,0 +1,19 @@
+{
+  "order": 744,
+  "slug": "vision-dfl-distribution-box",
+  "title": "DFL 分布式框回归账",
+  "title_en": "DFL Distributional Box Regression Ledger",
+  "difficulty": "Medium",
+  "tags": [
+    "operator",
+    "vision"
+  ],
+  "collection": "vision-detection",
+  "source": "open-mmlab/mmdetection main `mmdet/models/losses/gfocal_loss.py::distribution_focal_loss`（wl = right - label、wr = label - left、两条 cross_entropy 加权）+ GFL head 的 `integral`（softmax 期望 × stride）；arXiv 2006.04388",
+  "variants": {
+    "pytorch": {
+      "label": "PyTorch",
+      "available": true
+    }
+  }
+}
