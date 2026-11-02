@@ -1,0 +1,19 @@
+{
+  "order": 738,
+  "slug": "opt-sgd-full-branch",
+  "title": "SGD 全分支更新账",
+  "title_en": "SGD Full-Branch Update Ledger",
+  "difficulty": "Medium",
+  "tags": [
+    "operator",
+    "optimizer"
+  ],
+  "collection": "optimization",
+  "source": "torch 2.14.1 torch/optim/sgd.py::SGD.__init__（四道参数校验）+ _single_tensor_sgd（maximize / weight_decay / momentum_buffer / nesterov 路径）",
+  "variants": {
+    "pytorch": {
+      "label": "PyTorch",
+      "available": true
+    }
+  }
+}
