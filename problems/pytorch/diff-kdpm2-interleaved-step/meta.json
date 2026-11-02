@@ -1,0 +1,18 @@
+{
+  "order": 754,
+  "slug": "diff-kdpm2-interleaved-step",
+  "title": "扩散：KDPM2 交错 σ 表与 DPM-Solver-2 两调用状态机",
+  "title_en": "Diffusion: KDPM2 Interleaved Sigma Tables and the DPM-Solver-2 Two-Call State Machine",
+  "family": "diffusion",
+  "tags": [
+    "operator",
+    "diffusion"
+  ],
+  "difficulty": "Medium",
+  "status": "published",
+  "created_at": "2026-11-02",
+  "time_limit_ms": 10000,
+  "memory_limit_mb": 512,
+  "description": "KDPM2DiscreteScheduler 把 DPM-Solver-2 摊在一张**交错 σ 表**上：基础 σ 表经 `log().lerp(roll(1).log(), 0.5).exp()` 得到相邻 σ 的 log-空间几何平均中点，再 repeat_interleave 成长度 2N+2 的两张表，每个逻辑步占两个模型调用——首调在 σ 上算欧拉半步走到中点、只暂存**原样本**；次调在中点上重估导数（分母是中点）、dt 却是 σ_j→σ_{j+1} 的**整步长**，且从暂存样本（不是中点样本）出发，首调导数直接丢弃。末逻辑步只有首调，中点表尾部为 0，一步落到 x₀。把「从当前样本出发」「导数平均」「算术中点」写错，轨迹立刻分叉。",
+  "description_en": "KDPM2DiscreteScheduler spreads DPM-Solver-2 across an **interleaved sigma table**: a log-space lerp against `roll(1)` yields the geometric-mean midpoint of adjacent sigmas, then repeat_interleave builds two tables of length 2N+2 where each logical step occupies two model calls — the first call takes an Euler half-step to the midpoint from sigma and stores only the **original sample**; the second call re-evaluates the derivative at the midpoint (denominator is the midpoint) but with dt spanning the **full step** sigma_j -> sigma_{j+1}, restarting from the stored sample (not the midpoint) while the first derivative is discarded outright. The last logical step has only the first call, the midpoint table ends in zeros, and it lands straight on x0. Restarting from the current sample, averaging derivatives, or using an arithmetic midpoint forks the trajectory immediately."
+}
