@@ -1,0 +1,12 @@
+{
+  "title": "DeepSeek-OCR 五档动态分辨率与 tile 账",
+  "title_en": "DeepSeek-OCR Five-Mode Dynamic Resolution and Tile Ledger",
+  "difficulty": "Medium",
+  "tags": ["operator", "ocr", "resolution"],
+  "order": 719,
+  "variants": {
+    "pytorch": {"label": "PyTorch", "available": true},
+    "triton": {"label": "Triton", "available": false},
+    "cuda": {"label": "CUDA", "available": false}
+  }
+}
