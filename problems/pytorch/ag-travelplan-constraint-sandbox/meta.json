@@ -1,0 +1,19 @@
+{
+  "order": 753,
+  "slug": "ag-travelplan-constraint-sandbox",
+  "title": "TravelPlanner 约束沙盒：行程的 8 条常识判据与填充率账",
+  "title_en": "TravelPlanner Constraint Sandbox: Eight Commonsense Checks Over an Itinerary",
+  "difficulty": "Hard",
+  "tags": [
+    "operator",
+    "agentic"
+  ],
+  "collection": "agentic-systems",
+  "source": "TravelPlanner（arXiv 2402.01622）官方实现 OSU-NLP-Group/TravelPlanner `evaluation/commonsense_constraint.py`：`evaluation`(L521-531) 的 8 条判据顺序与 `is_reasonable_visiting_city`(L128-160)/`is_valid_city_sequence`(L85-124) 的城市结点序列、`is_valid_restaurants`(L163-194)、`is_valid_attractions`(L196-213) 的 `split(';')[:-1]`、`is_valid_transportation`(L215-234) 的 `transportation_match`(L57-66) 与冲突表、`is_valid_information_in_current_city`(L236-320)、`is_valid_information_in_sandbox`(L323-398)、`is_valid_accommodaton`(L401-424) 的 run 长度判 minimum nights、`is_not_absent`(L466-518) 的逐日规则与 50% 填充率；表结构来自 `utils/func.py` 的 `get_valid_name_city`(L127-135) 与 `extract_before_parenthesis`(L172-174)，城市-州表来自 `database/background/citySet_with_states.txt`",
+  "variants": {
+    "pytorch": {
+      "label": "PyTorch",
+      "available": true
+    }
+  }
+}
