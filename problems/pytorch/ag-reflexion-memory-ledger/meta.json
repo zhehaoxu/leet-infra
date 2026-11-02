@@ -1,0 +1,11 @@
+{
+  "order": 725,
+  "slug": "ag-reflexion-memory-ledger",
+  "title": "Reflexion 经验记忆账",
+  "title_en": "Reflexion Episodic Memory Ledger",
+  "difficulty": "Medium",
+  "tags": ["agentic", "memory", "reflection", "ledger"],
+  "collection": "agentic-systems",
+  "source": "noahshinn/reflexion alfworld_runs/env_history.py + generate_reflections.py (arXiv 2303.11366)",
+  "variants": ["pytorch"]
+}
