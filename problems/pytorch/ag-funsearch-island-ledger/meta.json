@@ -1,0 +1,19 @@
+{
+  "order": 748,
+  "slug": "ag-funsearch-island-ledger",
+  "title": "FunSearch 岛屿程序库：聚类注册、温度采样与弱岛重置账",
+  "title_en": "FunSearch Island Programs Database: Cluster Registration, Temperature Sampling and Weak-Island Reset",
+  "difficulty": "Hard",
+  "tags": [
+    "operator",
+    "agentic"
+  ],
+  "collection": "agentic-systems",
+  "source": "FunSearch（arXiv 2306.12424 / 2506.13131 机制）官方实现 google-deepmind/funsearch `implementation/programs_database.py`：逐测试分数向量作簇键、温度线性衰减的簇 softmax、按长度加权的簇内取样、弱半岛重置并克隆最优程序",
+  "variants": {
+    "pytorch": {
+      "label": "PyTorch",
+      "available": true
+    }
+  }
+}
