@@ -1,0 +1,19 @@
+{
+  "order": 742,
+  "slug": "quant-fp8-delayed-scaling",
+  "title": "FP8 延迟缩放递推账（DelayedScaling）",
+  "title_en": "FP8 Delayed Scaling Recurrence Ledger",
+  "difficulty": "Medium",
+  "tags": [
+    "operator",
+    "quantization"
+  ],
+  "collection": "quantization",
+  "source": "NVIDIA/TransformerEngine main `transformer_engine/pytorch/quantization.py`：`_default_sf_compute`（sf = (fp8_max/amax)/2^margin、amax<=0 或非有限回退旧 scale、sf 溢出夹到 FP32 max）、`_default_get_amax_and_update_history`（max / most_recent）、`_update_amax_history`（左移一格并清零槽 0）",
+  "variants": {
+    "pytorch": {
+      "label": "PyTorch",
+      "available": true
+    }
+  }
+}
