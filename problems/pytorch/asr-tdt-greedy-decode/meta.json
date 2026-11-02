@@ -1,0 +1,12 @@
+{
+  "title": "NeMo TDT token-and-duration 贪心解码账",
+  "title_en": "NeMo TDT Token-and-Duration Greedy Decoding Ledger",
+  "difficulty": "Hard",
+  "tags": ["operator", "asr", "transducer"],
+  "order": 717,
+  "variants": {
+    "pytorch": {"label": "PyTorch", "available": true},
+    "triton": {"label": "Triton", "available": false},
+    "cuda": {"label": "CUDA", "available": false}
+  }
+}
