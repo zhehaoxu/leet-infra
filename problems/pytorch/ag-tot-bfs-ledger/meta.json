@@ -1,0 +1,12 @@
+{
+  "title": "ToT+BFS 搜索过程账",
+  "title_en": "Tree-of-Thoughts BFS Search Ledger",
+  "difficulty": "Medium",
+  "tags": ["operator", "agentic"],
+  "order": 720,
+  "variants": {
+    "pytorch": {"label": "PyTorch", "available": true},
+    "triton": {"label": "Triton", "available": false},
+    "cuda": {"label": "CUDA", "available": false}
+  }
+}
