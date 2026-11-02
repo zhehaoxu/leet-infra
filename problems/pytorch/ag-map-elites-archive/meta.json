@@ -1,0 +1,19 @@
+{
+  "order": 745,
+  "slug": "ag-map-elites-archive",
+  "title": "MAP-Elites 质量-多样性档案账",
+  "title_en": "MAP-Elites Quality-Diversity Archive Ledger",
+  "difficulty": "Medium",
+  "tags": [
+    "operator",
+    "agentic"
+  ],
+  "collection": "agentic-systems",
+  "source": "MAP-Elites（arXiv 1504.04909）网格档案：行为描述子按维分格路由、每格只留严格更优的精英、越界解丢弃；AlphaEvolve / OpenEvolve 的 archive 核即此",
+  "variants": {
+    "pytorch": {
+      "label": "PyTorch",
+      "available": true
+    }
+  }
+}
