@@ -1,0 +1,19 @@
+{
+  "order": 740,
+  "slug": "quant-fp4-e2m1-grid",
+  "title": "FP4 E2M1 网格量化与两级块缩放",
+  "title_en": "FP4 E2M1 Grid Quantization with Two-Level Block Scaling",
+  "difficulty": "Medium",
+  "tags": [
+    "operator",
+    "quantization"
+  ],
+  "collection": "quantization",
+  "source": "OCP MX 规范 FP4 E2M1 元素格式（1-2-1，bias=1，唯一非零次正规 0.5，最大有限值 6、无 inf/NaN）；MXFP4 单级块 scale 与 NVFP4（Blackwell）两级 scale（每张量 FP32 × 每 16 元素块）的乘积口径",
+  "variants": {
+    "pytorch": {
+      "label": "PyTorch",
+      "available": true
+    }
+  }
+}
