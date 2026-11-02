@@ -1,0 +1,22 @@
+{
+  "order": 733,
+  "slug": "ag-coa-relay-ledger",
+  "title": "Chain of Agents 串行接力账",
+  "title_en": "Chain of Agents Sequential Relay Ledger",
+  "difficulty": "Hard",
+  "tags": [
+    "agentic",
+    "long-context",
+    "chunking",
+    "multi-agent",
+    "bookkeeping"
+  ],
+  "collection": "agentic-systems",
+  "source": "arXiv 2406.02818 Algorithm 1 + §3.1/§3.2 + 附录 B（协议）+ rudrankriyam/Chain-of-Agents main utils.py::split_into_chunks（论文未规定的分块口径）",
+  "variants": {
+    "pytorch": {
+      "label": "PyTorch",
+      "available": true
+    }
+  }
+}
