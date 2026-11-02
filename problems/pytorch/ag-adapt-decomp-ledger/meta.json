@@ -1,0 +1,16 @@
+{
+  "order": 732,
+  "slug": "ag-adapt-decomp-ledger",
+  "title": "ADaPT 按需递归分解账",
+  "title_en": "ADaPT As-Needed Decomposition Ledger",
+  "difficulty": "Hard",
+  "tags": ["agentic", "decomposition", "recursion", "planning"],
+  "collection": "agentic-systems",
+  "source": "arXiv 2311.05772 + archiki/ADaPT main run_alfworld.py::plan_and_run/alfworld_run/plan_to_args/parse_expression/fetch_salient_info",
+  "variants": {
+    "pytorch": {
+      "label": "PyTorch",
+      "available": true
+    }
+  }
+}
