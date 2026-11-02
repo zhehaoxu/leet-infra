@@ -1,0 +1,22 @@
+{
+  "order": 734,
+  "slug": "ag-zep-invalidation-ledger",
+  "title": "Zep 双时态边失效账",
+  "title_en": "Zep Bi-temporal Edge Invalidation Ledger",
+  "difficulty": "Hard",
+  "tags": [
+    "agentic",
+    "memory",
+    "temporal-graph",
+    "invalidation",
+    "bookkeeping"
+  ],
+  "collection": "agentic-systems",
+  "source": "arXiv 2501.13956 §2.3 + getzep/graphiti main graphiti_core/utils/maintenance/edge_operations.py::_apply_temporal_invalidation / resolve_edge_contradictions / _dedupe_extracted_edge",
+  "variants": {
+    "pytorch": {
+      "label": "PyTorch",
+      "available": true
+    }
+  }
+}
