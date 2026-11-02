@@ -1,0 +1,19 @@
+{
+  "order": 749,
+  "slug": "ag-dgm-archive-ledger",
+  "title": "Darwin Gödel Machine：存档进化的父代选择与入档账",
+  "title_en": "Darwin Godel Machine Archive Evolution: Parent Selection and Admission Ledger",
+  "difficulty": "Hard",
+  "tags": [
+    "operator",
+    "agentic"
+  ],
+  "collection": "agentic-systems",
+  "source": "Darwin Gödel Machine（arXiv 2505.22954）官方实现 jennyzzt/dgm `DGM_outer.py` 与 `utils/evo_utils.py`：候选表与子代计数、sigmoid-分数父代概率、三道 25% 闸门分派自改条目、编译过滤、初始分减噪声余量的入档门槛、满评门槛取降序第二",
+  "variants": {
+    "pytorch": {
+      "label": "PyTorch",
+      "available": true
+    }
+  }
+}
