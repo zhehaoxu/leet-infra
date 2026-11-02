@@ -1,0 +1,22 @@
+{
+  "order": 736,
+  "slug": "rs-ttrl-pseudo-reward-ledger",
+  "title": "TTRL 多数票伪奖励账",
+  "title_en": "TTRL Majority-Vote Pseudo-Reward Ledger",
+  "difficulty": "Hard",
+  "tags": [
+    "operator",
+    "reasoning",
+    "rl",
+    "adjudication",
+    "bookkeeping"
+  ],
+  "collection": "reasoning-systems",
+  "source": "arXiv 2504.16084 + PRIME-RL/TTRL main verl/verl/trainer/ppo/ttrl_utils.py::_majority_vote / _batch_majority_vote / _batch_compute_ttrl_metrics / select_top_k_per_prompt、verl/verl/utils/reward_score/ttrl_math/__init__.py::extract_answer / grade、math_utils.py::last_boxed_only_string / extract_boxed_answer",
+  "variants": {
+    "pytorch": {
+      "label": "PyTorch",
+      "available": true
+    }
+  }
+}
