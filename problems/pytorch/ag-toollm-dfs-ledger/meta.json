@@ -1,0 +1,11 @@
+{
+  "order": 728,
+  "slug": "ag-toollm-dfs-ledger",
+  "title": "ToolLLM DFS 决策树账",
+  "title_en": "ToolLLM DFS Decision Tree Ledger",
+  "difficulty": "Hard",
+  "tags": ["agentic", "tree-search", "tool-use", "backtracking"],
+  "collection": "agentic-systems",
+  "source": "arXiv 2307.16789 App A.4 + OpenBMB/ToolBench master inference/Algorithms/DFS.py + Tree/Tree.py + LLM_rank/rank_candidate.py",
+  "variants": ["pytorch"]
+}
