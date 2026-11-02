@@ -1,0 +1,24 @@
+{
+  "title": "self-instruct：合成指令过滤与相似度去重账",
+  "title_en": "self-instruct: Synthetic Instruction Filtering and Similarity Dedup Ledger",
+  "difficulty": "Medium",
+  "tags": [
+    "operator",
+    "agentic"
+  ],
+  "order": 747,
+  "variants": {
+    "pytorch": {
+      "label": "PyTorch",
+      "available": true
+    },
+    "triton": {
+      "label": "Triton",
+      "available": false
+    },
+    "cuda": {
+      "label": "CUDA",
+      "available": false
+    }
+  }
+}
