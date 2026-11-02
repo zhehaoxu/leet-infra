@@ -1,0 +1,19 @@
+{
+  "order": 750,
+  "slug": "ag-ace-skillbook-ledger",
+  "title": "ACE 技能书：delta 批次应用与提示词渲染账",
+  "title_en": "ACE Skillbook: Delta Batch Application and Prompt Rendering Ledger",
+  "difficulty": "Hard",
+  "tags": [
+    "operator",
+    "agentic"
+  ],
+  "collection": "agentic-systems",
+  "source": "Agentic Context Engineering（arXiv 2510.04618）官方实现 kayba-ai/agentic-context-engine `ace/core/skillbook.py`：ADD/UPDATE/TAG/REMOVE 四种 delta 操作、`_UNSET` 哨兵语义、delta 只取符号、软删与 purge、active 门控的 used 计数、固定顺序的提示词渲染",
+  "variants": {
+    "pytorch": {
+      "label": "PyTorch",
+      "available": true
+    }
+  }
+}
