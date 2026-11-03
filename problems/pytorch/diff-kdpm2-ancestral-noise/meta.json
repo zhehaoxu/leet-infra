@@ -1,0 +1,19 @@
+{
+ "order": 755,
+ "slug": "diff-kdpm2-ancestral-noise",
+ "title": "扩散：KDPM2-Ancestral 的 σ_up/σ_down 噪声拆分账",
+ "title_en": "Diffusion: KDPM2-Ancestral sigma_up/sigma_down Noise Split",
+ "difficulty": "Medium",
+ "tags": [
+  "operator",
+  "diffusion"
+ ],
+ "collection": "diffusion",
+ "source": "huggingface/diffusers src/diffusers/schedulers/scheduling_k_dpm_2_ancestral_discrete.py（750 行）：set_timesteps 的 σ_up/σ_down/σ_interpol 三表构造（L323-336，含 down[-1]=0 与 interpol[-2:]=0 清场）与四张 repeat_interleave 展开表（L338-341）、step 的首调/次调分支（L620-678）：次调 dt = σ_down − σ_hat、落地后注入 noise·σ_up、state_in_first_order = self.sample is None（L528）",
+ "variants": {
+  "pytorch": {
+   "label": "PyTorch",
+   "available": true
+  }
+ }
+}
