@@ -1,0 +1,12 @@
+{
+  "title": "PEFT：GraLoRA 子块低秩前向与分块合并",
+  "title_en": "PEFT: GraLoRA Granular Sub-block Forward and Block Merge",
+  "difficulty": "Hard",
+  "tags": ["operator", "peft"],
+  "order": 793,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}
