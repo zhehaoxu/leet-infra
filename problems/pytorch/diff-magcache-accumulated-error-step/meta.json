@@ -1,0 +1,19 @@
+{
+ "order": 765,
+ "slug": "diff-magcache-accumulated-error-step",
+ "title": "扩散：MagCache 累积误差门控步（retention 保留 + 累积误差跳过）",
+ "title_en": "Diffusion: MagCache Accumulated-Error Gate Step (Retention Window + Accumulated-Error Skip)",
+ "difficulty": "Medium",
+ "tags": [
+  "operator",
+  "diffusion"
+ ],
+ "collection": "diffusion",
+ "source": "huggingface/diffusers src/diffusers/hooks/mag_cache.py（469 行，MagCache 论文 github.com/Zehong-Ma/MagCache）：MagCacheConfig 的 ratios 校验与 nearest_interp 插值（L110-137）、nearest_interp 最近邻索引插值（L69-115）、MagCacheState 累积器四项与 reset（L140-168）、MagCacheHeadHook.new_forward 的 scale 越界回退/retention_step 四舍五入/先累积后判定/重置与双输出路径（L200-280）、MagCacheBlockHook 尾块残差 previous_residual = 尾块输出 − 首块输入（L330-360）",
+ "variants": {
+  "pytorch": {
+   "label": "PyTorch",
+   "available": true
+  }
+ }
+}
