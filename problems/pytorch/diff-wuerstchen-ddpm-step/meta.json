@@ -1,0 +1,19 @@
+{
+ "order": 760,
+ "slug": "diff-wuerstchen-ddpm-step",
+ "title": "扩散：Wuerstchen 连续 t cosine ᾱ 与查表 prev_t 的 DDPM 后验一步",
+ "title_en": "Diffusion: Wuerstchen Continuous-t Cosine Alpha-Bar and Table-Lookup prev_t DDPM Posterior Step",
+ "difficulty": "Medium",
+ "tags": [
+  "operator",
+  "diffusion"
+ ],
+ "collection": "diffusion",
+ "source": "huggingface/diffusers src/diffusers/schedulers/scheduling_ddpm_wuerstchen.py（269 行）：_alpha_cumprod 的 scaler 幂变换 + cosine 平方 + 归一化 + clamp（L121-129）、previous_timestep 的 argmin 最近邻查表（L255-269）、step 的 DDPM 后验与 prev_t!=0 门控（L202-221）、__init__ 的 _init_alpha_cumprod（L116）。SD3.5/Wuerstchen 两级流水线（prior/decoder 各一套 scaler）",
+ "variants": {
+  "pytorch": {
+   "label": "PyTorch",
+   "available": true
+  }
+ }
+}
