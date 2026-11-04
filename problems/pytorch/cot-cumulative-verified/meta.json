@@ -1,0 +1,17 @@
+{
+  "order": 779,
+  "slug": "cot-cumulative-verified",
+  "title": "CoT：Cumulative Reasoning 累积态验证（Game24 状态图生长 + verifier 三态准入 + 父链回溯）",
+  "title_en": "CoT: Cumulative Reasoning Verified Ledger (Game24 State-Graph Growth + Three-Verdict Admission + Parent-Chain Reconstruction)",
+  "difficulty": "Hard",
+  "tags": ["reasoning-systems", "cot", "cumulative-reasoning", "proposer-verifier"],
+  "source": "iiis-ai/cumulative-reasoning Game24/game24-openai.py (arXiv:2308.04371)",
+  "source_lines": "game24-openai.py L38-41/L537-590",
+  "description": "Cumulative Reasoning 的 Game24 实现把 proposer / valid 判定 / verifier 三类 LLM 调用组织成状态图生长循环（输出全显式入参）：每轮从 a=remaining 首行起过四道门——next.strip() 含 [^0-9+\\-*/.(),=\\s] 之外字符跳过、next.strip() 或 remaining.strip() 无 \\S 跳过、judgement=='Invalid' 跳过（只有 Invalid 拦）——verifier 'sure' 则沿父链回溯重构解题路径（[equation 首行, next.strip()+' (left a)', 各祖先步拼 ' (left 状态)'] 再整体 reverse）并立即返回 (True, 轮下标, steps)；'likely' 且新状态 a 不在 records 才准入（forbidden[chosen] 追加 next.strip()、forbidden[a]=[]、records 追加 a、parent[a]=chosen、last_step[a]=next.strip()），a 已在 records 整轮静默丢弃，其他结论无动作；任何轮内异常静默跳过（官方 try/except continue）；循环上界 trycnt 截断 rounds，失败返回 (False, trycnt, [])；采样分布两阶段——前半程（i < 1/2*trycnt 浮点除）根偏置 p[0]=0.5、其余 0.5/(n-1)，后半程均匀 1/n，n=1 时 p=[1.0]。",
+  "variants": {
+    "pytorch": {
+      "label": "PyTorch",
+      "available": true
+    }
+  }
+}
