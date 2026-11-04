@@ -1,0 +1,16 @@
+{
+ "title": "PEFT：LoRA-GA 梯度近似的初始化",
+ "title_en": "PEFT: LoRA-GA's Gradient-Approximation Initialization",
+ "difficulty": "Medium",
+ "tags": [
+  "operator",
+  "peft"
+ ],
+ "order": 809,
+ "variants": {
+  "pytorch": {
+   "label": "PyTorch",
+   "available": true
+  }
+ }
+}
