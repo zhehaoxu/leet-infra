@@ -1,0 +1,12 @@
+{
+  "title": "PEFT：BEFT 旁路偏置高效微调",
+  "title_en": "PEFT: BEFT Bypass-Bias Fine-Tuning",
+  "difficulty": "Easy",
+  "tags": ["operator", "peft"],
+  "order": 798,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}
