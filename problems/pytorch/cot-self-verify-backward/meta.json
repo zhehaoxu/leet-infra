@@ -1,0 +1,17 @@
+{
+  "order": 777,
+  "slug": "cot-self-verify-backward",
+  "title": "CoT：Self-Verification 后向验证（数字挖空子问题 + verifier 评分选答）",
+  "title_en": "CoT: Self-Verification Backward Checking (Number-Blanked Subquestions + Verifier Scored Selection)",
+  "difficulty": "Hard",
+  "tags": ["reasoning-systems", "cot", "self-verification", "backward-checking"],
+  "source": "WENGSYX/Self-Verification main_verifier.py + utils/question_turn_decalrative (arXiv:2212.09561)",
+  "source_lines": "main_verifier.py L140-259 + utils.py L811-896",
+  "description": "Self-Verification 的后向验证账：k 份采样答案经 str(float(x)) 规范化 + 首现去重得候选集；对每个候选把问题文本（逗号先转句点、最后一个句号处截断）findall(r'-?\\d+\\.?\\d*') 抽全部数字并逐个替换为 'X' 构造挖空子问题（字符列表切片赋值、每个含该数字的句段都替换、replace('..','.') 规整、最多前 3 个），declarative 改写句缓存走最后一次出现的 answers[0] 反向定位替换或 fallback 模板；verifier 判定串与挖空原数字一致者计分（逐项 try float），候选总分 argmax 平局取最前，is_true 对照规范化 GT。",
+  "variants": {
+    "pytorch": {
+      "label": "PyTorch",
+      "available": true
+    }
+  }
+}
