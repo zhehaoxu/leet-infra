@@ -1,0 +1,17 @@
+{
+  "order": 774,
+  "slug": "sparsity-zssvd-zero-sum-selection",
+  "title": "稀疏：Zero-Sum SVD 全局奇异分量选择（零和符号平衡 + 亏盈平衡秩）",
+  "title_en": "Sparsity: Zero-Sum SVD Global Singular-Component Selection (Zero-Sum Sign Balance + Break-Even Rank)",
+  "difficulty": "Hard",
+  "tags": ["sparsity", "low-rank", "svd", "whitening", "sensitivity"],
+  "source": "mint-vu/Zero-Sum-SVD (ICML 2026) planning.py + correction_utils.py",
+  "source_lines": "planning.py L90-207, L383-435 + correction_utils.py L97-275, L289-342",
+  "description": "白化域全局奇异分量预算分配：svd(W@L) 与梯度白化 H=G@L⁻ᵀ 后取一阶敏感度 grad_σ=diag(UᵀHV)，δ=−σ·grad_σ（支持 second_order 与 β-mixing），按亏盈平衡秩 r*=max(1,(mn−1)//(m+n)) 设 min_rank 下限，选择器维护 running_sum 偏好正 δ 堆使 Σδ 趋零（零和假设），并以 effective_dense_delta 精确记账直至预算耗尽。",
+  "variants": {
+    "pytorch": {
+      "label": "PyTorch",
+      "available": true
+    }
+  }
+}
