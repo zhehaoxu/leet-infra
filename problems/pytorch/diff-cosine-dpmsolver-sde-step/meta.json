@@ -1,0 +1,19 @@
+{
+ "order": 759,
+ "slug": "diff-cosine-dpmsolver-sde-step",
+ "title": "扩散：CosineDPMSolver 的 EDM 预条件 SDE multistep 步进",
+ "title_en": "Diffusion: CosineDPMSolver EDM-Preconditioned SDE Multistep Step",
+ "difficulty": "Hard",
+ "tags": [
+  "operator",
+  "diffusion"
+ ],
+ "collection": "diffusion",
+ "source": "huggingface/diffusers src/diffusers/schedulers/scheduling_cosine_dpmsolver_multistep.py（761 行，Stable Audio Open 2407.14358 / EDM 2206.00364）：step 的状态机（L604-686，lower_order_final 三条件 L641-646、history 移位 L651-654、一阶/二阶分支 L672-675、lower_order_nums 封顶自增 L677-678）、dpm_solver_first_order_update（L448-487，SDE 噪声项）、multistep_dpm_solver_second_order_update（L489-548，midpoint/heun 两套 D1 系数）、precondition_outputs EDM 预条件（L199-233，v_prediction 负 c_out）、_sigma_to_alpha_sigma_t 的 α≡1（L402-418）、_compute_exponential_sigmas / _compute_karras_sigmas（L306-363）",
+ "variants": {
+  "pytorch": {
+   "label": "PyTorch",
+   "available": true
+  }
+ }
+}
