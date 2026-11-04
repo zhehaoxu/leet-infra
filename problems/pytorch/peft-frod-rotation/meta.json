@@ -1,0 +1,12 @@
+{
+  "title": "PEFT：FRoD 旋转投影对角加稀疏增量",
+  "title_en": "PEFT: FRoD Rotation with Diagonal plus Sparse Delta",
+  "difficulty": "Hard",
+  "tags": ["operator", "peft"],
+  "order": 803,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}
