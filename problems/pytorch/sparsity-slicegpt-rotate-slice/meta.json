@@ -1,0 +1,19 @@
+{
+ "order": 770,
+ "slug": "sparsity-slicegpt-rotate-slice",
+ "title": "稀疏：SliceGPT 正交旋转-切边步（PCA damping + shortcut 链式记账）",
+ "title_en": "Sparsity: SliceGPT Orthogonal Rotate-and-Slice Step (PCA Damping + Shortcut Chain Bookkeeping)",
+ "difficulty": "Hard",
+ "tags": [
+  "operator",
+  "sparsity"
+ ],
+ "collection": "sparsity",
+ "source": "microsoft/TransformerCompression src/slicegpt/rotate.py（528 行，SliceGPT 论文 arXiv 2401.15024）：pca_calc 的掩码置零 + H=Σxᵀx 累积 + 对角 damping + eigh 降序（L501-528）、rotate_and_slice_sequential 的注意力输入/输出与 MLP 输入/输出四处旋转切边及 attn/mlp_shortcut_Q 链式拼接（L140-251）、slicing_scheduler.py 的 ForwardSlicingScheduler 维度一致性（L176-196）",
+ "variants": {
+  "pytorch": {
+   "label": "PyTorch",
+   "available": true
+  }
+ }
+}
