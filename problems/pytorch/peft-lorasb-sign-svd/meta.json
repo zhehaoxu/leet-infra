@@ -1,0 +1,16 @@
+{
+ "title": "PEFT：LoRA-SB 符号梯度估计的 SVD 初始化",
+ "title_en": "PEFT: LoRA-SB's Sign-Estimated Gradient SVD Initialization",
+ "difficulty": "Medium",
+ "tags": [
+  "operator",
+  "peft"
+ ],
+ "order": 808,
+ "variants": {
+  "pytorch": {
+   "label": "PyTorch",
+   "available": true
+  }
+ }
+}
