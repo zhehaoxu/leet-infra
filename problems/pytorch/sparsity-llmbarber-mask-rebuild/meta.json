@@ -1,0 +1,17 @@
+{
+  "order": 772,
+  "slug": "sparsity-llmbarber-mask-rebuild",
+  "title": "稀疏：LLM-Barber 稀疏掩码重建（metric 三选 + find_threshold 双阈值交换 + 粒度四选）",
+  "title_en": "Sparsity: LLM-Barber Sparse Mask Rebuild (Three Metrics + find_threshold Dual-Threshold Exchange + Four Granularities)",
+  "difficulty": "Medium",
+  "tags": ["sparsity", "mask-rebuild", "structured-pruning", "one-shot"],
+  "source": "YupengSu/LLM-Barber lib/opt.py mask_rebuild (ICCAD 2025, arXiv:2408.10631)",
+  "source_lines": "lib/opt.py L281-388 (mask_rebuild + find_threshold)",
+  "description": "对已剪枝稀疏权重做 mask 重建：三种度量（WD = |W|·√scaler、W = |W|、D = √scaler）+ find_threshold 双阈值交换（growth 降序 vs prune 升序按位配对计数定双阈值）+ 粒度四选（block/layer/output1/input1）+ retain_reconstruction。",
+  "variants": {
+    "pytorch": {
+      "label": "PyTorch",
+      "available": true
+    }
+  }
+}
