@@ -1,0 +1,17 @@
+{
+  "order": 782,
+  "slug": "to-gmpo-geom-mean",
+  "title": "GMPO：token 几何平均优势与符号翻转保守截断（MC 优势三分支 + 六路 pg-loss + KL token 奖励注入）",
+  "title_en": "GMPO: Token Geometric-Mean Advantages and Sign-Flip Conservative Clipping (MC Advantage Three-Way + Six pg-loss Branches + KL Token Reward Injection)",
+  "difficulty": "Hard",
+  "tags": ["training-objectives", "rl", "gmpo", "policy-gradient"],
+  "source": "callsys/GMPO train_zero_math_gmpo.py (arXiv:2507.20673)",
+  "source_lines": "train_zero_math_gmpo.py L407-421 (compute_monte_carlo_advantages) + L594-605 (KL token reward) + L673-831 (pg-loss 六分支)",
+  "description": "GMPO 把 GRPO 的组内算术平均优势换成对 token 级对数比做几何平均（log 空间求和再取指数），并按 advantage 符号翻转做保守截断。三入口：advantage（官方 compute_monte_carlo_advantages）——rewards.sum(-1) 折成轨迹级奖励，view(-1, num_samples).mean(1) 组均值 repeat_interleave 回每 token，advantages = rewards - values，仅 critic_type=\"grpo\" 再除以组内 std（torch 默认 unbiased、n-1 分母）+1e-8，\"drgrpo\"/None 不归一原样返回；pg（官方 learning_step 六分支）——gmpo：sgn_advantage = -1 if advantage >= 0 else 1（>= 边界进 -1；advantage 是张量、batch>1 布尔化 RuntimeError，官方实际只能单序列 mini-batch），diff = new-old 翻转后 clamp(-ε,+ε) 再与翻转 diff 逐位取 max（保守截断）翻回，ratio = exp(diff_max[mask].sum()/mask.sum()) 为 token 几何平均，pg_losses = -adv*ratio 是向量且 loss 不做 masked mean；gmpo_noclip 同账但 cliprange 内定 1000 忽略入参；gmpo_seqclip 的 diff 先对 mask 求和成标量再翻转-clamp-max（stats 的 amax==amin==sum）；gmpo_without_norm 的 ratio=exp(diff_max[mask].sum()) 不除 mask.sum()；grpo_clip_wider 是标准 PPO-clip 骨架但 clamp(0.67,1.49) 硬编码；else（\"grpo\"）token 级 ratio=exp(diff)、pg_losses2=-adv*clamp(ratio,1-ε,1+ε)、逐位 max、masked_aggregator(axis=1)（mean 除 mask.sum()，sum 除 constant_normalizer）、(pg_loss*loss_masks).mean() 成标量——batch>1 时 -adv[2]*ratio[2,5] 广播 RuntimeError，两族 pg 都只支持单序列；stats 三键 logprobs_diff_max/logprobs_diff_min/zero_pg_loss_count 各 append 一条（amax/amin 是 diff*mask 全局极值，zero 计数是 (pg_loss_max==0).sum()）；kl_reward——kl_rewards = -coef*(logps-ref_logps)*mask，eos_indices 取每行 mask 内最大下标（全 False 行得 -1），rewards[行,eos] += final_rewards.squeeze()，全 False 行的 -1 是负索引、final reward 注入该行最后一个位置。",
+  "variants": {
+    "pytorch": {
+      "label": "PyTorch",
+      "available": true
+    }
+  }
+}
