@@ -1,0 +1,12 @@
+{
+  "title": "上下文压缩：CPC 句级相关性选择",
+  "title_en": "Context Compression: CPC Sentence-Level Relevance Selection",
+  "difficulty": "Medium",
+  "tags": ["operator", "context"],
+  "order": 802,
+  "variants": {
+    "pytorch": {"label": "PyTorch", "available": true},
+    "triton": {"label": "Triton", "available": false},
+    "cuda": {"label": "CUDA", "available": false}
+  }
+}
