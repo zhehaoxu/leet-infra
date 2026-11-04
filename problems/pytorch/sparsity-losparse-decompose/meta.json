@@ -1,0 +1,19 @@
+{
+ "order": 771,
+ "slug": "sparsity-losparse-decompose",
+ "title": "稀疏：LoSparse 低秩+结构化稀疏分解步（SVD 因子拆分 + 参数预算 + 神经元行剪枝）",
+ "title_en": "Sparsity: LoSparse Low-Rank + Structured Sparse Decomposition Step (SVD Factor Split + Parameter Budget + Neuron-Row Pruning)",
+ "difficulty": "Medium",
+ "tags": [
+  "operator",
+  "sparsity"
+ ],
+ "collection": "sparsity",
+ "source": "yxli2123/LoSparse（ICML 2023，arXiv 2306.11222）utils.py（399 行）：low_rank_decomposition 的 SVD + parameter_ratio/rank_ratio 预算公式 + √diag 因子拆分与 max/min 切片（L7-66）、substitute_layer_weights 的残差 S=W−LR（L183-194）、LinearLoSparse.prune_sparse 行和非零剪枝（L136-139）与两路前向（L91-126）",
+ "variants": {
+  "pytorch": {
+   "label": "PyTorch",
+   "available": true
+  }
+ }
+}
