@@ -1,0 +1,19 @@
+{
+ "order": 756,
+ "slug": "diff-sasolver-adams-pc-step",
+ "title": "扩散：SA-Solver 的 Adams 预估-校正 warmup 状态机",
+ "title_en": "Diffusion: SA-Solver Adams Predictor-Corrector Warmup State Machine",
+ "difficulty": "Hard",
+ "tags": [
+  "operator",
+  "diffusion"
+ ],
+ "collection": "diffusion",
+ "source": "huggingface/diffusers src/diffusers/schedulers/scheduling_sasolver.py（1423 行）：step 的五拍状态机（L1262-1362，corrector 条件 L1300、history 移位 L1315-1320、warmup 阶数 L1329-1339、last_sample/last_noise 暂存 L1341-1342）、stochastic_adams_bashforth_update（L999-1070，order-2 修正 L1024-1045）、stochastic_adams_moulton_update（L1139-1206，order-2 修正 L1164-1181）、get_coefficients_exponential_positive（L709-769）与 lagrange_polynomial_coefficient（L771-892）、_sigma_to_alpha_sigma_t（L436-455）、set_timesteps 末位 sigma_last 为正（L336-337）",
+ "variants": {
+  "pytorch": {
+   "label": "PyTorch",
+   "available": true
+  }
+ }
+}
