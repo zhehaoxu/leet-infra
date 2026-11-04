@@ -1,0 +1,12 @@
+{
+  "title": "上下文压缩：D2-MoE Delta 解压缩（Fisher 合并 + 白化低秩）",
+  "title_en": "Context Compression: D2-MoE Delta Decompression (Fisher Merge + Whitened Low-Rank)",
+  "difficulty": "Hard",
+  "tags": ["operator", "context"],
+  "order": 800,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}
