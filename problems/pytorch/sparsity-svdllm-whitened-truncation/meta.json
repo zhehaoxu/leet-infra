@@ -1,0 +1,17 @@
+{
+  "order": 773,
+  "slug": "sparsity-svdllm-whitened-truncation",
+  "title": "稀疏：SVD-LLM 白化域截断压缩（truncation-aware 数据白化 + 闭式更新）",
+  "title_en": "Sparsity: SVD-LLM Whitened-Domain Truncation Compression (Truncation-Aware Data Whitening + Closed-Form Update)",
+  "difficulty": "Medium",
+  "tags": ["sparsity", "low-rank", "svd", "whitening", "closed-form-update"],
+  "source": "AIoT-MLSys-Lab/SVD-LLM SVDLLM.py (ICLR 2025, arXiv:2403.07378)",
+  "source_lines": "SVDLLM.py L187-284 (whitening) + L442-498 (local_update/fasterprune)",
+  "description": "白化域 SVD 截断压缩：W_scale=W@L 后 svd，参数预算 k=int(M·N·ratio/(M+N))，√Σ 因子拆分且 v 侧右乘 L⁻¹（截断小奇异值 ⇔ 低压缩损失），lstsq 闭式更新补偿截断损失。",
+  "variants": {
+    "pytorch": {
+      "label": "PyTorch",
+      "available": true
+    }
+  }
+}
