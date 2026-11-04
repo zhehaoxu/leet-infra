@@ -1,0 +1,19 @@
+{
+ "order": 767,
+ "slug": "diff-pab-attention-broadcast-step",
+ "title": "扩散：PAB 注意力广播步（三类分发 + 迭代广播门控）",
+ "title_en": "Diffusion: PAB Attention Broadcast Step (Three-Way Dispatch + Iterative Broadcast Gate)",
+ "difficulty": "Medium",
+ "tags": [
+  "operator",
+  "diffusion"
+ ],
+ "collection": "diffusion",
+ "source": "huggingface/diffusers src/diffusers/hooks/pyramid_attention_broadcast.py（314 行，PAB 论文 arXiv 2408.12588）与 hooks/_common.py identifier 常量：_apply_pyramid_attention_broadcast_on_attention_class 的三类 re.search 匹配与 spatial>temporal>cross 优先级（L241-287）、PyramidAttentionBroadcastHook.new_forward 的开区间时间步 + iteration 取模广播门控（L156-174）、全 None block_skip_range 回退 spatial=2（L220-230）",
+ "variants": {
+  "pytorch": {
+   "label": "PyTorch",
+   "available": true
+  }
+ }
+}
