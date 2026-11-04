@@ -1,0 +1,19 @@
+{
+ "order": 758,
+ "slug": "diff-plms-multistep-ab-ladder",
+ "title": "扩散：PLMS 的 AB 阶梯与 cur_sample 重启账",
+ "title_en": "Diffusion: PLMS Adams-Bashforth Ladder with cur_sample Restart",
+ "difficulty": "Hard",
+ "tags": [
+  "operator",
+  "diffusion"
+ ],
+ "collection": "diffusion",
+ "source": "huggingface/diffusers src/diffusers/schedulers/scheduling_pndm.py（504 行）：step_plms 的 ets 记账（L365-370，counter≠1 截断 [-3:] + append、counter 1 不 append）与 AB 阶梯（L372-384：恒等/梯形/2 阶/3 阶/4 阶）、counter 1 的 (t+δ, t) 重启对与 cur_sample 消费、_get_prev_sample 的 formula(9)（L409-458，prev_timestep<0 取 final_alpha_cumprod=表头）、set_timesteps 的 skip_prk_steps 表构造（L212-215，倒数第二格重复）",
+ "variants": {
+  "pytorch": {
+   "label": "PyTorch",
+   "available": true
+  }
+ }
+}
