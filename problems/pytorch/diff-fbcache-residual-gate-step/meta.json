@@ -1,0 +1,19 @@
+{
+ "order": 764,
+ "slug": "diff-fbcache-residual-gate-step",
+ "title": "扩散：First Block Cache 残差门控步（首块残差相对 L1 决策）",
+ "title_en": "Diffusion: First Block Cache Residual Gate Step (Relative-L1 Decision on the First-Block Residual)",
+ "difficulty": "Medium",
+ "tags": [
+  "operator",
+  "diffusion"
+ ],
+ "collection": "diffusion",
+ "source": "huggingface/diffusers src/diffusers/hooks/first_block_cache.py（258 行，ParaAttention First Block Cache，TeaCache 思想 arXiv 2411.19108）：FBCHeadBlockHook.new_forward 的残差计算与门控分发（L78-127）、_should_compute_remaining_blocks 的 absmean 相对 L1 比较与首步强制 compute（L134-142）、compute 分支的 head/tail 残差缓存（L117-127）、FBCBlockHook 的 cache 透传（L167-190）",
+ "variants": {
+  "pytorch": {
+   "label": "PyTorch",
+   "available": true
+  }
+ }
+}
