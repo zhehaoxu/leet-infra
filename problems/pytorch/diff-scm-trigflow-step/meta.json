@@ -1,0 +1,19 @@
+{
+ "order": 761,
+ "slug": "diff-scm-trigflow-step",
+ "title": "扩散：SCM trigflow 一致性步（跳回数据端再重加噪）",
+ "title_en": "Diffusion: SCM Trigflow Consistency Step (Jump to Data End then Re-noise)",
+ "difficulty": "Medium",
+ "tags": [
+  "operator",
+  "diffusion"
+ ],
+ "collection": "diffusion",
+ "source": "huggingface/diffusers src/diffusers/schedulers/scheduling_scm.py（305 行，Sana-Sprint）：step 的 trigflow pred_x0 = cos(s)·sample − sin(s)·model_output 与 prev = cos(t)·pred_x0 + sin(t)·sigma_data·noise（L274-297）、set_timesteps 的 linspace(max_timesteps, 0, N+1) / [max, 1.3, 0] 两步特表（L130-188）、t=0 时噪声项系数 sin(0)=0 的单步采样语义。sCM 论文 arXiv 2410.11081",
+ "variants": {
+  "pytorch": {
+   "label": "PyTorch",
+   "available": true
+  }
+ }
+}
