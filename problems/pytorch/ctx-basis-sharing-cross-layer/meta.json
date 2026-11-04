@@ -1,0 +1,12 @@
+{
+  "title": "上下文压缩：Basis Sharing 跨层共享基低秩分解",
+  "title_en": "Context Compression: Basis Sharing Cross-Layer Shared-Basis Factorization",
+  "difficulty": "Hard",
+  "tags": ["operator", "context"],
+  "order": 799,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}
