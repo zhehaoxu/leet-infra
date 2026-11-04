@@ -1,0 +1,17 @@
+{
+  "order": 781,
+  "slug": "cot-cocogen-code-graph-convert",
+  "title": "CoT：CoCoGen 代码↔图双向解析账（图串解析 + add_edge 代码发射 + 代码还原 + root 账 + case 转换）",
+  "title_en": "CoT: CoCoGen Code-to-Graph Bidirectional Parsing Ledger (Graph-String Parsing + add_edge Code Emission + Code Recovery + Root Ledger + Case Conversion)",
+  "difficulty": "Medium",
+  "tags": ["reasoning-systems", "cot", "cocogen", "code-representation"],
+  "source": "reasoning-machines/CoCoGen src/converters/explagraphs/relation.py (arXiv:2210.07128)",
+  "source_lines": "relation.py L81-113/L118-178 + utils.py L3-34 + utils/algo_utils.py L5-34",
+  "description": "CoCoGen 把常识图表示成 python 代码（class ExplanationDAG + add_edge 行）并在 relation.py 提供确定性双向转换（官方无独立的环检测/边标签校验器，回源修正 todos 原描述）：parse 入口 get_nodes 把 graph_str[1:-1]（剥首尾各一个字符、不论是否括号）按 )(' 切分——无 ';' 的段整段跳过、含 ';' 的段按 ';' 切分必须恰好 3 段（否则解包 ValueError）、三段各自 strip，nodes 按首现序（先 from 后 to），to 已在 from_to_dict[from] 时两个账本都不追加（同 from→to 第二条边整条静默丢弃）；to_python 入口发射固定骨架（class ExplanationDAG/__init__/belief= argument= stance= 原样插值不转义/# create a DAG to {stance} belief using argument 注释），root 节点（入度 0、按节点添加序）写 begin 行，再按 from_to_typed 的 dict 序逐边发射 add_edge(\"from\", \"rel\", \"to\")，prompt_part_only 到注释行为止；to_graph 入口先用正则 belief = \"(.*?)\" 抽三字段（缺失 AttributeError），逐行含 add_edge 的行 split(\"(\")[1] 取第一个左括号后内容、[:-1] 砍尾一字符、按 ', \"' 切分必须 3 段（越界 IndexError），strip 后拼 (source; rel; target)，最后统一清理：\" 全删、';' -> '; '、'  ' -> ' '（**单趟** replace，三空格只折叠成两空格）；roots 入口复刻 GraphAlgos.root_nodes over to_nx_graph——入度 0 按节点添加序、空 dests 的 src 不入图、纯环图 []；case 入口三函数——camel 尾句号剥除 + 逐 token capitalize 连接、snake 尾句号剥除 + re.sub(r'[\\s\\W]', '_') + lower + strip（只剥空白、句号变出的尾 _ 保留）、desnake split('_') 后 ' '.join，空串在 camel/snake 的 title[-1] 处 IndexError。",
+  "variants": {
+    "pytorch": {
+      "label": "PyTorch",
+      "available": true
+    }
+  }
+}
