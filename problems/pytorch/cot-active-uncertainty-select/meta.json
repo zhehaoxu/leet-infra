@@ -1,0 +1,17 @@
+{
+  "order": 776,
+  "slug": "cot-active-uncertainty-select",
+  "title": "CoT：Active-Prompt 不确定度选样（答案计数 + 熵/方差/分歧三排序）",
+  "title_en": "CoT: Active-Prompt Uncertainty-Based Sample Selection (Answer Counting + Entropy/Variance/Disagreement Sorting)",
+  "difficulty": "Medium",
+  "tags": ["reasoning-systems", "cot", "active-learning", "uncertainty", "prompting"],
+  "source": "shizhediao/active-prompt uncertainty_estimation.py (Active-Prompt, arXiv:2302.12246)",
+  "source_lines": "uncertainty_estimation.py L49-143 + utils.py L248-294",
+  "description": "Active-Prompt 的不确定度账：每题 k 次采样的抽取后答案串计数（空答案进哨兵键 -10086），数值任务把 occurrence 展开成 float 列表算总体方差（哨兵 -10086 也计入），熵走 scipy 口径 -Σ(c/n)·ln(c/n)（零频率贡献 0），disagreement 为 distinct 答案数；排序 stable 且平局保持输入序——disagreement 降序（strategyqa 特例 |yes-no| 升序）、variance 降序仅数值任务（不匹配静默不排序）、entropy 降序；qes_limit 只算前 N 题且排序作用于子集。",
+  "variants": {
+    "pytorch": {
+      "label": "PyTorch",
+      "available": true
+    }
+  }
+}
