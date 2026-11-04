@@ -1,0 +1,16 @@
+{
+ "title": "PEFT：BD-LoRA 张量并行块对角因子",
+ "title_en": "PEFT: BD-LoRA Block-Diagonal Factors for Tensor-Parallel Serving",
+ "difficulty": "Medium",
+ "tags": [
+  "operator",
+  "peft"
+ ],
+ "order": 813,
+ "variants": {
+  "pytorch": {
+   "label": "PyTorch",
+   "available": true
+  }
+ }
+}

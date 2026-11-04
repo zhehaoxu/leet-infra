@@ -1,0 +1,16 @@
+{
+  "title": "加权 Adapter 合并",
+  "title_en": "Weighted adapter merging (add_weighted_adapter)",
+  "order": 825,
+  "collection": "peft",
+  "framework": "pytorch",
+  "variants": {
+    "pytorch": {
+      "label": "PyTorch",
+      "available": true
+    }
+  },
+  "tags": ["peft", "weighted-adapter", "task-arithmetic", "svd-rank-reduction", "merge"],
+  "difficulty": "Medium",
+  "source": "https://github.com/huggingface/peft/blob/main/src/peft/tuners/lora/model.py"
+}

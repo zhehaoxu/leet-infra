@@ -1,0 +1,16 @@
+{
+ "title": "PEFT：Arrow LoRA 库 token 级路由",
+ "title_en": "PEFT: Arrow Token-wise Routing over a LoRA Library",
+ "difficulty": "Medium",
+ "tags": [
+  "operator",
+  "peft"
+ ],
+ "order": 814,
+ "variants": {
+  "pytorch": {
+   "label": "PyTorch",
+   "available": true
+  }
+ }
+}

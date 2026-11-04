@@ -1,0 +1,22 @@
+{
+  "title": "PSOFT 因子间 Cayley 正交旋转",
+  "order": 822,
+  "collection": "peft",
+  "framework": "pytorch",
+  "variants": {
+    "pytorch": {
+      "label": "PyTorch",
+      "available": true
+    }
+  },
+  "tags": [
+    "peft",
+    "psoft",
+    "cayley-transform",
+    "orthogonal",
+    "svd-init"
+  ],
+  "difficulty": "Hard",
+  "source": "https://github.com/huggingface/peft/tree/main/src/peft/tuners/psoft",
+  "title_en": "PSOFT Cayley orthogonal rotation between SVD factors"
+}

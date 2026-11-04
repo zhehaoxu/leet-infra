@@ -1,0 +1,22 @@
+{
+  "title": "AdaptionPrompt 门控注意力分支",
+  "order": 819,
+  "collection": "peft",
+  "framework": "pytorch",
+  "variants": {
+    "pytorch": {
+      "label": "PyTorch",
+      "available": true
+    }
+  },
+  "tags": [
+    "peft",
+    "llama-adapter",
+    "attention",
+    "gated-prompt",
+    "zero-init"
+  ],
+  "difficulty": "Medium",
+  "source": "https://github.com/huggingface/peft/tree/main/src/peft/tuners/adaption_prompt",
+  "title_en": "AdaptionPrompt gated attention branch"
+}

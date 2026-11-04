@@ -1,0 +1,16 @@
+{
+  "title": "Moonshine 上下文偏置 Trie 走账",
+  "title_en": "Moonshine context biaser trie walk",
+  "order": 826,
+  "collection": "asr",
+  "framework": "pytorch",
+  "variants": {
+    "pytorch": {
+      "label": "PyTorch",
+      "available": true
+    }
+  },
+  "tags": ["operator", "asr", "context-biasing", "trie", "greedy-decoding"],
+  "difficulty": "Medium",
+  "source": "https://github.com/moonshine-ai/moonshine/blob/main/core/context-biaser.cpp"
+}

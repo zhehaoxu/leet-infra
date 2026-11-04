@@ -1,0 +1,21 @@
+{
+  "slug": "peft-monteclora-bayesian-reparam",
+  "collection": "peft",
+  "order": 818,
+  "title": "MonteCLoRA 用贝叶斯重参数化降低低秩估计方差",
+  "title_en": "MonteCLoRA reduces low-rank estimator variance with Bayesian reparameterization",
+  "difficulty": "Hard",
+  "tags": [
+    "peft",
+    "monteclora",
+    "bayesian",
+    "reparameterization",
+    "kl-regularization"
+  ],
+  "variants": {
+    "pytorch": {
+      "label": "PyTorch",
+      "available": true
+    }
+  }
+}

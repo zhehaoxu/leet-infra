@@ -1,0 +1,16 @@
+{
+  "title": "Moonshine 流式投机验证与缓存账",
+  "title_en": "Moonshine streaming verify and cache ledger",
+  "order": 827,
+  "collection": "asr",
+  "framework": "pytorch",
+  "variants": {
+    "pytorch": {
+      "label": "PyTorch",
+      "available": true
+    }
+  },
+  "tags": ["operator", "asr", "streaming", "speculative-decoding", "kv-cache"],
+  "difficulty": "Hard",
+  "source": "https://github.com/moonshine-ai/moonshine/blob/main/core/moonshine-streaming-model.cpp"
+}

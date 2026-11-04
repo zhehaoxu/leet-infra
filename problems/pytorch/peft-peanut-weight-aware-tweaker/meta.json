@@ -1,0 +1,21 @@
+{
+  "slug": "peft-peanut-weight-aware-tweaker",
+  "collection": "peft",
+  "order": 816,
+  "title": "PEANuT 用权重感知神经 Tweaker 生成任务自适应更新",
+  "title_en": "PEANuT generates task-adaptive updates with weight-aware neural tweakers",
+  "difficulty": "Hard",
+  "tags": [
+    "peft",
+    "peanut",
+    "weight-aware",
+    "residual-mlp",
+    "parameter-count"
+  ],
+  "variants": {
+    "pytorch": {
+      "label": "PyTorch",
+      "available": true
+    }
+  }
+}

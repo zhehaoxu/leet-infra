@@ -1,0 +1,16 @@
+{
+  "title": "DeFT 解耦子空间替换微调",
+  "title_en": "DeFT decoupled subspace-replacement fine-tuning",
+  "order": 824,
+  "collection": "peft",
+  "framework": "pytorch",
+  "variants": {
+    "pytorch": {
+      "label": "PyTorch",
+      "available": true
+    }
+  },
+  "tags": ["peft", "deft", "subspace-replacement", "projection", "identity-init"],
+  "difficulty": "Hard",
+  "source": "https://github.com/huggingface/peft/tree/main/src/peft/tuners/deft"
+}

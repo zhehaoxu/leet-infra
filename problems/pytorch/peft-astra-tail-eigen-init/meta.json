@@ -1,0 +1,16 @@
+{
+ "title": "PEFT：Astra 激活空间尾特征向量初始化",
+ "title_en": "PEFT: Astra Activation-Space Tail-Eigenvector Initialization",
+ "difficulty": "Medium",
+ "tags": [
+  "operator",
+  "peft"
+ ],
+ "order": 811,
+ "variants": {
+  "pytorch": {
+   "label": "PyTorch",
+   "available": true
+  }
+ }
+}

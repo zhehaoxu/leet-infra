@@ -1,0 +1,16 @@
+{
+ "title": "PEFT：CorDA 上下文定向分解适配",
+ "title_en": "PEFT: CorDA Context-Oriented Decomposition Adaptation",
+ "difficulty": "Medium",
+ "tags": [
+  "operator",
+  "peft"
+ ],
+ "order": 810,
+ "variants": {
+  "pytorch": {
+   "label": "PyTorch",
+   "available": true
+  }
+ }
+}

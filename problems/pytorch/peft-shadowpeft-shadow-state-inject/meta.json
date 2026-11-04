@@ -1,0 +1,21 @@
+{
+  "slug": "peft-shadowpeft-shadow-state-inject",
+  "collection": "peft",
+  "order": 817,
+  "title": "ShadowPEFT 用影子状态差值注入与门控更新跨层协调适配",
+  "title_en": "ShadowPEFT coordinates adaptation across depth via shadow-state injection and gated updates",
+  "difficulty": "Hard",
+  "tags": [
+    "peft",
+    "shadowpeft",
+    "gated-update",
+    "low-rank-injection",
+    "edge-cloud"
+  ],
+  "variants": {
+    "pytorch": {
+      "label": "PyTorch",
+      "available": true
+    }
+  }
+}

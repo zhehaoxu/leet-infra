@@ -1,0 +1,16 @@
+{
+ "title": "PEFT：GenKnowSub 通用知识减除",
+ "title_en": "PEFT: GenKnowSub General-Knowledge Subtraction",
+ "difficulty": "Medium",
+ "tags": [
+  "operator",
+  "peft"
+ ],
+ "order": 815,
+ "variants": {
+  "pytorch": {
+   "label": "PyTorch",
+   "available": true
+  }
+ }
+}

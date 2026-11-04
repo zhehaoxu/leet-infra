@@ -1,0 +1,12 @@
+{
+  "order": 829,
+  "slug": "asr-sensevoice-rich-tokens",
+  "title": "SenseVoice rich-token 多任务前缀账",
+  "title_en": "SenseVoice rich-token multi-task prefix ledger",
+  "difficulty": "Medium",
+  "tags": ["operator", "asr"],
+  "collection": "asr",
+  "framework": "pytorch",
+  "source": "FunAudioLLM/SenseVoice model.py (SenseVoiceSmall)",
+  "summary": "重建 SenseVoiceSmall 的 rich-token 多任务设计：4 帧前缀 query 构造（[lid, event, emo, textnorm] 查 16 行小 embed 表）、rich CE（LabelSmoothing + ignore）、CTC greedy（unique_consecutive + blank 过滤）、ban_emo_unk 的 -inf 屏蔽语义、内容 CTC 的 [4, L) 偏移窗。"
+}

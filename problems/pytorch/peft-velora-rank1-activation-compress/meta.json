@@ -1,0 +1,16 @@
+{
+ "title": "PEFT：VeLoRA 秩 1 子令牌激活压缩",
+ "title_en": "PEFT: VeLoRA Rank-1 Sub-Token Activation Compression",
+ "difficulty": "Medium",
+ "tags": [
+  "operator",
+  "peft"
+ ],
+ "order": 812,
+ "variants": {
+  "pytorch": {
+   "label": "PyTorch",
+   "available": true
+  }
+ }
+}

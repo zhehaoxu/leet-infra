@@ -1,0 +1,23 @@
+{
+  "title": "CPT 上下文感知提示微调",
+  "order": 820,
+  "collection": "peft",
+  "framework": "pytorch",
+  "variants": {
+    "pytorch": {
+      "label": "PyTorch",
+      "available": true
+    }
+  },
+  "tags": [
+    "peft",
+    "cpt",
+    "icl",
+    "prompt-tuning",
+    "projected-gradient",
+    "decay-loss"
+  ],
+  "difficulty": "Medium",
+  "source": "https://github.com/huggingface/peft/tree/main/src/peft/tuners/cpt",
+  "title_en": "CPT context-aware prompt tuning"
+}

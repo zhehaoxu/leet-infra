@@ -1,0 +1,22 @@
+{
+  "title": "OSF 正交子空间微调",
+  "order": 823,
+  "collection": "peft",
+  "framework": "pytorch",
+  "variants": {
+    "pytorch": {
+      "label": "PyTorch",
+      "available": true
+    }
+  },
+  "tags": [
+    "peft",
+    "osf",
+    "continual-learning",
+    "adaptive-svd",
+    "gradient-projection"
+  ],
+  "difficulty": "Medium",
+  "source": "https://github.com/huggingface/peft/tree/main/src/peft/tuners/osf",
+  "title_en": "OSF orthogonal subspace fine-tuning"
+}

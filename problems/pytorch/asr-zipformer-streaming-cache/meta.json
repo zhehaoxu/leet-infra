@@ -1,0 +1,12 @@
+{
+  "order": 828,
+  "slug": "asr-zipformer-streaming-cache",
+  "title": "Zipformer 流式缓存状态账",
+  "title_en": "Zipformer streaming cache state ledger",
+  "difficulty": "Medium",
+  "tags": ["operator", "asr"],
+  "collection": "asr",
+  "framework": "pytorch",
+  "source": "k2-fsa/icefall egs/librispeech/ASR/zipformer (zipformer.py streaming_forward 族 + scaling.py ChunkCausalDepthwiseConv1d)",
+  "summary": "重建 Zipformer2 的 encoder 端流式状态账：滚动左上下文缓存（key/val/nonlin）、相对位置的 as_strided→gather 对齐、门控卷积的 padding 置零、chunk 级因果卷积的双支路分解（half-kernel causal + 对称 chunkwise×chunk_scale）与整除恒等（逐块流式 == 一次性 forward）。"
+}

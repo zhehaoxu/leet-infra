@@ -1,0 +1,22 @@
+{
+  "title": "Polytropon 技能清单路由",
+  "order": 821,
+  "collection": "peft",
+  "framework": "pytorch",
+  "variants": {
+    "pytorch": {
+      "label": "PyTorch",
+      "available": true
+    }
+  },
+  "tags": [
+    "peft",
+    "polytropon",
+    "mhr",
+    "skill-routing",
+    "multitask"
+  ],
+  "difficulty": "Hard",
+  "source": "https://github.com/huggingface/peft/tree/main/src/peft/tuners/poly",
+  "title_en": "Polytropon skill-inventory routing"
+}
