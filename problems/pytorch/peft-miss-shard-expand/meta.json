@@ -1,0 +1,12 @@
+{
+  "title": "PEFT：MiSS 分片共享扩展与前向合并",
+  "title_en": "PEFT: MiSS Shard-Sharing Expand, Forward and Merge",
+  "difficulty": "Medium",
+  "tags": ["operator", "peft"],
+  "order": 794,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}
