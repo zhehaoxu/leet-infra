@@ -1,0 +1,17 @@
+{
+  "order": 778,
+  "slug": "cot-rot-recursion-stack",
+  "title": "CoT：RoT 递归求解序列构造（子问题内联注入 + 尾递归 + 子问题图展开）",
+  "title_en": "CoT: RoT Recursive Solving Sequence Compilation (Inline Subquestion Injection + Tail Recursion + Problem-Graph Expansion)",
+  "difficulty": "Hard",
+  "tags": ["reasoning-systems", "cot", "rot", "tail-recursion"],
+  "source": "soochan-lee/RoT data/problem.py + data/arithmetic.py + data/tokenizer.py (arXiv:2306.06891)",
+  "source_lines": "problem.py L104-195/L310-319/L369-380 + arithmetic.py L7-274 + tokenizer.py L1-22",
+  "description": "RoT（Recursion of Thought）把一道算术题编译成一条 seq2seq 训练序列的账：tokenizer 按 '\\\\c' 转义与 '<...>' 特殊 token 切分（未闭合 '<...' 整段丢弃）；rot 范式从 tokenizer(问题) 起、y 为 x 右移一位，逐 thought 注入子问题——x 收子问题与子答案 token，y 收子问题 token + '<THINK>' 再补 len(子答案)-1 个 '<PAD>'，label 记 len(子问题)+1 个 T 与 len(子答案)-1 个 PAD；tail thought 把首 token 换成 '<TAIL>'、不发射子答案、主答案也不发射；非 tail 收尾 x 收主答案 token[:-1]、y 收主答案 token、label 记 A；Compare/Add/Mul 的 thought 递归（按位进位链、乘法分解 + tail 加法、Compare 首位/余位比较与 int(str[1:]) 前导零丢失）全部入账；ProbGraph 按 (problem, args) 节点 DFS 先序去重展开，cot 范式前序展平不去重。",
+  "variants": {
+    "pytorch": {
+      "label": "PyTorch",
+      "available": true
+    }
+  }
+}
