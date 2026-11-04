@@ -1,0 +1,19 @@
+{
+ "order": 769,
+ "slug": "diff-fastercache-cfg-freq-approx-step",
+ "title": "扩散：FasterCache CFG-Cache 频域逼近步（delta 状态机 + 低频掩码重建）",
+ "title_en": "Diffusion: FasterCache CFG-Cache Frequency Approximation Step (Delta State Machine + Low-Frequency Mask Reconstruction)",
+ "difficulty": "Hard",
+ "tags": [
+  "operator",
+  "diffusion"
+ ],
+ "collection": "diffusion",
+ "source": "huggingface/diffusers src/diffusers/hooks/faster_cache.py（654 行，FasterCache 论文 arXiv 2410.19355）：FasterCacheDenoiserHook 的开区间 + 取模跳过门控与蒸馏豁免（L261-297）、skip 步 cond 频域拆分 + delta 缩放 + uncond 频域重建 cat 回整批（L306-351）、整批步 chunk 半批 delta 计算（L339-351）、_split_low_high_freq 的 fft2/fftshift + 圆形低频掩码（L638-654）",
+ "variants": {
+  "pytorch": {
+   "label": "PyTorch",
+   "available": true
+  }
+ }
+}
