@@ -1,0 +1,17 @@
+{
+  "order": 783,
+  "slug": "to-stepdpo-step-pairs",
+  "title": "Step-DPO：步级偏好对构造账（错误步定位解析 + 首步截断配对 + 筛选门控）",
+  "title_en": "Step-DPO: Step-Level Preference Pair Construction (Error-Step Location Parsing + First-Error-Step Truncated Pairing + Filtering Gates)",
+  "difficulty": "Hard",
+  "tags": ["training-objectives", "rl", "stepdpo", "data-pipeline"],
+  "source": "dvlab-research/Step-DPO data_pipeline (arXiv:2406.18629)",
+  "source_lines": "locate_error_by_gpt4.py L26-84 + prepare_for_correction.py L7-73 + generate_dataset.py L6-67",
+  "description": "Step-DPO 的核心主张：长 CoT 的错误往往只在某一步，对整条序列做 DPO 会把正确的后续步一起惩罚；正确做法是从第一步错误处截断、只对错误步续写构造 chosen/rejected。三入口复刻官方 data_pipeline 的确定性账（GPT-4o 调用剥除）：collect（locate_error_by_gpt4.main 筛选）——只收 result 为 False 的项（idx 是过滤后 pred_data 下标），question 含 \"diagram\" 且不含 \"asy\" 跳过（有 Asymptote 代码的图题不跳），question2cnt 门控是 >（严格、先查后增）且增量在分片/visited 检查之前（被跳过的项也耗同题名额——同题最多放行 max_count_per_question+1 次），idx % n_groups != remainder 分片跳过，放行项 completion 补 \"Step 1: \" 头、gt_output 与补头 answer 各做 \"\\n\\n\"->\"\\n\" 折叠，先保存再检查 cnt >= max_count_total 截断；locate（prepare_for_correction.main 单条解析）——correctness 取 lower 后 split(\"final decision\")[-1].split(\"summary decision:\")[-1].strip()，无 neutral/incorrect 拒，step_num 段 split(\"neutral\")[0].split(\"incorrect\")[0] 再 split(\"\\n\")[-1].split(\";\")[-1]（先 neutral 后 incorrect 的切分序使两关键词谁在前都截到第一个错误步），段内 count(\"step\")>1 拒、int() 失败拒；completion_full = prompt 拆出的 prefix（已生成部分）+ completion（续写），无 \"Step {n}:\" 拒；prefix_out = split(marker)[0] + marker，output = completion_full.replace(prefix_out, \"\") 是**全局替换**（后文重复的 \"Step {n}:\" 段一起删），返回 prefix 剥 \"Let's think step by step.\\n\"；pair（generate_dataset.main 对构造）——corrections 按 identifier（question + \"||\" + 剥 Let's think 的 prefix）分组，source 行失配 invalid_cnt+=1，命中行每条 correction 的 chosen/rejected 各取 split(\"\\nStep \")[0] 首步，chosen_first_step 已见只跳该条（去重键是 chosen 首步、rejected 不去重），cnt 计数在去重检查之前，产出 prefix 加回 Let's think 头、original_chosen 保留全文。",
+  "variants": {
+    "pytorch": {
+      "label": "PyTorch",
+      "available": true
+    }
+  }
+}
