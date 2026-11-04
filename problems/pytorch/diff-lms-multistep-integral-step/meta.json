@@ -1,0 +1,19 @@
+{
+ "order": 757,
+ "slug": "diff-lms-multistep-integral-step",
+ "title": "扩散：LMS 的 σ 空间积分系数与导数历史账",
+ "title_en": "Diffusion: LMS sigma-space integral coefficients with derivative history",
+ "difficulty": "Medium",
+ "tags": [
+  "operator",
+  "diffusion"
+ ],
+ "collection": "diffusion",
+ "source": "huggingface/diffusers src/diffusers/schedulers/scheduling_lms_discrete.py（675 行）：step 的 convert 三分支（L587-597）、导数追加与 pop 头部封顶（L600-603）、order = min(step_index+1, order) warmup（L606）、get_lms_coefficient 的 Lagrange 基连乘 + scipy.integrate.quad(epsrel=1e-4) σ 空间积分（L267-294）、zip(lms_coeffs, reversed(derivatives)) 落地（L610-612）、set_timesteps 末位追加 0（L344）",
+ "variants": {
+  "pytorch": {
+   "label": "PyTorch",
+   "available": true
+  }
+ }
+}
