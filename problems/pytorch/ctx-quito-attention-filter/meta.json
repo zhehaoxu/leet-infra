@@ -1,0 +1,12 @@
+{
+  "title": "上下文压缩：QUITO 查询注意力过滤",
+  "title_en": "Context Compression: QUITO Query-Attention Filtering",
+  "difficulty": "Medium",
+  "tags": ["operator", "context"],
+  "order": 801,
+  "variants": {
+    "pytorch": {"label": "PyTorch", "available": true},
+    "triton": {"label": "Triton", "available": false},
+    "cuda": {"label": "CUDA", "available": false}
+  }
+}
