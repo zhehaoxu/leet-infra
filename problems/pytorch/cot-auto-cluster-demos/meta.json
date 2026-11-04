@@ -1,0 +1,17 @@
+{
+  "order": 775,
+  "slug": "cot-auto-cluster-demos",
+  "title": "CoT：Auto-CoT 聚类选代表拼 demo（簇内距心排序 + 五重过滤）",
+  "title_en": "CoT: Auto-CoT Cluster-Representative Demo Assembly (Intra-Cluster Distance Sorting + Five Filters)",
+  "difficulty": "Medium",
+  "tags": ["reasoning-systems", "cot", "prompting", "clustering", "demo-selection"],
+  "source": "amazon-science/auto-cot run_demo.py (Auto-CoT, arXiv:2210.03493)",
+  "source_lines": "run_demo.py L41-154",
+  "description": "Auto-CoT 的 demo 选择流水线：聚类分配与到质心距离矩阵显式入参（KMeans/编码器不入判题域），簇内按距心距离稳定升序逐候选过五重过滤（问题 ≤60 词、rationale 行数 ≤max_ra_len、以句点结尾、答案非空、算术任务答案回验：倒数第二句或尾 10 词须含答案），首个通过者独占该簇名额，rationale 清洗为空白折叠单行，簇按编号序拼出异质 demo 集。",
+  "variants": {
+    "pytorch": {
+      "label": "PyTorch",
+      "available": true
+    }
+  }
+}
