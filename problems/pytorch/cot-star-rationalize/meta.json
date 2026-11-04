@@ -1,0 +1,17 @@
+{
+  "order": 780,
+  "slug": "cot-star-rationalize",
+  "title": "CoT：STaR 自举理性化账（三数据集答案抽取链 + 答对写回 + hint 池分批理性化）",
+  "title_en": "CoT: STaR Bootstrapping Rationalization Ledger (Three-Dataset Answer Extraction Chain + Correct-Writeback + Hint-Pool Batch Rationalization)",
+  "difficulty": "Hard",
+  "tags": ["reasoning-systems", "cot", "star", "rationalization"],
+  "source": "ezelikman/STaR device_inference.py (arXiv:2203.14465)",
+  "source_lines": "device_inference.py L27-97/L99-124/L207-238",
+  "description": "STaR 的官方 eval_output/eval_examples 把「生成 -> 抽取答案 -> 判对错 -> 答对写回训练集」组织成确定性账本（LLM 输出全显式入参）：extract 入口按 dataset_mode 三路抽取——cqa 取首行剪 <|endoftext|> 后取 [-3] 字符（len<3 触发 IndexError 被 except IndexError 静默跳过）、gsm 扫到首条含 #### 的行截断到该行（含）再剪 endoftext 取 split('####')[-1].strip()（无 #### 预测空串判错不保存）、arithmetic 在行列表上做整行相等的成员测试（<|endoftext|> 行下标-1 为预测行，下标 0 时得 -1 取最后一行；</scratch> 行下标+1==len 则跳过；否则 direct 且行数>1 取 1、否则 0），判对（两侧 lower）才把 base_context + 抽取中间串 + endoftext 写回并按 class 分桶累计 {'accurate','total'}（total 在 try 前自增）；score 入口 total==0 返回 int 0；context 入口组装三数据集上下文（cqa 选项 (label) text 且 hint 版正确项加 (CORRECT)、gsm hint 追加 ' (answer)'、arithmetic 按 Target: 相邻切片对拼 seg+'Target:'，direct 只留 </scratch> 后半段、hint 追加下一段倒数第 5 行）；eval 入口按 eval_batch_size 分批评测（不足最后一批永不评测），批内 arithmetic 用 base.split('\\n\\n')[:-1] 覆盖 few-shot、rng.random()<p_show_hint_save 时保存用 hinted base、few_shot_train 加 train_prompts 前缀（arithmetic 直接 NotImplementedError），批评完答错样本以 rng.random()<p_rationalization 进 hint 池，rationalize 且池满一批立即以 key+'_r' 重命名独立分桶并用 hint 上下文重评、剩余留池（carry-over）。",
+  "variants": {
+    "pytorch": {
+      "label": "PyTorch",
+      "available": true
+    }
+  }
+}
