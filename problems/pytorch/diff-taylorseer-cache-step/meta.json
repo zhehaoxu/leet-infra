@@ -1,0 +1,19 @@
+{
+ "order": 763,
+ "slug": "diff-taylorseer-cache-step",
+ "title": "扩散：TaylorSeer 缓存步（门控 + 差分递推 + 泰勒外推）",
+ "title_en": "Diffusion: TaylorSeer Cache Step (Gating + Divided Differences + Taylor Extrapolation)",
+ "difficulty": "Medium",
+ "tags": [
+  "operator",
+  "diffusion"
+ ],
+ "collection": "diffusion",
+ "source": "huggingface/diffusers src/diffusers/hooks/taylorseer_cache.py（348 行，论文 arXiv 2503.06923）：_measure_should_compute 的 warmup/interval/cooldown 三条件门控（L228-236）、TaylorSeerState.update 的 delta 归一差分递推与形状变化重启（L130-162）、predict 的 Σ offset^j/j!·f[j] 泰勒外推（L165-197）",
+ "variants": {
+  "pytorch": {
+   "label": "PyTorch",
+   "available": true
+  }
+ }
+}
