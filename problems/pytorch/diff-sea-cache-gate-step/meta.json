@@ -1,0 +1,19 @@
+{
+ "order": 766,
+ "slug": "diff-sea-cache-gate-step",
+ "title": "扩散：SeaCache 频域指示器门控步（SEA 滤波 + 累积预算 + 残差外推）",
+ "title_en": "Diffusion: SeaCache Spectral-Indicator Gate Step (SEA Filter + Accumulated Budget + Residual Extrapolation)",
+ "difficulty": "Medium",
+ "tags": [
+  "operator",
+  "diffusion"
+ ],
+ "collection": "diffusion",
+ "source": "huggingface/diffusers src/diffusers/hooks/sea_cache.py（1097 行，SeaCache 论文 arXiv 2602.18993）：_apply_sea_filter 的三轴 Wiener 型频域增益与密度归一化（L362-389）、_build_indicator 的 movedim(0,-1)（L392-405）、SeaCacheSharedState.resolve_gate 的累积相对 L1 预算/强制 compute 五条件/非相邻重置（L182-245）、leader 路径的残差复用与线性外推（L827-878）、_record_full_execution 的 history 截断（L288-311）",
+ "variants": {
+  "pytorch": {
+   "label": "PyTorch",
+   "available": true
+  }
+ }
+}
