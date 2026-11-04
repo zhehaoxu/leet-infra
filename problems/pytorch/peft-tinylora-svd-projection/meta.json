@@ -1,0 +1,12 @@
+{
+  "title": "PEFT：TinyLoRA 冻结 SVD 因子与随机投影组合",
+  "title_en": "PEFT: TinyLoRA Frozen SVD Factors and Random Projection Composition",
+  "difficulty": "Medium",
+  "tags": ["operator", "peft"],
+  "order": 795,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}
