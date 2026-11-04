@@ -1,0 +1,19 @@
+{
+ "order": 768,
+ "slug": "diff-fastercache-attention-extrap-step",
+ "title": "扩散：FasterCache 注意力外推广播步（batch 舞步 + 双槽线性外推）",
+ "title_en": "Diffusion: FasterCache Attention Extrapolation Step (Batch Dance + Two-Slot Linear Extrapolation)",
+ "difficulty": "Medium",
+ "tags": [
+  "operator",
+  "diffusion"
+ ],
+ "collection": "diffusion",
+ "source": "huggingface/diffusers src/diffusers/hooks/faster_cache.py（654 行，FasterCache 论文 arXiv 2410.19355）：FasterCacheBlockHook.new_forward 的开区间 + 取模跳过门控与 batch 失配复核（L407-432）、_compute_approximated_attention_output 的 conditional 半批切片与线性外推 t_1 + (t_1 − t_2)·weight（L392-405）、双槽缓存滚动与 chunk 半批维护（L459-478）",
+ "variants": {
+  "pytorch": {
+   "label": "PyTorch",
+   "available": true
+  }
+ }
+}
