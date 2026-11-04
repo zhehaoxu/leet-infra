@@ -1,0 +1,19 @@
+{
+ "order": 762,
+ "slug": "diff-tcd-gamma-two-segment-step",
+ "title": "扩散：TCD gamma 中间噪声级与两段式一致性步",
+ "title_en": "Diffusion: TCD Gamma Intermediate Noise Level and Two-Segment Consistency Step",
+ "difficulty": "Hard",
+ "tags": [
+  "operator",
+  "diffusion"
+ ],
+ "collection": "diffusion",
+ "source": "huggingface/diffusers src/diffusers/schedulers/scheduling_tcd.py（810 行，论文 arXiv 2410.05964）：step 的 timestep_s = floor((1−eta)·prev_timestep) gamma 插值与三参数化 x0/ε 推导（L654-682）、两段式 prev = √(ᾱ_prev/ᾱ_s)·x_s + √(1−ᾱ_prev/ᾱ_s)·noise 与末步/eta=0 门控（L684-703）、set_timesteps 自定义路径的严格递减校验（L503-506）",
+ "variants": {
+  "pytorch": {
+   "label": "PyTorch",
+   "available": true
+  }
+ }
+}
