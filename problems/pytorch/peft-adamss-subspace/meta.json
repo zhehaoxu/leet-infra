@@ -1,0 +1,12 @@
+{
+  "title": "PEFT：AdaMSS 自适应多子空间散射适配",
+  "title_en": "PEFT: AdaMSS Adaptive Multi-Subspace Scatter Adaptation",
+  "difficulty": "Hard",
+  "tags": ["operator", "peft"],
+  "order": 797,
+  "variants": {
+    "pytorch": { "label": "PyTorch", "available": true },
+    "triton": { "label": "Triton", "available": false },
+    "cuda": { "label": "CUDA", "available": false }
+  }
+}
