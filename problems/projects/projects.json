@@ -1,0 +1,13 @@
+[
+  {
+    "slug": "build-a-simple-agent",
+    "name": "实现一个简单的 Agent",
+    "name_en": "Build a Simple Agent",
+    "summary": "从零搭一个 ReAct 循环：工具 schema、循环状态机、记忆账本、重试熔断，到多轮脚本化对话终局验收",
+    "summary_en": "Build a ReAct loop from scratch: tool schema, loop state machine, memory ledger, retry and circuit breaker, ending with a scripted multi-turn acceptance run",
+    "difficulty": "Medium",
+    "status": "live",
+    "step_count": 6,
+    "display_order": 1
+  }
+]

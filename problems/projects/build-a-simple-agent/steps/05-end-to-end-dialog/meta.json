@@ -1,0 +1,33 @@
+{
+  "title": "多轮脚本化对话终局验收",
+  "title_en": "Scripted Multi-Turn End-to-End Acceptance",
+  "difficulty": "Hard",
+  "tags": [
+    "project",
+    "agentic"
+  ],
+  "variants": {
+    "pytorch": {
+      "label": "PyTorch",
+      "available": true
+    }
+  },
+  "project": "build-a-simple-agent",
+  "step": 5,
+  "step_title": "多轮脚本化对话终局验收",
+  "depends_on": [
+    3,
+    4
+  ],
+  "verification": [
+    "L1",
+    "L2"
+  ],
+  "scaffold_imports": [
+    "tool_schema",
+    "react_loop",
+    "memory_ledger",
+    "retry_breaker"
+  ],
+  "final_step": true
+}

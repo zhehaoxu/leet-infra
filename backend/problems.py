@@ -125,6 +125,9 @@ def _parse_variants(meta: dict) -> list[VariantInfo]:
 def load_problems() -> list[Problem]:
     problems: list[Problem] = []
     for meta_path in sorted(PROBLEMS_DIR.glob("*/*/meta.json")):
+        # 项目题物理隔离在 problems/projects/，永不进入普通题库索引/order 池。
+        if meta_path.parent.parent.name == "projects":
+            continue
         meta = json.loads(meta_path.read_text(encoding="utf-8"))
         problems.append(
             Problem(

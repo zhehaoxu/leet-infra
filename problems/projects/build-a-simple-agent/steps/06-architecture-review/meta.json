@@ -1,0 +1,32 @@
+{
+  "title": "L4 设计复盘：为什么不能有状态判题",
+  "title_en": "L4 Design Review: Why Stateful Judging Is Forbidden",
+  "difficulty": "Easy",
+  "tags": [
+    "project",
+    "agentic"
+  ],
+  "variants": {
+    "pytorch": {
+      "label": "PyTorch",
+      "available": true
+    }
+  },
+  "project": "build-a-simple-agent",
+  "step": 6,
+  "step_title": "L4 设计复盘：为什么不能有状态判题",
+  "depends_on": [
+    5
+  ],
+  "verification": [
+    "L4"
+  ],
+  "scaffold_imports": [
+    "tool_schema",
+    "react_loop",
+    "memory_ledger",
+    "retry_breaker",
+    "dialog_runner"
+  ],
+  "final_step": false
+}

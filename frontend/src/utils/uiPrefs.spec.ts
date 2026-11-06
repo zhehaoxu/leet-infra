@@ -30,4 +30,9 @@ describe('首页标签记忆', () => {
     writeHomeTab('all', s)
     expect(readHomeTab(s)).toBe('all')
   })
+  it('存 projects 则读回 projects', () => {
+    const s = fakeStore()
+    writeHomeTab('projects', s)
+    expect(readHomeTab(s)).toBe('projects')
+  })
 })
