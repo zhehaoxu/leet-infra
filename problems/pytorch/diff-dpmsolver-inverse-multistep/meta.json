@@ -1,0 +1,12 @@
+{
+  "order": 832,
+  "slug": "diff-dpmsolver-inverse-multistep",
+  "title": "DPMSolverMultistep 反演调度器的多步更新账",
+  "title_en": "DPMSolverMultistep inverse scheduler: multistep update ledger",
+  "difficulty": "Hard",
+  "tags": ["operator", "diffusion"],
+  "collection": "diffusion",
+  "framework": "pytorch",
+  "source": "huggingface/diffusers src/diffusers/schedulers/scheduling_dpmsolver_multistep_inverse.py (DPMSolverMultistepInverseScheduler)",
+  "summary": "重建 DPMSolverMultistepInverseScheduler 在递增 σ 表（反演方向 h<0）下的单步链路：VP/flow 两条 σ→(α,σ_t) 约定与 λ/h/h_0/h_1、convert_model_output 的 algorithm_type × prediction_type 换算、一/二/三阶多步更新（DPMSolver 与 DPMSolver++ 的 midpoint/heun 及三阶 D1/D2 系数）、以及 step() 的降阶标志、历史移位、选阶与 lower_order_nums 计数器状态机。"
+}

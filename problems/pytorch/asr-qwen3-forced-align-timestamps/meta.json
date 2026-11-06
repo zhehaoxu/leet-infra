@@ -1,0 +1,12 @@
+{
+  "order": 831,
+  "slug": "asr-qwen3-forced-align-timestamps",
+  "title": "Qwen3-ForcedAligner NAR 时间戳账",
+  "title_en": "Qwen3-ForcedAligner NAR timestamp ledger",
+  "difficulty": "Medium",
+  "tags": ["operator", "asr"],
+  "collection": "asr",
+  "framework": "pytorch",
+  "source": "QwenLM/Qwen3-ASR inference/qwen3_forced_aligner.py (Qwen3ForceAlignProcessor / Qwen3ForcedAligner)",
+  "summary": "重建 Qwen3-ForcedAligner 的非自回归时间戳后处理链：CJK 逐字/拉丁词分词与双 <timestamp> 占位编码、仅占位位置的 argmax × segment_time 取值、最长非降子序列（LIS）单调修复（段长 ≤2 邻值择一 / >2 线性插值 / int 截断）、成对词 span 映射与 /1000 秒换算。"
+}

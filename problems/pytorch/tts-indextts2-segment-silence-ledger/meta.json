@@ -1,0 +1,12 @@
+{
+  "order": 835,
+  "slug": "tts-indextts2-segment-silence-ledger",
+  "title": "IndexTTS-2 的文本分段、静音收缩与 mel 长度账",
+  "title_en": "IndexTTS-2: text segmentation, silence shrinking, and mel-length ledger",
+  "difficulty": "Hard",
+  "tags": ["operator", "tts"],
+  "collection": "tts",
+  "framework": "pytorch",
+  "source": "index-tts/index-tts (main): indextts/utils/front.py (TextTokenizer.split_segments_by_token / split_segments / punctuation_marks_tokens), indextts/infer_v2.py (remove_long_silence / generation-loop code_lens / target_lengths = (code_lens * 1.72).long())",
+  "summary": "重建 IndexTTS-2 推理前后处理的三段纯序列/整数账：split_segments_by_token 的逗号/连字符优先级递归切分 + 标点切分（cur_len > 2 才切、引号吞并及 for 循环内 i += 1 不生效）+ 超长硬切 + 跨段 total_token 合并状态机（total_token > quick 与 max_seg / 2 浮点阈值）；remove_long_silence 的整行 silent 计数（含 stop 之后）、count > max_consecutive 触发、连续静音最多留 10 且遇非静音 n 归零、batch 级 isfix 的 padding 重拼与 max_len 水平切齐；以及生成后 code_lens 截到首个 stop、批内切齐、target_lengths = int(code_len * 1.72) 的帧账与 has_warned 布尔判定。不判真实 tokenizer / 声学模型 / 音频 IO，token 与 codes 全作显式入参。"
+}

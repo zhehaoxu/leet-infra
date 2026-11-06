@@ -1,0 +1,12 @@
+{
+  "order": 836,
+  "slug": "ocr-mineru-interval-line-ledger",
+  "title": "MinerU 检测框的区间裁除、重叠门限与 span 行聚合账",
+  "title_en": "MinerU: interval exclusion, overlap gates, and span-to-line grouping ledger",
+  "difficulty": "Hard",
+  "tags": ["operator", "ocr"],
+  "collection": "ocr",
+  "framework": "pytorch",
+  "source": "opendatalab/MinerU (master): mineru/model/ocr/geometry.py (_is_overlaps_y/x_exceeds_threshold, merge_intervals, remove_intervals, merge_overlapping_spans, calculate_is_angle, merge_det_boxes, LINE_WIDTH_TO_HEIGHT_RATIO_THRESHOLD=4), mineru/backend/analysis/pdf/text/lines.py (is_vertical_text_block_by_spans, group_spans_to_lines, merge_spans_to_line fixed threshold=0.6, merge_spans_to_vertical_line, _line_from_spans)",
+  "summary": "重建 MinerU OCR 后处理的四段纯数值/整数账：_is_overlaps_y/x_exceeds_threshold 的 max(0,...) 钳位、min(extent) 分母、严格 > 门限与退化框除零保护（默认 0.8，lines.py 固定 0.6，两处口径不同）；merge_intervals 按 start 排序 + 严格 < 判定使相邻闭区间合并，remove_intervals 的 ±1 离散整数点裁除与 covered/remaining 点数账；group_spans_to_lines 的 interline_equation 降级、有效 span 分母、h/w > 2 与 vertical/valid > 0.8 双严格门、竖排按 bbox[2] 降序 + x 轴分组 + 行内 bbox[1] 升序、横排按 bbox[1] 升序 + y 轴分组 + 行内 bbox[0] 升序、特殊类型双向或强制断行与外接矩形；以及 calculate_is_angle 的左右平均高度带内判定、points_to_bbox 的 p1.x/p1.y/p2.x/p3.y、宽高比严格 > 4 触发 merge_overlapping_spans（其内部亦用严格 < 判 x 边界相接）与 angle 框末尾原样追加。不判真检测/图像/torch，bbox 与 poly 全作显式入参。"
+}

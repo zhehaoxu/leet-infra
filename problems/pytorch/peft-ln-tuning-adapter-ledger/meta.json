@@ -1,0 +1,12 @@
+{
+  "order": 834,
+  "slug": "peft-ln-tuning-adapter-ledger",
+  "title": "LN-Tuning 的层复制、交换式 merge 与训练态账",
+  "title_en": "LN-Tuning: layer copy, swap-style merge, and trainable-state ledger",
+  "difficulty": "Medium",
+  "tags": ["operator", "peft"],
+  "collection": "peft",
+  "framework": "pytorch",
+  "source": "huggingface/peft (main): src/peft/tuners/ln_tuning/config.py / layer.py / model.py, tuners_utils.py, utils/other.py, utils/constants.py",
+  "summary": "重建 peft LN-Tuning 的适配器生命周期控制面：check_target_module_exists 的目标模块选择（exclude_modules 优先且 _ExcludedModule 为 falsy、modules_to_save 正则排除、target str 用 fullmatch、list 精确或 .后缀）、架构默认目标表、update_layer 的 deepcopy 整层 LN（weight+bias 独立副本）与 set_adapter 的 requires_grad 判定、_mark_only_adapters_as_trainable 的可训练参数账（目标 LN 数 × 2 × hidden、非 active adapter 整层冻结）、forward 五分支路由（disable / merged 或无 active / 多 active 报错 / 副本缺失 / 正常 adapter）、merge/unmerge 的交换 base_layer 与副本状态机（一次只允许 1 adapter、已 merged 先 warn 再 unmerge、safe_merge 完全无效）、以及 _unloading_checks 与 prefix not in key 的 key_list 过滤与模块换回账。不判 LN 数值计算，base_out / tuned_out 显式入参。"
+}

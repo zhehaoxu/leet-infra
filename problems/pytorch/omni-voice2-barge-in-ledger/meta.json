@@ -1,0 +1,12 @@
+{
+  "order": 833,
+  "slug": "omni-voice2-barge-in-ledger",
+  "title": "全双工 barge-in 控制面与已合成 chunk 丢弃账",
+  "title_en": "Full-duplex barge-in control plane and synthesized-chunk discard ledger",
+  "difficulty": "Hard",
+  "tags": ["operator", "omni"],
+  "collection": "omni",
+  "framework": "pytorch",
+  "source": "AIIT-GLITCH/voice2 (master): enums.py / state_controller.py / floor_manager.py / interrupt_controller.py / invariants.py / logging_util.py / workers/playback.py / config.py",
+  "summary": "重建全双工语音引擎的 barge-in 控制面：28 条状态转移表与 STOPPED_no_exit / invalid_transition / floor_blocked 三类拒绝、turn 轮次推进与快照、FloorManager 五动作（request_agent_floor 调用 can_agent_speak 时不传 turn_id）、InterruptController 的 debounce 首个触发胜出与 interrupted/floor/state 三连锁、playback_is_allowed 五级优先级与 INV1 强制修复 / INV2 仅审计、LatencyTrace 的 round(4) 与 int(*1000) 延迟账，以及 PlaybackWorker 的 stale guard、chunk_samples 切分与中断时只丢本 turn 排队项的丢弃账。"
+}

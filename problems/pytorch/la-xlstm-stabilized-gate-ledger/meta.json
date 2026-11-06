@@ -1,0 +1,12 @@
+{
+  "order": 837,
+  "slug": "la-xlstm-stabilized-gate-ledger",
+  "title": "xLSTM mLSTM 的 stabilized 指数门、D 矩阵与 chunk 内门控账",
+  "title_en": "xLSTM mLSTM: stabilized exponential gates, D matrix, and intra-chunk gate ledger",
+  "difficulty": "Hard",
+  "tags": ["operator", "linear-attention"],
+  "collection": "linear-attention",
+  "framework": "pytorch",
+  "source": "NX-AI/xlstm (main): xlstm/blocks/mlstm/backends.py (parallel_stabilized_simple L9-90, recurrent_step_stabilized_simple L93-146, chunkwise_simple L149-263); xlstm/blocks/mlstm/cell.py (mLSTMCell state shapes, fgate bias start=3.0/end=6.0); xlstm/components/init.py (bias_linspace_init_ default start=3.4/end=6.0)",
+  "summary": "重建 NX-AI/xlstm 官方 mLSTM backends.py 里三段无真权重、可确定性复现的纯 torch 数值账，q/k/v/i/f 全作显式入参：① recurrent step 的 m_state = max(logsigmoid(f)+m_prev, i) 逐头 log-sum-exp 稳定化（不是 logaddexp，fg_act+ig_act 不必为 1）、fg/ig 双门激活、k/sqrt(DH) 缩放、C(DH×DH) 矩阵记忆与 n(DH×1) normalizer 更新、h_num=q.T@C / qn=q.T@n / h_denom=max(|qn|,exp(-m_new))+eps 的下界由 m 决定；② parallel 形式由 cat([0],cumsum(log_fgates)) 差分 + tril 因果掩码 + [1:,1:] 下标偏移构造 log_fg_matrix、igate_preact.T 按列广播加 i[j]、stabilize_rowwise 决定逐行/全局 max_log_D、D=exp(log_D-max_log_D)（-inf 变 0）、C=qk*D、normalizer=max(|C.sum|,exp(-max_log_D))、h_tilde=(C/(normalizer+eps))@v；③ chunkwise 的 chunk 内 log_fgates_acc 段内 cumsum、loggates=(i-acc+acc_last)-m_loc、chunk 级 m_loc=max、kv=k.T@(v*exp(loggates))、ksum=(k*exp(loggates)).sum(CS)（S 必须被 chunk_size 整除，q 在该段不参与）。不判三形式恒等（撞 la-gla-chunked）、不判 delta rule 矩阵更新（撞 la-gated-deltanet-recurrent）、不判 chunk 间 C/n/m 递推与 intra+inter 合成、不判 nn.Linear 投影/MultiHeadLayerNorm/真模型前向/Triton kernel。"
+}

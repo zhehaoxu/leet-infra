@@ -1,0 +1,12 @@
+{
+  "order": 830,
+  "slug": "asr-qwen3-aut-chunked-encoder",
+  "title": "Qwen3-ASR AuT 分块编码器账",
+  "title_en": "Qwen3-ASR AuT chunked-encoder ledger",
+  "difficulty": "Medium",
+  "tags": ["operator", "asr"],
+  "collection": "asr",
+  "framework": "pytorch",
+  "source": "QwenLM/Qwen3-ASR modeling_qwen3_asr.py (Qwen3ASRAudioEncoder)",
+  "summary": "重建 Qwen3-ASR AuT 编码器的分块设计：per-chunk 8× 下采样长度账（%100 硬编码 + 满 chunk ×13）、分块计划（尾块余数覆盖、整除余 0 回落满窗）、batch 串切混排打包、per-chunk 位置编码与 mask 展平、cu_seqlens 窗口分窗（窗口由 padded 后块长推导）、块对角注意力（段内双向、段间隔离）。"
+}
