@@ -1,0 +1,12 @@
+{
+  "order": 840,
+  "slug": "ctx-sageattention-int8-fp8-quant-ledger",
+  "title": "SageAttention 的 per-block INT8 与 per-channel FP8 量化、舍入口径与转置置换账",
+  "title_en": "SageAttention: the per-block INT8 and per-channel FP8 quantization, rounding, and transpose-permute ledger",
+  "difficulty": "Hard",
+  "tags": ["operator", "quantization"],
+  "collection": "quantization",
+  "framework": "pytorch",
+  "source": "thu-ml/SageAttention (main): csrc/fused/fused.cu::QuantInt8Kernel, MeanScaleKernel, TransposePadPermuteKernel; csrc/numeric_conversion.cuh::float_to_int8_rn; sageattention/triton/quant_per_block.py::quant_per_block_int8_kernel; sageattention/quant.py::per_block_int8, per_channel_fp8",
+  "summary": "重建 thu-ml/SageAttention 官方量化三形式的纯数值账：per-block INT8 的 CUDA 口径（cvt.rni.sat.s8.f32 的 round-to-nearest-even、amax 有 1e-7 防零下界、写 x*(127/amax)）与 Triton 口径（x += 0.5*sign 后向零截断的 half-away-from-zero、amax 无下界、写 x/(amax/127)）的逐点差异；per-channel FP8（E4M3）的 mean/amax/scale/recp_scale 推导（沿 token 维按 head_dim 通道独立归约、均值分母是 padding 到 16 的长度、smooth_v=True 时 amax 是减均值之后的）；以及转置-填充-置换 kernel 的 16 元组 tile 置换布局。不判 attention 前向、CUDA/Triton kernel 调度、FP8 字节的硬件舍入与 mma 指令。"
+}

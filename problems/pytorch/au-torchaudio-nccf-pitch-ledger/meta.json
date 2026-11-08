@@ -1,0 +1,12 @@
+{
+ "order": 858,
+ "slug": "au-torchaudio-nccf-pitch-ledger",
+ "title": "torchaudio NCCF 音高检测账：_compute_nccf 的四次方归一与右侧补零、_combine_max 的严格阈值掩码、_find_max_per_frame 的半窗偏好与双次索引校准、_median_smoothing 的左侧 replicate pad 与下中位、detect_pitch_frequency 的 float32 频率 quirk",
+ "title_en": "torchaudio NCCF pitch-detection ledger: fourth-power normalization and right zero padding in _compute_nccf, the strict threshold mask of _combine_max, half-window preference and double index calibration in _find_max_per_frame, left replicate padding and lower median in _median_smoothing, and the float32 frequency quirk of detect_pitch_frequency",
+ "difficulty": "Hard",
+ "tags": ["operator", "audio"],
+ "collection": "audio",
+ "framework": "pytorch",
+ "source": "pytorch/audio main::src/torchaudio/functional/functional.py (2511 lines, reused from order 855; five functions at lines ~1014-1163)",
+ "summary": "重建 torchaudio.functional NCCF 音高检测五函数的纯 Python 数值账，拆成五个可独立判题的 mode，全部显式入参、无 torch/torchaudio/numpy 依赖、无全局 RNG。mode1 nccf：lags=ceil(sr/freq_low)、frame_size=ceil(sr*frame_time)、num_frames=ceil(L/frame_size)、pad=lags+n*F-L，右侧补零；lag 从 1 到 lags、帧 i 取 s1=padded[iF:iF+F] 与 s2=padded[lag+iF:lag+iF+F]；★ docstring 写 dot/sqrt(E1*E2)，源码实为 dot/(eps+||s1||)^2/(eps+||s2||)^2 两次连除（四次方归一），eps=1e-9 在 0.2499999995!=0.25 上可见，且该归一化非尺度不变（波形乘 2 使每值除以 4，argmax 不变）；输出 lead+[num_frames,lags]。mode2 combine_max：mask=a_values>thresh*b_values 严格大于，命中同时取 a 的值与索引，默认 thresh=0.99 且必须为正，四个数组等长非空。mode3 find_max：lag_min=ceil(sr/freq_high)、best=max(row[lag_min:])、half_size=lags//2、half=max(row[lag_min:half_size])，官方以 _combine_max(half,best)（a 是前半窗、阈值硬编码 0.99）偏好较小 lag，再 +=lag_min 与 +=1 两次校准；argmax 取首次最大，half_size<=lag_min 时提前拒绝。mode4 median_smooth：pad_length=(w-1)//2 只左侧 replicate pad、右侧不补，unfold 后 torch.median 偶数窗取下中位 sorted[(n-1)//2]，输出 n-ceil((w-1)/2) 帧比输入短，w=1/2 官方 torch.cat([]) 崩溃故域约束 w>=3。mode5 pitch：批次 pack 成 [-1,L] 行依次跑 nccf→find_max→median_smooth，freq=sr/(1e-9+index) 后按输入前导维 unpack，中间账 nccf/indices/smoothed 一并返回；★ 官方末行 indices.to(torch.float) 的 float32 降级吞掉 epsilon 使 index=4 恰得 200.0，判题口径在 float64 下重算得 199.99999995，freq_official 单独暴露官方行为。所有非法输入抛带具体关键字的 ValueError，校验顺序亦属契约，未知 mode 抛 unknown mode。官方逐字执行环境用 ast.get_source_segment 抽取五个顶层函数 exec 到共享 NS，驱动层统一 float64；12 段探针 57/57；三层对拍 official/reference/独立定义式 oracle 471 项 ALL GREEN；判题用例 21 个 check_*(solve) 参考解 21/21；mutation 原始 202 项，剔除 11 个真等价（含 400 组扫描实测 max|diff|=6.94e-18 的分母交换等价）后 191/191 全 CAUGHT。"
+}

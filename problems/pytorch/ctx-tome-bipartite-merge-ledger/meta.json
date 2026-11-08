@@ -1,0 +1,12 @@
+{
+  "order": 841,
+  "slug": "ctx-tome-bipartite-merge-ledger",
+  "title": "ToMe 的二分软匹配合并账：余弦精确比较、token 归并与尺寸加权归一",
+  "title_en": "ToMe's bipartite soft matching merge ledger: exact cosine comparison, token merging, and size-weighted normalization",
+  "difficulty": "Hard",
+  "tags": ["operator", "context"],
+  "collection": "context-compression",
+  "framework": "pytorch",
+  "source": "facebookresearch/ToMe (main): tome/merge.py::bipartite_soft_matching, merge, unmerge, merge_wavg, merge_source; tome/utils.py::parse_r; tome/patch/timm.py::ToMeBlock.forward, ToMeAttention.forward",
+  "summary": "重建 facebookresearch/ToMe 官方二分软匹配（bipartite soft matching）合并路径的纯数值账：奇偶交错分半后的精确余弦比较与 max 选择（并列取下标最小）、按相似度降序稳定排序选前 r 个被合并 token、class_token 与 distill_token 在不同轴上的 -inf 保护、scatter_reduce 的 include_self 语义（mean 的分母含目标自身）、merge 的输出重排（含 distill_token 的交错布局）、merge_wavg 的分母是 size 之和而非 token 个数、以及 unmerge 的位置回填。不判 ViT 前向、GPU kernel、timm patch 的实际接线与比例注意力 softmax。"
+}

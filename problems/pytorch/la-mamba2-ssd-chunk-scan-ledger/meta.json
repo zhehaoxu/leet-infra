@@ -1,0 +1,12 @@
+{
+ "order": 850,
+ "slug": "la-mamba2-ssd-chunk-scan-ledger",
+ "title": "Mamba2 SSD chunk 扫描三段账：chunk 内状态账的相对末项衰减与 (g h) group 展开、(c+1)x(c+1) 下三角衰减矩阵的方向、chunk 内两两交叉项 CB 与逐位置状态衰减、D 加性跳连与 z 乘性 silu 门控、dt_bias 的先加后 softplus 累积效应，以及官方 seqlen 非整数倍时参考实现崩掉的约定",
+ "title_en": "Mamba2 SSD chunk-scan three-stage ledger: the end-relative decay and (g h) group expansion of the intra-chunk state, the orientation of the (c+1)x(c+1) lower-triangular decay matrix, the intra-chunk pairwise cross term CB with per-position state decay, the additive D skip and the multiplicative z silu gate, the cumulative effect of adding dt_bias before softplus, and the convention that the official reference implementation crashes when seqlen is not a multiple of chunk_size",
+ "difficulty": "Hard",
+ "tags": ["operator", "linear-attention"],
+ "collection": "linear-attention",
+ "framework": "pytorch",
+ "source": "state-spaces/mamba: mamba_ssm/ops/triton/ssd_chunk_state.py::chunk_state_ref, mamba_ssm/ops/triton/ssd_state_passing.py::state_passing_ref, mamba_ssm/ops/triton/ssd_chunk_scan.py::chunk_scan_ref, mamba_ssm/ops/triton/ssd_combined.py::ssd_chunk_scan_combined_ref",
+ "summary": "重建 Mamba-2 SSD 分块扫描三段流水线的纯 Python 数值账：段一 chunk_state_ref 的 decay_states 是 exp(dA_cumsum 末项减当前项) 因而每 chunk 最后一项恒为 1.0，dA_cumsum 只在 chunk 内累积不跨 chunk，group->head 展开是 (g h) 顺序即 head = g*(h//G)+hi（ngroups==1 时与 (h g) 无法区分），states 的 einsum bclhn,bhcl,bhcl,bclhp->bchpn 只对 l 求和故 h 与 n 不参与求和；段二 state_passing_ref 把初始状态 cat 到前面并对 dA_chunk_cumsum 做 F.pad(...,(1,0)) 后 cumsum，故 decay_chunk 是 (c+1)x(c+1) 的下三角（对角恒 1.0），einsum bhzc,bchd->bzhd 的行 z 是输出 chunk、列 c 是被求和的 chunk，转置即反向，return out[:,:-1], out[:,-1] 使 passed 长度为 c；段三 chunk_scan_ref 的 CB = einsum(bclhn,bcshn->bchls) 是 chunk 内两两交叉项且 B/C 须先经 group 展开，decay[l][s]=exp(dA_cumsum[l]-dA_cumsum[s]) 配合 tril mask 保证因果，state_decay_out 是 chunk 内逐位置 exp(dA_cumsum[l]) 而非 chunk 末值，D 是加性跳连 out+x*D（一维 D 广播成 [h][1]），z 是乘性门控 out*silu(z) 且 silu(z)=z*sigmoid(z)；编排段 dt_bias 在 softplus 之前逐 head 加上因而影响是 (l+1)*bias[h]*A[h] 的累积效应，且官方 ssd_chunk_scan_combined_ref 在 seqlen 非 chunk_size 整数倍时因 chunk_scan_ref 的 assert seqlen==nchunks*chunk_size 直接抛 AssertionError，本题约定显式抛 ValueError。"
+}

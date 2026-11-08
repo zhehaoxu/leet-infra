@@ -1,0 +1,12 @@
+{
+ "order": 848,
+ "slug": "mm-evit-token-reorganize",
+ "title": "EViT token 重组织账：CLS 行跨 head 均值打分、topk 降序保留、丢弃 token 加权求和聚成末尾 extra_token 与 keep_rate 的 ceil 与双变量触发条件",
+ "title_en": "EViT token reorganization ledger: CLS-row cross-head mean scoring, descending top-k retention, discarded tokens fused by weighted sum into a trailing extra token, plus keep-rate ceiling and the two-variable trigger condition",
+ "difficulty": "Hard",
+ "tags": ["token-pruning", "multimodal"],
+ "collection": "multimodal",
+ "framework": "pytorch",
+ "source": "youweiliang/evit: evit.py::Attention.forward (cls_attn scoring + topk selection), evit.py::Block.forward (token reorganization), helpers.py::complement_idx",
+ "summary": "重建 EViT 官方 token 重组织规则的纯数值账：cls_attn 取 attention 第 0 行（cls 作为 query）且列从 1 开始（去掉 cls 自身那一列）再跨 head 求算术平均；left_tokens = math.ceil(keep_rate * (N - 1)) 向上取整且基数为 N-1（N 含 cls token）；触发条件 (self.keep_rate < 1 and keep_rate < 1) or (tokens is not None) 里 self.keep_rate 是构造时的值而 keep_rate 是调用时的值，两者是不同变量；tokens 不为 None 时直接覆盖 left_tokens；left_tokens == N-1 时提前返回且 index/idx 均为 None；torch.topk(largest=True, sorted=True) 让保留 token 按分数降序排列而非下标升序；complement_idx 返回按下标升序的补集；extra_token = sum(non_topk * non_topk_attn) 是加权求和而非加权平均且权重不做归一化；重组顺序为 cat([cls, 按 idx 顺序 gather 的 patch, extra_token])，extra_token 放在末尾。"
+}

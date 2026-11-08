@@ -1,0 +1,12 @@
+{
+ "order": 847,
+ "slug": "cap-deeplift-nonlinear-rule-ledger",
+ "title": "Captum DeepLIFT 非线性传播规则账：差分复制语义、eps 严格小于分支、softmax 全局归一化与 maxpool 的 cross-maximum 拆分与 unpool 覆盖分配",
+ "title_en": "Captum DeepLIFT non-linear propagation rule ledger: duplicated differences, the strict-eps branch, softmax's global normalization, and maxpool's cross-maximum split with overwrite-based unpool allocation",
+ "difficulty": "Hard",
+ "tags": ["attribution", "interpretability"],
+ "collection": "interpretability",
+ "framework": "pytorch",
+ "source": "pytorch/captum: captum/attr/_core/deep_lift.py::_compute_diffs, captum/attr/_core/deep_lift.py::nonlinear, captum/attr/_core/deep_lift.py::softmax, captum/attr/_core/deep_lift.py::maxpool",
+ "summary": "重建 Captum 官方 DeepLIFT 传播规则的纯数值账：_compute_diffs 的 chunk(2) 与 cat(2*[delta]) 使差分长度翻倍（返回长度等于入参长度而非一半）、nonlinear 的 torch.where 判据是严格小于 eps（恰好等于时走除法支，默认 eps 为 1e-10）、softmax 用 grad_input.numel() 作为 n 并减去一个全局标量 sum/n（而非逐行减均值）、maxpool 的 delta_out_xmax 为两半逐元素最大值且 delta_out 前半恒非负后半恒非正、grad_output 与 outputs 同形逐元素相乘、unpool 分配在同址冲突时是后写覆盖而非累加、以及 eps 分支取 grad_input[0]（第一半）导致两半共用第一半的梯度。"
+}

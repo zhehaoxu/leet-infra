@@ -1,0 +1,12 @@
+{
+  "order": 839,
+  "slug": "la-slstm-normalizer-state-ledger",
+  "title": "xLSTM sLSTM 的 max 稳定器、normalizer state 与标量记忆点式递推账",
+  "title_en": "xLSTM sLSTM: the max stabilizer, normalizer state, and scalar-memory pointwise recurrence ledger",
+  "difficulty": "Hard",
+  "tags": ["operator", "linear-attention"],
+  "collection": "linear-attention",
+  "framework": "pytorch",
+  "source": "NX-AI/xlstm (main): xlstm/blocks/slstm/src/vanilla/slstm.py::slstm_forward_pointwise; xlstm/blocks/slstm/cell.py::sLSTMCellConfig, reset_parameters; xlstm/components/init.py::bias_linspace_init_",
+  "summary": "重建 NX-AI/xlstm 官方 sLSTM vanilla 点式前向的三段纯数值账：max 稳定器与双门（logfplusm = m + logsigmoid(fraw)、torch.all(n==0) 的整帧分支、igate/fgate 的 minimum(·,1) 硬上界）、标量记忆 + normalizer state 递推（cnew = fgate*c + igate*tanh(zraw)、nnew = fgate*n + igate、ynew = ogate*cnew/nnew）、以及 f 门 bias 的 powerlaw_blockdependent 与 small_init 两种初始化。不判 GEMM 布局、CUDA kernel 与 autograd 反传。"
+}

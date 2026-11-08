@@ -1,0 +1,15 @@
+{
+ "order": 844,
+ "slug": "la-retnet-retention-xpos-ledger",
+ "title": "RetNet 保留机制的三种表示等价账：指数衰减矩阵、递归状态递推与分块内跨块衰减",
+ "title_en": "RetNet retention's three-form equivalence ledger: the exponential decay matrix, the recurrent state recurrence, and chunkwise cross-chunk decay",
+ "difficulty": "Hard",
+ "tags": [
+  "operator",
+  "linear-attention"
+ ],
+ "collection": "linear-attention",
+ "framework": "pytorch",
+ "source": "Jamie-Stirling/RetNet: src/retention.py::SimpleRetention.forward, forward_recurrent, forward_chunkwise, _get_D; SimpleRetention; MultiScaleRetention.__init__, forward; src/xpos_relative_position.py::XPOS.__init__, forward; fixed_pos_embedding; rotate_every_two; duplicate_interleave; apply_rotary_pos_emb",
+ "summary": "重建 RetNet 官方实现的 retention 机制与 xPos 相对位置的纯数值账：指数衰减矩阵 D[n][m] = γ^(n-m)（n>=m，n<m 恒 0，官方用 D[D != D] = 0 兜回负指数 overflow 出的 NaN）、parallel/recurrent/chunkwise 三种表示的等价性（递归形态下 K_n 与 V_n 只有当前一步故 K_n^T V_n 是单步外积不做 m 求和；chunkwise 的 r_i 用 γ^(本块实际长度) 衰减（官方 forward_chunkwise 内 chunk_size = x_i.shape[1]）而 cross_chunk 必须用【旧状态 r_i_1】而非刚算出的 r_i（衰减指数差异在输出上不可观测，故额外返回 block_states 暴露每块状态）、跨块衰减因子 e[j] = γ^(j+1)；块内加权用 D[-1] 即衰减矩阵最后一行）、官方 chunkwise 与 parallel 不等价的真实 bug（forward_chunkwise 第三参数是块索引而函数内 chunk_size 取本块实际长度，故末块长度不足时 offset 变成 块索引×实际长度 而非真实绝对起始位置，受控实验证明唯一根因是 xPos 的 offset）、xPos 的十处细节（scale_base=512、base[j]=(2j+0.4*head_dim)/(1.4*head_dim) 且官方 buffer 是 float32、scale[pos][j]=base[j]^(pos/512)、offset>0 时 scale/sin/cos 三者一起取最后 seq_len 行、官方顺序是【先在完整行上算 sin/cos 再一起截断】、downscale 的取倒数发生在 fixed_pos_embedding 之后故 sin/cos 不变、fixed_pos_embedding 的 dim 是 head_dim/2 且 inv_freq 全程 float32、duplicate_interleave 与 rotate_every_two 都是交错而非拼接、奇数 head_dim 时官方 rotate_every_two 的 stack 直接崩而补零分支是死代码）、MultiScaleRetention 的多尺度 γ 序列 1-exp(linspace(log(1/32), log(1/512), heads))、GroupNorm 的 reshape(-1, v_dim) 每位置独立且方差有偏 1/N 且每组取连续通道、swish 门控，以及 xPos 是 retention 必需组成部分（去掉差 0.0515，加上差 0.0）。mode 1 与 mode 2 是纯 retention 骨架，全链路精确有理数逐位判定并断言 parallel == recurrent == chunkwise；mode 3 与 mode 4 含无理量，按相对容差 1e-9 与分层绝对容差 1e-8/1e-6 判定，以吸收 GroupNorm 的 rstd 对上游尾差的放大。不判 autograd 引擎、GPU kernel、真实训练权重与 dropout。"
+}

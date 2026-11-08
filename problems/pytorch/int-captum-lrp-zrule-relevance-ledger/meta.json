@@ -1,0 +1,12 @@
+{
+ "order": 843,
+ "slug": "int-captum-lrp-zrule-relevance-ledger",
+ "title": "Captum LRP 的 z-rule 传播账：三条权重改写规则、两次前向语义与逐层 relevance 归一化",
+ "title_en": "Captum LRP z-rule relevance ledger: three weight-rewrite rules, the two-forward semantics, and per-layer relevance normalization",
+ "difficulty": "Hard",
+ "tags": ["operator", "interpretability"],
+ "collection": "interpretability",
+ "framework": "pytorch",
+ "source": "pytorch/captum (main): captum/attr/_core/lrp.py::LRP.attribute, _get_layers, _compute_output_and_change_weights, _register_forward_hooks, _register_pre_hooks, compute_convergence_delta; captum/attr/_utils/lrp_rules.py::PropagationRule._create_backward_hook_output, _create_backward_hook_input, EpsilonRule, GammaRule, Alpha1_Beta0_Rule; captum/attr/_utils/custom_modules.py::Addition_Module",
+ "summary": "重建 pytorch/captum 官方 LRP 的 z-rule 传播链路的纯数值账：三条传播规则的权重改写（epsilon 规则 _manipulate_weights 为 pass 只改稳定因子；gamma 规则 W' = W + gamma * clamp(W, min=0) 只有正权重被放大 1+gamma 而负权重不变的官方 quirk；alpha1_beta0 规则 clamp(min=0) 清零负权重即 Deep-Taylor；set_bias_to_zero 时偏置全零）、两次前向的准确语义（第一次前向用原权重链式前向并由 forward_hook_weights 存下每层输入激活，第二次前向由 forward_pre_hook_activations 把每层输入还原成原激活，故每层是改写后的权重 W' 乘该层原激活而非改写权重链式前向）、z-rule 两个 backward hook 的精确公式（output hook 分母 outputs + sign(outputs) * 1e-9 且 sign(0) = +1 的官方 quirk；input hook 为 grad 乘第一次前向的激活）、跨层上游量传递的是上一层 relevance_in 而非 relevance_out、attribution = 最输入层 relevance_in 乘原权重下的 target 值故求和不等于 output、以及完备性残差 delta = output - attr_sum（与 Captum Integrated Gradients 的 delta 符号相反）。全链路精确有理数逐位判定，epsilon 钉为精确有理 1/10^9。不收 identity 规则（官方实现必抛 KeyError），不判 autograd 引擎、GPU kernel、非线性层规则与多输入张量聚合。"
+}

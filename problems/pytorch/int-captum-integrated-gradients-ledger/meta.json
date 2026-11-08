@@ -1,0 +1,12 @@
+{
+ "order": 842,
+ "slug": "int-captum-integrated-gradients-ledger",
+ "title": "Captum Integrated Gradients 的求积与归因账：步长与路径参数、step-major 布局与完备性公理",
+ "title_en": "Captum Integrated Gradients quadrature and attribution ledger: step sizes and path parameters, step-major layout, and the completeness axiom",
+ "difficulty": "Hard",
+ "tags": ["operator", "interpretability"],
+ "collection": "interpretability",
+ "framework": "pytorch",
+ "source": "pytorch/captum (main): captum/attr/_utils/approximation_methods.py::approximation_parameters, riemann_builders, gauss_legendre_builders, Riemann, SUPPORTED_METHODS; captum/attr/_core/integrated_gradients.py::IntegratedGradients._attribute; captum/attr/_utils/common.py::_reshape_and_sum, _sum_rows; captum/attr/_utils/attribution.py::Attribution.compute_convergence_delta",
+ "summary": "重建 pytorch/captum 官方 Integrated Gradients 求积与归因链路的纯数值账：五种求积方法的 step_sizes 与 alphas（Riemann 四变体的四种端点约定、trapezoid 首尾减半致步长和为 1-1/n 的官方 quirk、Gauss-Legendre 的 step_sizes 是 Legendre 求积权重而非等宽步长、alphas 是缩放后的求积节点、n>1 与 n>0 的断言差异）、scaled_features 与 grads 的官方 step-major 布局（第 s*B+b 行）、沿 step 维加权求和的 total_grads、multiply_by_inputs 开关下的 attributions、以及完备性公理残差 delta = attr_sum - (end_out_sum - start_out_sum) 的符号顺序。Riemann 分支全程精确有理数逐位判定，Gauss-Legendre 用相对容差。不判前向传播、自动微分、GPU kernel 与多输入张量的 attr_sum 聚合。"
+}

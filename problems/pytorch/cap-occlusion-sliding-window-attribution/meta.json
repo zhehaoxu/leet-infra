@@ -1,0 +1,12 @@
+{
+ "order": 845,
+ "slug": "cap-occlusion-sliding-window-attribution",
+ "title": "Captum Occlusion 滑动窗口扰动归因账：网格枚举、掩码覆盖、差分累加与重叠区取平均",
+ "title_en": "Captum Occlusion's sliding-window perturbation attribution ledger: grid enumeration, mask coverage, difference accumulation, and averaging over overlapping regions",
+ "difficulty": "Hard",
+ "tags": ["attribution", "interpretability"],
+ "collection": "interpretability",
+ "framework": "pytorch",
+ "source": "pytorch/captum: captum/attr/_core/occlusion.py::Occlusion.attribute, Occlusion._occlusion_mask; captum/attr/_core/feature_ablation.py::FeatureAblation.attribute, _process_ablated_out_full, format_result; captum/attr/_utils/common.py::_format_and_verify_sliding_window_shapes, _format_and_verify_strides, _format_baseline; captum/_utils/common.py::_select_targets, _verify_select_column",
+ "summary": "重建 Captum 官方 Occlusion 的纯数值账：滑动窗口网格的 base-conversion 枚举（dim0 为最低位）、末窗负 padding 截断、每窗 0/1 掩码与逐特征覆盖计数、逐窗遮挡后的输出差分与未归一化累加、以及 use_weights=True 下重叠区归因取平均并复现官方 format_result 的 float32 降级；含负 target 的 PyTorch 负索引语义与标量 stride 广播。"
+}

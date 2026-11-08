@@ -1,0 +1,12 @@
+{
+ "order": 846,
+ "slug": "tts-vits-flow-ledger",
+ "title": "VITS 归一化流前向/反向与 log-det 账：channel 翻转、coupling 掩码语义与时长预测器双账",
+ "title_en": "VITS normalizing flow forward/reverse and log-det ledger: channel flipping, coupling mask semantics, and the duration predictor's dual ledgers",
+ "difficulty": "Hard",
+ "tags": ["normalizing-flow", "tts"],
+ "collection": "tts",
+ "framework": "pytorch",
+ "source": "jaywalnut310/vits: modules.py::Log.forward, modules.py::Flip.forward, modules.py::ElementwiseAffine.forward, modules.py::ResidualCouplingLayer.forward; models.py::ResidualCouplingBlock.forward, models.py::StochasticDurationPredictor.forward",
+ "summary": "重建 VITS 官方归一化流的纯数值账：Log 的 clamp_min(1e-5) 与 logdet=sum(-y)、Flip 翻 channel 轴且完全忽略 mask、ElementwiseAffine 的整体 mask 与 sum(logs*mask)、ResidualCouplingLayer 中 mask 只乘 x1 项（mask=0 处输出是 m）且 logdet 不乘 mask、ResidualCouplingBlock 的 [Coupling, Flip] 交替编排与 reverse 逆序执行（n=2 时正逆序数值不可观测）、以及 StochasticDurationPredictor 的 nll 与 logq 双账（含 logsigmoid 项被减去这一关键符号）。"
+}

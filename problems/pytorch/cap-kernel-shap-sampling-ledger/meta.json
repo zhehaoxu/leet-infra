@@ -1,0 +1,12 @@
+{
+ "order": 849,
+ "slug": "cap-kernel-shap-sampling-ledger",
+ "title": "Captum Kernel SHAP 采样与评估次数账：p(k) 的分母与 probs[0] 归零、float32 精度口径、端点 inf_weight、kthvalue 阈值下的严格大于 top-k 与精确版 factorial 评估数",
+ "title_en": "Captum Kernel SHAP sampling and evaluation-count ledger: the p(k) denominator with probs[0] zeroed, float32 precision, the endpoint inf_weight, strictly-greater top-k under a kthvalue threshold, and the factorial evaluation count of the exact variant",
+ "difficulty": "Hard",
+ "tags": ["attribution", "interpretability"],
+ "collection": "interpretability",
+ "framework": "pytorch",
+ "source": "pytorch/captum: captum/attr/_core/kernel_shap.py::KernelShap.attribute, captum/attr/_core/kernel_shap.py::kernel_shap_similarity_kernel, captum/attr/_core/kernel_shap.py::kernel_shap_perturb_generator, captum/attr/_core/shapley_value.py::ShapleyValueSampling._get_n_evaluations, captum/attr/_core/shapley_value.py::ShapleyValues._get_n_evaluations, captum/attr/_core/shapley_value.py::_all_perm_generator",
+ "summary": "重建 Captum 官方 Kernel SHAP 与 Shapley 值采样链路的纯数值账：p(k) = (M-1)/(k*(M-k)) 的分母在 k=0 时为 0 导致 inf，官方用 probs[0]=0.0 手动抹掉；k 的取值范围是 0..M-1 因而 k=M-1 的 probs 恰为 1.0 而非无穷；probs 本身不归一化（M=5 时和为 10/3），真正生效的是 Categorical 内部的归一化；M=1 时 probs 全 0 导致归一化出 NaN、Categorical 抛 Simplex 约束错误，官方在单特征输入下直接崩；官方全程 float32，M=16 时与精确有理数相差约 4.3e-08；相似度权重只在端点（全 0 / 全 1）为 inf_weight=1000000.0 而非真正的无穷，其余为 1.0；扰动生成器无条件先产出全 1 与全 0 两个固定端点样本，随机样本的阈值取 kthvalue(rand_vals, M-k) 即第 (M-k) 小且比较是严格大于，因此并列时反而少选；精确版 ShapleyValues 的前向评估次数用 factorial(total) 完全忽略 n_samples，而 _all_perm_generator 也完全忽略 num_samples 参数。"
+}

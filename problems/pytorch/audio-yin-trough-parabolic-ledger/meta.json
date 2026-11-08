@@ -1,0 +1,12 @@
+{
+  "order": 838,
+  "slug": "audio-yin-trough-parabolic-ledger",
+  "title": "librosa YIN 的 CMND 累积均值归一化差分、抛物线插值与谷值阈值账",
+  "title_en": "librosa YIN: the CMND cumulative mean normalized difference, parabolic interpolation, and trough threshold ledger",
+  "difficulty": "Hard",
+  "tags": ["operator", "audio"],
+  "collection": "audio",
+  "framework": "pytorch",
+  "source": "librosa/librosa (main): librosa/core/pitch.py::_cumulative_mean_normalized_difference, _parabolic_interpolation, _pi_stencil; librosa/util/utils.py::localmin, _localmin_sten",
+  "summary": "重建 librosa 官方 YIN 的三段确定性纯数值账：累积均值归一化差分（E[0] 置零 quirk、d(k)=2(ACF(0)-ACF(k))-E[k-1]、k_range 分母与 min_period-1 切片偏移、tiny 加在分母）、分段抛物线插值（|b|>=|a| 抑制、首尾强制 0）、以及谷值挑选与绝对阈值（localmin 左严格右非严格、末元素双严格、第 0 列覆盖、x<threshold 严格、argmax/argmin 并列取首个、全 False 回退全局最小、period=min_period+idx+shift、f0=sr/period）。不判 FFT 自相关与 pyin 的概率解码。"
+}
