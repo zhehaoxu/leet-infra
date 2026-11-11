@@ -1,0 +1,29 @@
+{
+  "title": "ReAct 循环状态机",
+  "title_en": "ReAct Loop State Machine",
+  "difficulty": "Medium",
+  "tags": [
+    "project",
+    "agentic"
+  ],
+  "variants": {
+    "pytorch": {
+      "label": "PyTorch",
+      "available": true
+    }
+  },
+  "project": "build-a-simple-agent",
+  "step": 2,
+  "step_title": "ReAct 循环状态机",
+  "depends_on": [
+    1
+  ],
+  "verification": [
+    "L1",
+    "L2"
+  ],
+  "scaffold_imports": [
+    "tool_schema"
+  ],
+  "final_step": false
+}

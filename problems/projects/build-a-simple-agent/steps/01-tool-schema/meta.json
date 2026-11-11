@@ -1,0 +1,25 @@
+{
+  "title": "工具 schema 校验器",
+  "title_en": "Tool Schema Validator",
+  "difficulty": "Easy",
+  "tags": [
+    "project",
+    "agentic"
+  ],
+  "variants": {
+    "pytorch": {
+      "label": "PyTorch",
+      "available": true
+    }
+  },
+  "project": "build-a-simple-agent",
+  "step": 1,
+  "step_title": "工具 schema 校验器",
+  "depends_on": [],
+  "verification": [
+    "L1",
+    "L2"
+  ],
+  "scaffold_imports": [],
+  "final_step": false
+}

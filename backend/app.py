@@ -12,7 +12,8 @@ from fastapi.responses import Response
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 
-from . import benchmarks, collections, judge, problems, progress
+from . import benchmarks, collections, judge, problems, progress, project_progress
+from . import projects as project_bank
 from .i18n import tr
 
 app = FastAPI(title="leet-infra", docs_url=None, redoc_url=None)
@@ -214,6 +215,119 @@ async def import_progress(req: Request, lang: str = Query(default="zh")):
     valid = {s: ts for s, ts in solved.items() if s in known and isinstance(ts, str)}
     progress.replace_all(valid)
     return {"imported": len(valid), "skipped": len(solved) - len(valid)}
+
+
+# --- project collections (separate registry, ledger, progress, judge path) ----
+class ProjectStepMark(BaseModel):
+    step: int
+
+
+def _project_ledger(slug: str) -> dict:
+    found = project_bank.get_project(slug)
+    if found is None:
+        raise HTTPException(status_code=404, detail=f"unknown project: {slug}")
+    return found[1]
+
+
+def _project_step_or_404(slug: str, step: int):
+    try:
+        return project_bank.get_step(slug, step)
+    except project_bank.ProjectError as exc:
+        raise HTTPException(status_code=404, detail=str(exc)) from exc
+
+
+@app.get("/api/projects")
+def list_projects(lang: str = Query(default="zh")):
+    """Frontend 项目 tab reads projects.json (+ progress counts) only."""
+    try:
+        return project_bank.summary_list(lang, project_progress.for_project)
+    except project_bank.ProjectError as exc:
+        raise HTTPException(status_code=500, detail=str(exc)) from exc
+
+
+@app.get("/api/projects/{slug}")
+def get_project_detail(slug: str, lang: str = Query(default="zh")):
+    try:
+        return project_bank.detail(slug, lang, project_progress.for_project)
+    except project_bank.ProjectError as exc:
+        raise HTTPException(status_code=404, detail=str(exc)) from exc
+
+
+@app.get("/api/projects/{slug}/progress")
+def get_project_progress(slug: str):
+    _project_ledger(slug)
+    return project_progress.for_project(slug)
+
+
+@app.post("/api/projects/{slug}/progress")
+def mark_project_progress(slug: str, mark: ProjectStepMark):
+    """Frontend records a completed step after a passing submission (judge decoupled)."""
+    ledger = _project_ledger(slug)
+    try:
+        project_bank.get_step(slug, mark.step)
+    except project_bank.ProjectError as exc:
+        raise HTTPException(status_code=404, detail=str(exc)) from exc
+    return project_progress.mark_step(slug, mark.step, ledger.get("overview_unlock_step"))
+
+
+@app.post("/api/projects/{slug}/progress/unmark")
+def unmark_project_progress(slug: str, mark: ProjectStepMark):
+    """Redo one milestone without touching normal-problem progress."""
+    _project_ledger(slug)
+    return project_progress.unmark_step(slug, mark.step)
+
+
+@app.get("/api/projects/{slug}/steps/{step}")
+def get_project_step(slug: str, step: int, lang: str = Query(default="zh")):
+    _project_step_or_404(slug, step)
+    try:
+        return project_bank.step_detail(
+            slug, step, lang, project_progress.is_completed(slug, step)
+        )
+    except project_bank.ProjectError as exc:
+        raise HTTPException(status_code=404, detail=str(exc)) from exc
+
+
+@app.post("/api/projects/{slug}/steps/{step}/run")
+def run_project_step(slug: str, step: int, submission: Submission):
+    return _evaluate_project_step(slug, step, submission, mode="run")
+
+
+@app.post("/api/projects/{slug}/steps/{step}/submit")
+def submit_project_step(slug: str, step: int, submission: Submission):
+    return _evaluate_project_step(slug, step, submission, mode="submit")
+
+
+def _evaluate_project_step(slug: str, step: int, submission: Submission, mode: str):
+    step_dir, ledger, row, meta = _project_step_or_404(slug, step)
+    vdir = project_bank.variant_dir(step_dir, submission.variant, meta)
+    project_dir = project_bank.get_project(slug)[0]
+    try:
+        scaffold = project_bank.scaffold_sources(
+            project_dir, row.get("scaffold_imports", [])
+        )
+        tests = (vdir / "test_cases.py").read_text(encoding="utf-8")
+    except (project_bank.ProjectError, OSError) as exc:
+        raise HTTPException(status_code=500, detail=str(exc)) from exc
+    result = judge.run_judgement(
+        submission.code, tests, mode=mode, lang=submission.lang, scaffold=scaffold
+    )
+    # Progress is deliberately NOT written here; the frontend posts it after AC.
+    result["variant"] = vdir.name
+    return result
+
+
+@app.get("/api/projects/{slug}/steps/{step}/solution")
+def get_project_solution(slug: str, step: int, lang: str = Query(default="zh")):
+    step_dir, _ledger, _row, meta = _project_step_or_404(slug, step)
+    if not project_progress.is_completed(slug, step):
+        raise HTTPException(status_code=403, detail=tr(lang, "solution_locked"))
+    vdir = project_bank.variant_dir(step_dir, None, meta)
+    try:
+        code = (vdir / "solution.py").read_text(encoding="utf-8")
+    except OSError as exc:
+        raise HTTPException(status_code=500, detail=str(exc)) from exc
+    return {"project": slug, "step": step, "variant": vdir.name, "solution_code": code}
 
 
 # --- static frontend (production build) ------------------------------------
