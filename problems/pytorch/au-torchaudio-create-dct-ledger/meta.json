@@ -1,0 +1,15 @@
+{
+ "order": 867,
+ "slug": "au-torchaudio-create-dct-ledger",
+ "title": "torchaudio create_dct 构造账：DCT-II 余弦矩阵、n_mels×n_mfcc 转置、norm=None 全局 ×2 与 norm=ortho 首列 ×1/√2 再 ×√(2/n_mels)、非法 norm 精确报错",
+ "title_en": "torchaudio create_dct ledger: the DCT-II cosine matrix, the n_mels x n_mfcc transpose, norm=None scaling every entry by 2.0, norm=ortho scaling the first column by 1/sqrt(2) then the whole matrix by sqrt(2/n_mels), and an exact error for an invalid norm",
+ "difficulty": "Hard",
+ "tags": [
+  "operator",
+  "audio"
+ ],
+ "collection": "audio",
+ "framework": "pytorch",
+ "source": "pytorch/audio main::src/torchaudio/functional/functional.py (2511 lines, fetched for order 855; create_dct at lines 636-667)",
+ "summary": "重建 torchaudio.functional.create_dct（functional.py 636-667 行）：MFCC 用的 DCT-II 变换矩阵构造，纯 Python 拆成三个可独立判题的 mode（matrix / norm_error / census），无 RNG、无音频 IO、无 warning，只做 cos / 转置 / 两个 norm 口径缩放。★ 官方逐字执行环境：用 ast.get_source_segment 抽出 create_dct 函数体 exec 进同一共享 NS，官方函数体一字未改；唯一注入对象是真实的 torch / math / typing 与类型别名，全局默认 dtype 锁定 float64 使 torch.cos 与纯 Python 参考解对拍到 1e-12；矩阵由官方用真实 torch 复算，是判题常量唯一权威来源。★ 矩阵公式：dct[i][j] = cos(pi/n_mels*(n+0.5)*k)，构造形状 (n_mfcc, n_mels)，其中 n 是 mel 轴索引、k 是 mfcc 轴索引；函数最后 return dct.t()，所以返回矩阵形状是 (n_mels, n_mfcc) 而非构造时的 (n_mfcc, n_mels)，returned[i][j] = cos(pi/n_mels*(i+0.5)*j)。★ norm=None 把整张矩阵乘以 2.0（含每个 i,j）；norm=ortho 先把构造矩阵的第 0 行 dct[0] 乘以 1/sqrt(2)，再整张乘以 sqrt(2/n_mels)，而构造第 0 行在转置后变成返回矩阵的第 0 列，所以 1/sqrt(2) 缩放落在第 0 列而非第 0 行。★ norm 只接受 None / ortho，大小写敏感：其他任何值（含 ORTHO / 空串 / none）抛 ValueError，消息逐字为 norm must be either ortho or None；unknown mode 抛 ValueError 且消息须按 MODES 原顺序列出三个名字。★ 退化边界：n_mels=0 在求 math.pi/float(n_mels) 时立即抛 ZeroDivisionError（顶层求值，非逐元素惰性），明确排除在题目输入域外；n_mfcc=0 返回形状 (n_mels, 0) 的空矩阵（0 列），不抛异常。★ 纯 Python 参考解只用 math：pi_over_nm 提到循环外复刻官方顶层求值使 n_mels=0 报错；构造 (n_mfcc, n_mels) 再转置；norm=None 全矩阵 ×2，norm=ortho 先 dct[0]×1/sqrt(2) 再整张 ×sqrt(2/n_mels)；除 unknown mode 抛异常外，所有异常（非法 norm、n_mels=0）收敛为 {type,msg} 字典。★ 流水线：官方环境冒烟通过、12 段机制探针 1390/1390 ALL GREEN、两层对拍 35593 项 / 0 bad、三层对拍 87272 项 / 192 组配置 / 0 fails（第三层用泰勒级数独立算 cos 不依赖 math.cos，再用方阵 norm=ortho 时 D@D.T==I 的代数性质校验，与参考解无共享算法）、判题 driver 37/37 ALL ACCEPTED、变异 42 项 / 0 真等价 / 42 全 CAUGHT / 0 SURVIVED / 0 ERROR。★ 工程教训：① 转置方向极易写反，须用转置公式检查 + 正交性性质双重钉死；② 正交首列缩放落在第 0 列而非第 0 行，直接断言第 0 行会漏掉语义；③ n_mels=0 的除零来自顶层立即求值，参考解必须把pi/n_mels 提到循环外否则错返空矩阵；④ n_mfcc=0 是 0 列而非 0 行，边界检查按0 列处理。★ 查重：create_dct 在 problems 全库 meta/desc/notes 零命中；audio-mfcc 仅把正交 DCT-II 应用于 MFCC 流水线一步，不构造独立矩阵，855 notes 只提抽取手法，与 867 边界清晰。"
+}
