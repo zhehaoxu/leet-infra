@@ -52,36 +52,8 @@ except Exception:
 
 emit({"ready": True})
 
-def install_scaffold(spec):
-    """Register frozen official modules as a read-only ``scaffold`` package.
-
-    Two passes: create every module object first, then exec their sources. A
-    module can therefore import any sibling (even at top level) regardless of
-    the order in the spec. Each judgement runs in a fresh worker process, so
-    sys.modules never leaks state between submissions.
-    """
-    import sys, types
-    pkg = types.ModuleType("scaffold")
-    pkg.__path__ = []
-    sys.modules["scaffold"] = pkg
-    for name in spec:
-        full = "scaffold." + name
-        mod = types.ModuleType(full)
-        mod.__file__ = full.replace(".", "/") + ".py"
-        mod.__package__ = "scaffold"
-        sys.modules[full] = mod
-        setattr(pkg, name, mod)
-    for name, src in spec.items():
-        full = "scaffold." + name
-        exec(compile(src, sys.modules[full].__file__, "exec"), sys.modules[full].__dict__)
-
-def run_eval(code, test_src, mode, scaffold_spec):
+def run_eval(code, test_src, mode):
     torch.manual_seed(42)
-    if scaffold_spec:
-        try:
-            install_scaffold(scaffold_spec)
-        except Exception:
-            return {"fatal": "import_scaffold", "error": traceback.format_exc(limit=12), "cases": []}
     ns = {"__name__": "solution"}
     try:
         exec(compile(code, "solution.py", "exec"), ns)
@@ -133,8 +105,7 @@ if not task_line.strip():
 task = {}
 try:
     task = json.loads(task_line)
-    payload = run_eval(task["code"], task["test_cases_src"], task["mode"],
-                       task.get("scaffold") or {})
+    payload = run_eval(task["code"], task["test_cases_src"], task["mode"])
 except Exception:
     payload = {"fatal": "worker_error", "error": traceback.format_exc(limit=12), "cases": []}
 payload["mode"] = task.get("mode")
@@ -156,24 +127,17 @@ def _failure(status: str, error: str) -> dict:
 
 
 def run_judgement(
-    code: str,
-    test_cases_src: str,
-    mode: str = "submit",
-    lang: str = "zh",
-    scaffold: dict[str, str] | None = None,
+    code: str, test_cases_src: str, mode: str = "submit", lang: str = "zh"
 ) -> dict:
     """Run ``code`` as solution.py against ``test_cases_src`` in the eval env.
 
     mode="run" 只执行样例用例；mode="submit" 执行全部用例。
-    ``scaffold`` maps module names to frozen official sources, injected into the
-    sandbox as ``scaffold.<name>`` (project.md section 2); it is stateless and
-    never taken from the learner's earlier submissions.
     每次评测由预热 worker 执行，免去重复 import torch 的冷启动开销。
     """
     if not Path(EVAL_PYTHON).exists():
         result = _failure("env_missing", tr(lang, "judge_setup_hint"))
     else:
-        result = _run_judgement_warm(code, test_cases_src, mode, lang, scaffold)
+        result = _run_judgement_warm(code, test_cases_src, mode, lang)
     result["mode"] = mode
     return result
 
@@ -256,13 +220,7 @@ def _build_result(payload: dict, user_stdout: str, elapsed_ms) -> dict:
     }
 
 
-def _run_judgement_warm(
-    code: str,
-    test_cases_src: str,
-    mode: str,
-    lang: str,
-    scaffold: dict[str, str] | None = None,
-) -> dict:
+def _run_judgement_warm(code: str, test_cases_src: str, mode: str, lang: str) -> dict:
     global _WARM, _CURRENT
     with _JUDGE_LOCK:
         if _WARM is None or _WARM.poll() is not None:
@@ -283,13 +241,7 @@ def _run_judgement_warm(
 
         box: Queue = Queue()
         task_line = json.dumps(
-            {
-                "code": code,
-                "test_cases_src": test_cases_src,
-                "mode": mode,
-                "scaffold": scaffold or {},
-            },
-            ensure_ascii=False,
+            {"code": code, "test_cases_src": test_cases_src, "mode": mode}, ensure_ascii=False
         )
 
         def io() -> None:

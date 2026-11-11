@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { computed, onMounted, ref, watch } from 'vue'
 import { useProblemStore } from '../stores/problems'
-import { api, type CollectionSummary, type ProjectSummary } from '../api'
+import { api, type CollectionSummary } from '../api'
 import ProblemTable from '../components/ProblemTable.vue'
 import ProgressRing from '../components/ProgressRing.vue'
-import { locale, t, type MessageKey } from '../i18n'
+import { locale, t } from '../i18n'
 import { readHomeTab, writeHomeTab, type HomeTab } from '../utils/uiPrefs'
 
 const store = useProblemStore()
@@ -18,27 +18,15 @@ const collections = ref<CollectionSummary[]>([])
 const collectionsLoading = ref(false)
 const collectionsError = ref<string | null>(null)
 
-// 项目列表：只读 projects.json，与普通题库的 store / collections.json 完全隔离
-const projectKeyword = ref('')
-const projects = ref<ProjectSummary[]>([])
-const projectsLoading = ref(false)
-const projectsError = ref<string | null>(null)
-
 onMounted(() => {
   if (!store.problems.length) store.fetchProblems()
   if (activeTab.value === 'collections') ensureCollections()
-  if (activeTab.value === 'projects') ensureProjects()
 })
 
 watch(locale, () => {
-  if (activeTab.value === 'collections') {
-    collections.value = []
-    ensureCollections()
-  }
-  if (activeTab.value === 'projects') {
-    projects.value = []
-    ensureProjects()
-  }
+  if (activeTab.value !== 'collections') return
+  collections.value = []
+  ensureCollections()
 })
 
 async function ensureCollections() {
@@ -54,28 +42,10 @@ async function ensureCollections() {
   }
 }
 
-async function ensureProjects() {
-  if (projects.value.length || projectsLoading.value) return
-  projectsLoading.value = true
-  projectsError.value = null
-  try {
-    projects.value = await api.projects()
-  } catch (e) {
-    projectsError.value = e instanceof Error ? e.message : String(e)
-  } finally {
-    projectsLoading.value = false
-  }
-}
-
 function setTab(tab: HomeTab) {
   activeTab.value = tab
   writeHomeTab(tab)
   if (tab === 'collections') ensureCollections()
-  if (tab === 'projects') ensureProjects()
-}
-
-function projectDifficulty(d: string) {
-  return t(`difficulty.${d.toLowerCase()}` as MessageKey)
 }
 
 async function resetProgress() {
@@ -145,14 +115,6 @@ const filteredCollections = computed(() => {
     (c) => c.name.toLowerCase().includes(kw) || c.description.toLowerCase().includes(kw)
   )
 })
-
-const filteredProjects = computed(() => {
-  const kw = projectKeyword.value.trim().toLowerCase()
-  if (!kw) return projects.value
-  return projects.value.filter(
-    (p) => p.name.toLowerCase().includes(kw) || p.summary.toLowerCase().includes(kw)
-  )
-})
 </script>
 
 <template>
@@ -197,13 +159,6 @@ const filteredProjects = computed(() => {
       >
         {{ t('home.tabCollections') }}
       </button>
-      <button
-        class="tab"
-        :class="{ active: activeTab === 'projects' }"
-        @click="setTab('projects')"
-      >
-        {{ t('home.tabProjects') }}
-      </button>
     </div>
 
     <ProblemTable
@@ -215,7 +170,7 @@ const filteredProjects = computed(() => {
       groupable
     />
 
-    <template v-else-if="activeTab === 'collections'">
+    <template v-else>
       <div class="toolbar">
         <input
           v-model="collectionKeyword"
@@ -252,49 +207,6 @@ const filteredProjects = computed(() => {
             {{ c.solved_count }}/{{ c.problem_count }}
           </span>
           <span class="go">{{ t('home.enterCollection') }}</span>
-        </router-link>
-      </div>
-    </template>
-
-    <template v-else>
-      <div class="toolbar">
-        <input
-          v-model="projectKeyword"
-          class="search"
-          :placeholder="t('home.searchProjects')"
-        />
-      </div>
-      <div v-if="projectsLoading" class="empty">{{ t('common.loading') }}</div>
-      <div v-else-if="projectsError" class="empty error">
-        {{ t('common.loadFailed', { error: projectsError }) }}
-      </div>
-      <div v-else-if="!filteredProjects.length" class="empty">{{ t('home.noProjects') }}</div>
-      <div v-else class="project-grid">
-        <router-link
-          v-for="p in filteredProjects"
-          :key="p.slug"
-          :to="`/projects/${p.slug}`"
-          class="project-card"
-        >
-          <div class="project-card-head">
-            <span class="project-name">{{ p.name }}</span>
-            <span class="project-status" :class="p.status">
-              {{ p.status === 'live' ? t('project.statusLive') : t('project.statusDraft') }}
-            </span>
-          </div>
-          <p class="project-summary">{{ p.summary }}</p>
-          <div class="project-meta">
-            <em class="badge" :class="p.difficulty">{{ projectDifficulty(p.difficulty) }}</em>
-            <span class="project-steps">{{ t('project.stepsUnit', { count: p.step_count }) }}</span>
-            <span class="project-progress">
-              <ProgressRing :value="p.completed_steps" :total="p.step_count" />
-              <span class="project-count">{{ p.completed_steps }}/{{ p.step_count }}</span>
-            </span>
-          </div>
-          <div class="project-footer">
-            <span class="project-summary-hint">{{ t('project.dependencyHint') }}</span>
-            <span class="go">{{ t('project.enter') }}</span>
-          </div>
         </router-link>
       </div>
     </template>
@@ -441,102 +353,6 @@ const filteredProjects = computed(() => {
   color: var(--red);
 }
 
-/* 项目卡片：与合集列表的表格行区分，突出「里程碑式项目」的组织层 */
-.project-grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 14px;
-}
-.project-card {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  min-width: 0;
-  padding: 18px 18px 14px;
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  background: var(--bg-panel);
-  color: var(--text);
-}
-.project-card:hover {
-  border-color: var(--accent);
-  background: var(--bg-elevated);
-}
-.project-card-head {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 10px;
-}
-.project-name {
-  font-size: 16px;
-  font-weight: 700;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-.project-status {
-  flex: none;
-  font-size: 11px;
-  padding: 2px 9px;
-  border-radius: 999px;
-  border: 1px solid var(--border);
-  color: var(--text-dim);
-}
-.project-status.live {
-  color: var(--accent);
-  border-color: var(--accent);
-}
-.project-summary {
-  margin: 0;
-  color: var(--text-dim);
-  font-size: 12.5px;
-  line-height: 1.65;
-  min-height: 42px;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-.project-meta {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-size: 12px;
-  color: var(--text-dim);
-}
-.project-steps {
-  font-family: var(--font-mono);
-}
-.project-progress {
-  margin-left: auto;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-}
-.project-count {
-  font-family: var(--font-mono);
-  font-size: 12.5px;
-}
-.project-footer {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 10px;
-  padding-top: 10px;
-  border-top: 1px solid var(--border);
-}
-.project-summary-hint {
-  color: var(--text-dim);
-  font-size: 11.5px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-.project-footer .go {
-  flex: none;
-}
-
 @media (max-width: 900px) {
   .list-page {
     padding: 28px 18px;
@@ -577,12 +393,6 @@ const filteredProjects = computed(() => {
   }
   .empty {
     padding: 40px 0;
-  }
-  .project-grid {
-    grid-template-columns: 1fr;
-  }
-  .project-card {
-    padding: 14px;
   }
 }
 </style>
