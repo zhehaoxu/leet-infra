@@ -64,7 +64,18 @@ bash scripts/dev.sh
 - 运行耗时仅展示，不设性能门槛
 - 评测固定使用 CPU、`torch.manual_seed(42)`，结果可复现；单次运行超时 30s
 
+## 分支工作流（2026-11-11 起）
+
+`main` 是纯题库基线：不含 `todos.md`，也不含项目合集功能。两条长期分支共用 `main` 基线、各自叠加内容：
+
+- `add-problems`：`main` + `todos.md`（待办清单）。**新增题目、更新 `collections.json` / 双语文档一律在此分支**，完成后再合并回 `main`。
+- `add-projects`：`main` + 项目合集全套（`project.md` 设计规范、`problems/projects/`、`backend/projects.py`、前端 Project 视图与路由、项目护栏）。**新增项目一律在此分支**。
+
+`main` 上用 `git revert 9a3c559` 剥离项目功能，`add-projects` 上再反转该剥离提交恢复，因此两条分支相对 `main` 都是纯增量，日后合并不会被当成删除。
+
 ## 添加新题目
+
+> 新题请先切到 `add-problems` 分支再动手（见上节分支工作流）。
 
 在 `problems/pytorch/` 下新建目录 `<slug>/`，提供 5 个文件（参考现有题目）。
 要求实现 `def solve(...)` 签名，测试用例写成 `def check_xxx(solve): assert ...`。
